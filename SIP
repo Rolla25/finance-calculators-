@@ -1,0 +1,588 @@
+<h2 class="sr-only">Professional SIP Calculator</h2>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:sans-serif;color:#1a1a1a;background:#ffffff;font-size:15px}
+.wrap{padding:1rem 0}
+.toggle-bar{display:flex;background:#f2f2f2;border-radius:8px;border:1px solid #e0e0e0;padding:4px;margin-bottom:1.25rem;gap:4px}
+.toggle-btn{flex:1;padding:8px 10px;border:none;border-radius:6px;background:transparent;color:#555;cursor:pointer;font-size:13px;font-family:sans-serif;transition:all .15s}
+.toggle-btn.active{background:#ffffff;color:#1a1a1a;font-weight:500;border:1px solid #e0e0e0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:11px;color:#555;font-weight:500;display:flex;align-items:center;gap:4px}
+.field input{height:38px;padding:0 10px;border:1px solid #d0d0d0;border-radius:6px;background:#ffffff;color:#1a1a1a;font-size:13px;font-family:sans-serif;width:100%;outline:none;transition:border-color .15s}
+.field input:focus{border-color:#639922;box-shadow:0 0 0 2px rgba(99,153,34,.12)}
+.err{font-size:11px;color:#cc0000;display:none}
+.err.show{display:block}
+.sl{font-size:11px;font-weight:600;color:#888;letter-spacing:.04em;text-transform:uppercase;margin:1.1rem 0 8px}
+.sl:first-child{margin-top:0}
+.section-box{background:#f8f8f8;border:1px solid #e0e0e0;border-radius:8px;padding:14px;margin-top:12px}
+.section-box .stitle{font-size:12px;font-weight:600;color:#1a1a1a;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.mc{background:#f2f2f2;border-radius:8px;padding:12px 14px}
+.mc .lb{font-size:10px;color:#666;margin-bottom:3px;font-weight:500;line-height:1.4}
+.mc .v{font-size:15px;font-weight:500;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc.hl{background:#eaf3de;border:1px solid #c0dd97}.mc.hl .v{color:#3b6d11}.mc.hl .lb{color:#639922}
+.mc.bl{background:#e6f1fb;border:1px solid #b5d4f4}.mc.bl .v{color:#185fa5}.mc.bl .lb{color:#378add}
+.mc.or{background:#fff4e6;border:1px solid #ffd08a}.mc.or .v{color:#9a5000}.mc.or .lb{color:#c47000}
+.chart-wrap{position:relative;width:100%;height:230px;margin-top:.5rem;background:#ffffff;border-radius:8px;border:1px solid #e8e8e8;padding:4px}
+.reset-btn{background:#ffffff;border:1px solid #d0d0d0;border-radius:6px;padding:7px 14px;font-size:12px;color:#555;cursor:pointer;font-family:sans-serif;display:flex;align-items:center;gap:5px;margin-top:1rem}
+.reset-btn:hover{background:#f5f5f5}
+.tabs{display:flex;border-bottom:1px solid #e0e0e0;margin-bottom:.75rem;overflow-x:auto;gap:0}
+.tab-btn{padding:7px 13px;font-size:12px;color:#666;background:transparent;border:none;cursor:pointer;font-family:sans-serif;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tab-btn.active{color:#3b6d11;border-bottom-color:#3b6d11;font-weight:500}
+.tab-panel{display:none}.tab-panel.active{display:block}
+table.bk{width:100%;border-collapse:collapse;font-size:11px}
+table.bk th{font-size:10px;font-weight:500;color:#666;padding:5px 7px;text-align:right;border-bottom:1px solid #e8e8e8;white-space:nowrap}
+table.bk th:first-child{text-align:left}
+table.bk td{padding:4px 7px;text-align:right;border-bottom:1px solid #e8e8e8;color:#555;font-size:11px}
+table.bk td:first-child{text-align:left;color:#1a1a1a;font-weight:500}
+table.bk tr:last-child td{border-bottom:none}
+.tw{max-height:200px;overflow-y:auto;border:1px solid #e0e0e0;border-radius:6px;background:#ffffff}
+.tip{width:13px;height:13px;border-radius:50%;background:#f0f0f0;border:1px solid #d0d0d0;color:#888;font-size:9px;display:inline-flex;align-items:center;justify-content:center;cursor:help;flex-shrink:0}
+.leg{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:#666;margin-bottom:6px}
+.leg span{display:flex;align-items:center;gap:4px}
+.lsq{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.banner{border-radius:8px;padding:10px 14px;margin-top:10px;font-size:12px;display:none}
+.banner.green{background:#eaf3de;border:1px solid #c0dd97;color:#3b6d11}
+.infl-note{background:#f8f8f8;border:1px solid #e0e0e0;border-radius:6px;padding:8px 12px;font-size:11px;color:#555;margin-top:6px;display:none}
+.infl-note strong{color:#1a1a1a}
+.zero-hint{font-size:10px;color:#999;margin-top:2px}
+</style>
+
+<div class="wrap">
+<div class="toggle-bar" role="tablist">
+  <button class="toggle-btn active" id="btn-fv" onclick="switchMode('fv')">Calculate future value</button>
+  <button class="toggle-btn" id="btn-goal" onclick="switchMode('goal')">Calculate required SIP</button>
+</div>
+
+<!-- ===== FV PANEL ===== -->
+<div id="panel-fv">
+  <div class="sl">Core inputs</div>
+  <div class="g2" style="margin-bottom:10px">
+    <div class="field">
+      <label>Monthly SIP amount (₹) <span class="tip" title="Fixed amount you invest every month">?</span></label>
+      <input type="number" id="fv-sip" min="100" max="100000000" step="100" value="10000" oninput="calc()">
+      <span class="err" id="fv-sip-err">Enter ₹100 or more</span>
+    </div>
+    <div class="field">
+      <label>Expected annual return (%) <span class="tip" title="Equity mutual funds: 10–15% historically. Debt funds: 6–8%.">?</span></label>
+      <input type="number" id="fv-rate" min="0.1" max="50" step="0.1" value="12" oninput="calc()">
+      <span class="err" id="fv-rate-err">Enter 0.1%–50%</span>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="field"><label>Investment tenure (years)</label><input type="number" id="fv-yr" min="0" max="50" step="1" value="15" oninput="calc()"></div>
+    <div class="field"><label>Additional months</label><input type="number" id="fv-mo" min="0" max="11" step="1" value="0" oninput="calc()"></div>
+  </div>
+
+  <div class="section-box">
+    <div class="stitle">⬆ Step-Up SIP <span class="tip" title="Your SIP amount increases by this % every year. Set 0 to disable.">?</span></div>
+    <div class="g2">
+      <div class="field">
+        <label>Annual step-up rate (%)</label>
+        <input type="number" id="fv-su-rate" min="0" max="100" step="1" value="0" oninput="calc()" placeholder="e.g. 10">
+        <span class="zero-hint">Enter 0 to disable step-up</span>
+      </div>
+      <div id="fv-su-preview" style="display:flex;flex-direction:column;justify-content:center;gap:4px;font-size:12px;color:var(--color-text-secondary);padding-left:4px"></div>
+    </div>
+  </div>
+
+  <div class="section-box">
+    <div class="stitle">💰 Existing Lumpsum Investment (optional) <span class="tip" title="A one-time amount already invested that will grow alongside your SIP. Enter 0 to ignore.">?</span></div>
+    <div class="field">
+      <label>Lumpsum amount (₹)</label>
+      <input type="number" id="fv-lump" min="0" max="1000000000" step="1000" value="0" oninput="calc()" placeholder="e.g. 1,00,000">
+      <span class="zero-hint">Enter 0 to exclude lumpsum</span>
+    </div>
+  </div>
+
+  <div class="section-box">
+    <div class="stitle">📉 Inflation Adjustment <span class="tip" title="Shows your future corpus in today's purchasing power. Enter 0 to skip inflation adjustment.">?</span></div>
+    <div class="field">
+      <label>Expected inflation rate (% per year)</label>
+      <input type="number" id="fv-infl-rate" min="0" max="20" step="0.1" value="0" oninput="calc()" placeholder="e.g. 6">
+      <span class="zero-hint">Enter 0 to skip inflation adjustment</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== GOAL PANEL ===== -->
+<div id="panel-goal" style="display:none">
+  <div class="sl">Goal details</div>
+  <div class="g2" style="margin-bottom:10px">
+    <div class="field">
+      <label>Target corpus in today's value (₹) <span class="tip" title="Enter your goal in today's purchasing power. If inflation is set, the calculator will gross this up to the future amount needed.">?</span></label>
+      <input type="number" id="g-corpus" min="10000" max="10000000000" step="10000" value="10000000" oninput="calc()">
+      <span class="err" id="g-corpus-err">Enter ₹10,000 or more</span>
+      <span style="font-size:11px;color:#888;margin-top:2px;line-height:1.4">Enter your desired corpus in today's purchasing power. The calculator will automatically adjust this amount for inflation.</span>
+    </div>
+    <div class="field">
+      <label>Expected annual return (%) <span class="tip" title="Expected annualised return from mutual funds">?</span></label>
+      <input type="number" id="g-rate" min="0.1" max="50" step="0.1" value="12" oninput="calc()">
+      <span class="err" id="g-rate-err">Enter 0.1%–50%</span>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="field"><label>Time horizon (years)</label><input type="number" id="g-yr" min="0" max="50" step="1" value="15" oninput="calc()"></div>
+    <div class="field"><label>Additional months</label><input type="number" id="g-mo" min="0" max="11" step="1" value="0" oninput="calc()"></div>
+  </div>
+
+  <div class="section-box">
+    <div class="stitle">⬆ Step-Up SIP <span class="tip" title="If you plan to increase your SIP annually, your starting SIP will be lower. Enter 0 for flat SIP.">?</span></div>
+    <div class="g2">
+      <div class="field">
+        <label>Annual step-up rate (%)</label>
+        <input type="number" id="g-su-rate" min="0" max="100" step="1" value="0" oninput="calc()" placeholder="e.g. 10">
+        <span class="zero-hint">Enter 0 for fixed SIP (no step-up)</span>
+      </div>
+      <div id="g-su-preview" style="display:flex;flex-direction:column;justify-content:center;gap:4px;font-size:12px;color:var(--color-text-secondary);padding-left:4px"></div>
+    </div>
+  </div>
+
+  <div class="section-box">
+    <div class="stitle">📉 Inflation — Adjust Target Corpus <span class="tip" title="Your goal is in today's money. Inflation will erode purchasing power. Enter your expected inflation rate to see how much more you actually need.">?</span></div>
+    <div class="field">
+      <label>Expected inflation rate (% per year)</label>
+      <input type="number" id="g-infl-rate" min="0" max="20" step="0.1" value="0" oninput="calc()" placeholder="e.g. 6">
+      <span class="zero-hint">Enter 0 to skip inflation adjustment</span>
+    </div>
+    <div class="infl-note" id="g-infl-note"></div>
+  </div>
+</div>
+
+<div id="impact-banner" class="banner green"></div>
+<div id="results" style="margin-top:1.25rem"></div>
+<button class="reset-btn" onclick="resetCalc()">↺ Reset calculator</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+let mode='fv', c1=null, c2=null;
+
+function switchMode(m){
+  mode=m;
+  document.getElementById('panel-fv').style.display=m==='fv'?'':'none';
+  document.getElementById('panel-goal').style.display=m==='goal'?'':'none';
+  document.getElementById('btn-fv').classList.toggle('active',m==='fv');
+  document.getElementById('btn-goal').classList.toggle('active',m==='goal');
+  calc();
+}
+function gv(id){return parseFloat(document.getElementById(id).value)||0;}
+function fmtINR(n){
+  if(isNaN(n)||!isFinite(n)||n===null)return '—';
+  const neg=n<0;n=Math.abs(Math.round(n));
+  let s;
+  if(n>=10000000)s='₹'+(n/10000000).toFixed(2).replace(/\.?0+$/,'')+'Cr';
+  else if(n>=100000)s='₹'+(n/100000).toFixed(2).replace(/\.?0+$/,'')+'L';
+  else s='₹'+n.toLocaleString('en-IN');
+  return neg?'-'+s:s;
+}
+function fmtFull(n){
+  if(isNaN(n)||!isFinite(n)||n===null)return '—';
+  return '₹'+Math.round(n).toLocaleString('en-IN');
+}
+
+// Simulate SIP month-by-month using the given annualRate.
+// Used for both nominal return and real return (inflation-adjusted) calculations.
+// annualRate: nominal or real annual return %
+// stepupPct:  annual step-up % (0 = fixed SIP)
+// lump:       one-time lumpsum invested at t=0, compounds at same annualRate
+function simulate(sip,annualRate,totalMonths,stepupPct,lump){
+  const r=annualRate/100/12; // monthly rate derived from annual nominal (or real) return
+  let fvSip=0,invested=0,curSip=sip,lumpFV=lump||0;
+  const rows=[];
+  for(let m=1;m<=totalMonths;m++){
+    if(m>1&&(m-1)%12===0&&stepupPct>0) curSip*=(1+stepupPct/100);
+    fvSip=fvSip*(1+r)+curSip*(1+r);
+    invested+=curSip;
+    lumpFV*=(1+r);
+    if(m%12===0||m===totalMonths){
+      const yr=Math.ceil(m/12);
+      const totalFV=fvSip+lumpFV;
+      rows.push({yr,sipAmt:Math.round(curSip),invested:Math.round(invested),sipFV:Math.round(fvSip),lumpFV:Math.round(lumpFV),totalFV:Math.round(totalFV),gains:Math.round(totalFV-(invested+(lump||0)))});
+    }
+  }
+  return rows;
+}
+
+// Fisher equation: Real Return = ((1 + Nominal) / (1 + Inflation)) - 1
+// This gives the true purchasing-power growth rate, stripping out inflation.
+// When inflation = 0, realRate = nominalRate (no adjustment needed).
+// When inflation = nominal return, realRate ≈ 0% (corpus preserves purchasing power only).
+// We re-run simulate() with realRate to get inflation-adjusted corpus directly,
+// rather than discounting the final corpus — which would wrongly treat all SIP
+// contributions as if they were invested on day one.
+function realRate(nominalPct, inflationPct){
+  if(inflationPct<=0) return nominalPct; // no inflation → real = nominal
+  return (((1+nominalPct/100)/(1+inflationPct/100))-1)*100;
+}
+
+function solveStartSIP(corpus,rate,months,stepupPct){
+  if(stepupPct<=0){
+    const r=rate/100/12;
+    return corpus*r/((Math.pow(1+r,months)-1)*(1+r));
+  }
+  let lo=1,hi=corpus;
+  for(let i=0;i<80;i++){
+    const mid=(lo+hi)/2;
+    const rows=simulate(mid,rate,months,stepupPct,0);
+    if(rows[rows.length-1].sipFV<corpus)lo=mid; else hi=mid;
+  }
+  return (lo+hi)/2;
+}
+
+function activeTab(id){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tb-'+id).classList.add('active');
+  document.getElementById('tp-'+id).classList.add('active');
+}
+function dCharts(){if(c1){c1.destroy();c1=null;}if(c2){c2.destroy();c2=null;}}
+const whiteBg={id:'whiteBg',beforeDraw(chart){const ctx=chart.canvas.getContext('2d');ctx.save();ctx.fillStyle='#ffffff';ctx.fillRect(0,0,chart.width,chart.height);ctx.restore();}};
+function mkBar(id,labels,datasets){
+  const ctx=document.getElementById(id);if(!ctx)return null;
+  const dk=window.matchMedia('(prefers-color-scheme:dark)').matches;
+  return new Chart(ctx,{type:'bar',data:{labels,datasets},plugins:[whiteBg],options:{responsive:true,maintainAspectRatio:false,animation:{duration:200},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+fmtFull(c.raw)}},backgroundColor:'#ffffff'},scales:{x:{grid:{display:false},ticks:{color:'#666',font:{size:10},autoSkip:true,maxRotation:45}},y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{color:'#666',font:{size:10},callback:v=>fmtINR(v)}}}}});
+}
+function mkLine(id,labels,datasets){
+  const ctx=document.getElementById(id);if(!ctx)return null;
+  const dk=window.matchMedia('(prefers-color-scheme:dark)').matches;
+  return new Chart(ctx,{type:'line',data:{labels,datasets},plugins:[whiteBg],options:{responsive:true,maintainAspectRatio:false,animation:{duration:200},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+fmtFull(c.raw)}},backgroundColor:'#ffffff'},scales:{x:{grid:{display:false},ticks:{color:'#666',font:{size:10}}},y:{grid:{color:'rgba(0,0,0,.06)'},ticks:{color:'#666',font:{size:10},callback:v=>fmtINR(v)}}}}});
+}
+
+function calc(){if(mode==='fv')calcFV();else calcGoal();}
+
+function calcFV(){
+  const sip=gv('fv-sip'),rate=gv('fv-rate'),yr=gv('fv-yr'),mo=gv('fv-mo');
+  const suRate=gv('fv-su-rate');
+  const lump=gv('fv-lump');
+  const inflRate=gv('fv-infl-rate');
+  const suOn=suRate>0, lumpOn=lump>0, inflOn=inflRate>0;
+
+  document.getElementById('fv-sip-err').classList.toggle('show',sip<100);
+  document.getElementById('fv-rate-err').classList.toggle('show',rate<0.1||rate>50);
+  if(sip<100||rate<0.1||rate>50){document.getElementById('results').innerHTML='';return;}
+
+  const totalMonths=Math.max(1,yr*12+mo);
+  const yrs=totalMonths/12;
+
+  // Step-up preview
+  const prev=document.getElementById('fv-su-preview');
+  if(suOn){
+    let p='<span style="font-size:10px;color:var(--color-text-tertiary);font-weight:500">SIP progression:</span>';
+    let s=sip;
+    for(let y=1;y<=Math.min(4,Math.ceil(yrs));y++){
+      if(y>1)s*=(1+suRate/100);
+      p+=`<span>Yr ${y}: <strong>${fmtINR(s)}</strong>/mo</span>`;
+    }
+    if(Math.ceil(yrs)>4)p+=`<span style="color:var(--color-text-tertiary)">… up to ${fmtINR(sip*Math.pow(1+suRate/100,Math.ceil(yrs)-1))}/mo</span>`;
+    prev.innerHTML=p;prev.style.display='flex';
+  } else {prev.innerHTML='';prev.style.display='none';}
+
+  // Nominal simulation
+  const fixedRows=simulate(sip,rate,totalMonths,0,lump);
+  const fLast=fixedRows[fixedRows.length-1];
+
+  // Inflation-adjusted: re-run using real return (Fisher equation) instead of discounting final corpus
+  const rReal=inflOn?realRate(rate,inflRate):rate;
+  const fixedRealRows=inflOn?simulate(sip,rReal,totalMonths,0,lump):null;
+  const fixedRealFV=inflOn?fixedRealRows[fixedRealRows.length-1].totalFV:null;
+
+  // Step-up nominal
+  let suRows=null,sLast=null,suRealFV=null;
+  if(suOn){
+    suRows=simulate(sip,rate,totalMonths,suRate,lump);
+    sLast=suRows[suRows.length-1];
+    // Step-up inflation-adjusted: re-run with real return + step-up
+    if(inflOn){
+      const suRealRows=simulate(sip,rReal,totalMonths,suRate,lump);
+      suRealFV=suRealRows[suRealRows.length-1].totalFV;
+    }
+  }
+
+  // Banner
+  const banner=document.getElementById('impact-banner');
+  if(suOn&&sLast&&sLast.totalFV>fLast.totalFV){
+    const extra=sLast.totalFV-fLast.totalFV;
+    banner.style.display='block';
+    banner.innerHTML=`<strong>Step-Up impact:</strong> A ${suRate}% annual step-up creates <strong>${fmtINR(extra)}</strong> extra wealth — <strong>${Math.round(extra/fLast.totalFV*100)}% more</strong> than a flat SIP.`;
+  } else banner.style.display='none';
+
+  const dk=window.matchMedia('(prefers-color-scheme:dark)').matches;
+  const totalInv=fLast.invested+(lump||0);
+
+  // Cards
+  let html=`<div class="sl">Fixed SIP — Results</div>
+  <div class="g${inflOn?'4':'3'}" style="margin-bottom:8px">
+    <div class="mc hl"><div class="lb">Total portfolio value</div><div class="v">${fmtINR(fLast.totalFV)}</div></div>
+    <div class="mc"><div class="lb">Total invested${lumpOn?' (SIP + Lump)':''}</div><div class="v">${fmtINR(totalInv)}</div></div>
+    <div class="mc"><div class="lb">Total gains</div><div class="v" style="color:#3b6d11">${fmtINR(fLast.gains)}</div></div>
+    ${inflOn?`<div class="mc or"><div class="lb">Value in today's money<br>(${inflRate}% inflation)</div><div class="v">${fmtINR(fixedRealFV)}</div></div>`:''}
+  </div>`;
+
+  if(suOn&&sLast){
+    const suTotalInv=sLast.invested+(lump||0);
+    html+=`<div class="sl" style="margin-top:.85rem">Step-Up SIP ${suRate}% p.a. — Results</div>
+    <div class="g${inflOn?'4':'3'}" style="margin-bottom:8px">
+      <div class="mc hl"><div class="lb">Total portfolio value</div><div class="v">${fmtINR(sLast.totalFV)}</div></div>
+      <div class="mc"><div class="lb">Total invested${lumpOn?' (SIP + Lump)':''}</div><div class="v">${fmtINR(suTotalInv)}</div></div>
+      <div class="mc"><div class="lb">Total gains</div><div class="v" style="color:#3b6d11">${fmtINR(sLast.gains)}</div></div>
+      ${inflOn?`<div class="mc or"><div class="lb">Value in today's money<br>(${inflRate}% inflation)</div><div class="v">${fmtINR(suRealFV)}</div></div>`:''}
+    </div>`;
+  }
+
+  if(lumpOn){
+    html+=`<div class="sl" style="margin-top:.85rem">Lumpsum breakdown</div>
+    <div class="g3" style="margin-bottom:8px">
+      <div class="mc bl"><div class="lb">Lumpsum invested</div><div class="v">${fmtINR(lump)}</div></div>
+      <div class="mc bl"><div class="lb">Lumpsum future value</div><div class="v">${fmtINR(fLast.lumpFV)}</div></div>
+      <div class="mc bl"><div class="lb">Lumpsum gains</div><div class="v">${fmtINR(fLast.lumpFV-lump)}</div></div>
+    </div>`;
+  }
+
+  html+=`<div style="font-size:11px;color:var(--color-text-tertiary);margin:.4rem 0 .8rem">Return: ${rate}% p.a. &nbsp;·&nbsp; ${yr}y ${mo}m &nbsp;·&nbsp; Monthly compounding${suOn?' &nbsp;·&nbsp; Step-up: '+suRate+'%/yr':''}${inflOn?' &nbsp;·&nbsp; Inflation: '+inflRate+'%':''}</div>`;
+
+  // Tabs
+  html+=`<div class="tabs">
+    <button class="tab-btn active" id="tb-chart" onclick="activeTab('chart')">Growth chart</button>
+    ${suOn?'<button class="tab-btn" id="tb-comp" onclick="activeTab(\'comp\')">Fixed vs Step-up</button>':''}
+    <button class="tab-btn" id="tb-break" onclick="activeTab('break')">Year-wise breakdown</button>
+    <button class="tab-btn" id="tb-sched" onclick="activeTab('sched')">SIP schedule</button>
+  </div>`;
+
+  // Chart tab
+  html+=`<div class="tab-panel active" id="tp-chart">
+    <div class="leg">
+      <span><span class="lsq" style="background:${dk?'#639922':'#c0dd97'}"></span>Invested</span>
+      <span><span class="lsq" style="background:#3b6d11"></span>Fixed SIP portfolio</span>
+      ${suOn?`<span><span class="lsq" style="background:#185fa5"></span>Step-up portfolio</span>`:''}
+    </div>
+    <div class="chart-wrap"><canvas id="c1"></canvas></div>
+  </div>`;
+
+  // Comp tab
+  if(suOn){
+    html+=`<div class="tab-panel" id="tp-comp">
+      <div class="leg">
+        <span><span class="lsq" style="background:#85b7eb"></span>Fixed SIP</span>
+        <span><span class="lsq" style="background:#3b6d11"></span>Step-up SIP</span>
+        ${inflOn?`<span><span class="lsq" style="background:#c47000;opacity:.7"></span>Fixed (real)</span><span><span class="lsq" style="background:#e8a030;opacity:.7"></span>Step-up (real)</span>`:''}
+      </div>
+      <div class="chart-wrap"><canvas id="c2"></canvas></div>
+      <div class="tw" style="margin-top:.5rem">
+        <table class="bk"><thead><tr><th>Year</th><th>Fixed SIP</th><th>Step-up SIP</th><th>Extra wealth</th>${inflOn?'<th>Fixed (real)</th><th>Step-up (real)</th>':''}</tr></thead><tbody>
+        ${fixedRows.map((r,i)=>{
+          const sr=suRows[i],diff=sr.totalFV-r.totalFV;
+          const fR=inflOn&&fixedRealRows?fixedRealRows[i].totalFV:null;
+          const sR=inflOn?(()=>{const rr=simulate(sip,rReal,totalMonths,suRate,lump);return rr[i]?rr[i].totalFV:null})():null;
+          return `<tr><td>${r.yr}</td><td>${fmtFull(r.totalFV)}</td><td>${fmtFull(sr.totalFV)}</td><td style="color:#3b6d11">${fmtFull(diff)}</td>${inflOn?`<td style="color:#9a5000">${fmtFull(fR)}</td><td style="color:#9a5000">${fmtFull(sR)}</td>`:''}</tr>`;
+        }).join('')}
+        </tbody></table>
+      </div>
+    </div>`;
+  }
+
+  // Breakdown tab — nominal rows + real-return rows for inflation-adjusted column
+  let tBreak=`<table class="bk"><thead><tr><th>Year</th><th>Monthly SIP</th><th>Total invested</th>${lumpOn?'<th>Lumpsum FV</th>':''}<th>SIP corpus</th><th>Portfolio FV</th><th>Gains</th>${inflOn?'<th>Real value (today\'s ₹)</th>':''}</tr></thead><tbody>`;
+  fixedRows.forEach((r,i)=>{
+    const realRow=inflOn&&fixedRealRows?fixedRealRows[i]:null;
+    tBreak+=`<tr><td>${r.yr}</td><td>${fmtFull(r.sipAmt)}</td><td>${fmtFull(r.invested+(lump||0))}</td>${lumpOn?`<td>${fmtFull(r.lumpFV)}</td>`:''}<td>${fmtFull(r.sipFV)}</td><td>${fmtFull(r.totalFV)}</td><td style="color:#3b6d11">${fmtFull(r.gains)}</td>${inflOn?`<td style="color:#9a5000">${realRow?fmtFull(realRow.totalFV):'—'}</td>`:''}</tr>`;
+  });
+  tBreak+='</tbody></table>';
+
+  // Schedule tab
+  let tSched=`<table class="bk"><thead><tr><th>Year</th><th>Fixed SIP/mo</th><th>Annual (fixed)</th>${suOn?'<th>Step-up SIP/mo</th><th>Annual (step-up)</th>':''}</tr></thead><tbody>`;
+  fixedRows.forEach((r,i)=>{
+    tSched+=`<tr><td>${r.yr}</td><td>${fmtFull(r.sipAmt)}</td><td>${fmtFull(r.sipAmt*12)}</td>${suOn?`<td style="color:#3b6d11">${fmtFull(suRows[i].sipAmt)}</td><td style="color:#3b6d11">${fmtFull(suRows[i].sipAmt*12)}</td>`:''}</tr>`;
+  });
+  tSched+='</tbody></table>';
+
+  html+=`<div class="tab-panel" id="tp-break"><div class="tw">${tBreak}</div></div>
+  <div class="tab-panel" id="tp-sched"><div class="tw">${tSched}</div></div>`;
+
+  document.getElementById('results').innerHTML=html;
+  dCharts();
+  const labels=fixedRows.map(r=>'Y'+r.yr);
+  requestAnimationFrame(()=>{
+    const ds=[
+      {label:'Invested',data:fixedRows.map(r=>r.invested+(lump||0)),backgroundColor:dk?'#639922':'#c0dd97',borderRadius:3},
+      {label:'Fixed SIP',data:fixedRows.map(r=>r.totalFV),backgroundColor:'#3b6d11',borderRadius:3}
+    ];
+    if(suOn)ds.push({label:'Step-up',data:suRows.map(r=>r.totalFV),backgroundColor:'#185fa5',borderRadius:3});
+    c1=mkBar('c1',labels,ds);
+    if(suOn){
+      const ld=[
+        {label:'Fixed',data:fixedRows.map(r=>r.totalFV),borderColor:'#85b7eb',backgroundColor:'rgba(133,183,235,.1)',fill:true,tension:.4,pointRadius:2},
+        {label:'Step-up',data:suRows.map(r=>r.totalFV),borderColor:'#3b6d11',backgroundColor:'rgba(59,109,17,.1)',fill:true,tension:.4,pointRadius:2}
+      ];
+      if(inflOn){
+        ld.push({label:'Fixed real',data:fixedRows.map(r=>Math.round(r.totalFV/Math.pow(1+inflRate/100,r.yr))),borderColor:'#c47000',backgroundColor:'transparent',fill:false,tension:.4,pointRadius:2,borderDash:[4,3]});
+        ld.push({label:'Step-up real',data:suRows.map(r=>Math.round(r.totalFV/Math.pow(1+inflRate/100,r.yr))),borderColor:'#e8a030',backgroundColor:'transparent',fill:false,tension:.4,pointRadius:2,borderDash:[4,3]});
+      }
+      c2=mkLine('c2',labels,ld);
+    }
+  });
+}
+
+function calcGoal(){
+  const corpus=gv('g-corpus'),rate=gv('g-rate'),yr=gv('g-yr'),mo=gv('g-mo');
+  const suRate=gv('g-su-rate');
+  const inflRate=gv('g-infl-rate');
+  const suOn=suRate>0, inflOn=inflRate>0;
+
+  document.getElementById('g-corpus-err').classList.toggle('show',corpus<10000);
+  document.getElementById('g-rate-err').classList.toggle('show',rate<0.1||rate>50);
+  if(corpus<10000||rate<0.1||rate>50){document.getElementById('results').innerHTML='';return;}
+
+  const totalMonths=Math.max(1,yr*12+mo);
+  const yrs=totalMonths/12;
+  const adjCorpus=inflOn?corpus*Math.pow(1+inflRate/100,yrs):corpus;
+
+  // Inflation note
+  const note=document.getElementById('g-infl-note');
+  if(inflOn){
+    note.style.display='block';
+    note.innerHTML=`Your goal of <strong>${fmtFull(corpus)}</strong> today will require <strong>${fmtFull(adjCorpus)}</strong> after ${yr}y ${mo}m at ${inflRate}% inflation. The SIP below targets this inflation-adjusted amount.`;
+  } else note.style.display='none';
+
+  // Step-up preview
+  const prev=document.getElementById('g-su-preview');
+  if(suOn){
+    const startSip=solveStartSIP(adjCorpus,rate,totalMonths,suRate);
+    let p='<span style="font-size:10px;color:var(--color-text-tertiary);font-weight:500">Starting SIP steps up to:</span>';
+    let s=startSip;
+    for(let y=1;y<=Math.min(3,Math.ceil(yrs));y++){
+      if(y>1)s*=(1+suRate/100);
+      p+=`<span>Yr ${y}: <strong>${fmtINR(s)}</strong>/mo</span>`;
+    }
+    prev.innerHTML=p;prev.style.display='flex';
+  } else {prev.innerHTML='';prev.style.display='none';}
+
+  // Fixed SIP
+  const mRate=rate/100/12;
+  const fixedSip=adjCorpus*mRate/((Math.pow(1+mRate,totalMonths)-1)*(1+mRate));
+  const fixedRows=simulate(fixedSip,rate,totalMonths,0,0);
+  const fLast=fixedRows[fixedRows.length-1];
+
+  // Step-up SIP
+  let suSip=null,suRows=null,sLast=null;
+  if(suOn){
+    suSip=solveStartSIP(adjCorpus,rate,totalMonths,suRate);
+    suRows=simulate(suSip,rate,totalMonths,suRate,0);
+    sLast=suRows[suRows.length-1];
+  }
+
+  // Banner
+  const banner=document.getElementById('impact-banner');
+  if(suOn&&suSip){
+    const saving=fixedSip-suSip;
+    banner.style.display='block';
+    banner.innerHTML=`<strong>Step-Up impact:</strong> A ${suRate}% annual step-up reduces your <em>starting</em> SIP by <strong>${fmtINR(saving)}/month</strong> — from ${fmtINR(fixedSip)} to ${fmtINR(suSip)} (${Math.round(saving/fixedSip*100)}% lower to start).`;
+  } else banner.style.display='none';
+
+  const dk=window.matchMedia('(prefers-color-scheme:dark)').matches;
+
+  let html=`<div class="sl">Fixed SIP Required</div>
+  <div class="g3" style="margin-bottom:8px">
+    <div class="mc hl"><div class="lb">Monthly SIP needed</div><div class="v">${fmtINR(fixedSip)}</div></div>
+    <div class="mc"><div class="lb">Total you'll invest</div><div class="v">${fmtINR(fLast.invested)}</div></div>
+    <div class="mc"><div class="lb">Wealth from returns</div><div class="v" style="color:#3b6d11">${fmtINR(fLast.gains)}</div></div>
+  </div>`;
+
+  if(suOn&&suSip&&sLast){
+    html+=`<div class="sl" style="margin-top:.85rem">Step-Up SIP Required (${suRate}% p.a.)</div>
+    <div class="g4" style="margin-bottom:8px">
+      <div class="mc hl"><div class="lb">Starting monthly SIP</div><div class="v">${fmtINR(suSip)}</div></div>
+      <div class="mc bl"><div class="lb">SIP in final year</div><div class="v">${fmtINR(sLast.sipAmt)}</div></div>
+      <div class="mc"><div class="lb">Total you'll invest</div><div class="v">${fmtINR(sLast.invested)}</div></div>
+      <div class="mc"><div class="lb">Wealth from returns</div><div class="v" style="color:#3b6d11">${fmtINR(sLast.gains)}</div></div>
+    </div>`;
+  }
+
+  if(inflOn){
+    html+=`<div class="sl" style="margin-top:.85rem">Inflation impact</div>
+    <div class="g3" style="margin-bottom:8px">
+      <div class="mc"><div class="lb">Your goal (today's value)</div><div class="v">${fmtINR(corpus)}</div></div>
+      <div class="mc or"><div class="lb">Required corpus in ${yr}y<br>(after ${inflRate}% inflation)</div><div class="v">${fmtINR(adjCorpus)}</div></div>
+      <div class="mc or"><div class="lb">Purchasing power loss</div><div class="v">${fmtINR(adjCorpus-corpus)}</div></div>
+    </div>`;
+  }
+
+  html+=`<div style="font-size:11px;color:var(--color-text-tertiary);margin:.4rem 0 .8rem">Goal: ${fmtFull(inflOn?adjCorpus:corpus)} &nbsp;·&nbsp; Return: ${rate}% p.a. &nbsp;·&nbsp; ${yr}y ${mo}m${suOn?' &nbsp;·&nbsp; Step-up: '+suRate+'%/yr':''}${inflOn?' &nbsp;·&nbsp; Inflation: '+inflRate+'%':''}</div>`;
+
+  html+=`<div class="tabs">
+    <button class="tab-btn active" id="tb-chart" onclick="activeTab('chart')">Goal chart</button>
+    ${suOn?'<button class="tab-btn" id="tb-comp" onclick="activeTab(\'comp\')">Fixed vs Step-up</button>':''}
+    <button class="tab-btn" id="tb-break" onclick="activeTab('break')">Year-wise breakdown</button>
+    ${suOn?'<button class="tab-btn" id="tb-sched" onclick="activeTab(\'sched\')">SIP schedule</button>':''}
+  </div>`;
+
+  html+=`<div class="tab-panel active" id="tp-chart">
+    <div class="leg">
+      <span><span class="lsq" style="background:${dk?'#639922':'#c0dd97'}"></span>Invested</span>
+      <span><span class="lsq" style="background:#3b6d11"></span>Fixed SIP portfolio</span>
+      ${suOn?`<span><span class="lsq" style="background:#185fa5"></span>Step-up portfolio</span>`:''}
+    </div>
+    <div class="chart-wrap"><canvas id="c1"></canvas></div>
+  </div>`;
+
+  if(suOn&&suRows){
+    html+=`<div class="tab-panel" id="tp-comp">
+      <div class="leg">
+        <span><span class="lsq" style="background:#85b7eb"></span>Fixed SIP (${fmtINR(fixedSip)}/mo)</span>
+        <span><span class="lsq" style="background:#3b6d11"></span>Step-up (starts ${fmtINR(suSip)}/mo)</span>
+      </div>
+      <div class="chart-wrap"><canvas id="c2"></canvas></div>
+      <div class="tw" style="margin-top:.5rem">
+        <table class="bk"><thead><tr><th>Year</th><th>Fixed SIP</th><th>Step-up SIP</th><th>Goal %</th></tr></thead><tbody>
+        ${fixedRows.map((r,i)=>{
+          const sr=suRows[i];
+          return `<tr><td>${r.yr}</td><td>${fmtFull(r.sipFV)}</td><td style="color:#3b6d11">${fmtFull(sr.sipFV)}</td><td style="color:#3b6d11">${Math.min(100,Math.round(sr.sipFV/adjCorpus*100))}%</td></tr>`;
+        }).join('')}
+        </tbody></table>
+      </div>
+    </div>
+    <div class="tab-panel" id="tp-sched">
+      <div class="tw">
+        <table class="bk"><thead><tr><th>Year</th><th>Fixed SIP/mo</th><th>Step-up SIP/mo</th><th>Annual (step-up)</th></tr></thead><tbody>
+        ${fixedRows.map((r,i)=>`<tr><td>${r.yr}</td><td>${fmtFull(r.sipAmt)}</td><td style="color:#3b6d11">${fmtFull(suRows[i].sipAmt)}</td><td style="color:#3b6d11">${fmtFull(suRows[i].sipAmt*12)}</td></tr>`).join('')}
+        </tbody></table>
+      </div>
+    </div>`;
+  }
+
+  let tBreak=`<table class="bk"><thead><tr><th>Year</th><th>Monthly SIP</th><th>Invested</th><th>Portfolio FV</th><th>Gains</th><th>Goal %</th></tr></thead><tbody>`;
+  fixedRows.forEach(r=>{
+    tBreak+=`<tr><td>${r.yr}</td><td>${fmtFull(r.sipAmt)}</td><td>${fmtFull(r.invested)}</td><td>${fmtFull(r.sipFV)}</td><td style="color:#3b6d11">${fmtFull(r.gains)}</td><td style="color:#3b6d11">${Math.min(100,Math.round(r.sipFV/adjCorpus*100))}%</td></tr>`;
+  });
+  tBreak+='</tbody></table>';
+  html+=`<div class="tab-panel" id="tp-break"><div class="tw">${tBreak}</div></div>`;
+
+  document.getElementById('results').innerHTML=html;
+  dCharts();
+  const labels=fixedRows.map(r=>'Y'+r.yr);
+  requestAnimationFrame(()=>{
+    const ds=[
+      {label:'Invested',data:fixedRows.map(r=>r.invested),backgroundColor:dk?'#639922':'#c0dd97',borderRadius:3},
+      {label:'Fixed',data:fixedRows.map(r=>r.sipFV),backgroundColor:'#3b6d11',borderRadius:3}
+    ];
+    if(suOn)ds.push({label:'Step-up',data:suRows.map(r=>r.sipFV),backgroundColor:'#185fa5',borderRadius:3});
+    c1=mkBar('c1',labels,ds);
+    if(suOn)c2=mkLine('c2',labels,[
+      {label:'Fixed SIP',data:fixedRows.map(r=>r.sipFV),borderColor:'#85b7eb',backgroundColor:'rgba(133,183,235,.1)',fill:true,tension:.4,pointRadius:2},
+      {label:'Step-up SIP',data:suRows.map(r=>r.sipFV),borderColor:'#3b6d11',backgroundColor:'rgba(59,109,17,.1)',fill:true,tension:.4,pointRadius:2}
+    ]);
+  });
+}
+
+function resetCalc(){
+  const d={'fv-sip':10000,'fv-rate':12,'fv-yr':15,'fv-mo':0,'fv-su-rate':0,'fv-lump':0,'fv-infl-rate':0,'g-corpus':10000000,'g-rate':12,'g-yr':15,'g-mo':0,'g-su-rate':0,'g-infl-rate':0};
+  Object.entries(d).forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.value=v;});
+  document.getElementById('impact-banner').style.display='none';
+  const n=document.getElementById('g-infl-note');if(n)n.style.display='none';
+  ['fv-su-preview','g-su-preview'].forEach(id=>{const el=document.getElementById(id);if(el){el.innerHTML='';el.style.display='none';}});
+  calc();
+}
+calc();
+</script>
