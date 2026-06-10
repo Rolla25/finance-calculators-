@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>EPF Calculator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --primary:#1a56db;--primary-dark:#1e40af;--primary-light:#dbeafe;
+  --accent:#0891b2;--green:#059669;--orange:#d97706;--red:#dc2626;
+  --bg:#f0f4ff;--card:#fff;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;
+  --shadow:0 2px 12px rgba(30,64,175,.10);--radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
+.header{background:linear-gradient(135deg,#1a56db,#0891b2);color:#fff;padding:22px 24px 18px;text-align:center}
+.header h1{font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:.5px}
+.header p{font-size:13px;opacity:.85;margin-top:4px}
+.notice{display:flex;align-items:flex-start;gap:10px;background:#fffbeb;border:1.5px solid #fcd34d;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12.5px;color:#92400e;line-height:1.6}
+.notice span{font-size:18px;flex-shrink:0}
+.container{max-width:1400px;margin:0 auto;padding:20px 16px}
+.section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--primary);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,var(--primary-light),transparent)}
+.input-card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:20px;border:1px solid var(--border)}
+.input-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.field input,.field select{border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;font-weight:600;color:var(--text);background:#f8faff;transition:border-color .2s,box-shadow .2s;outline:none;width:100%}
+.field input:focus,.field select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(26,86,219,.12)}
+.field .helper{font-size:11px;color:var(--muted);font-style:italic;margin-top:2px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.sum-card{background:var(--card);border-radius:12px;padding:16px 14px;box-shadow:var(--shadow);border:1px solid var(--border);position:relative;overflow:hidden}
+.sum-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.sum-card.blue::before{background:var(--primary)}
+.sum-card.green::before{background:var(--green)}
+.sum-card.orange::before{background:var(--orange)}
+.sum-card.teal::before{background:var(--accent)}
+.sum-card.purple::before{background:#7c3aed}
+.sum-card.dark::before{background:var(--text)}
+.sum-card.highlight::before{background:linear-gradient(90deg,var(--primary),var(--accent))}
+.sum-card label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:6px}
+.sum-card .val{font-size:clamp(14px,2vw,18px);font-weight:800;color:var(--text)}
+.sum-card.highlight .val{color:var(--primary)}
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.tab{padding:8px 18px;border-radius:30px;border:1.5px solid var(--border);background:var(--card);font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s}
+.tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.table-wrap{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden}
+.table-toolbar{padding:14px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--border);background:#f8faff}
+.table-toolbar input{border:1.5px solid var(--border);border-radius:8px;padding:7px 12px;font-size:13px;outline:none;min-width:200px;transition:.2s}
+.table-toolbar input:focus{border-color:var(--primary)}
+.btn{padding:8px 16px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-outline{background:var(--card);color:var(--primary);border:1.5px solid var(--primary)}
+.btn-outline:hover{background:var(--primary-light)}
+.tbl-outer{overflow-x:auto;max-height:520px;overflow-y:auto}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:1000px}
+thead th{background:linear-gradient(135deg,#1a56db,#0891b2);color:#fff;font-weight:700;padding:10px 10px;white-space:nowrap;position:sticky;top:0;z-index:2;text-align:right}
+thead th:first-child,thead th:nth-child(2),thead th:nth-child(3){text-align:center}
+tbody tr{transition:background .15s}
+tbody tr:hover{background:#f0f4ff!important}
+/* March = year-end for EPF interest credit */
+tbody tr.mar-row{background:#dcfce7!important;font-weight:700}
+tbody tr.yr-end{background:#dbeafe!important;font-weight:600}
+tbody td{padding:7px 10px;border-bottom:1px solid #f1f5f9;text-align:right;white-space:nowrap}
+tbody td:first-child,tbody td:nth-child(2),tbody td:nth-child(3){text-align:center;color:var(--muted);font-weight:600}
+.zero-row td{color:#cbd5e1}
+.pagination{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;flex-wrap:wrap}
+.pg-btn{padding:6px 14px;border-radius:7px;border:1.5px solid var(--border);background:var(--card);font-size:13px;font-weight:600;cursor:pointer;color:var(--text)}
+.pg-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.pg-btn:disabled{opacity:.4;cursor:not-allowed}
+.pg-info{font-size:13px;color:var(--muted)}
+.charts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-bottom:20px}
+.chart-card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.chart-card h3{font-size:13px;font-weight:700;color:var(--text);margin-bottom:14px;text-align:center}
+.chart-wrap{position:relative;height:220px}
+.legend-note{font-size:11px;color:var(--muted);text-align:center;margin-top:-8px;margin-bottom:8px}
+select.pg-select{border:1.5px solid var(--border);border-radius:7px;padding:6px 10px;font-size:13px;font-weight:600;outline:none;cursor:pointer}
+@media(max-width:600px){
+  .summary-grid{grid-template-columns:repeat(2,1fr)}
+  .input-grid{grid-template-columns:1fr}
+  .tabs{gap:4px}
+  .tab{padding:7px 12px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📊 EPF Calculator</h1>
+  <p>Employee Provident Fund – Interactive Corpus Projector &nbsp;|&nbsp; FY 2026-27 Rate: 8.25% p.a.</p>
+</div>
+
+<div class="container">
+
+  <!-- INPUTS -->
+  <div class="input-card">
+    <div class="section-title">Assumptions & Inputs</div>
+    <div class="input-grid">
+      <div class="field">
+        <label>Present Age (Years)</label>
+        <input type="number" id="presentAge" value="22" min="18" max="60"/>
+      </div>
+      <div class="field">
+        <label>Retirement Age (Years)</label>
+        <input type="number" id="retireAge" value="35" min="18" max="65"/>
+      </div>
+      <div class="field">
+        <label>Current Salary – Basic + DA (₹)</label>
+        <input type="number" id="salary" value="80000" min="0"/>
+      </div>
+      <div class="field">
+        <label>Expected Annual Salary Increase (%)</label>
+        <input type="number" id="salaryIncrease" value="0" min="0" max="50" step="0.01"/>
+      </div>
+      <div class="field">
+        <label>Minimum Salary for EPF (₹)</label>
+        <input type="number" id="minSalary" value="15000" min="0"/>
+        <span class="helper">Change only if different from default options</span>
+      </div>
+      <div class="field">
+        <label>Employee Contribution (%)</label>
+        <input type="number" id="empContrib" value="12" min="0" max="100" step="0.01"/>
+      </div>
+      <div class="field">
+        <label>Employer EPF Contribution (%)</label>
+        <input type="number" id="erEPF" value="3.67" min="0" max="100" step="0.01"/>
+      </div>
+      <div class="field">
+        <label>Employer EPS Contribution (%)</label>
+        <input type="number" id="erEPS" value="8.33" min="0" max="100" step="0.01"/>
+      </div>
+      <div class="field">
+        <label>Interest Rate on EPF (% p.a.)</label>
+        <input type="number" id="intRate" value="8.25" min="0" max="30" step="0.01"/>
+      </div>
+      <div class="field">
+        <label>EPF Calculated on Minimum Salary?</label>
+        <select id="calcOnMin">
+          <option value="No" selected>No – Full Salary</option>
+          <option value="Yes">Yes – Minimum Salary</option>
+        </select>
+        <span class="helper">Select Yes if EPF calculated on Minimum Salary, No if on Full Salary</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY CARDS -->
+  <div class="section-title">Corpus Summary</div>
+  <div class="summary-grid">
+    <div class="sum-card blue"><label>Employee Contribution</label><div class="val" id="sc_empTotal">—</div></div>
+    <div class="sum-card teal"><label>Employer EPF Contribution</label><div class="val" id="sc_erEPF">—</div></div>
+    <div class="sum-card orange"><label>Employer EPS Contribution</label><div class="val" id="sc_erEPS">—</div></div>
+    <div class="sum-card green"><label>Total Interest Credited</label><div class="val" id="sc_interest">—</div></div>
+    <div class="sum-card purple"><label>Final EPF Corpus</label><div class="val" id="sc_epf">—</div></div>
+    <div class="sum-card dark"><label>Final EPS Corpus</label><div class="val" id="sc_eps">—</div></div>
+    <div class="sum-card highlight"><label>🏆 Total Retirement Corpus</label><div class="val" id="sc_total">—</div></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('schedule')">📋 Monthly Schedule</button>
+  </div>
+
+  <!-- SCHEDULE TAB -->
+  <div id="tab-schedule">
+    <div class="table-wrap">
+      <div class="table-toolbar">
+  
+
+      </div>
+      <p style="padding:6px 16px 0;font-size:11px;color:var(--muted)">
+        🟢 <strong>Green row = March</strong> — annual interest credited to EPF
+      </p>
+      <div class="tbl-outer">
+        <table id="schedTable">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Month #</th>
+              <th>FY Month</th>
+              <th>Monthly Salary</th>
+              <th>Employee Contrib<br>(EPF 1)</th>
+              <th>Employer Contrib<br>(EPF 2)</th>
+              <th>Employer EPS</th>
+              <th>Interest Bearing<br>(EPF1+EPF2)</th>
+              <th>Monthly Interest<br>Accrued</th>
+              <th>Interest Credited<br>(Mar Only)</th>
+              <th>Cumulative EPF</th>
+              <th>Cumulative EPS</th>
+              <th>Total Corpus</th>
+            </tr>
+          </thead>
+          <tbody id="schedBody"></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+
+
+</div>
+
+<script>
+// ─── FORMATTING ───────────────────────────────────────────────────
+function inr(n){
+  if(isNaN(n)||n===null||n===undefined)return '₹0.00';
+  const neg=n<0; const abs=Math.abs(n);
+  let [int,dec]=abs.toFixed(2).split('.');
+  if(int.length>3){
+    let last3=int.slice(-3);
+    let rest=int.slice(0,-3).replace(/\B(?=(\d{2})+(?!\d))/g,',');
+    int=rest+','+last3;
+  }
+  return (neg?'-':'')+'₹'+int+'.'+dec;
+}
+
+const MONTH_NAMES=['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+
+// ─── GLOBALS ──────────────────────────────────────────────────────
+let schedule=[], filtered=[], currentPage=1, pageSize=60;
+let charts={};
+
+// ─── INPUTS ───────────────────────────────────────────────────────
+function getInputs(){
+  const v = id => document.getElementById(id).value.trim();
+  const num = (id, def) => { const s = v(id); return s === '' ? def : +s; };
+  return {
+    presentAge: num('presentAge', 22),
+    retireAge:  num('retireAge',  35),
+    salary:     num('salary',      0),   // no fallback — 0 must trigger validation
+    salaryInc:  num('salaryIncrease', 0),
+    minSalary:  num('minSalary',   0),   // no fallback — 0 must trigger validation
+    empPct:     num('empContrib',  12),
+    erEPFpct:   num('erEPF',     3.67),
+    erEPSpct:   num('erEPS',     8.33),
+    intRate:    num('intRate',   8.25),
+    calcOnMin:  v('calcOnMin')
+  };
+}
+
+// ─── CORE CALCULATION ─────────────────────────────────────────────
+/**
+ * OFFICIAL EPFO INTEREST RULES — correctly implemented:
+ *
+ *  Rule 1 — Monthly Interest Accrual (tracking only):
+ *    Interest = Opening EPF Balance (start of month, BEFORE this month's contribution) × (Annual Rate / 12)
+ *    → The opening balance is the pure contribution-based balance, with NO mid-year interest added.
+ *    → This accrued amount is NEVER added to the EPF balance during the year.
+ *
+ *  Rule 2 — Annual Interest Credit (31 March):
+ *    At end of FY, SUM of all 12 monthly accrued interest figures is credited to EPF balance.
+ *    → This is the ONLY time interest touches the running EPF balance.
+ *
+ *  Rule 3 — No Double Counting:
+ *    The monthly interest accrual uses the opening balance BEFORE contributions.
+ *    The annual credit uses the accumulated accrual total.
+ *    These are two completely separate processes.
+ *
+ *  Rule 4 — Contribution balance grows only from contributions during the year.
+ *    Interest does NOT compound mid-year. There is no monthly compounding.
+ *
+ *  Financial Year: April (month 1) → March (month 12)
+ */
+function calcSchedule(inp){
+  const {presentAge,retireAge,salary,salaryInc,minSalary,
+         empPct,erEPFpct,erEPSpct,intRate,calcOnMin}=inp;
+
+  const activePeriod = Math.max(0, retireAge - presentAge);
+  const totalMonths  = 444;
+  const monthlyRate  = intRate / 12 / 100; // e.g. 8.25/12/100 = 0.006875
+
+  const epsCap = minSalary * erEPSpct / 100; // EPS ceiling (e.g. 15000 × 8.33% = 1249.5)
+
+  // --- State variables ---
+  // cEPF: contribution-only running balance (interest never added mid-year)
+  // fyOpeningBalance: EPF balance at start of current FY (updated each April)
+  // fyInterestAccum: sum of monthly accrued interest amounts within current FY
+  let cEPF            = 0;
+  let cEPS            = 0;
+  let fyOpeningBalance= 0; // balance at April 1 of current FY
+  let fyInterestAccum = 0; // pure tracking; never added to cEPF during year
+  let rows            = [];
+
+  for(let m = 1; m <= totalMonths; m++){
+    const yr       = Math.ceil(m / 12);       // contribution year (1-based)
+    const fyMonth  = ((m - 1) % 12) + 1;      // 1 = Apr … 12 = Mar
+    const isActive = yr <= activePeriod;
+    const isApril  = fyMonth === 1;
+    const isMarch  = fyMonth === 12;
+
+    // On April (start of new FY), snapshot the opening balance for this FY
+    if(isApril) fyOpeningBalance = cEPF;
+
+    // ── Monthly Salary ────────────────────────────────────────────
+    let sal = 0;
+    if(isActive){
+      sal = calcOnMin === 'Yes'
+        ? minSalary
+        : salary * Math.pow(1 + salaryInc / 100, yr - 1);
+    }
+
+    // ── Employer EPS ──────────────────────────────────────────────
+    const erEPS_c = isActive
+      ? (sal <= minSalary ? sal * erEPSpct / 100 : epsCap)
+      : 0;
+
+    // ── Employer EPF ──────────────────────────────────────────────
+    // Excess EPS (above cap) is redirected to EPF when salary > minSalary
+    const erEPF_c = isActive
+      ? (sal <= minSalary
+          ? sal * erEPFpct / 100
+          : sal * erEPFpct / 100 + (sal * erEPSpct / 100 - epsCap))
+      : 0;
+
+    // ── Employee EPF ──────────────────────────────────────────────
+    const empC = isActive ? sal * empPct / 100 : 0;
+
+    // ── Interest Bearing Contribution ─────────────────────────────
+    const ibc = empC + erEPF_c;
+
+    // ── PROCESS 1: Monthly Interest Accrual (tracking only) ───────
+    // Calculated on the opening balance of this month.
+    // Opening balance = cEPF BEFORE this month's contribution is added.
+    // This value is NEVER written back to cEPF during the year.
+    const openingThisMonth = cEPF; // pure contribution balance, no mid-year interest
+    const monthlyInterest  = openingThisMonth * monthlyRate;
+    fyInterestAccum       += monthlyInterest;
+
+    // ── PROCESS 2: Update Contribution Balance ────────────────────
+    // Contributions are added every month. Interest is NOT.
+    cEPF += ibc;
+
+    // ── PROCESS 3: Annual Interest Credit (March only) ────────────
+    // At end of FY, credit the accumulated interest to the EPF balance.
+    let interestCredited = 0;
+    if(isMarch){
+      interestCredited = fyInterestAccum;
+      cEPF            += fyInterestAccum; // single annual credit
+      fyInterestAccum  = 0;               // reset accumulator for next FY
+    }
+
+    // ── Cumulative EPS ────────────────────────────────────────────
+    cEPS += erEPS_c;
+
+    rows.push({
+      yr,
+      m,
+      fyMonth,
+      fyMonthName: MONTH_NAMES[fyMonth - 1],
+      sal,
+      empC,
+      erEPF_c,
+      erEPS_c,
+      ibc,
+      monthlyInterest,    // accrual tracker — display only
+      interestCredited,   // non-zero only in March
+      cEPF,
+      cEPS,
+      total: cEPF + cEPS,
+      isActive,
+      isMarch,
+      isYearEnd: m % 12 === 0
+    });
+  }
+  return rows;
+}
+
+// ─── SUMMARY ──────────────────────────────────────────────────────
+function updateSummary(rows){
+  const last=rows[rows.length-1];
+  const totalEmpC  = rows.reduce((a,r)=>a+r.empC,0);
+  const totalErEPF = rows.reduce((a,r)=>a+r.erEPF_c,0);
+  const totalErEPS = rows.reduce((a,r)=>a+r.erEPS_c,0);
+  // Total interest = sum of all March credits
+  const totalInt   = rows.reduce((a,r)=>a+r.interestCredited,0);
+
+  document.getElementById('sc_empTotal').textContent=inr(totalEmpC);
+  document.getElementById('sc_erEPF').textContent   =inr(totalErEPF);
+  document.getElementById('sc_erEPS').textContent   =inr(totalErEPS);
+  document.getElementById('sc_interest').textContent=inr(totalInt);
+  document.getElementById('sc_epf').textContent     =inr(last.cEPF);
+  document.getElementById('sc_eps').textContent     =inr(last.cEPS);
+  document.getElementById('sc_total').textContent   =inr(last.total);
+}
+
+// ─── TABLE ────────────────────────────────────────────────────────
+function renderTable(){
+  const visible=schedule;
+
+  document.getElementById('schedBody').innerHTML=visible.map(r=>{
+    let cls='';
+    if(r.isMarch) cls='mar-row';
+    else if(r.isYearEnd) cls='yr-end';
+    else if(!r.isActive && r.sal===0) cls='zero-row';
+
+    return `<tr class="${cls}">
+      <td>${r.yr}</td>
+      <td>${r.m}</td>
+      <td>${r.fyMonthName}</td>
+      <td>${inr(r.sal)}</td>
+      <td>${inr(r.empC)}</td>
+      <td>${inr(r.erEPF_c)}</td>
+      <td>${inr(r.erEPS_c)}</td>
+      <td>${inr(r.ibc)}</td>
+      <td style="color:#0891b2">${inr(r.monthlyInterest)}</td>
+      <td style="color:#059669;font-weight:700">${r.isMarch?inr(r.interestCredited):'—'}</td>
+      <td>${inr(r.cEPF)}</td>
+      <td>${inr(r.cEPS)}</td>
+      <td>${inr(r.total)}</td>
+    </tr>`;
+  }).join('');
+
+}
+
+// ─── CHART ────────────────────────────────────────────────────────
+function destroyChart(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
+
+function buildCharts(rows){
+  const annual = rows.filter(r => r.isMarch);
+  if(!annual.length) return;
+
+  // Build cumulative invested amount per FY-end (Employee + Employer EPF + EPS)
+  let cumInvested = 0;
+  const investedData = [];
+  for(let fy = 0; fy < annual.length; fy++){
+    const fyRows = rows.slice(fy * 12, fy * 12 + 12);
+    cumInvested += fyRows.reduce((a, r) => a + r.empC + r.erEPF_c + r.erEPS_c, 0);
+    investedData.push(cumInvested);
+  }
+
+  const labels     = annual.map((_, i) => `FY ${i + 1}`);
+  const corpusData = annual.map(r => r.total);
+
+  destroyChart('chartWealth');
+  charts['chartWealth'] = new Chart(document.getElementById('chartWealth'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Total Corpus (EPF + EPS)',
+          data: corpusData,
+          borderColor: '#1a56db',
+          backgroundColor: 'rgba(26,86,219,0.10)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 3,
+          pointHoverRadius: 6,
+          borderWidth: 2.5
+        },
+        {
+          label: 'Total Invested Amount',
+          data: investedData,
+          borderColor: '#d97706',
+          backgroundColor: 'rgba(217,119,6,0.08)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 3,
+          pointHoverRadius: 6,
+          borderWidth: 2.5,
+          borderDash: [5, 4]
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { font: { size: 12 }, boxWidth: 14, padding: 20 }
+        },
+        tooltip: {
+          backgroundColor: '#1e293b',
+          titleFont: { size: 13, weight: 'bold' },
+          bodyFont: { size: 12 },
+          padding: 14,
+          cornerRadius: 8,
+          callbacks: {
+            title: ctx => `Financial Year ${ctx[0].dataIndex + 1}`,
+            label: ctx => {
+              const invested = investedData[ctx.dataIndex];
+              const corpus   = corpusData[ctx.dataIndex];
+              const wealth   = corpus - invested;
+              if(ctx.datasetIndex === 0)
+                return [
+                  ` Total Corpus:   ${inr(corpus)}`,
+                  ` Wealth Created: ${inr(wealth)}`
+                ];
+              return ` Total Invested: ${inr(invested)}`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 11 }, maxTicksLimit: 12, color: '#64748b' }
+        },
+        y: {
+          grid: { color: '#f1f5f9' },
+          ticks: {
+            font: { size: 11 }, color: '#64748b',
+            callback: v => inr(v)
+          }
+        }
+      }
+    }
+  });
+}
+
+// ─── TABS ─────────────────────────────────────────────────────────
+function showTab(t){
+  document.getElementById('tab-schedule').style.display=t==='schedule'?'block':'none';
+  document.getElementById('tab-charts').style.display=t==='charts'?'block':'none';
+  document.querySelectorAll('.tab').forEach((el,i)=>{
+    el.classList.toggle('active',['schedule','charts'][i]===t);
+  });
+  if(t==='charts')buildCharts(schedule);
+}
+
+
+
+// ─── VALIDATION ───────────────────────────────────────────────────
+function validate(inp){
+  if(inp.retireAge <= inp.presentAge)
+    return 'Retirement Age must be greater than Present Age.';
+  if(inp.salary <= 0)
+    return 'Current Salary must be greater than ₹0.';
+  if(inp.minSalary <= 0)
+    return 'Minimum Salary must be greater than ₹0.';
+  if(inp.salaryInc < 0)
+    return 'Expected Annual Salary Increase cannot be negative.';
+  return null; // valid
+}
+
+// ─── CLEAR STATE ──────────────────────────────────────────────────
+function clearAll(msg){
+  // Reset schedule
+  schedule = []; filtered = [];
+
+  // Clear summary cards
+  ['sc_empTotal','sc_erEPF','sc_erEPS','sc_interest','sc_epf','sc_eps','sc_total']
+    .forEach(id => document.getElementById(id).textContent = '—');
+
+  // Clear table
+  document.getElementById('schedBody').innerHTML =
+    `<tr><td colspan="13" style="text-align:center;color:#dc2626;padding:24px;font-weight:600">
+      ⚠ ${msg}
+    </td></tr>`;
+  document.getElementById('pagination').innerHTML = '';
+
+  // Clear chart
+  destroyChart('chartWealth');
+}
+
+// ─── MAIN RECALC ──────────────────────────────────────────────────
+function recalc(){
+  const inp = getInputs();
+  const err = validate(inp);
+  if(err){ clearAll(err); return; }
+
+  schedule = calcSchedule(inp);
+  filtered = [...schedule];
+  updateSummary(schedule);
+  renderTable();
+  if(document.getElementById('tab-charts').style.display !== 'none') buildCharts(schedule);
+}
+
+document.querySelectorAll('input,select').forEach(el=>{
+  el.addEventListener('input',recalc);
+  el.addEventListener('change',recalc);
+});
+
+recalc();
+</script>
+</body>
+</html>
