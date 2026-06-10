@@ -1,0 +1,491 @@
+import { useState, useMemo } from "react";
+
+// ── formatters ──────────────────────────────────────────────────────────────
+const fl = (n) => Math.floor(n);
+const fmt = (n) => "₹" + fl(n).toLocaleString("en-IN");
+const fmtCr = (n) => {
+  const abs = Math.abs(n), sign = n < 0 ? "-" : "";
+  return abs >= 1e7
+    ? sign + "₹" + (fl(abs / 1e5) / 100).toFixed(2) + " Cr"
+    : sign + "₹" + (fl((abs / 1e5) * 100) / 100).toFixed(2) + " L";
+};
+
+// ── design tokens ────────────────────────────────────────────────────────────
+const C = {
+  blue: "#2563EB", teal: "#14B8A6", green: "#10B981",
+  bg: "#F8FAFC", card: "#FFFFFF", border: "#E2E8F0",
+  text: "#1E293B", muted: "#64748B", red: "#EF4444",
+  amber: "#F59E0B", blueMuted: "#DBEAFE", tealMuted: "#CCFBF1",
+  greenMuted: "#D1FAE5", redMuted: "#FEE2E2",
+};
+
+const styles = {
+  page: { background: C.bg, minHeight: "100vh", padding: "32px 16px", fontFamily: "'Inter', system-ui, sans-serif", color: C.text },
+  card: { background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "24px", marginBottom: 20, boxShadow: "0 1px 4px rgba(0,0,0,0.06)" },
+  sectionTitle: { fontSize: 13, fontWeight: 600, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 18, display: "flex", alignItems: "center", gap: 8 },
+  dot: (color) => ({ width: 8, height: 8, borderRadius: "50%", background: color, flexShrink: 0 }),
+  label: { fontSize: 13, fontWeight: 500, color: C.muted, display: "block", marginBottom: 6 },
+  inputWrap: { display: "flex", alignItems: "center", border: `1.5px solid ${C.border}`, borderRadius: 10, overflow: "hidden", background: C.card, transition: "border-color 0.15s" },
+  adorn: { padding: "0 12px", fontSize: 13, color: C.muted, background: "#F1F5F9", borderRight: `1px solid ${C.border}`, height: 40, display: "flex", alignItems: "center", fontWeight: 500 },
+  adornR: { padding: "0 12px", fontSize: 12, color: C.muted, background: "#F1F5F9", borderLeft: `1px solid ${C.border}`, height: 40, display: "flex", alignItems: "center", fontWeight: 500 },
+  input: { flex: 1, border: "none", outline: "none", padding: "0 12px", fontSize: 14, height: 40, background: "transparent", color: C.text, width: 0, fontFamily: "inherit" },
+  field: { marginBottom: 16 },
+  twoCol: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 },
+  threeCol: { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 },
+};
+
+// ── primitives ───────────────────────────────────────────────────────────────
+const Label = ({ c }) => <label style={styles.label}>{c}</label>;
+const Field = ({ label, children, style }) => <div style={{ ...styles.field, ...style }}><Label c={label} />{children}</div>;
+
+const NumInput = ({ value, onChange, min, max, step = 1, prefix, suffix }) => {
+  const [focused, setFocused] = useState(false);
+  return (
+    <div style={{ ...styles.inputWrap, borderColor: focused ? C.blue : C.border, boxShadow: focused ? `0 0 0 3px ${C.blueMuted}` : "none" }}>
+      {prefix && <span style={styles.adorn}>{prefix}</span>}
+      <input type="number" value={value} min={min} max={max} step={step}
+        onChange={e => onChange(Number(e.target.value))}
+        onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
+        style={styles.input} />
+      {suffix && <span style={styles.adornR}>{suffix}</span>}
+    </div>
+  );
+};
+
+const Card = ({ children, style }) => <div style={{ ...styles.card, ...style }}>{children}</div>;
+const SectionTitle = ({ children, color = C.blue }) => (
+  <div style={styles.sectionTitle}><span style={styles.dot(color)} />{children}</div>
+);
+
+const MetricCard = ({ label, value, sub, accent, textColor }) => (
+  <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: "14px 16px", borderLeft: `3px solid ${accent || C.border}` }}>
+    <div style={{ fontSize: 11, fontWeight: 600, color: C.muted, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>{label}</div>
+    <div style={{ fontSize: 18, fontWeight: 700, color: textColor || C.text, lineHeight: 1.2 }}>{value}</div>
+    {sub && <div style={{ fontSize: 11, color: C.muted, marginTop: 4 }}>{sub}</div>}
+  </div>
+);
+
+// table primitives
+const Th = ({ c, right }) => (
+  <th style={{ padding: "10px 14px", fontSize: 11, fontWeight: 600, color: C.muted, textAlign: right ? "right" : "left", whiteSpace: "nowrap", background: "#F8FAFC", borderBottom: `2px solid ${C.border}`, textTransform: "uppercase", letterSpacing: "0.05em", position: "sticky", top: 0, zIndex: 1 }}>{c}</th>
+);
+const Td = ({ c, right, bold, color, muted }) => (
+  <td style={{ padding: "10px 14px", fontSize: 12, textAlign: right ? "right" : "left", fontWeight: bold ? 600 : 400, color: color || (muted ? C.muted : C.text), whiteSpace: "nowrap", borderBottom: `1px solid ${C.border}` }}>{c}</td>
+);
+
+// ── GOAL presets ─────────────────────────────────────────────────────────────
+const GOAL_PRESETS = ["Home purchase", "Car purchase", "Travel", "Children's education", "Children's marriage", "Other"];
+
+// ── pure calculation fns (unchanged) ─────────────────────────────────────────
+function resolveGoalAmt(g, currentAge, preInfl) {
+  return g.inflationAdjusted ? g.amount * Math.pow(1 + preInfl / 100, g.age - currentAge) : g.amount;
+}
+
+function runSimulation(sipMonth1, lumpsumExtra, currentAge, retirementAge, lifeExpectancy,
+  annualExpenses, preInfl, postInfl, currentCorpus, preReturn, postReturn, stepUp, ltcgRate, goals) {
+  const yearsToRet = retirementAge - currentAge, retYears = lifeExpectancy - retirementAge;
+  const mr = preReturn / 100 / 12, pr = postReturn / 100 / 12;
+  const annualExpAtRet = annualExpenses * Math.pow(1 + preInfl / 100, yearsToRet);
+  const monthlyExpAtRet = annualExpAtRet / 12;
+  const firstYearAnnualWithdrawal = annualExpAtRet;
+  const preGoals = goals.filter(g => g.age > currentAge && g.age <= retirementAge);
+  const postGoals = goals.filter(g => g.age > retirementAge);
+  let corpus = currentCorpus + lumpsumExtra, costBasis = currentCorpus + lumpsumExtra, sip = sipMonth1;
+  const preTable = [];
+  for (let y = 0; y < yearsToRet; y++) {
+    const age = currentAge + y + 1, opening = corpus, annualSIP = sip * 12;
+    let c = corpus;
+    for (let m = 0; m < 12; m++) c = c * (1 + mr) + sip;
+    costBasis += annualSIP;
+    const returnsEarned = c - opening - annualSIP; corpus = c;
+    // For the final pre-retirement year (age === retirementAge), apply LTCG on full corpus first, then deduct goals
+    let retLTCGThisRow = 0;
+    if (age === retirementAge) {
+      retLTCGThisRow = corpus > costBasis ? (corpus - costBasis) * (ltcgRate / 100) : 0;
+      corpus -= retLTCGThisRow;
+      costBasis = corpus; // reset basis post-tax
+    }
+    const yearGoals = preGoals.filter(g => g.age === age);
+    let goalDeduction = 0, goalTax = 0, goalNames = [];
+    for (const g of yearGoals) {
+      const amt = resolveGoalAmt(g, currentAge, preInfl);
+      // At retirement age, corpus basis has been reset so gains = 0; for pre-retirement goals use proportional method
+      const gainRatio = age === retirementAge ? 0 : (corpus > 0 ? Math.max(0, (corpus - costBasis) / corpus) : 0);
+      const tax = amt * gainRatio * (ltcgRate / 100);
+      goalTax += fl(tax); goalDeduction += fl(amt); goalNames.push(g.name);
+      if (age !== retirementAge) costBasis = Math.max(0, costBasis * (1 - amt / Math.max(corpus, 1)));
+      corpus -= (amt + tax);
+    }
+    preTable.push({ age, sip: fl(sip), annualSIP: fl(annualSIP), openingCorpus: fl(opening), returnsEarned: fl(returnsEarned), retLTCGThisRow: fl(retLTCGThisRow), goalDeduction: fl(goalDeduction), goalTax, goalNames, closingCorpus: fl(corpus) });
+    sip *= (1 + stepUp / 100);
+  }
+  const retirementLTCG = preTable.length ? preTable[preTable.length - 1].retLTCGThisRow : 0;
+  let corpusPostTax = corpus;
+  const atRetGoalTable = [];
+  let annualWithdrawal = firstYearAnnualWithdrawal;
+  let c2 = corpusPostTax;
+  const postTable = [];
+  for (let y = 0; y < retYears; y++) {
+    const age = retirementAge + y + 1, opening = c2;
+    const monthlyExpThisYear = annualWithdrawal / 12;
+    for (let m = 0; m < 12; m++) c2 = c2 * (1 + pr) - monthlyExpThisYear;
+    const returnsEarned = c2 - opening + annualWithdrawal;
+    const yearPostGoals = postGoals.filter(g => g.age === age);
+    let pGoalDeduct = 0, pGoalNames = [];
+    for (const g of yearPostGoals) { const amt = resolveGoalAmt(g, currentAge, preInfl); pGoalDeduct += amt; pGoalNames.push(g.name); c2 -= amt; }
+    postTable.push({ age, monthlyExp: fl(monthlyExpThisYear), annualWithdrawal: fl(annualWithdrawal), openingCorpus: fl(opening), returnsEarned: fl(returnsEarned), goalDeduction: fl(pGoalDeduct), goalNames: pGoalNames, closingCorpus: fl(c2) });
+    annualWithdrawal = annualWithdrawal * (1 + postInfl / 100);
+  }
+  return { preTable, postTable, atRetGoalTable, retirementLTCG: fl(retirementLTCG), corpusPostTax: fl(corpusPostTax), annualExpAtRet, monthlyExpAtRet, finalCorpus: c2 };
+}
+
+function binarySearch(fn, lo = 0, hi = 1e8, iters = 60) {
+  for (let i = 0; i < iters; i++) { const mid = (lo + hi) / 2; if (fn(mid) < 0) lo = mid; else hi = mid; }
+  return (lo + hi) / 2;
+}
+
+function solveAll(currentAge, retirementAge, lifeExpectancy, annualExpenses, preInfl, postInfl,
+  currentCorpus, preReturn, postReturn, stepUp, ltcgRate, goals) {
+  const run = (sip, lump, su) => runSimulation(sip, lump, currentAge, retirementAge, lifeExpectancy, annualExpenses, preInfl, postInfl, currentCorpus, preReturn, postReturn, su, ltcgRate, goals).finalCorpus;
+  return {
+    sipMonth1: binarySearch(v => run(v, 0, stepUp)),
+    flatSIP: binarySearch(v => run(v, 0, 0)),
+    lumpsum: binarySearch(v => run(0, v, 0)),
+  };
+}
+
+// ── main component ────────────────────────────────────────────────────────────
+let goalId = 0;
+export default function App() {
+  const [currentAge, setCurrentAge] = useState(28);
+  const [retirementAge, setRetirementAge] = useState(60);
+  const [lifeExpectancy, setLifeExpectancy] = useState(85);
+  const [annualExpenses, setAnnualExpenses] = useState(600000);
+  const [preInfl, setPreInfl] = useState(6);
+  const [postInfl, setPostInfl] = useState(5);
+  const [currentCorpus, setCurrentCorpus] = useState(500000);
+  const [preReturn, setPreReturn] = useState(12);
+  const [postReturn, setPostReturn] = useState(8);
+  const [stepUp, setStepUp] = useState(10);
+  const [ltcgRate, setLtcgRate] = useState(12.5);
+  const [goals, setGoals] = useState([]);
+  const [activeTab, setActiveTab] = useState("pre");
+  const [breakdownMode, setBreakdownMode] = useState("sip");
+
+  const addGoal = () => setGoals(g => [...g, { id: goalId++, name: "Home purchase", age: Math.min(retirementAge - 2, lifeExpectancy - 1), amount: 2000000, inflationAdjusted: false }]);
+  const removeGoal = (id) => setGoals(g => g.filter(x => x.id !== id));
+  const updateGoal = (id, key, val) => setGoals(g => g.map(x => x.id === id ? { ...x, [key]: val } : x));
+
+  const results = useMemo(() => {
+    if (retirementAge <= currentAge || lifeExpectancy <= retirementAge) return null;
+    const { sipMonth1, flatSIP, lumpsum } = solveAll(currentAge, retirementAge, lifeExpectancy, annualExpenses, preInfl, postInfl, currentCorpus, preReturn, postReturn, stepUp, ltcgRate, goals);
+    const sipSim = runSimulation(sipMonth1, 0, currentAge, retirementAge, lifeExpectancy, annualExpenses, preInfl, postInfl, currentCorpus, preReturn, postReturn, stepUp, ltcgRate, goals);
+    const lumpSim = runSimulation(0, lumpsum, currentAge, retirementAge, lifeExpectancy, annualExpenses, preInfl, postInfl, currentCorpus, preReturn, postReturn, 0, ltcgRate, goals);
+    return {
+      sipMonth1: fl(sipMonth1), flatSIP: fl(flatSIP), lumpsum: fl(lumpsum),
+      sipYear5: fl(sipMonth1 * Math.pow(1 + stepUp / 100, 4)),
+      sipYear10: fl(sipMonth1 * Math.pow(1 + stepUp / 100, 9)),
+      yearsToRet: retirementAge - currentAge,
+      retYears: lifeExpectancy - retirementAge,
+      sip: sipSim, lump: lumpSim,
+    };
+  }, [currentAge, retirementAge, lifeExpectancy, annualExpenses, preInfl, postInfl, currentCorpus, preReturn, postReturn, stepUp, ltcgRate, goals]);
+
+  const sim = results ? (breakdownMode === "sip" ? results.sip : results.lump) : null;
+
+  const tabBtn = (key, label) => (
+    <button key={key} onClick={() => setActiveTab(key)} style={{
+      padding: "8px 16px", fontSize: 13, fontWeight: activeTab === key ? 600 : 400,
+      border: `1.5px solid ${activeTab === key ? C.blue : C.border}`,
+      borderRadius: 8, background: activeTab === key ? C.blueMuted : C.card,
+      color: activeTab === key ? C.blue : C.muted, cursor: "pointer"
+    }}>{label}</button>
+  );
+
+  const modeBtn = (key, label) => (
+    <button onClick={() => setBreakdownMode(key)} style={{
+      padding: "6px 18px", fontSize: 13, fontWeight: breakdownMode === key ? 600 : 400,
+      borderRadius: 7, border: "none",
+      background: breakdownMode === key ? C.blue : "transparent",
+      color: breakdownMode === key ? "#fff" : C.muted, cursor: "pointer", transition: "all 0.15s"
+    }}>{label}</button>
+  );
+
+  const PreTable = ({ data }) => (
+    <div style={{ overflowX: "auto", borderRadius: 10, border: `1px solid ${C.border}`, maxHeight: 420, overflowY: "auto" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 680 }}>
+        <thead><tr>
+          <Th c="Age" />{breakdownMode === "sip" ? <><Th c="Monthly SIP" right /><Th c="Annual SIP" right /></> : <Th c="Lumpsum invested" right />}
+          <Th c="Opening corpus" right /><Th c="Returns earned" right />
+          <Th c="LTCG at retirement" right />
+          <Th c="Goal deduction" right /><Th c="Goal LTCG tax" right />
+          <Th c="Closing corpus" right />
+        </tr></thead>
+        <tbody>{data.map((r, i) => (
+          <tr key={i} style={{ background: i % 2 === 0 ? C.card : "#F8FAFC" }}
+            onMouseEnter={e => e.currentTarget.style.background = C.blueMuted}
+            onMouseLeave={e => e.currentTarget.style.background = i % 2 === 0 ? C.card : "#F8FAFC"}>
+            <Td c={r.age} bold />
+            {breakdownMode === "sip" ? <><Td c={fmt(r.sip)} right color={C.blue} bold /><Td c={fmt(r.annualSIP)} right muted /></> : <Td c={i === 0 ? fmt(r.openingCorpus) : "—"} right muted />}
+            <Td c={fmtCr(r.openingCorpus)} right />
+            <Td c={fmt(r.returnsEarned)} right color={C.green} bold />
+            <Td c={r.retLTCGThisRow > 0 ? fmt(r.retLTCGThisRow) : "—"} right color={r.retLTCGThisRow > 0 ? C.red : undefined} muted={!r.retLTCGThisRow} />
+            <Td c={r.goalDeduction > 0 ? fmt(r.goalDeduction) : "—"} right color={r.goalDeduction > 0 ? C.red : undefined} muted={r.goalDeduction === 0} />
+            <Td c={r.goalTax > 0 ? fmt(r.goalTax) : "—"} right color={r.goalTax > 0 ? C.amber : undefined} muted={r.goalTax === 0} />
+            <Td c={fmtCr(r.closingCorpus)} right bold />
+          </tr>
+        ))}</tbody>
+      </table>
+    </div>
+  );
+
+  const PostTable = ({ data }) => (
+    <div style={{ overflowX: "auto", borderRadius: 10, border: `1px solid ${C.border}`, maxHeight: 420, overflowY: "auto" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 620 }}>
+        <thead><tr>
+          <Th c="Age" /><Th c="Monthly expense" right /><Th c="Annual withdrawal" right />
+          <Th c="Opening corpus" right /><Th c="Returns earned" right />
+          <Th c="Goal deduction" right /><Th c="Closing corpus" right />
+        </tr></thead>
+        <tbody>{data.map((r, i) => (
+          <tr key={i} style={{ background: i % 2 === 0 ? C.card : "#F8FAFC" }}
+            onMouseEnter={e => e.currentTarget.style.background = C.blueMuted}
+            onMouseLeave={e => e.currentTarget.style.background = i % 2 === 0 ? C.card : "#F8FAFC"}>
+            <Td c={r.age} bold />
+            <Td c={fmt(r.monthlyExp)} right color={C.red} />
+            <Td c={fmt(r.annualWithdrawal)} right muted />
+            <Td c={fmtCr(r.openingCorpus)} right />
+            <Td c={fmt(r.returnsEarned)} right color={C.green} bold />
+            <Td c={r.goalDeduction > 0 ? fmt(r.goalDeduction) : "—"} right color={r.goalDeduction > 0 ? C.red : undefined} muted={r.goalDeduction === 0} />
+            <Td c={fmtCr(r.closingCorpus)} right bold color={r.closingCorpus < 0 ? C.red : C.text} />
+          </tr>
+        ))}</tbody>
+      </table>
+    </div>
+  );
+
+  return (
+    <div style={styles.page}>
+      <div style={{ maxWidth: 700, margin: "0 auto" }}>
+
+        {/* Header */}
+        <div style={{ marginBottom: 28 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
+            <div style={{ width: 40, height: 40, borderRadius: 10, background: `linear-gradient(135deg, ${C.blue}, ${C.teal})`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ fontSize: 20 }}>🏦</span>
+            </div>
+            <div>
+              <h1 style={{ fontSize: 24, fontWeight: 700, color: C.text, margin: 0 }}>Retirement Planner</h1>
+              <p style={{ fontSize: 13, color: C.muted, margin: 0 }}>How much do you need to invest to retire comfortably?</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Personal Details */}
+        <Card>
+          <SectionTitle color={C.blue}>Personal Details</SectionTitle>
+          <div style={styles.twoCol}>
+            <Field label="Current age"><NumInput value={currentAge} onChange={setCurrentAge} min={18} max={80} suffix="years" /></Field>
+            <Field label="Retirement age"><NumInput value={retirementAge} onChange={setRetirementAge} min={currentAge + 1} max={85} suffix="years" /></Field>
+          </div>
+          <Field label="Life expectancy" style={{ marginBottom: 0 }}><NumInput value={lifeExpectancy} onChange={setLifeExpectancy} min={retirementAge + 1} max={100} suffix="years" /></Field>
+        </Card>
+
+        {/* Expense Planning */}
+        <Card>
+          <SectionTitle color={C.teal}>Expense Planning</SectionTitle>
+          <Field label="Current annual expenses"><NumInput value={annualExpenses} onChange={setAnnualExpenses} min={0} step={10000} prefix="₹" /></Field>
+          <div style={{ ...styles.twoCol, marginBottom: 0 }}>
+            <Field label="Pre-retirement inflation" style={{ marginBottom: 0 }}><NumInput value={preInfl} onChange={setPreInfl} min={0} max={20} step={0.5} suffix="% p.a." /></Field>
+            <Field label="Post-retirement inflation" style={{ marginBottom: 0 }}><NumInput value={postInfl} onChange={setPostInfl} min={0} max={20} step={0.5} suffix="% p.a." /></Field>
+          </div>
+        </Card>
+
+        {/* Existing Investments */}
+        <Card>
+          <SectionTitle color={C.green}>Existing Investments</SectionTitle>
+          <Field label="Current corpus / investments"><NumInput value={currentCorpus} onChange={setCurrentCorpus} min={0} step={10000} prefix="₹" /></Field>
+          <div style={{ ...styles.twoCol, marginBottom: 0 }}>
+            <Field label="Pre-retirement returns" style={{ marginBottom: 0 }}><NumInput value={preReturn} onChange={setPreReturn} min={0} max={30} step={0.5} suffix="% p.a." /></Field>
+            <Field label="Post-retirement returns" style={{ marginBottom: 0 }}><NumInput value={postReturn} onChange={setPostReturn} min={0} max={20} step={0.5} suffix="% p.a." /></Field>
+          </div>
+        </Card>
+
+        {/* SIP & Tax Settings */}
+        <Card>
+          <SectionTitle color={C.amber}>SIP & Tax Settings</SectionTitle>
+          <div style={{ ...styles.twoCol, marginBottom: 0 }}>
+            <Field label="Annual step-up rate" style={{ marginBottom: 0 }}><NumInput value={stepUp} onChange={setStepUp} min={0} max={50} step={1} suffix="% p.a." /></Field>
+            <Field label="LTCG tax rate" style={{ marginBottom: 0 }}><NumInput value={ltcgRate} onChange={setLtcgRate} min={0} max={40} step={0.5} suffix="%" /></Field>
+          </div>
+        </Card>
+
+        {/* One-time Goals */}
+        <Card>
+          <SectionTitle color="#8B5CF6">One-Time Goals</SectionTitle>
+          {goals.length === 0 && (
+            <div style={{ textAlign: "center", padding: "20px 0", color: C.muted, fontSize: 13 }}>
+              No goals added yet. Add goals like home purchase, travel, children's education, etc.
+            </div>
+          )}
+          {goals.map((g, i) => (
+            <div key={g.id} style={{ border: `1px solid ${C.border}`, borderRadius: 12, padding: 16, marginBottom: 12, background: "#FAFBFF" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: C.text }}>Goal {i + 1}</span>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <button onClick={addGoal} style={{ fontSize: 12, padding: "5px 12px", border: `1px solid ${C.border}`, borderRadius: 7, background: C.card, color: C.muted, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}>
+                    + Add
+                  </button>
+                  <button onClick={() => removeGoal(g.id)} style={{ fontSize: 12, padding: "5px 12px", border: `1px solid #FECACA`, borderRadius: 7, background: C.redMuted, color: C.red, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}>
+                    Delete
+                  </button>
+                </div>
+              </div>
+              <div style={{ ...styles.twoCol, marginBottom: 12 }}>
+                <Field label="Goal name" style={{ marginBottom: 0 }}>
+                  <select value={g.name} onChange={e => updateGoal(g.id, "name", e.target.value)}
+                    style={{ width: "100%", height: 40, fontSize: 13, border: `1.5px solid ${C.border}`, borderRadius: 10, background: C.card, color: C.text, padding: "0 12px", fontFamily: "inherit" }}>
+                    {GOAL_PRESETS.map(p => <option key={p}>{p}</option>)}
+                  </select>
+                </Field>
+                <Field label="At age" style={{ marginBottom: 0 }}><NumInput value={g.age} onChange={v => updateGoal(g.id, "age", v)} min={currentAge + 1} max={lifeExpectancy - 1} suffix="years" /></Field>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 16, alignItems: "end" }}>
+                <Field label="Amount (in today's ₹)" style={{ marginBottom: 0 }}><NumInput value={g.amount} onChange={v => updateGoal(g.id, "amount", v)} min={0} step={100000} prefix="₹" /></Field>
+                <div style={{ paddingBottom: 0, display: "flex", alignItems: "center", height: 40 }}>
+                  <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", fontSize: 13, color: C.muted, whiteSpace: "nowrap" }}>
+                    <input type="checkbox" checked={g.inflationAdjusted} onChange={e => updateGoal(g.id, "inflationAdjusted", e.target.checked)} style={{ accentColor: C.blue, width: 15, height: 15 }} />
+                    Inflation adjusted
+                  </label>
+                </div>
+              </div>
+              {g.inflationAdjusted && (
+                <div style={{ marginTop: 10, fontSize: 12, color: C.teal, fontWeight: 500, background: C.tealMuted, borderRadius: 7, padding: "6px 10px" }}>
+                  Adjusted amount at age {g.age}: {fmt(resolveGoalAmt(g, currentAge, preInfl))}
+                </div>
+              )}
+            </div>
+          ))}
+          {goals.length === 0 && (
+            <button onClick={addGoal} style={{ width: "100%", marginTop: 4, padding: "10px", border: `1.5px dashed ${C.border}`, borderRadius: 10, background: "transparent", color: C.blue, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+              + Add your first goal
+            </button>
+          )}
+          {goals.length > 0 && (
+            <button onClick={addGoal} style={{ padding: "8px 18px", border: `1.5px solid ${C.blue}`, borderRadius: 8, background: C.blueMuted, color: C.blue, fontSize: 13, fontWeight: 600, cursor: "pointer", marginTop: 4 }}>
+              + Add goal
+            </button>
+          )}
+        </Card>
+
+        {/* ── Results ── */}
+        {results && (<>
+          {/* Primary SIP cards */}
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 14 }}>Investment Required</div>
+            <div style={styles.threeCol}>
+              {/* Step-up SIP */}
+              <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "20px", borderTop: `4px solid ${C.blue}`, boxShadow: "0 2px 8px rgba(37,99,235,0.08)" }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: C.blue, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 10 }}>Step-Up SIP</div>
+                <div style={{ fontSize: 26, fontWeight: 800, color: C.blue, lineHeight: 1 }}>{fmt(results.sipMonth1)}</div>
+                <div style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>per month to start</div>
+                <div style={{ marginTop: 12, paddingTop: 12, borderTop: `1px solid ${C.border}` }}>
+                  <div style={{ fontSize: 11, color: C.muted }}>Year 5: <span style={{ fontWeight: 600, color: C.text }}>{fmt(results.sipYear5)}/mo</span></div>
+                  <div style={{ fontSize: 11, color: C.muted, marginTop: 3 }}>Year 10: <span style={{ fontWeight: 600, color: C.text }}>{fmt(results.sipYear10)}/mo</span></div>
+                  <div style={{ fontSize: 11, color: C.muted, marginTop: 3 }}>{stepUp}% annual increase</div>
+                </div>
+              </div>
+              {/* Flat SIP */}
+              <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "20px", borderTop: `4px solid ${C.teal}`, boxShadow: "0 2px 8px rgba(20,184,166,0.08)" }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: C.teal, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 10 }}>Flat SIP</div>
+                <div style={{ fontSize: 26, fontWeight: 800, color: C.teal, lineHeight: 1 }}>{fmt(results.flatSIP)}</div>
+                <div style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>per month, fixed forever</div>
+                <div style={{ marginTop: 12, paddingTop: 12, borderTop: `1px solid ${C.border}` }}>
+                  <div style={{ fontSize: 11, color: C.muted }}>vs step-up yr 1: <span style={{ fontWeight: 600, color: C.text }}>+{fmt(results.flatSIP - results.sipMonth1)}/mo</span></div>
+                  <div style={{ fontSize: 11, color: C.muted, marginTop: 3 }}>Same amount every month</div>
+                  <div style={{ fontSize: 11, color: C.muted, marginTop: 3 }}>No step-up required</div>
+                </div>
+              </div>
+              {/* Lumpsum */}
+              <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "20px", borderTop: `4px solid ${C.green}`, boxShadow: "0 2px 8px rgba(16,185,129,0.08)" }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: C.green, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 10 }}>One-Time Lumpsum</div>
+                <div style={{ fontSize: 26, fontWeight: 800, color: C.green, lineHeight: 1 }}>{fmtCr(results.lumpsum)}</div>
+                <div style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>invest today, nothing more</div>
+                <div style={{ marginTop: 12, paddingTop: 12, borderTop: `1px solid ${C.border}` }}>
+                  <div style={{ fontSize: 11, color: C.muted }}>Grows at pre-retirement returns</div>
+                  <div style={{ fontSize: 11, color: C.muted, marginTop: 3 }}>No monthly commitment</div>
+                  <div style={{ fontSize: 11, color: C.muted, marginTop: 3 }}>Corpus = ₹0 at age {lifeExpectancy}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Supporting metrics */}
+          <Card style={{ marginBottom: 16 }}>
+            <SectionTitle color={C.muted}>Key Metrics</SectionTitle>
+            <div style={{ ...styles.threeCol, marginBottom: 12 }}>
+              <MetricCard label="Corpus at retirement" value={fmtCr(results.sip.preTable.length ? results.sip.preTable[results.sip.preTable.length - 1].closingCorpus : 0)} sub="Before LTCG tax" accent={C.blue} />
+              <MetricCard label="LTCG at retirement" value={fmt(results.sip.retirementLTCG)} sub={`@ ${ltcgRate}% on gains`} accent={C.red} textColor={C.red} />
+              <MetricCard label="Corpus post-tax" value={fmtCr(results.sip.corpusPostTax)} sub="Start of retirement" accent={C.green} />
+            </div>
+            <div style={styles.twoCol}>
+              <MetricCard label="Annual expense at retirement" value={fmtCr(results.sip.annualExpAtRet)} sub={`${preInfl}% inflation for ${results.yearsToRet} yrs`} accent={C.teal} />
+              <MetricCard label="Retirement duration" value={`${results.retYears} years`} sub={`Age ${retirementAge} → ${lifeExpectancy}`} accent={C.blue} />
+            </div>
+          </Card>
+
+          {/* Year-by-year breakdown */}
+          <Card>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em" }}>Year-by-Year Breakdown</div>
+              <div style={{ display: "flex", background: "#F1F5F9", borderRadius: 9, padding: 3 }}>
+                {modeBtn("sip", "SIP")}
+                {modeBtn("lumpsum", "Lumpsum")}
+              </div>
+            </div>
+
+            <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
+              {tabBtn("pre", "Pre-Retirement")}
+              {tabBtn("post", "Post-Retirement")}
+              {tabBtn("goals", "One-Time Goals")}
+            </div>
+
+            {activeTab === "pre" && sim && <PreTable data={sim.preTable} />}
+            {activeTab === "post" && sim && <PostTable data={sim.postTable} />}
+            {activeTab === "goals" && (
+              goals.length === 0 ? (
+                <div style={{ textAlign: "center", padding: "28px", color: C.muted, fontSize: 13 }}>No goals added yet.</div>
+              ) : (
+                <div style={{ overflowX: "auto", borderRadius: 10, border: `1px solid ${C.border}` }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                    <thead><tr>
+                      <Th c="Goal" /><Th c="Age" right /><Th c="Today's value" right />
+                      <Th c="Adjusted amount" right /><Th c="Inflation adjusted?" right /><Th c="Phase" right />
+                    </tr></thead>
+                    <tbody>{goals.map((g, i) => {
+                      const adj = resolveGoalAmt(g, currentAge, preInfl);
+                      const phase = g.age < retirementAge ? "Pre-retirement" : g.age === retirementAge ? "At retirement" : "Post-retirement";
+                      const phaseColor = phase === "Pre-retirement" ? C.blue : phase === "At retirement" ? C.amber : C.green;
+                      return (
+                        <tr key={g.id} style={{ background: i % 2 === 0 ? C.card : "#F8FAFC" }}>
+                          <Td c={g.name} /><Td c={g.age} right /><Td c={fmt(g.amount)} right muted />
+                          <Td c={fmt(adj)} right bold />
+                          <Td c={g.inflationAdjusted ? "Yes" : "No"} right />
+                          <Td c={phase} right color={phaseColor} />
+                        </tr>
+                      );
+                    })}</tbody>
+                  </table>
+                </div>
+              )
+            )}
+
+            <div style={{ marginTop: 16, padding: "12px 14px", background: "#F8FAFC", borderRadius: 9, border: `1px solid ${C.border}`, fontSize: 11, color: C.muted, lineHeight: 1.7 }}>
+              SIP and lumpsum are each solved so the corpus reaches exactly ₹0 at life expectancy, accounting for all goals and taxes. LTCG applied at retirement on full corpus; mid-accumulation goal withdrawals attract LTCG on the proportional gains portion. Post-retirement corpus is tax-free. All figures are estimates — consult a financial advisor for personalised planning.
+            </div>
+          </Card>
+        </>)}
+      </div>
+    </div>
+  );
+}
