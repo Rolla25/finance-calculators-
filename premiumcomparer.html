@@ -9,7 +9,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#F8FAFC;color:#111827;min-height:100vh;font-size:15px}
 
-.hero{background:linear-gradient(135deg,#0B4DCC 0%,#1E63FF 55%,#1BA7E1 100%);border-radius:12px;padding:2rem 1.5rem;text-align:center;margin-bottom:1.5rem}
+.hero{background:linear-gradient(135deg,#0B4DCC 0%,#1E63FF 55%,#1BA7E1 100%);border-radius:0;padding:2rem 1.5rem;text-align:center;margin-bottom:1.5rem;margin-left:-1.25rem;margin-right:-1.25rem;margin-top:-1.25rem}
 .hero h1{color:#fff;font-size:1.45rem;font-weight:700;letter-spacing:.01em}
 .hero p{color:rgba(255,255,255,.82);font-size:.88rem;margin-top:.45rem}
 
@@ -95,8 +95,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F8FAFC;color:#11182
 .faq-item{background:#fff;border:1px solid #E5E7EB;border-radius:14px;margin-bottom:.65rem;overflow:hidden}
 .faq-question{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.15rem;cursor:pointer;gap:.75rem}
 .faq-question span{font-size:.88rem;font-weight:600;color:#0B4DCC;line-height:1.45}
-.faq-icon{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#EFF6FF;display:flex;align-items:center;justify-content:center;transition:transform .25s}
-.faq-icon svg{width:12px;height:12px;stroke:#0B4DCC;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.faq-icon{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#F3F4F6;display:flex;align-items:center;justify-content:center;transition:transform .25s}
+.faq-icon svg{width:12px;height:12px;stroke:#111827;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 .faq-item.open .faq-icon{transform:rotate(180deg)}
 .faq-answer{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;padding:0 1.15rem}
 .faq-item.open .faq-answer{max-height:400px;padding-bottom:1rem}
@@ -232,17 +232,18 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F8FAFC;color:#11182
         </table>
       </div>
     </div>
+  </div>
 
-    <!-- FAQ -->
-    <div class="card">
-      <div class="section-title"><div class="bar"></div><span>Frequently Asked Questions</span></div>
-      <div id="faqList"></div>
-    </div>
+  <!-- FAQ always visible -->
+  <div style="height:1rem"></div>
+  <div class="card">
+    <div class="section-title"><div class="bar"></div><span>Frequently Asked Questions</span></div>
+    <div id="faqList"></div>
+  </div>
 
-    <div class="disclaimer">
-      <strong>Important:</strong> This calculator is for educational purposes only. Results depend heavily on the investment return assumption used. Always use conservative return assumptions and consult a qualified financial advisor before making insurance or investment decisions.<br><br>
-      This calculator compares opportunity cost and investment outcomes. It does not account for taxes, inflation, policy features, lapses, rider benefits, or future changes in investment returns.
-    </div>
+  <div class="disclaimer">
+    <strong>Important:</strong> This calculator is for educational purposes only. Results depend heavily on the investment return assumption used. Always use conservative return assumptions and consult a qualified financial advisor before making insurance or investment decisions.<br><br>
+    This calculator compares opportunity cost and investment outcomes. It does not account for taxes, inflation, policy features, lapses, rider benefits, or future changes in investment returns.
   </div>
 </div>
 
@@ -274,10 +275,10 @@ faqs.forEach((f,i)=>{
   item.setAttribute('itemtype','https://schema.org/Question');
   item.innerHTML=`
     <div class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" role="button" tabindex="0">
-      <span itemprop="name">${f.q}</span>
-      <div class="faq-icon" aria-hidden="true"><svg viewBox="0 0 12 12"><polyline points="1,3 6,9 11,3"/></svg></div>
+      <span itemprop="name" style="color:#111827!important;font-weight:700!important">${f.q}</span>
+      <div class="faq-icon" aria-hidden="true"><svg viewBox="0 0 12 12"><polyline points="1,3 6,9 11,3" style="stroke:#111827!important"/></svg></div>
     </div>
-    <div class="faq-answer" itemscope itemtype="https://schema.org/Answer" itemprop="acceptedAnswer"><p itemprop="text">${f.a}</p></div>`;
+    <div class="faq-answer" itemscope itemtype="https://schema.org/Answer" itemprop="acceptedAnswer"><p itemprop="text" style="color:#111827!important">${f.a}</p></div>`;
   faqList.appendChild(item);
 });
 
