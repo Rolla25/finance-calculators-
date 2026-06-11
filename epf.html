@@ -12,6 +12,11 @@
   --bg:#f0f4ff;--card:#fff;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;
   --shadow:0 2px 12px rgba(30,64,175,.10);--radius:14px;
 }
+input[type=number]#erEPF::-webkit-inner-spin-button,
+input[type=number]#erEPF::-webkit-outer-spin-button,
+input[type=number]#erEPS::-webkit-inner-spin-button,
+input[type=number]#erEPS::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+input[type=number]#erEPF,input[type=number]#erEPS{-moz-appearance:textfield}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
 .header{background:linear-gradient(135deg,#1a56db,#0891b2);color:#fff;padding:22px 24px 18px;text-align:center}
@@ -117,7 +122,6 @@ select.pg-select{border:1.5px solid var(--border);border-radius:7px;padding:6px 
       <div class="field">
         <label>Minimum Salary for EPF (₹)</label>
         <input type="number" id="minSalary" value="15000" min="0"/>
-        <span class="helper">Change only if different from default options</span>
       </div>
       <div class="field">
         <label>Employee Contribution (%)</label>
@@ -125,11 +129,13 @@ select.pg-select{border:1.5px solid var(--border);border-radius:7px;padding:6px 
       </div>
       <div class="field">
         <label>Employer EPF Contribution (%)</label>
-        <input type="number" id="erEPF" value="3.67" min="0" max="100" step="0.01"/>
+        <input type="number" id="erEPF" value="3.67" readonly
+          style="background:#f1f5f9;color:var(--muted);cursor:not-allowed;border-color:var(--border)"/>
       </div>
       <div class="field">
         <label>Employer EPS Contribution (%)</label>
-        <input type="number" id="erEPS" value="8.33" min="0" max="100" step="0.01"/>
+        <input type="number" id="erEPS" value="8.33" readonly
+          style="background:#f1f5f9;color:var(--muted);cursor:not-allowed;border-color:var(--border)"/>
       </div>
       <div class="field">
         <label>Interest Rate on EPF (% p.a.)</label>
