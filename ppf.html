@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#F8FAFC;color:#111827;font-size:14px}
+.page{max-width:900px;margin:0 auto;padding:0 1.25rem 3rem}
+
+/* HERO */
+.hero{background:linear-gradient(to right,#0B4DCC,#1E63FF,#1BA7E1);border-radius:0;padding:2.25rem 2rem;text-align:center;margin:1.5rem 0 1.5rem}
+.hero h1{font-size:1.75rem;font-weight:700;color:#fff;letter-spacing:-.02em}
+.hero p{font-size:13px;color:rgba(255,255,255,.85);margin-top:6px}
+
+/* CARDS */
+.card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:1.5rem;margin-bottom:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.card-title{font-size:11px;font-weight:700;color:#0B4DCC;letter-spacing:.07em;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.card-title::before{content:'';display:inline-block;width:3px;height:14px;border-radius:2px;background:#0B4DCC;flex-shrink:0}
+.faq-card-title{color:#111827!important}
+.faq-card-title::before{background:#111827!important}
+
+/* INPUTS */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:12px;font-weight:500;color:#374151}
+.field input,.field select{height:40px;border:1px solid #E5E7EB;border-radius:8px;padding:0 12px;font-size:14px;font-family:'Inter',sans-serif;background:#F8FAFC;color:#111827;width:100%;transition:border-color .15s,box-shadow .15s}
+.field input:focus,.field select:focus{outline:none;border-color:#1E63FF;box-shadow:0 0 0 3px rgba(30,99,255,.1);background:#fff}
+.field input::placeholder{color:#D1D5DB}
+.field .hint{font-size:11px;color:#9CA3AF}
+.field .warn{font-size:11px;color:#D97706;font-weight:500}
+
+/* SUMMARY HERO CARD */
+.summary-hero{background:linear-gradient(135deg,#EFF6FF 0%,#F0FDFA 100%);border:1px solid #BFDBFE;border-radius:12px;padding:1.75rem;margin-bottom:1.25rem}
+.summary-hero .sh-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:1.5rem}
+.summary-hero .sh-label{font-size:11px;font-weight:700;color:#0B4DCC;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.summary-hero .sh-label::before{content:'';display:inline-block;width:3px;height:14px;border-radius:2px;background:#0B4DCC}
+.corpus-block{text-align:right}
+.corpus-block .cl{font-size:11px;font-weight:600;color:#16A34A;letter-spacing:.04em;text-transform:uppercase}
+.corpus-block .cv{font-size:2rem;font-weight:700;color:#111827;letter-spacing:-.03em;line-height:1.1}
+.corpus-block .tax{font-size:11px;font-weight:600;color:#16A34A;margin-top:3px;display:flex;align-items:center;justify-content:flex-end;gap:4px}
+.corpus-block .tax::before{content:'✦';font-size:9px}
+.sh-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.sh-metric{background:#fff;border-radius:10px;padding:.875rem 1rem;border:1px solid #E5E7EB;border-top:3px solid #1BA7E1}
+.sh-metric .sml{font-size:11px;color:#6B7280;margin-bottom:4px;font-weight:500}
+.sh-metric .smv{font-size:16px;font-weight:600;color:#111827}
+.sh-metric.green{border-top-color:#16A34A}
+.sh-metric.green .sml{color:#16A34A}
+.sh-metric.green .smv{color:#15803D}
+.sh-metric.inf-m{border-top-color:#1E63FF;background:#EFF6FF}
+.sh-metric.inf-m .sml{color:#1E63FF}
+.sh-metric.inf-m .smv{color:#0B4DCC}
+
+/* EXTENSION CARD */
+.ext-card{background:#FFFBEB;border:1px solid #FDE68A;border-radius:12px;padding:1.5rem;margin-bottom:1.25rem}
+.ext-card .card-title{color:#92400E}
+.ext-card .card-title::before{background:#D97706}
+.ext-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.ext-metric{background:#fff;border-radius:10px;padding:.875rem 1rem;border:1px solid #FDE68A;border-top:3px solid #F59E0B}
+.ext-metric .eml{font-size:11px;color:#92400E;font-weight:500;margin-bottom:4px}
+.ext-metric .emv{font-size:16px;font-weight:600;color:#78350F}
+.ext-metric.hi{border-top-color:#16A34A}
+.ext-metric.hi .emv{color:#15803D}
+.ext-metric.inf-e{background:#EFF6FF;border-color:#BFDBFE;border-top-color:#1E63FF}
+.ext-metric.inf-e .eml{color:#1E63FF}
+.ext-metric.inf-e .emv{color:#0B4DCC}
+
+/* TABS */
+.tab-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem;background:#F1F5F9;border-radius:9px;padding:4px;width:fit-content}
+.tab{padding:6px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;background:transparent;color:#6B7280;transition:all .15s;font-family:'Inter',sans-serif}
+.tab:hover{color:#111827}
+.tab.active{background:#fff;color:#0B4DCC;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px;font-size:11px;font-weight:500;color:#6B7280}
+.legend span{display:flex;align-items:center;gap:5px}
+.legend .dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.chart-wrap{position:relative;width:100%;height:230px}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;max-height:360px;overflow-y:auto;border-radius:9px;border:1px solid #E5E7EB}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead{position:sticky;top:0;z-index:2}
+th{background:#0B4DCC;padding:10px 12px;text-align:right;font-weight:600;font-size:11px;color:#fff;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+th:first-child{text-align:left}
+td{padding:8px 12px;text-align:right;border-top:1px solid #F1F5F9;color:#374151;font-variant-numeric:tabular-nums}
+td:first-child{text-align:left;font-weight:600;color:#111827}
+tbody tr:nth-child(even) td{background:#F8FAFC}
+tbody tr:hover td{background:#EFF6FF}
+tr.ext-row td{background:#FFFBEB!important}
+tr.ext-row:hover td{background:#FEF3C7!important}
+tr.ext-row td:first-child{color:#92400E}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:8px}
+.faq-item{border:1px solid #E5E7EB;border-radius:10px;overflow:hidden;background:#fff}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;gap:12px;user-select:none}
+.faq-q span{font-size:13px;font-weight:700;color:#111827;flex:1}
+.faq-icon{width:20px;height:20px;flex-shrink:0;color:#111827;transition:transform .25s}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{font-size:13px;color:#374151;line-height:1.65;padding:0 16px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
+.faq-item.open .faq-a{max-height:200px;padding:0 16px 14px}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>PPF Calculator</h1>
+    <p>Public Provident Fund – Maturity &amp; Growth Projections</p>
+  </div>
+
+  <!-- ACCOUNT DETAILS -->
+  <div class="card">
+    <div class="card-title">Account Details</div>
+    <div class="grid2">
+      <div class="field">
+        <label>PPF account age (years)</label>
+        <input type="number" id="ppfAge" value="0" min="0" max="15" step="1">
+        <span class="hint">0 = new account</span>
+      </div>
+      <div class="field" id="balField" style="display:none">
+        <label>Current PPF balance (₹)</label>
+        <input type="number" id="curBal" value="500000" min="0">
+      </div>
+      <div class="field">
+        <label>Annual contribution (₹)</label>
+        <input type="number" id="contrib" value="150000" min="500" max="150000">
+        <span id="contribWarn" class="warn" style="display:none"></span>
+      </div>
+      <div class="field">
+        <label>Step-up % per year</label>
+        <input type="number" id="stepup" value="0" min="0" max="50" step="1">
+        <span class="hint">0 = flat contribution</span>
+      </div>
+      <div class="field">
+        <label>PPF interest rate (%)</label>
+        <input type="number" id="rate" value="7.1" min="1" max="15" step="0.1">
+      </div>
+      <div class="field">
+        <label>Inflation rate (%) <span style="color:#9CA3AF;font-weight:400">— optional</span></label>
+        <input type="number" id="inflation" value="" min="0" max="20" step="0.1" placeholder="e.g. 6">
+        <span class="hint">Leave blank to skip adjustment</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- AFTER MATURITY -->
+  <div class="card">
+    <div class="card-title">After Maturity</div>
+    <div class="grid2">
+      <div class="field">
+        <label>Extension option</label>
+        <select id="ext">
+          <option value="none">Stop at maturity</option>
+          <option value="nocontrib">Extend 5 years — no contribution</option>
+          <option value="withcontrib">Extend 5 years — with contribution</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- MATURITY SUMMARY -->
+  <div class="summary-hero">
+    <div class="sh-top">
+      <div class="sh-label">Maturity Summary</div>
+      <div class="corpus-block">
+        <div class="cl">Maturity Corpus</div>
+        <div class="cv" id="heroCorpus">—</div>
+        <div class="tax">Tax free</div>
+      </div>
+    </div>
+    <div class="sh-metrics" id="shMetrics"></div>
+  </div>
+
+  <!-- EXTENSION -->
+  <div class="ext-card" id="extSection" style="display:none">
+    <div class="card-title">After Extension</div>
+    <div class="ext-metrics" id="extMetrics"></div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="card">
+    <div class="tab-bar">
+      <button class="tab active" onclick="showChart(0,this)">Corpus Growth</button>
+      <button class="tab" onclick="showChart(1,this)">Contribution vs Interest</button>
+      <button class="tab" onclick="showChart(2,this)" id="infTab" style="display:none">Inflation Comparison</button>
+    </div>
+    <div class="legend" id="chartLegend"></div>
+    <div class="chart-wrap"><canvas id="mainChart"></canvas></div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="card">
+    <div class="card-title">Year-wise Projection</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th style="text-align:left">Year</th>
+          <th>Opening Balance</th>
+          <th>Contribution</th>
+          <th>Interest Earned</th>
+          <th>Closing Balance</th>
+        </tr></thead>
+        <tbody id="projBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="card">
+    <div class="card-title faq-card-title">Frequently Asked Questions</div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const PPF_LIMIT=150000,PPF_MIN=500;
+let chartInstance=null,activeChart=0,calcData={};
+
+function fmt(n){
+  if(n>=10000000)return'₹'+(n/10000000).toFixed(2)+' Cr';
+  if(n>=100000)return'₹'+(n/100000).toFixed(2)+' L';
+  return'₹'+Math.round(n).toLocaleString('en-IN');
+}
+function fmtFull(n){return'₹'+Math.round(n).toLocaleString('en-IN')}
+
+function setFieldError(id,msg){
+  const el=document.getElementById(id+'Warn');
+  if(!el)return;
+  if(msg){el.textContent=msg;el.style.display='';}
+  else el.style.display='none';
+}
+
+function getInputs(){
+  let age=parseInt(document.getElementById('ppfAge').value);
+  if(isNaN(age)||age<0){age=0;document.getElementById('ppfAge').value=0;}
+  age=Math.min(age,15);
+  let contrib=parseFloat(document.getElementById('contrib').value);
+  if(isNaN(contrib)||contrib<PPF_MIN){
+    contrib=PPF_MIN;
+    setFieldError('contrib','PPF annual contribution must be between ₹500 and ₹1,50,000.');
+  }else if(contrib>PPF_LIMIT){
+    contrib=PPF_LIMIT;
+    setFieldError('contrib','Capped at ₹1,50,000 — PPF annual contribution must be between ₹500 and ₹1,50,000.');
+  }else{setFieldError('contrib',null);}
+  let curBal=age>0?parseFloat(document.getElementById('curBal').value):0;
+  if(isNaN(curBal)||curBal<0){curBal=0;if(age>0)document.getElementById('curBal').value=0;}
+  let stepup=parseFloat(document.getElementById('stepup').value)||0;
+  if(stepup<0){stepup=0;document.getElementById('stepup').value=0;}
+  let rate=parseFloat(document.getElementById('rate').value)||7.1;
+  if(rate<0){rate=0;document.getElementById('rate').value=0;}
+  let inflation=parseFloat(document.getElementById('inflation').value)||0;
+  if(inflation<0){inflation=0;document.getElementById('inflation').value='';}
+  return{age,curBal,contrib,stepup,rate,inflation,ext:document.getElementById('ext').value};
+}
+
+function calcPPF(){
+  const p=getInputs();
+  const remaining=15-p.age;
+  let rows=[],bal=p.curBal,annual=p.contrib;
+  let totalContrib=0,totalInterest=0;
+  for(let y=1;y<=remaining;y++){
+    let c=Math.min(annual,PPF_LIMIT);
+    let open=bal;
+    let interest=Math.round((open+c)*p.rate/100);
+    bal=open+c+interest;
+    totalContrib+=c;totalInterest+=interest;
+    rows.push({yr:p.age+y,open:Math.round(open),contrib:Math.round(c),interest,close:Math.round(bal),ext:false});
+    if(p.stepup>0)annual=Math.min(annual*(1+p.stepup/100),PPF_LIMIT);
+  }
+  const matCorpus=bal,matContrib=totalContrib,matInterest=totalInterest;
+  let extContrib=0,extInterest=0;
+  if(p.ext!=='none'){
+    for(let y=1;y<=5;y++){
+      let c=p.ext==='withcontrib'?Math.min(annual,PPF_LIMIT):0;
+      let open=bal;
+      let interest=Math.round((open+c)*p.rate/100);
+      bal=open+c+interest;
+      extContrib+=c;extInterest+=interest;
+      totalContrib+=c;totalInterest+=interest;
+      rows.push({yr:15+y,open:Math.round(open),contrib:Math.round(c),interest,close:Math.round(bal),ext:true});
+      if(p.stepup>0&&p.ext==='withcontrib')annual=Math.min(annual*(1+p.stepup/100),PPF_LIMIT);
+    }
+  }
+  const finalCorpus=bal;
+  let matInfAdj=0,finalInfAdj=0;
+  if(p.inflation>0){
+    matInfAdj=matCorpus/Math.pow(1+p.inflation/100,remaining);
+    finalInfAdj=finalCorpus/Math.pow(1+p.inflation/100,remaining+(p.ext!=='none'?5:0));
+  }
+  calcData={p,rows,matCorpus,matContrib,matInterest,extContrib,extInterest,finalCorpus,matInfAdj,finalInfAdj};
+  render();
+}
+
+function render(){
+  const d=calcData;
+  const{p,rows,matCorpus,matContrib,matInterest,extContrib,extInterest,finalCorpus,matInfAdj,finalInfAdj}=d;
+  document.getElementById('infTab').style.display=p.inflation>0?'':'none';
+  document.getElementById('heroCorpus').textContent=fmt(matCorpus);
+  document.getElementById('shMetrics').innerHTML=`
+    <div class="sh-metric"><div class="sml">Total Invested</div><div class="smv">${fmt(matContrib)}</div></div>
+    <div class="sh-metric green"><div class="sml">Interest Earned</div><div class="smv">${fmt(matInterest)}</div></div>
+    ${p.inflation>0?`<div class="sh-metric inf-m"><div class="sml">Inflation-Adjusted (${p.inflation}%)</div><div class="smv">${fmt(matInfAdj)}</div></div>`:''}
+  `;
+  const extSec=document.getElementById('extSection');
+  if(p.ext!=='none'){
+    extSec.style.display='';
+    document.getElementById('extMetrics').innerHTML=`
+      <div class="ext-metric"><div class="eml">Extra Contributions</div><div class="emv">${fmt(extContrib)}</div></div>
+      <div class="ext-metric"><div class="eml">Extra Interest</div><div class="emv">${fmt(extInterest)}</div></div>
+      <div class="ext-metric hi"><div class="eml">Corpus After Extension</div><div class="emv">${fmt(finalCorpus)}</div></div>
+      ${p.inflation>0?`<div class="ext-metric inf-e"><div class="eml">Inflation-Adjusted</div><div class="emv">${fmt(finalInfAdj)}</div></div>`:''}
+    `;
+  }else extSec.style.display='none';
+  document.getElementById('projBody').innerHTML=rows.map(r=>`
+    <tr class="${r.ext?'ext-row':''}">
+      <td>${r.ext?'Ext ':''}Yr ${r.yr}</td>
+      <td>${fmtFull(r.open)}</td><td>${fmtFull(r.contrib)}</td>
+      <td>${fmtFull(r.interest)}</td><td>${fmtFull(r.close)}</td>
+    </tr>`).join('');
+  renderChart(activeChart);
+}
+
+function showChart(idx,btn){
+  activeChart=idx;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderChart(idx);
+}
+
+function renderChart(idx){
+  const{rows,p}=calcData;
+  const labels=rows.map(r=>(r.ext?'E':'')+r.yr);
+  let datasets=[],legendItems=[];
+  if(idx===0){
+    datasets=[{label:'Corpus',data:rows.map(r=>r.close),borderColor:'#1E63FF',backgroundColor:'rgba(30,99,255,0.08)',fill:true,tension:0.4,pointRadius:2,borderWidth:2,pointBackgroundColor:'#1E63FF'}];
+    legendItems=[{c:'#1E63FF',l:'Corpus Value'}];
+  }else if(idx===1){
+    const cumC=[],cumI=[];
+    let cc=p.curBal||0,ci=0;
+    rows.forEach(r=>{cc+=r.contrib;ci+=r.interest;cumC.push(cc);cumI.push(ci);});
+    datasets=[
+      {label:'Invested',data:cumC,backgroundColor:'#BFDBFE',borderWidth:0,borderRadius:4},
+      {label:'Interest',data:cumI,backgroundColor:'#16A34A',borderWidth:0,borderRadius:4}
+    ];
+    legendItems=[{c:'#BFDBFE',l:'Amount Invested'},{c:'#16A34A',l:'Interest Earned'}];
+  }else{
+    const corpus=rows.map(r=>r.close);
+    const adjCorpus=rows.map((r,i)=>Math.round(r.close/Math.pow(1+p.inflation/100,i+1)));
+    datasets=[
+      {label:'Nominal',data:corpus,borderColor:'#1E63FF',backgroundColor:'rgba(30,99,255,0.07)',fill:true,tension:0.4,pointRadius:2,borderWidth:2},
+      {label:'Adjusted',data:adjCorpus,borderColor:'#16A34A',backgroundColor:'rgba(22,163,74,0.07)',fill:true,tension:0.4,pointRadius:2,borderWidth:1.5,borderDash:[5,4]}
+    ];
+    legendItems=[{c:'#1E63FF',l:'Nominal Corpus'},{c:'#16A34A',l:'Inflation-Adjusted',dash:true}];
+  }
+  document.getElementById('chartLegend').innerHTML=legendItems.map(i=>`
+    <span><span class="dot" style="background:${i.dash?'transparent':''}; ${i.dash?`outline:2px dashed ${i.c};`:''} background-color:${i.dash?'transparent':i.c}"></span>${i.l}</span>`).join('');
+  const ctx=document.getElementById('mainChart');
+  if(chartInstance)chartInstance.destroy();
+  chartInstance=new Chart(ctx,{
+    type:idx===1?'bar':'line',
+    data:{labels,datasets},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+fmt(c.raw)},backgroundColor:'#111827',padding:10,cornerRadius:8,titleFont:{family:'Inter'},bodyFont:{family:'Inter'}}},
+      scales:{
+        x:{ticks:{font:{size:10,family:'Inter'},maxRotation:45,autoSkip:true,maxTicksLimit:15},grid:{display:false},border:{display:false}},
+        y:{ticks:{callback:v=>fmt(v),font:{size:10,family:'Inter'}},grid:{color:'rgba(229,231,235,.8)'},border:{display:false}},
+        ...(idx===1?{x:{stacked:true,ticks:{font:{size:10,family:'Inter'}},grid:{display:false},border:{display:false}},y:{stacked:true,ticks:{callback:v=>fmt(v),font:{size:10,family:'Inter'}},grid:{color:'rgba(229,231,235,.8)'},border:{display:false}}}:{})
+      }
+    }
+  });
+}
+
+// FAQ
+const faqs=[
+  ["What is a PPF account?","The Public Provident Fund (PPF) is a government-backed long-term savings scheme that offers tax benefits and tax-free maturity proceeds."],
+  ["What is the current maturity period of a PPF account?","A PPF account matures after 15 financial years from the end of the financial year in which the account was opened."],
+  ["Why does this calculator ask for PPF account age?","The remaining investment period depends on how old your PPF account is. The calculator uses the account age to determine the years left until maturity."],
+  ["When should I enter my current PPF balance?","Enter your current PPF balance if your account is already active. For a new account, keep the account age and balance at zero."],
+  ["What is the maximum amount I can contribute to PPF each year?","The current contribution limit is ₹1.5 lakh per financial year across all deposits made into the account."],
+  ["What is a Step-Up contribution?","A Step-Up contribution increases your annual PPF investment by a fixed percentage every year. This helps align your savings with future income growth."],
+  ["How is PPF interest calculated?","PPF interest is calculated on the lowest balance between the 5th day and the last day of each month and is credited annually by the government."],
+  ["Can the PPF interest rate change?","Yes. The Government of India reviews and may revise the PPF interest rate periodically. Future returns may differ from current rates."],
+  ["What happens after my PPF account matures?","After maturity, you may withdraw the corpus, extend the account with fresh contributions, or extend it without making further contributions, subject to prevailing PPF rules."],
+  ["Should I extend my PPF account after maturity?","Extension can allow your corpus to continue compounding tax-free. The right choice depends on your liquidity needs and financial goals."],
+  ["Why does the calculator show an inflation-adjusted value?","Inflation reduces purchasing power over time. The inflation-adjusted value helps estimate what your future corpus may be worth in today's money."],
+  ["Is PPF maturity amount taxable?","No. PPF falls under the EEE (Exempt-Exempt-Exempt) category, meaning contributions, interest earned, and maturity proceeds are generally tax-free under current rules."],
+  ["Why may my actual PPF corpus differ from the estimate?","Actual results may vary due to changes in contribution amounts, interest rate revisions, account extensions, withdrawals, or changes in government rules."],
+  ["Can I use this calculator for an existing PPF account?","Yes. Simply enter your current account age and current PPF balance, and the calculator will estimate future growth based on the remaining tenure."]
+];
+document.getElementById('faqList').innerHTML=faqs.map((f,i)=>`
+  <div class="faq-item" id="faq${i}">
+    <div class="faq-q" onclick="toggleFaq(${i})">
+      <span>${f[0]}</span>
+      <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </div>
+    <div class="faq-a">${f[1]}</div>
+  </div>`).join('');
+
+function toggleFaq(i){
+  const el=document.getElementById('faq'+i);
+  el.classList.toggle('open');
+}
+
+['ppfAge','curBal','contrib','stepup','rate','inflation','ext'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el)el.addEventListener('input',()=>{
+    const age=parseInt(document.getElementById('ppfAge').value)||0;
+    document.getElementById('balField').style.display=age>0?'':'none';
+    calcPPF();
+  });
+});
+calcPPF();
+</script>
+</body>
+</html>
