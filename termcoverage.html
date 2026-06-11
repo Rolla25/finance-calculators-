@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:15px;background:#F8FAFC;color:#111827;padding:0}
+
+/* Hero Banner */
+.hero{background:linear-gradient(to right,#0B4DCC,#1E63FF,#1BA7E1);border-radius:0px;padding:2.25rem 2rem;text-align:center;margin-bottom:1.5rem}
+.hero h1{font-size:26px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-0.3px}
+.hero p{font-size:14px;color:rgba(255,255,255,0.88)}
+
+/* Cards */
+.card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:1.5rem;margin-bottom:1rem;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+
+/* Section headers */
+.section-title{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.section-title::before{content:'';display:block;width:4px;height:20px;background:#0B4DCC;border-radius:2px;flex-shrink:0}
+.section-title h2{font-size:14px;font-weight:700;color:#0B4DCC;text-transform:uppercase;letter-spacing:0.06em}
+.card-sub{font-size:12px;color:#6B7280;margin-bottom:16px;padding-left:14px}
+
+/* Grid */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:12px;font-weight:600;color:#374151}
+input[type=number],input[type=text]{width:100%;border:1.5px solid #E5E7EB;border-radius:8px;padding:9px 12px;font-size:14px;color:#111827;background:#fff;transition:border-color 0.15s}
+input:focus{outline:none;border-color:#1E63FF;box-shadow:0 0 0 3px rgba(30,99,255,0.08)}
+
+/* Table-style column headers */
+.col-hdr{display:grid;gap:10px;margin-bottom:6px}
+.col-hdr span,.liab-hdr span,.goal-hdr span{font-size:11px;font-weight:600;color:#6B7280;text-transform:uppercase;letter-spacing:0.04em}
+.liab-hdr{display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr 32px;gap:10px;margin-bottom:6px}
+.goal-hdr{display:grid;grid-template-columns:1.8fr 0.9fr 1fr 0.8fr 32px;gap:10px;margin-bottom:6px}
+.liab-row{display:grid;grid-template-columns:1.8fr 1.1fr 1.1fr 32px;gap:10px;align-items:end;margin-bottom:8px}
+.goal-row{display:grid;grid-template-columns:1.8fr 0.9fr 1fr 0.8fr 32px;gap:10px;align-items:end;margin-bottom:8px}
+
+/* Buttons */
+.btn-remove{background:none;border:none;color:#D1D5DB;cursor:pointer;height:38px;width:32px;display:flex;align-items:center;justify-content:center;font-size:20px;border-radius:6px;transition:color 0.15s;padding:0}
+.btn-remove:hover{color:#EF4444}
+.btn-add{background:none;border:1.5px dashed #D1D5DB;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;color:#6B7280;display:inline-flex;align-items:center;gap:6px;margin-top:4px;transition:all 0.15s}
+.btn-add:hover{border-color:#1E63FF;color:#1E63FF;background:#EFF6FF}
+.btn-calc{background:linear-gradient(135deg,#0B4DCC,#1E63FF);border:none;border-radius:10px;padding:14px;font-size:16px;font-weight:600;cursor:pointer;color:#fff;width:100%;margin-top:4px;letter-spacing:0.01em;box-shadow:0 4px 14px rgba(11,77,204,0.25);transition:all 0.2s}
+.btn-calc:hover{box-shadow:0 6px 20px rgba(11,77,204,0.35);transform:translateY(-1px)}
+
+/* Result card */
+.result-card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:2rem;margin-top:1.5rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.06);text-align:center}
+.result-card .r-eyebrow{font-size:12px;font-weight:700;color:#0B4DCC;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px}
+.result-card .r-amount{font-size:52px;font-weight:800;color:#0B4DCC;letter-spacing:-2px;line-height:1;margin-bottom:8px}
+.result-card .r-sub{font-size:13px;color:#6B7280;margin-bottom:1.75rem}
+.result-divider{border:none;border-top:1px solid #F3F4F6;margin:0 0 1.5rem}
+
+/* Breakdown grid */
+.breakdown{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left}
+.bk-item{background:#F8FAFC;border:1px solid #E5E7EB;border-radius:10px;padding:14px 16px;border-top:3px solid #1BA7E1}
+.bk-item.deduct{border-top-color:#16A34A}
+.bk-label{font-size:11px;font-weight:600;color:#6B7280;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px}
+.bk-val{font-size:18px;font-weight:700;color:#111827}
+.bk-item.deduct .bk-val{color:#16A34A}
+
+/* Explain card */
+.explain-card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:1.5rem;margin-bottom:1rem;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+.explain-card p{font-size:13px;color:#4B5563;line-height:1.75;margin-bottom:10px}
+.explain-list{list-style:none;padding:0}
+.explain-list li{font-size:13px;color:#4B5563;line-height:1.75;padding-left:18px;position:relative;margin-bottom:4px}
+.explain-list li::before{content:'•';position:absolute;left:0;color:#1E63FF;font-weight:700}
+
+/* FAQ */
+.faq-item{border:1px solid #E5E7EB;border-radius:10px;margin-bottom:8px;overflow:hidden;background:#fff}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q-text{font-size:14px;font-weight:700;color:#111827;line-height:1.4}
+.faq-icon{font-size:18px;color:#0B4DCC;flex-shrink:0;transition:transform 0.25s;line-height:1}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s ease;padding:0 16px;font-size:13px;color:#4B5563;line-height:1.75}
+.faq-a.open{max-height:300px;padding:0 16px 14px}
+.content{padding:1.25rem}
+
+/* Disclaimer */
+.disclaimer{font-size:11.5px;color:#9CA3AF;line-height:1.7;padding:12px 16px;border-radius:10px;border:1px solid #F3F4F6;background:#F9FAFB;margin-bottom:1rem}
+
+@media(max-width:520px){
+  .grid2{grid-template-columns:1fr}
+  .liab-row,.liab-hdr{grid-template-columns:1fr 1fr 32px}
+  .liab-hdr span:nth-child(3),.liab-row .field:nth-child(3){display:none}
+  .goal-row,.goal-hdr{grid-template-columns:1fr 1fr 32px}
+  .goal-hdr span:nth-child(3),.goal-hdr span:nth-child(4),.goal-row .field:nth-child(3),.goal-row .field:nth-child(4){display:none}
+  .breakdown{grid-template-columns:1fr}
+  .result-card .r-amount{font-size:38px}
+  body{padding:0.75rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>Term Insurance Calculator</h1>
+  <p>Find out how much cover your family needs to stay financially secure.</p>
+</div>
+
+<div class="content">
+
+<!-- Personal Information -->
+<div class="card">
+  <div class="section-title"><h2>Personal Information</h2></div>
+  <p class="card-sub">Basic details to frame the calculation</p>
+  <div class="grid2">
+    <div class="field"><label>Current age</label><input type="number" id="curAge" value="32" min="18" max="80"></div>
+    <div class="field"><label>Life expectancy age</label><input type="number" id="lifeExp" value="80" min="40" max="100"></div>
+    <div class="field"><label>Annual household expenses (₹)</label><input type="number" id="annualExp" value="600000"></div>
+    <div class="field"><label>Annual expense inflation (%)</label><input type="number" id="expInfl" value="6" step="0.1"></div>
+    <div class="field"><label>Post-death investment return (%)</label><input type="number" id="invReturn" value="8" step="0.1"></div>
+  </div>
+</div>
+
+<!-- Current Investments -->
+<div class="card">
+  <div class="section-title"><h2>Current Investments</h2></div>
+  <p class="card-sub">Your existing savings reduce the cover required. Include mutual funds, PPF, EPF, FDs, stocks, cash, etc.</p>
+  <div style="max-width:320px">
+    <div class="field"><label>Total investment corpus (₹)</label><input type="number" id="corpus" value="2000000"></div>
+  </div>
+</div>
+
+<!-- Liabilities -->
+<div class="card">
+  <div class="section-title"><h2>Current Liabilities</h2></div>
+  <p class="card-sub">EMIs will be funded from the corpus until each loan ends. No lump-sum payoff assumed.</p>
+  <div class="liab-hdr">
+    <span>Liability name</span><span>Monthly EMI (₹)</span><span>Remaining duration (yrs)</span><span></span>
+  </div>
+  <div id="liabilities-list"></div>
+  <button class="btn-add" onclick="addLiability()">+ Add liability</button>
+</div>
+
+<!-- Future Goals -->
+<div class="card">
+  <div class="section-title"><h2>Future Financial Goals</h2></div>
+  <p class="card-sub">Each goal is inflated independently to its future value.</p>
+  <div class="goal-hdr">
+    <span>Goal name</span><span>Years from today</span><span>Current cost (₹)</span><span>Inflation (%)</span><span></span>
+  </div>
+  <div id="goals-list"></div>
+  <button class="btn-add" onclick="addGoal()">+ Add goal</button>
+</div>
+
+<button class="btn-calc" onclick="calculate()">Calculate My Required Cover →</button>
+
+<!-- Results -->
+<div id="results" style="display:none">
+
+  <!-- Recommended Cover -->
+  <div class="result-card">
+    <div class="r-eyebrow">Recommended Term Insurance Cover Today</div>
+    <div class="r-amount" id="res-amount">₹0</div>
+    <div class="r-sub">Minimum cover needed to protect your family's financial future</div>
+    <hr class="result-divider">
+    <div class="breakdown">
+      <div class="bk-item">
+        <div class="bk-label">Household Expenses</div>
+        <div class="bk-val" id="bk-exp">₹0</div>
+      </div>
+      <div class="bk-item">
+        <div class="bk-label">Future Goals</div>
+        <div class="bk-val" id="bk-goals">₹0</div>
+      </div>
+      <div class="bk-item">
+        <div class="bk-label">EMI Obligations</div>
+        <div class="bk-val" id="bk-emi">₹0</div>
+      </div>
+      <div class="bk-item deduct">
+        <div class="bk-label">Less: Existing Investments</div>
+        <div class="bk-val" id="bk-inv">₹0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How calculated -->
+  <div class="explain-card">
+    <div class="section-title" style="margin-bottom:12px"><h2>How This Amount Was Calculated</h2></div>
+    <p>This estimate is designed to help ensure your family can maintain their lifestyle if you are no longer around. The recommended cover takes into account:</p>
+    <ul class="explain-list">
+      <li>Future household expenses until your chosen life expectancy, growing annually with inflation</li>
+      <li>Any remaining loan EMI obligations, funded year by year until each loan ends</li>
+      <li>Future financial goals adjusted individually for inflation</li>
+      <li>Your existing investment corpus, which reduces the cover required</li>
+    </ul>
+    <p style="margin-top:12px;margin-bottom:0">The recommended cover represents the estimated lump sum required today so your family can meet these obligations, assuming the proceeds are invested at the assumed post-death return rate.</p>
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ This calculator provides an estimate for educational purposes and should not be considered financial advice. Actual insurance needs may vary based on income growth, future savings, changing family circumstances, inflation, investment returns, and other factors. Please consult a qualified financial advisor before purchasing insurance.
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="card" style="margin-top:0.5rem">
+  <div class="section-title" style="margin-bottom:16px"><h2 style="color:#111827">Frequently Asked Questions</h2></div>
+  <div id="faq-list"></div>
+</div>
+
+<script>
+var liabId = 0, goalId = 0;
+
+function n(val, def) {
+  var p = parseFloat(val);
+  return isNaN(p) ? def : p;
+}
+
+function fmt(v) {
+  var neg = v < 0, abs = Math.abs(Math.round(v)), s;
+  if (abs >= 10000000) s = (abs / 10000000).toFixed(2) + ' Cr';
+  else if (abs >= 100000) s = (abs / 100000).toFixed(2) + ' L';
+  else s = abs.toLocaleString('en-IN');
+  return (neg ? '-' : '') + '₹' + s;
+}
+
+function addLiability(name, emi, dur) {
+  name = name !== undefined ? name : '';
+  emi  = emi  !== undefined ? emi  : 45000;
+  dur  = dur  !== undefined ? dur  : 15;
+  var d = document.createElement('div');
+  d.className = 'liab-row';
+  d.innerHTML =
+    '<div class="field"><input type="text" value="' + name + '" placeholder="e.g. Home loan"></div>' +
+    '<div class="field"><input type="number" value="' + emi + '" min="0"></div>' +
+    '<div class="field"><input type="number" value="' + dur + '" min="0.5" step="0.5"></div>' +
+    '<button class="btn-remove" onclick="this.parentElement.remove()">×</button>';
+  document.getElementById('liabilities-list').appendChild(d);
+}
+
+function addGoal(name, yrs, cost, infl) {
+  name = name !== undefined ? name : '';
+  yrs  = yrs  !== undefined ? yrs  : 10;
+  cost = cost !== undefined ? cost : 1000000;
+  infl = infl !== undefined ? infl : 8;
+  var d = document.createElement('div');
+  d.className = 'goal-row';
+  d.innerHTML =
+    '<div class="field"><input type="text" value="' + name + '" placeholder="e.g. Child education"></div>' +
+    '<div class="field"><input type="number" value="' + yrs + '" min="1"></div>' +
+    '<div class="field"><input type="number" value="' + cost + '" min="0"></div>' +
+    '<div class="field"><input type="number" value="' + infl + '" step="0.1"></div>' +
+    '<button class="btn-remove" onclick="this.parentElement.remove()">×</button>';
+  document.getElementById('goals-list').appendChild(d);
+}
+
+function getLiabilities() {
+  var rows = document.querySelectorAll('#liabilities-list .liab-row'), result = [];
+  for (var i = 0; i < rows.length; i++) {
+    var ins = rows[i].querySelectorAll('input');
+    result.push({ name: ins[0].value || 'Liability', emi: n(ins[1].value, 0), dur: n(ins[2].value, 0) });
+  }
+  return result;
+}
+
+function getGoals() {
+  var rows = document.querySelectorAll('#goals-list .goal-row'), result = [];
+  for (var i = 0; i < rows.length; i++) {
+    var ins = rows[i].querySelectorAll('input');
+    result.push({ name: ins[0].value || 'Goal', years: n(ins[1].value, 10), cost: n(ins[2].value, 0), infl: n(ins[3].value, 8) / 100 });
+  }
+  return result;
+}
+
+function simulate(S, corpus, annualExp, r, ei, yrs, liabilities, goals) {
+  var c = corpus + S, exp = annualExp;
+  for (var y = 0; y < yrs; y++) {
+    c -= exp;
+    for (var li = 0; li < liabilities.length; li++) {
+      if (y < liabilities[li].dur) c -= liabilities[li].emi * 12;
+    }
+    for (var gi = 0; gi < goals.length; gi++) {
+      var gy = Math.round(goals[gi].years);
+      if (gy > 0 && gy <= yrs && y === gy - 1)
+        c -= goals[gi].cost * Math.pow(1 + goals[gi].infl, goals[gi].years);
+    }
+    c = c * (1 + r);
+    exp = exp * (1 + ei);
+  }
+  return c;
+}
+
+function calcCover(corpus, annualExp, r, ei, yrs, liabilities, goals) {
+  var lo = 0, hi = 2000000000;
+  for (var i = 0; i < 80; i++) {
+    var mid = (lo + hi) / 2;
+    if (simulate(mid, corpus, annualExp, r, ei, yrs, liabilities, goals) > 0) hi = mid;
+    else lo = mid;
+  }
+  return Math.max(0, (lo + hi) / 2);
+}
+
+function calcBreakdown(corpus, annualExp, r, ei, yrs, liabilities, goals) {
+  var expPV = 0, emiPV = 0, goalPV = 0, exp = annualExp;
+  for (var y = 0; y < yrs; y++) {
+    var disc = Math.pow(1 + r, y);
+    expPV += exp / disc;
+    for (var li = 0; li < liabilities.length; li++) {
+      if (y < liabilities[li].dur) emiPV += (liabilities[li].emi * 12) / disc;
+    }
+    for (var gi = 0; gi < goals.length; gi++) {
+      var gy = Math.round(goals[gi].years);
+      if (gy > 0 && gy <= yrs && y === gy - 1)
+        goalPV += (goals[gi].cost * Math.pow(1 + goals[gi].infl, goals[gi].years)) / disc;
+    }
+    exp = exp * (1 + ei);
+  }
+  return { expPV: expPV, emiPV: emiPV, goalPV: goalPV };
+}
+
+function calculate() {
+  var curAge  = parseInt(document.getElementById('curAge').value)  || 32;
+  var lifeExp = parseInt(document.getElementById('lifeExp').value) || 80;
+  if (lifeExp <= curAge) { alert('Life expectancy must be greater than current age.'); return; }
+  var expInfl   = n(document.getElementById('expInfl').value,  6);
+  var invReturn = n(document.getElementById('invReturn').value, 8);
+  var corpus    = n(document.getElementById('corpus').value,    0);
+  var annualExp = n(document.getElementById('annualExp').value, 0);
+  var r = invReturn / 100, ei = expInfl / 100, yrs = lifeExp - curAge;
+  var liabilities = getLiabilities(), goals = getGoals();
+  var cover = calcCover(corpus, annualExp, r, ei, yrs, liabilities, goals);
+  var bd    = calcBreakdown(corpus, annualExp, r, ei, yrs, liabilities, goals);
+  document.getElementById('res-amount').textContent  = fmt(cover);
+  document.getElementById('bk-exp').textContent      = fmt(bd.expPV);
+  document.getElementById('bk-goals').textContent    = fmt(bd.goalPV);
+  document.getElementById('bk-emi').textContent      = fmt(bd.emiPV);
+  document.getElementById('bk-inv').textContent      = fmt(corpus);
+  var res = document.getElementById('results');
+  res.style.display = 'block';
+  res.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// FAQ
+var faqs = [
+  { q: "How much term insurance cover do I really need?",
+    a: "The ideal term insurance cover depends on your family's future financial needs, outstanding liabilities, long-term goals, and existing investments. This calculator estimates the minimum cover required to help your dependents maintain their lifestyle if you are no longer around." },
+  { q: "Why is my recommended cover higher than my annual income?",
+    a: "Many traditional rules suggest buying cover equal to 10–20 times annual income. However, this calculator uses your actual expenses, loans, future goals, and investment assumptions, which may result in a higher or lower recommendation depending on your circumstances." },
+  { q: "Should I include my spouse's income?",
+    a: "If your spouse's income would continue even after your death, you may reduce household expenses accordingly before entering them into the calculator. If the income is uncertain or temporary, it may be safer not to rely on it." },
+  { q: "Should I include all my investments?",
+    a: "Include investments that your family could realistically access and use for future financial needs, such as mutual funds, fixed deposits, stocks, EPF balances, and other financial assets. Do not include assets that may be difficult to liquidate quickly unless you expect your family to rely on them." },
+  { q: "Why does inflation matter when calculating insurance needs?",
+    a: "The cost of living generally increases over time. A family that needs ₹50,000 per month today may require significantly more in the future. Accounting for inflation helps estimate the true amount needed to support future expenses." },
+  { q: "What life expectancy should I use?",
+    a: "You may use your expected life expectancy based on family history, health conditions, and personal assumptions. If unsure, using a conservative estimate such as 80–90 years can provide a larger safety margin." },
+  { q: "Does this calculator replace financial advice?",
+    a: "No. The result is an educational estimate based on the assumptions you provide. A qualified financial advisor can help evaluate additional factors such as taxes, estate planning, insurance riders, and changing family circumstances." },
+  { q: "What happens if I already have term insurance?",
+    a: "You can compare your existing coverage with the recommended amount. If your current cover is lower than the estimated requirement, you may want to evaluate whether additional coverage is necessary." },
+  { q: "Should I buy exactly the amount suggested by the calculator?",
+    a: "The result should be viewed as a starting point. Some individuals prefer to add an additional safety buffer for unexpected expenses, healthcare costs, or future lifestyle changes." },
+  { q: "How often should I review my term insurance needs?",
+    a: "It is generally advisable to review your coverage after major life events such as marriage, having children, taking a home loan, significant income changes, or building substantial investments." }
+];
+
+var faqContainer = document.getElementById('faq-list');
+for (var fi = 0; fi < faqs.length; fi++) {
+  (function(f) {
+    var item = document.createElement('div');
+    item.className = 'faq-item';
+    var btn = document.createElement('button');
+    btn.className = 'faq-q';
+    btn.innerHTML = '<span class="faq-q-text">' + f.q + '</span><span class="faq-icon">+</span>';
+    var ans = document.createElement('div');
+    ans.className = 'faq-a';
+    ans.textContent = f.a;
+    btn.onclick = function() {
+      var icon = btn.querySelector('.faq-icon');
+      var isOpen = ans.classList.contains('open');
+      ans.classList.toggle('open', !isOpen);
+      icon.classList.toggle('open', !isOpen);
+    };
+    item.appendChild(btn);
+    item.appendChild(ans);
+    faqContainer.appendChild(item);
+  })(faqs[fi]);
+}
+
+// Defaults
+addLiability('Home loan',   45000, 15);
+addLiability('Car loan',    12000,  5);
+addGoal("Children's Education", 10, 1500000, 8);
+addGoal("Children's Marriage",  20, 2000000, 7);
+</script>
+</div><!-- end .content -->
+</body>
+</html>
