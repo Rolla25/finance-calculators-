@@ -201,6 +201,12 @@ select.pg-select{border:1.5px solid var(--border);border-radius:7px;padding:6px 
 
 
 
+  <!-- FAQ SECTION -->
+  <div style="margin-top:28px">
+    <div class="section-title">Frequently Asked Questions</div>
+    <div id="faqList" style="display:flex;flex-direction:column;gap:8px"></div>
+  </div>
+
 </div>
 
 <script>
@@ -576,6 +582,61 @@ document.querySelectorAll('input,select').forEach(el=>{
   el.addEventListener('change',recalc);
 });
 
+// ─── FAQ ──────────────────────────────────────────────────────────
+const faqs=[
+  ["How is EPF interest calculated?",
+   "EPF interest is calculated on the monthly running balance throughout the financial year. The accumulated interest is credited to the account at the end of the financial year."],
+  ["What is the current EPF interest rate?",
+   "The EPF interest rate is declared by the Employees' Provident Fund Organisation (EPFO) and may change from time to time. This calculator uses the rate shown in the input section."],
+  ["What is the difference between EPF and EPS?",
+   "EPF is a retirement savings account that earns interest, while EPS (Employee Pension Scheme) is a pension benefit provided by the government and does not earn interest."],
+  ["Does the entire employer contribution go to EPF?",
+   "No. A portion of the employer's contribution is allocated to EPS, while the remaining amount is credited to your EPF account."],
+  ["Can I calculate EPF on my full salary instead of ₹15,000?",
+   "Yes. If your employer contributes based on your actual Basic Salary + DA, you can choose the full salary option in the calculator."],
+  ["How does salary growth affect my EPF corpus?",
+   "A higher salary generally leads to higher EPF contributions, which can significantly increase your retirement corpus over time."],
+  ["Is EPF interest compounded monthly or yearly?",
+   "Interest is calculated on monthly balances but is credited to the EPF account once every financial year."],
+  ["Are EPF withdrawals taxable?",
+   "Tax treatment depends on factors such as your years of service and withdrawal conditions. Generally, EPF withdrawals after 5 years of continuous service are tax-free under current rules. Consult the latest tax regulations or a qualified tax advisor for your specific situation."]
+];
+
+let openFaq=-1;
+
+function renderFAQ(){
+  const container=document.getElementById('faqList');
+  container.innerHTML=faqs.map((f,i)=>`
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(30,64,175,.06)">
+      <button onclick="toggleFaq(${i})" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:none;border:none;cursor:pointer;text-align:left;gap:12px">
+        <span style="font-size:13.5px;font-weight:600;color:var(--text);line-height:1.4">${f[0]}</span>
+        <span id="faq-icon-${i}" style="flex-shrink:0;font-size:16px;color:var(--primary);transition:transform .25s;display:inline-block">﹢</span>
+      </button>
+      <div id="faq-body-${i}" style="max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;padding:0 18px">
+        <p style="font-size:12px;color:var(--muted);line-height:1.7;padding-bottom:14px;margin:0">${f[1]}</p>
+      </div>
+    </div>`).join('');
+}
+
+function toggleFaq(i){
+  const prev=openFaq;
+  if(prev===i){openFaq=-1;}else{openFaq=i;}
+  faqs.forEach((_,idx)=>{
+    const body=document.getElementById(`faq-body-${idx}`);
+    const icon=document.getElementById(`faq-icon-${idx}`);
+    if(idx===openFaq){
+      body.style.maxHeight=body.scrollHeight+20+'px';
+      body.style.paddingTop='4px';
+      icon.style.transform='rotate(45deg)';
+    } else {
+      body.style.maxHeight='0';
+      body.style.paddingTop='0';
+      icon.style.transform='rotate(0deg)';
+    }
+  });
+}
+
+renderFAQ();
 recalc();
 </script>
 </body>
