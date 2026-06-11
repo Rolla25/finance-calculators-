@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Term Insurance Premium Comparison Calculator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F8FAFC;color:#111827;min-height:100vh;font-size:15px}
+
+.hero{background:linear-gradient(135deg,#0B4DCC 0%,#1E63FF 55%,#1BA7E1 100%);border-radius:12px;padding:2rem 1.5rem;text-align:center;margin-bottom:1.5rem}
+.hero h1{color:#fff;font-size:1.45rem;font-weight:700;letter-spacing:.01em}
+.hero p{color:rgba(255,255,255,.82);font-size:.88rem;margin-top:.45rem}
+
+.container{max-width:920px;margin:0 auto;padding:1.25rem}
+
+.card{background:#fff;border:1px solid #E5E7EB;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.05);padding:1.4rem;margin-bottom:1rem}
+
+.section-title{display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem}
+.section-title .bar{width:4px;height:1.15rem;background:#0B4DCC;border-radius:2px;flex-shrink:0}
+.section-title span{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#0B4DCC}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+@media(max-width:540px){.form-grid{grid-template-columns:1fr}}
+
+.form-group{display:flex;flex-direction:column;gap:.3rem}
+.form-group label{font-size:.78rem;font-weight:600;color:#374151}
+.form-group input{height:40px;border:1px solid #E5E7EB;border-radius:8px;padding:0 .8rem;font-size:.9rem;color:#111827;outline:none;background:#fff;transition:border .15s,box-shadow .15s}
+.form-group input:focus{border-color:#1E63FF;box-shadow:0 0 0 3px rgba(30,99,255,.1)}
+.form-group .hint{font-size:.72rem;color:#6B7280;line-height:1.45;margin-top:.15rem}
+
+.prefix-input{position:relative}
+.prefix-input span{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);font-size:.85rem;color:#6B7280;pointer-events:none}
+.prefix-input input{padding-left:1.55rem}
+.suffix-input{position:relative}
+.suffix-input span{position:absolute;right:.7rem;top:50%;transform:translateY(-50%);font-size:.85rem;color:#6B7280;pointer-events:none}
+.suffix-input input{padding-right:1.8rem}
+
+.calc-btn{display:block;width:100%;padding:.9rem;background:linear-gradient(135deg,#0B4DCC,#1E63FF);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:1rem;letter-spacing:.01em;transition:opacity .15s,transform .1s}
+.calc-btn:hover{opacity:.9;transform:translateY(-1px)}
+
+.error-banner{background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;padding:.75rem 1rem;margin-top:.75rem;font-size:.82rem;color:#dc2626;display:none}
+.warning-banner{background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:.75rem 1rem;margin-top:.75rem;font-size:.82rem;color:#92400e;display:none}
+
+.results{display:none}
+
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:.75rem}
+.metric-card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:1rem;text-align:center;border-top:3px solid #E5E7EB}
+.metric-card.blue{border-top-color:#1E63FF}
+.metric-card.green{border-top-color:#16A34A}
+.metric-card.red{border-top-color:#dc2626}
+.metric-card .m-label{font-size:.68rem;font-weight:600;color:#6B7280;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem}
+.metric-card .m-value{font-size:1.1rem;font-weight:700;color:#111827}
+.metric-card.blue .m-value{color:#1E63FF}
+.metric-card.green .m-value{color:#16A34A}
+.metric-card.red .m-value{color:#dc2626}
+
+.insight-card{border-radius:12px;padding:1rem 1.25rem;display:flex;gap:.75rem;align-items:flex-start;margin-bottom:1rem}
+.insight-card.green{background:#f0fdf4;border:1px solid #86efac}
+.insight-card.amber{background:#fffbeb;border:1px solid #fcd34d}
+.insight-icon{font-size:1.4rem;flex-shrink:0;margin-top:.05rem}
+.insight-card p{font-size:.85rem;line-height:1.6;color:#374151}
+
+.comparison-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.comparison-table th{background:#0B4DCC;color:#fff;padding:.65rem 1rem;text-align:left;font-weight:600;font-size:.75rem}
+.comparison-table th:not(:first-child){text-align:right}
+.comparison-table th.col-b{background:#1BA7E1}
+.comparison-table td{padding:.6rem 1rem;border-bottom:1px solid #F3F4F6;vertical-align:middle}
+.comparison-table td:not(:first-child){text-align:right}
+.comparison-table tr:last-child td{border-bottom:none}
+.comparison-table tr:hover td{background:#F8FAFC}
+.comparison-table .row-label{color:#374151;font-weight:500}
+.favorable{background:#f0fdf4!important;font-weight:700;color:#16A34A!important}
+
+.projection-table{width:100%;border-collapse:collapse;font-size:.78rem}
+.projection-table th{background:#0B4DCC;color:#fff;padding:.55rem .8rem;text-align:right;font-weight:600;font-size:.72rem;position:sticky;top:0;z-index:1}
+.projection-table th:first-child{text-align:left}
+.projection-table td{padding:.48rem .8rem;border-bottom:1px solid #F3F4F6;text-align:right;white-space:nowrap}
+.projection-table td:first-child{text-align:left;font-weight:600;color:#111827}
+.projection-table tr:hover td{background:#F0F7FF}
+.projection-table .gain{color:#16A34A}
+.projection-table .loss{color:#dc2626}
+.projection-table tr:last-child td{border-bottom:none}
+
+.table-scroll{overflow-x:auto;border:1px solid #E5E7EB;border-radius:12px;margin-bottom:1rem}
+.table-scroll-fixed{overflow-x:auto;overflow-y:auto;max-height:420px;border:1px solid #E5E7EB;border-radius:12px;margin-bottom:1rem}
+
+.chart-container{position:relative;width:100%;height:260px}
+
+.disclaimer{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:1.1rem 1.25rem;font-size:.76rem;color:#6B7280;line-height:1.7}
+.disclaimer strong{color:#374151}
+
+/* FAQ */
+.faq-item{background:#fff;border:1px solid #E5E7EB;border-radius:14px;margin-bottom:.65rem;overflow:hidden}
+.faq-question{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.15rem;cursor:pointer;gap:.75rem}
+.faq-question span{font-size:.88rem;font-weight:600;color:#0B4DCC;line-height:1.45}
+.faq-icon{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#EFF6FF;display:flex;align-items:center;justify-content:center;transition:transform .25s}
+.faq-icon svg{width:12px;height:12px;stroke:#0B4DCC;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.faq-item.open .faq-icon{transform:rotate(180deg)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;padding:0 1.15rem}
+.faq-item.open .faq-answer{max-height:400px;padding-bottom:1rem}
+.faq-answer p{font-size:.84rem;color:#4B5563;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <h1>Term Insurance Premium Comparison Calculator</h1>
+    <p>Compare Short-Pay vs Long-Pay strategy and visualize the opportunity cost</p>
+  </header>
+
+  <div class="card">
+    <div class="section-title"><div class="bar"></div><span>Personal Details</span></div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="currentAge">Current Age (years)</label>
+        <input type="number" id="currentAge" min="18" max="70" placeholder="e.g. 30">
+      </div>
+      <div class="form-group">
+        <label for="endAge">Policy End Age (years)</label>
+        <input type="number" id="endAge" min="19" max="99" placeholder="e.g. 85">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-grid" style="margin-bottom:1rem">
+    <div class="card" style="margin-bottom:0">
+      <div class="section-title"><div class="bar"></div><span>Short Pay Option</span></div>
+      <div class="form-group" style="margin-bottom:.85rem">
+        <label for="shortPayDuration">Premium Payment Duration (years)</label>
+        <input type="number" id="shortPayDuration" min="1" placeholder="e.g. 10">
+      </div>
+      <div class="form-group">
+        <label for="shortPayPremium">Annual Premium</label>
+        <div class="prefix-input">
+          <span>₹</span>
+          <input type="number" id="shortPayPremium" min="1" placeholder="e.g. 83924">
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="section-title"><div class="bar"></div><span>Long Pay Option</span></div>
+      <div class="form-group" style="margin-bottom:.85rem">
+        <label for="longPayDuration">Premium Payment Duration (years)</label>
+        <input type="number" id="longPayDuration" min="1" placeholder="e.g. 60">
+      </div>
+      <div class="form-group">
+        <label for="longPayPremium">Annual Premium</label>
+        <div class="prefix-input">
+          <span>₹</span>
+          <input type="number" id="longPayPremium" min="1" placeholder="e.g. 31355">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title"><div class="bar"></div><span>Investment Assumptions</span></div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="returnRate">Expected Annual Return (%)</label>
+        <div class="suffix-input">
+          <input type="number" id="returnRate" min="0.1" step="0.1" placeholder="7.1">
+          <span>%</span>
+        </div>
+        <span class="hint">Use a conservative long-term return assumption. Higher assumed returns may make the long-pay strategy appear more attractive than it may be in reality.</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="errorBanner" class="error-banner" role="alert"></div>
+  <div id="warningBanner" class="warning-banner" role="alert"></div>
+
+  <button class="calc-btn" onclick="calculate()">Calculate &amp; Compare</button>
+
+  <div class="results" id="results">
+    <div style="height:1.25rem"></div>
+
+    <div class="card">
+      <div class="section-title"><div class="bar"></div><span>Results Summary</span></div>
+      <div class="metric-grid" id="metricGrid"></div>
+    </div>
+
+    <div id="insightCard" class="insight-card"></div>
+
+    <div class="card">
+      <div class="section-title"><div class="bar"></div><span>Side-by-Side Comparison</span></div>
+      <div class="table-scroll">
+        <table class="comparison-table" id="comparisonTable">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Short Pay Option</th>
+              <th class="col-b">Long Pay + Invest Difference</th>
+            </tr>
+          </thead>
+          <tbody id="comparisonBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title"><div class="bar"></div><span>Corpus Growth During Investment Phase</span></div>
+      <div class="chart-container">
+        <canvas id="chart1" role="img" aria-label="Line chart showing corpus growth during the investment phase"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title"><div class="bar"></div><span>Corpus Value After Paying Future Premiums</span></div>
+      <div class="chart-container">
+        <canvas id="chart2" role="img" aria-label="Line chart showing corpus trajectory after paying long-pay premiums"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title"><div class="bar"></div><span>Year-by-Year Corpus Projection</span></div>
+      <div class="table-scroll-fixed">
+        <table class="projection-table">
+          <thead>
+            <tr>
+              <th style="text-align:left">Age</th>
+              <th>Opening Corpus</th>
+              <th>Investment Return</th>
+              <th>Premium Paid</th>
+              <th>Net Gain/Loss</th>
+              <th>Closing Corpus</th>
+            </tr>
+          </thead>
+          <tbody id="projectionBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="card">
+      <div class="section-title"><div class="bar"></div><span>Frequently Asked Questions</span></div>
+      <div id="faqList"></div>
+    </div>
+
+    <div class="disclaimer">
+      <strong>Important:</strong> This calculator is for educational purposes only. Results depend heavily on the investment return assumption used. Always use conservative return assumptions and consult a qualified financial advisor before making insurance or investment decisions.<br><br>
+      This calculator compares opportunity cost and investment outcomes. It does not account for taxes, inflation, policy features, lapses, rider benefits, or future changes in investment returns.
+    </div>
+  </div>
+</div>
+
+<script>
+let chart1Inst=null,chart2Inst=null;
+
+// ---- FAQ DATA ----
+const faqs=[
+  {q:"What is a Short Pay term insurance plan?",a:"A Short Pay plan allows you to stop paying premiums after a limited number of years while keeping life insurance coverage active until the policy end age. Premiums are typically higher than a regular long-pay policy because they are paid over a shorter period."},
+  {q:"What is a Long Pay term insurance plan?",a:"A Long Pay plan spreads premium payments over a much longer duration, often until retirement or close to the policy end age. Annual premiums are usually lower, but the total premium paid over the life of the policy may be higher."},
+  {q:"What does \"Premium Difference Invested\" mean?",a:"The calculator assumes that instead of paying the higher Short Pay premium, you invest the annual savings generated by choosing the Long Pay option. It then projects how this investment could grow over time."},
+  {q:"How is the corpus created?",a:"The corpus is calculated by investing the annual premium savings for the duration of the Short Pay payment period and compounding it at the return rate you enter. The resulting amount is then used to evaluate whether future premiums can be funded from investment returns."},
+  {q:"What is the Required Return Rate?",a:"The Required Return Rate represents the minimum annual return needed for the accumulated corpus to generate enough income to pay future premiums after the Short Pay period would have ended."},
+  {q:"What does Annual Surplus or Shortfall mean?",a:"After estimating investment income from the corpus, the calculator compares that income with future premiums under the Long Pay plan. A surplus means the corpus generates more income than required, while a shortfall means additional funds would be needed."},
+  {q:"Does a larger corpus automatically mean the Long Pay option is better?",a:"Not necessarily. The decision depends on your cash flow, investment discipline, risk tolerance, and expected returns. The calculator helps compare the financial trade-offs but does not determine which option is universally better."},
+  {q:"Why can a Long Pay policy sometimes cost more overall despite lower annual premiums?",a:"Because premiums are paid for many more years. While the annual outflow is smaller, the cumulative premiums paid over the policy's lifetime can exceed the total paid under a Short Pay plan."},
+  {q:"What return assumption should I use?",a:"A conservative long term post tax return assumption is generally more realistic. Using very high return assumptions can make the Long Pay strategy appear more attractive than it may actually be."},
+  {q:"What happens if my actual investment returns are lower than expected?",a:"The projected corpus may be smaller than estimated, which could reduce or eliminate any expected surplus. This is why it is important to test multiple return assumptions before making a decision."},
+  {q:"Can this calculator help me choose between two actual insurance policies?",a:"Yes. If both policies provide similar life cover and benefits, you can compare their premium structures to understand the opportunity cost and potential investment outcomes of each option."},
+  {q:"Why does the calculator show a year-by-year corpus projection?",a:"The year-by-year breakdown helps you understand how the investment corpus grows, how much return it generates each year, and whether it can sustainably support future premium payments."}
+];
+
+// Build FAQ
+const faqList=document.getElementById('faqList');
+faqs.forEach((f,i)=>{
+  const item=document.createElement('div');
+  item.className='faq-item';
+  item.setAttribute('itemscope','');
+  item.setAttribute('itemtype','https://schema.org/Question');
+  item.innerHTML=`
+    <div class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" role="button" tabindex="0">
+      <span itemprop="name">${f.q}</span>
+      <div class="faq-icon" aria-hidden="true"><svg viewBox="0 0 12 12"><polyline points="1,3 6,9 11,3"/></svg></div>
+    </div>
+    <div class="faq-answer" itemscope itemtype="https://schema.org/Answer" itemprop="acceptedAnswer"><p itemprop="text">${f.a}</p></div>`;
+  faqList.appendChild(item);
+});
+
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item');
+  const open=item.classList.contains('open');
+  item.classList.toggle('open',!open);
+  btn.setAttribute('aria-expanded',String(!open));
+}
+
+// ---- NUMBER FORMAT ----
+function formatINR(n){
+  if(isNaN(n))return'—';
+  n=Math.round(n);
+  const s=Math.abs(n).toString();
+  let res='';
+  const last3=s.slice(-3);
+  const rest=s.slice(0,-3);
+  res=last3;
+  let i=rest.length;
+  while(i>0){res=(i>=2?rest.slice(i-2,i):rest.slice(0,i))+','+res;i-=2;}
+  return(n<0?'-₹':'₹')+res;
+}
+function fmtPct(n){return isNaN(n)?'—':n.toFixed(2)+'%';}
+
+function showError(msg){
+  const el=document.getElementById('errorBanner');
+  el.textContent=msg;el.style.display='block';
+  document.getElementById('warningBanner').style.display='none';
+  document.getElementById('results').style.display='none';
+}
+function showWarning(msg){
+  const el=document.getElementById('warningBanner');
+  el.textContent=msg;el.style.display='block';
+  document.getElementById('errorBanner').style.display='none';
+  document.getElementById('results').style.display='none';
+}
+function clearAlerts(){
+  document.getElementById('errorBanner').style.display='none';
+  document.getElementById('warningBanner').style.display='none';
+}
+
+// ---- CALCULATE ----
+function calculate(){
+  clearAlerts();
+  const curAge=parseFloat(document.getElementById('currentAge').value);
+  const endAge=parseFloat(document.getElementById('endAge').value);
+  const spDur=parseFloat(document.getElementById('shortPayDuration').value);
+  const lpDur=parseFloat(document.getElementById('longPayDuration').value);
+  const spPrem=parseFloat(document.getElementById('shortPayPremium').value);
+  const lpPrem=parseFloat(document.getElementById('longPayPremium').value);
+  const rateInput=document.getElementById('returnRate').value;
+  const rate=rateInput===''?7.1:parseFloat(rateInput);
+
+  if(!curAge||isNaN(curAge)){return showError('Please enter your current age.');}
+  if(!endAge||isNaN(endAge)){return showError('Please enter the policy end age.');}
+  if(curAge>=endAge){return showError('Policy end age must be greater than current age.');}
+  if(!spDur||spDur<=0){return showError('Short-pay premium payment duration must be greater than 0.');}
+  if(!lpDur||lpDur<=0){return showError('Long-pay premium payment duration must be greater than 0.');}
+  if(lpDur<=spDur){return showError('Long-pay duration must be greater than short-pay duration.');}
+  if(curAge+spDur>endAge){return showError('Premium payment duration cannot exceed the policy end age. Please reduce the payment duration or increase the policy end age.');}
+  if(curAge+lpDur>endAge){return showError('Premium payment duration cannot exceed the policy end age. Please reduce the payment duration or increase the policy end age.');}
+  if(!spPrem||spPrem<=0){return showError('Short-pay annual premium must be greater than 0.');}
+  if(!lpPrem||lpPrem<=0){return showError('Long-pay annual premium must be greater than 0.');}
+  if(isNaN(rate)||rate<=0){return showError('Expected annual return must be greater than 0.');}
+
+  const diff=spPrem-lpPrem;
+  if(diff<=0){return showWarning('The long-pay premium must be lower than the short-pay premium for this comparison.');}
+
+  const r=rate/100;
+
+  let corpus=0;
+  const corpusTimeline=[];
+  for(let y=1;y<=spDur;y++){
+    corpus=corpus*(1+r)+diff;
+    corpusTimeline.push({year:y,corpus});
+  }
+
+  const totalInvested=diff*spDur;
+  const corpusAtEnd=corpus;
+  const annualIncome=corpusAtEnd*r;
+  const requiredReturn=(lpPrem/corpusAtEnd)*100;
+  const surplus=annualIncome-lpPrem;
+  const yearsRemainingOnLP=lpDur-spDur;
+  const spTotalPremium=spPrem*spDur;
+  const lpTotalPremium=lpPrem*lpDur;
+
+  // Metrics
+  const metrics=[
+    {label:'Annual Premium Difference',value:formatINR(diff),cls:'blue'},
+    {label:'Total Amount Invested',value:formatINR(totalInvested),cls:''},
+    {label:'Corpus Created',value:formatINR(corpusAtEnd),cls:'green'},
+    {label:'Required Return Rate',value:fmtPct(requiredReturn),cls:requiredReturn>rate?'red':'green'},
+    {label:'Annual Income from Corpus',value:formatINR(annualIncome),cls:'green'},
+    {label:'Annual Surplus / Shortfall',value:formatINR(surplus),cls:surplus>=0?'green':'red'},
+    {label:'Years Remaining (Long Pay)',value:yearsRemainingOnLP+' yrs',cls:'blue'},
+  ];
+  document.getElementById('metricGrid').innerHTML=metrics.map(m=>`<div class="metric-card ${m.cls}"><div class="m-label">${m.label}</div><div class="m-value">${m.value}</div></div>`).join('');
+
+  // Insight
+  const ic=document.getElementById('insightCard');
+  if(surplus>=0){
+    ic.className='insight-card green';
+    ic.innerHTML=`<div class="insight-icon">✅</div><p>The corpus generated by investing the premium difference can theoretically fund future insurance premiums from investment returns alone, leaving a <strong>surplus of ${formatINR(surplus)} per year</strong>.</p>`;
+  } else {
+    ic.className='insight-card amber';
+    ic.innerHTML=`<div class="insight-icon">⚠️</div><p>The corpus may partially offset future premiums but requires <strong>withdrawals from principal</strong> (shortfall of ${formatINR(Math.abs(surplus))} per year). Consider a more conservative strategy.</p>`;
+  }
+
+  // Comparison table
+  const rows=[
+    ['Annual Premium',formatINR(spPrem),formatINR(lpPrem),'b'],
+    ['Premium Payment Duration',spDur+' years',lpDur+' years',null],
+    ['Total Premium Paid',formatINR(spTotalPremium),formatINR(lpTotalPremium),spTotalPremium<lpTotalPremium?'a':'b'],
+    ['Premium Difference Invested','—',formatINR(totalInvested),'b'],
+    ['Corpus Created','—',formatINR(corpusAtEnd),'b'],
+    ['Required Return Rate','—',fmtPct(requiredReturn),null],
+    ['Annual Income from Corpus','—',formatINR(annualIncome),null],
+    ['Annual Surplus / Shortfall','—',formatINR(surplus),surplus>=0?'b':null],
+    ['Years Remaining After Short Pay Ends','—',yearsRemainingOnLP+' years',null],
+    ['Potential Asset Created','—',formatINR(corpusAtEnd),'b'],
+  ];
+  document.getElementById('comparisonBody').innerHTML=rows.map(([label,a,b,fav])=>{
+    const aC=fav==='a'?'favorable':'';
+    const bC=fav==='b'?'favorable':'';
+    return`<tr><td class="row-label">${label}</td><td class="${aC}">${a}</td><td class="${bC}">${b}</td></tr>`;
+  }).join('');
+
+  // Projection
+  let projRows='';
+  const projData=[];
+  let open=corpusAtEnd;
+  const startAge=curAge+spDur;
+  const endProjAge=Math.min(curAge+lpDur,endAge);
+  for(let age=startAge+1;age<=endProjAge;age++){
+    if(open<=0&&age>startAge+1)break;
+    const invReturn=open*r;
+    const premPaid=lpPrem;
+    const netGL=invReturn-premPaid;
+    const close=open+netGL;
+    projRows+=`<tr>
+      <td>${age}</td>
+      <td>${formatINR(open)}</td>
+      <td class="gain">${formatINR(invReturn)}</td>
+      <td class="loss">${formatINR(premPaid)}</td>
+      <td class="${netGL>=0?'gain':'loss'}">${formatINR(netGL)}</td>
+      <td>${formatINR(close)}</td>
+    </tr>`;
+    projData.push({age,close:Math.max(close,0)});
+    open=close;
+    if(close<=0)break;
+  }
+  document.getElementById('projectionBody').innerHTML=projRows;
+
+  // Charts
+  if(chart1Inst)chart1Inst.destroy();
+  if(chart2Inst)chart2Inst.destroy();
+
+  chart1Inst=new Chart(document.getElementById('chart1'),{
+    type:'line',
+    data:{
+      labels:corpusTimeline.map(d=>d.year),
+      datasets:[{
+        label:'Corpus Value',
+        data:corpusTimeline.map(d=>d.corpus),
+        borderColor:'#0B4DCC',
+        backgroundColor:'rgba(11,77,204,.07)',
+        fill:true,tension:.35,
+        pointRadius:corpusTimeline.length>20?0:3,borderWidth:2
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>formatINR(ctx.raw)}}},
+      scales:{
+        x:{title:{display:true,text:'Year',font:{size:11}},ticks:{font:{size:10}}},
+        y:{title:{display:true,text:'Corpus (₹)',font:{size:11}},ticks:{callback:v=>formatINR(v),font:{size:10}}}
+      }
+    }
+  });
+
+  const growing=projData.length>0&&projData[projData.length-1].close>corpusAtEnd;
+  chart2Inst=new Chart(document.getElementById('chart2'),{
+    type:'line',
+    data:{
+      labels:projData.map(d=>d.age),
+      datasets:[{
+        label:'Corpus After Premium',
+        data:projData.map(d=>d.close),
+        borderColor:growing?'#16A34A':'#dc2626',
+        backgroundColor:growing?'rgba(22,163,74,.07)':'rgba(220,38,38,.07)',
+        fill:true,tension:.35,
+        pointRadius:projData.length>20?0:3,borderWidth:2
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>formatINR(ctx.raw)}}},
+      scales:{
+        x:{title:{display:true,text:'Age',font:{size:11}},ticks:{font:{size:10}}},
+        y:{title:{display:true,text:'Corpus (₹)',font:{size:11}},ticks:{callback:v=>formatINR(v),font:{size:10}}}
+      }
+    }
+  });
+
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>
