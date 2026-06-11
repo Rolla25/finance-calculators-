@@ -14,19 +14,19 @@
 
 body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    background:#f7f9fc;
-    color:#222;
+    background:#f5f7fb;
+    color:#1f2937;
 }
 
 .container{
-    max-width:1200px;
+    max-width:1300px;
     margin:auto;
     padding:60px 20px;
 }
 
 .hero{
     text-align:center;
-    margin-bottom:50px;
+    margin-bottom:60px;
 }
 
 .hero h1{
@@ -36,34 +36,35 @@ body{
 
 .hero p{
     font-size:20px;
-    color:#666;
+    color:#6b7280;
 }
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
     gap:30px;
 }
 
 .card{
-    background:#fff;
-    border-radius:16px;
+    background:white;
+    border-radius:18px;
     padding:32px;
-    box-shadow:0 4px 20px rgba(0,0,0,0.08);
     text-align:center;
-    transition:.3s;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+    transition:0.25s;
 }
 
 .card:hover{
-    transform:translateY(-5px);
+    transform:translateY(-6px);
 }
 
 .card h2{
     margin-bottom:15px;
+    font-size:28px;
 }
 
 .card p{
-    color:#666;
+    color:#6b7280;
     line-height:1.6;
     min-height:70px;
 }
@@ -73,7 +74,7 @@ body{
     margin-top:20px;
     padding:12px 24px;
     background:#2563eb;
-    color:#fff;
+    color:white;
     text-decoration:none;
     border-radius:8px;
     font-weight:600;
@@ -85,8 +86,8 @@ body{
 
 footer{
     text-align:center;
-    margin-top:70px;
-    color:#777;
+    margin-top:80px;
+    color:#6b7280;
 }
 </style>
 </head>
@@ -97,39 +98,45 @@ footer{
 
     <div class="hero">
         <h1>Corpusly Financial Calculators</h1>
-        <p>Free financial calculators for smarter investing and retirement planning.</p>
+        <p>Free financial calculators for investing, retirement planning and insurance decisions.</p>
     </div>
 
     <div class="grid">
 
         <div class="card">
             <h2>SIP Calculator</h2>
-            <p>Calculate SIP returns, step-up SIP growth and future portfolio value.</p>
+            <p>Calculate SIP returns, future value and step-up SIP growth.</p>
             <a href="sip.html" class="btn">Open Calculator</a>
         </div>
 
         <div class="card">
             <h2>Retirement Planner</h2>
-            <p>Plan your retirement corpus and estimate future financial requirements.</p>
+            <p>Estimate retirement corpus and long-term financial goals.</p>
             <a href="retirementplanner.html" class="btn">Open Calculator</a>
         </div>
 
         <div class="card">
             <h2>EPF Calculator</h2>
-            <p>Estimate EPF accumulation, interest earnings and retirement savings.</p>
+            <p>Project EPF growth, interest earnings and retirement savings.</p>
             <a href="epf.html" class="btn">Open Calculator</a>
         </div>
 
         <div class="card">
             <h2>PPF Calculator</h2>
-            <p>Calculate Public Provident Fund maturity value and yearly growth.</p>
+            <p>Calculate PPF maturity value and yearly corpus growth.</p>
             <a href="ppf.html" class="btn">Open Calculator</a>
         </div>
 
         <div class="card">
             <h2>Term Insurance Calculator</h2>
-            <p>Estimate the amount of life insurance cover your family may need.</p>
+            <p>Estimate how much life insurance cover your family may need.</p>
             <a href="termcoverage.html" class="btn">Open Calculator</a>
+        </div>
+
+        <div class="card">
+            <h2>Insurance Premium Comparator</h2>
+            <p>Compare premiums across insurers and identify cost-effective options.</p>
+            <a href="premiumcomparer.html" class="btn">Open Calculator</a>
         </div>
 
     </div>
