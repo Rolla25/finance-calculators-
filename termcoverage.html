@@ -98,7 +98,9 @@ input:focus{outline:none;border-color:#1E63FF;box-shadow:0 0 0 3px rgba(30,99,25
   .content{padding:0.75rem}
   .hero{padding:1.5rem 1rem}
   .hero h1{font-size:20px}
+  .row-label{display:block}
 }
+.row-label{display:none;font-size:11px;font-weight:600;color:#6B7280;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px}
 </style>
 </head>
 <body>
@@ -233,9 +235,9 @@ function addLiability(name, emi, dur) {
   var d = document.createElement('div');
   d.className = 'liab-row';
   d.innerHTML =
-    '<div class="field"><input type="text" value="' + name + '" placeholder="e.g. Home loan"></div>' +
-    '<div class="field"><input type="number" value="' + emi + '" min="0"></div>' +
-    '<div class="field"><input type="number" value="' + dur + '" min="0.5" step="0.5"></div>' +
+    '<div class="field"><span class="row-label">Liability Name</span><input type="text" value="' + name + '" placeholder="e.g. Home loan"></div>' +
+    '<div class="field"><span class="row-label">Monthly EMI (₹)</span><input type="number" value="' + emi + '" min="0"></div>' +
+    '<div class="field"><span class="row-label">Remaining Duration (Yrs)</span><input type="number" value="' + dur + '" min="0.5" step="0.5"></div>' +
     '<button class="btn-remove" onclick="this.parentElement.remove()">×</button>';
   document.getElementById('liabilities-list').appendChild(d);
 }
@@ -248,10 +250,10 @@ function addGoal(name, yrs, cost, infl) {
   var d = document.createElement('div');
   d.className = 'goal-row';
   d.innerHTML =
-    '<div class="field"><input type="text" value="' + name + '" placeholder="e.g. Child education"></div>' +
-    '<div class="field"><input type="number" value="' + yrs + '" min="1"></div>' +
-    '<div class="field"><input type="number" value="' + cost + '" min="0"></div>' +
-    '<div class="field"><input type="number" value="' + infl + '" step="0.1"></div>' +
+    '<div class="field"><span class="row-label">Goal Name</span><input type="text" value="' + name + '" placeholder="e.g. Child education"></div>' +
+    '<div class="field"><span class="row-label">Years From Today</span><input type="number" value="' + yrs + '" min="1"></div>' +
+    '<div class="field"><span class="row-label">Current Cost (₹)</span><input type="number" value="' + cost + '" min="0"></div>' +
+    '<div class="field"><span class="row-label">Inflation (%)</span><input type="number" value="' + infl + '" step="0.1"></div>' +
     '<button class="btn-remove" onclick="this.parentElement.remove()">×</button>';
   document.getElementById('goals-list').appendChild(d);
 }
