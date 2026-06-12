@@ -13,7 +13,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F8FAFC;color:#11182
 .hero h1{color:#fff;font-size:1.45rem;font-weight:700;letter-spacing:.01em}
 .hero p{color:rgba(255,255,255,.82);font-size:.88rem;margin-top:.45rem}
 
-.container{max-width:920px;margin:0 auto;padding:1.25rem}
+.container{max-width:920px;margin:0 auto;padding:0}
 
 .card{background:#fff;border:1px solid #E5E7EB;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.05);padding:1.4rem;margin-bottom:1rem}
 
@@ -105,10 +105,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F8FAFC;color:#11182
 </head>
 <body>
 <div class="container">
-  <header class="hero">
+  <div class="hero">
     <h1>Term Insurance Premium Comparison Calculator</h1>
     <p>Compare Short-Pay vs Long-Pay strategy and visualize the opportunity cost</p>
-  </header>
+  </div>
+  <div style="padding:1.25rem">
 
   <div class="card">
     <div class="section-title"><div class="bar"></div><span>Personal Details</span></div>
@@ -237,7 +238,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#F8FAFC;color:#11182
   <!-- FAQ always visible -->
   <div style="height:1rem"></div>
   <div class="card">
-    <div class="section-title"><div class="bar"></div><span>Frequently Asked Questions</span></div>
+    <div class="section-title"><div class="bar"></div><span style="color:#0B4DCC!important;font-weight:700!important">Frequently Asked Questions</span></div>
     <div id="faqList"></div>
   </div>
 
