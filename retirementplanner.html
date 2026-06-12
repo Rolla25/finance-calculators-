@@ -18,8 +18,8 @@
 body{background:var(--bg);font-family:'Segoe UI',system-ui,sans-serif;color:var(--text);min-height:100vh;padding:0 0 60px}
 
 /* ── HEADER BANNER ── */
-.header-banner{background:linear-gradient(135deg,#1a56db,#0891b2);padding:36px 24px 32px;text-align:center;border-radius:0 0 24px 24px;margin-bottom:28px;box-shadow:0 4px 18px rgba(26,86,219,.25)}
-.header-banner h1{color:#fff;font-size:28px;font-weight:700;letter-spacing:-.3px;margin-bottom:6px}
+.header-banner{background:linear-gradient(135deg,#1a56db,#0891b2);padding:22px 24px 20px;text-align:center;border-radius:0;margin-bottom:28px;box-shadow:0 2px 10px rgba(26,86,219,.2)}
+.header-banner h1{color:#fff;font-size:26px;font-weight:700;letter-spacing:-.3px;margin-bottom:5px}
 .header-banner p{color:#bfdbfe;font-size:14px}
 
 .container{max-width:720px;margin:0 auto;padding:0 16px}
@@ -135,10 +135,10 @@ tbody tr:hover{background:#eff6ff!important}
 
 /* ── FAQ ── */
 .faq-section{margin-top:28px}
-.faq-header{font-size:11px;font-weight:700;color:var(--heading);text-transform:uppercase;letter-spacing:.12em;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.faq-header{font-size:11px;font-weight:700;color:#0B4DCC;text-transform:uppercase;letter-spacing:.12em;margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .faq-header::after{content:'';flex:1;height:1px;background:linear-gradient(to right,#cbd5e1,transparent)}
 .faq-item{background:#fff;border:1px solid #e2e8f0;border-radius:10px;margin-bottom:10px;overflow:hidden}
-.faq-q{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;user-select:none;color:#1e293b;font-size:13.5px;font-weight:600}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;user-select:none;color:#1e293b;font-size:13.5px;font-weight:700}
 .faq-q:hover{background:var(--blue-light)}
 .faq-icon{font-size:18px;color:#1a56db;transition:transform .2s;flex-shrink:0}
 .faq-item.open .faq-icon{transform:rotate(45deg)}
@@ -228,7 +228,6 @@ tbody tr:hover{background:#eff6ff!important}
 <!-- ── RESULTS ── -->
 <div id="resultsSection" style="display:none">
 
-  <!-- Investment Required -->
   <div class="results-header"><h2>💰 Investment Required</h2></div>
   <div class="inv-grid">
     <div class="inv-card blue">
@@ -263,7 +262,6 @@ tbody tr:hover{background:#eff6ff!important}
     </div>
   </div>
 
-  <!-- Key Metrics -->
   <div class="results-header" style="margin-top:4px"><h2>📊 Key Metrics</h2></div>
   <div class="card" style="padding:20px">
     <div class="three-col" style="margin-bottom:14px">
@@ -297,7 +295,6 @@ tbody tr:hover{background:#eff6ff!important}
     </div>
   </div>
 
-  <!-- Year-by-Year Breakdown -->
   <div class="results-header" style="margin-top:4px"><h2>📅 Year-by-Year Breakdown</h2></div>
   <div class="card">
     <div class="breakdown-top">
@@ -376,7 +373,6 @@ tbody tr:hover{background:#eff6ff!important}
 </div><!-- /container -->
 
 <script>
-// ── Formatters ──
 const fl=n=>Math.floor(n);
 const fmtINR=n=>'₹'+fl(n).toLocaleString('en-IN');
 const fmtCr=n=>{
@@ -385,7 +381,6 @@ const fmtCr=n=>{
   return sign+'₹'+(fl((abs/1e5)*100)/100).toFixed(2)+' L';
 };
 
-// ── Goals state ──
 let goals=[],goalIdCounter=0;
 const GOAL_PRESETS=["Home purchase","Car purchase","Travel","Children's education","Children's marriage","Other"];
 
@@ -432,7 +427,6 @@ function renderGoals(){
   }).join('');
 }
 
-// ── Calculations (unchanged) ──
 function resolveGoalAmt(g,currentAge,preInfl){
   return g.inflationAdjusted?g.amount*Math.pow(1+preInfl/100,g.age-currentAge):g.amount;
 }
@@ -496,7 +490,6 @@ function solveAll(currentAge,retirementAge,lifeExpectancy,annualExpenses,preInfl
   return{sipMonth1:binarySearch(v=>run(v,0,stepUp)),flatSIP:binarySearch(v=>run(v,0,0)),lumpsum:binarySearch(v=>run(0,v,0))};
 }
 
-// ── UI State ──
 let currentMode='sip',currentTab='pre',lastResults=null;
 function id(x){return document.getElementById(x);}
 
@@ -512,7 +505,6 @@ function setTab(tab){
   renderTable();
 }
 
-// ── Table rendering ──
 function renderTable(){
   if(!lastResults)return;
   const sim=currentMode==='sip'?lastResults.sipSim:lastResults.lumpSim;
@@ -567,7 +559,6 @@ function renderTable(){
   }
 }
 
-// ── Calculate ──
 function calculate(){
   const currentAge=+id('currentAge').value,retirementAge=+id('retirementAge').value;
   const lifeExpectancy=+id('lifeExpectancy').value,annualExpenses=+id('annualExpenses').value;
@@ -602,10 +593,7 @@ function calculate(){
   renderTable();
 }
 
-// ── FAQ toggle ──
 function toggleFaq(el){el.closest('.faq-item').classList.toggle('open');}
-
-// ── Bind inputs ──
 document.querySelectorAll('input[type=number]').forEach(el=>el.addEventListener('input',calculate));
 calculate();
 </script>
