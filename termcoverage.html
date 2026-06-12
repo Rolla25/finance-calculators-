@@ -78,15 +78,26 @@ input:focus{outline:none;border-color:#1E63FF;box-shadow:0 0 0 3px rgba(30,99,25
 /* Disclaimer */
 .disclaimer{font-size:11.5px;color:#9CA3AF;line-height:1.7;padding:12px 16px;border-radius:10px;border:1px solid #F3F4F6;background:#F9FAFB;margin-bottom:1rem}
 
-@media(max-width:520px){
+@media(max-width:600px){
   .grid2{grid-template-columns:1fr}
-  .liab-row,.liab-hdr{grid-template-columns:1fr 1fr 32px}
-  .liab-hdr span:nth-child(3),.liab-row .field:nth-child(3){display:none}
-  .goal-row,.goal-hdr{grid-template-columns:1fr 1fr 32px}
-  .goal-hdr span:nth-child(3),.goal-hdr span:nth-child(4),.goal-row .field:nth-child(3),.goal-row .field:nth-child(4){display:none}
+  .liab-hdr{display:none}
+  .liab-row{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:8px}
+  .liab-row .field:nth-child(1){grid-column:1/-1}
+  .liab-row .field:nth-child(2){grid-column:1}
+  .liab-row .field:nth-child(3){grid-column:2}
+  .liab-row button.btn-remove{grid-column:1/-1;justify-self:end;height:28px}
+  .goal-hdr{display:none}
+  .goal-row{grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:8px}
+  .goal-row .field:nth-child(1){grid-column:1/-1}
+  .goal-row .field:nth-child(2){grid-column:1}
+  .goal-row .field:nth-child(3){grid-column:2}
+  .goal-row .field:nth-child(4){grid-column:1}
+  .goal-row button.btn-remove{grid-column:2;justify-self:end;align-self:end;height:38px}
   .breakdown{grid-template-columns:1fr}
   .result-card .r-amount{font-size:38px}
-  body{padding:0.75rem}
+  .content{padding:0.75rem}
+  .hero{padding:1.5rem 1rem}
+  .hero h1{font-size:20px}
 }
 </style>
 </head>
