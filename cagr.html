@@ -9,38 +9,29 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#F3F4F8;color:#1E293B;font-size:15px}
 
-/* HERO */
 .hero{background:linear-gradient(90deg,#0B4DCC,#1E63FF,#1BA7E1);padding:40px 24px 36px;text-align:center}
 .hero h1{font-size:28px;font-weight:700;color:#fff;letter-spacing:-0.4px;margin-bottom:10px}
-.hero p{font-size:14px;color:rgba(255,255,255,0.85);max-width:580px;margin:0 auto;line-height:1.65}
+.hero p{font-size:14px;color:rgba(255,255,255,0.85);max-width:600px;margin:0 auto;line-height:1.65}
 
-/* TABS */
-.tab-bar{background:#fff;border-bottom:1px solid #E5E7EB;padding:0 24px}
-.tab-bar-inner{max-width:1080px;margin:0 auto;display:flex;gap:8px;padding:10px 0}
+.tab-bar{background:#fff;border-bottom:1px solid #E5E7EB;padding:0 28px}
+.tab-bar-inner{max-width:1520px;margin:0 auto;display:flex;gap:8px;padding:10px 0}
 .tab-btn{padding:9px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid #E5E7EB;background:#fff;color:#64748B;transition:all 0.18s}
 .tab-btn.active{background:linear-gradient(90deg,#0B4DCC,#1E63FF,#1BA7E1);color:#fff;border-color:transparent}
 .tab-btn:hover:not(.active){background:#F1F5F9;color:#1E4ED8}
 
-/* LAYOUT */
-.main{max-width:1080px;margin:0 auto;padding:28px 20px}
-.grid-2{display:grid;grid-template-columns:360px 1fr;gap:22px;align-items:start}
+.main{max-width:1520px;margin:0 auto;padding:32px 28px}
 
-/* CARDS */
-.card{background:#fff;border-radius:16px;border:1px solid #E5E7EB;box-shadow:0 1px 6px rgba(0,0,0,0.06);overflow:hidden;margin-bottom:20px}
+.card{background:#fff;border-radius:16px;border:1px solid #E5E7EB;box-shadow:0 1px 6px rgba(0,0,0,0.06);overflow:hidden;margin-bottom:24px}
 .card:last-child{margin-bottom:0}
+.card-head{padding:20px 24px 16px;border-bottom:1px solid #F1F5F9}
+.card-body{padding:24px}
 
-/* SECTION TITLES */
-.sec-title{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec-title{display:flex;align-items:center;gap:10px;margin-bottom:0}
 .sec-title::before{content:'';width:4px;height:20px;background:linear-gradient(180deg,#0B4DCC,#1BA7E1);border-radius:4px;flex-shrink:0}
 .sec-title span{font-size:11px;font-weight:700;color:#1E4ED8;text-transform:uppercase;letter-spacing:0.8px}
 
-.card-head{padding:18px 22px 14px;border-bottom:1px solid #F1F5F9}
-.card-head .sec-title{margin-bottom:0}
-.card-body{padding:20px 22px}
-
-/* INPUTS */
-.field{margin-bottom:16px}
-.field:last-child{margin-bottom:0}
+/* INPUTS — horizontal layout */
+.inputs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .field label{display:block;font-size:12px;font-weight:600;color:#475569;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px}
 .input-wrap{position:relative;display:flex;align-items:center}
 .input-prefix{position:absolute;left:11px;font-size:14px;font-weight:500;color:#94A3B8;pointer-events:none}
@@ -52,54 +43,47 @@ input.has-suffix{padding-right:32px}
 input.error-input{border-color:#EF4444!important}
 .err{font-size:11px;color:#EF4444;margin-top:4px;display:none}
 .err.show{display:block}
-
-/* BUTTONS */
 .btn{padding:10px 20px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;display:inline-flex;align-items:center;gap:6px}
-.btn-primary{background:linear-gradient(90deg,#0B4DCC,#1E63FF,#1BA7E1);color:#fff}
-.btn-primary:hover{opacity:0.9;transform:translateY(-1px)}
 .btn-secondary{background:#F1F5F9;color:#475569;border:1.5px solid #E5E7EB}
 .btn-secondary:hover{background:#E2E8F0}
-.btn-row{display:flex;gap:10px;margin-top:20px}
 
-/* EMPTY STATE */
-.results-empty{text-align:center;padding:52px 24px;color:#94A3B8}
-.results-empty .empty-icon{font-size:36px;margin-bottom:12px}
-.results-empty p{font-size:13px}
+/* RESULTS HERO */
+.result-hero{background:linear-gradient(90deg,#0B4DCC,#1E63FF,#1BA7E1);border-radius:14px;padding:32px 24px;margin-bottom:24px;text-align:center;color:#fff}
+.result-hero .rh-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.75);margin-bottom:10px}
+.result-hero .rh-value{font-size:52px;font-weight:700;letter-spacing:-2px;line-height:1}
+.result-hero .rh-sub{font-size:13px;color:rgba(255,255,255,0.75);margin-top:10px}
 
-/* METRIC CARDS */
-.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
-.metric{border-radius:12px;padding:14px 16px;border:1px solid transparent}
-.metric .m-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:5px}
-.metric .m-value{font-size:20px;font-weight:700;line-height:1.1}
-.metric .m-sub{font-size:11px;margin-top:3px;opacity:0.75}
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.metric{border-radius:12px;padding:18px 20px;border:1px solid transparent}
+.metric .m-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+.metric .m-value{font-size:22px;font-weight:700;line-height:1.1}
+.metric .m-sub{font-size:11px;margin-top:4px;opacity:0.75}
 .metric.green{background:#F0FDF4;border-color:#BBF7D0}.metric.green .m-label{color:#166534}.metric.green .m-value{color:#15803D}
 .metric.blue{background:#EFF6FF;border-color:#BFDBFE}.metric.blue .m-label{color:#1E40AF}.metric.blue .m-value{color:#1D4ED8}
 .metric.orange{background:#FFF7ED;border-color:#FED7AA}.metric.orange .m-label{color:#9A3412}.metric.orange .m-value{color:#C2410C}
 .metric.gray{background:#F8FAFC;border-color:#E2E8F0}.metric.gray .m-label{color:#475569}.metric.gray .m-value{color:#0F172A}
 
-/* CAGR HERO RESULT */
-.result-hero{background:linear-gradient(90deg,#0B4DCC,#1E63FF,#1BA7E1);border-radius:14px;padding:26px 24px;margin-bottom:20px;text-align:center;color:#fff}
-.result-hero .rh-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.75);margin-bottom:8px}
-.result-hero .rh-value{font-size:44px;font-weight:700;letter-spacing:-1.5px;line-height:1}
-.result-hero .rh-sub{font-size:13px;color:rgba(255,255,255,0.75);margin-top:8px}
-
 /* JOURNEY */
-.journey{background:#F8FAFC;border-radius:12px;padding:16px 18px;margin-bottom:20px;border:1px solid #E5E7EB}
-.journey-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.journey{background:#F8FAFC;border-radius:12px;padding:18px 24px;margin-bottom:24px;border:1px solid #E5E7EB}
+.journey-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .journey-val .jv-label{font-size:11px;color:#64748B;font-weight:500}
-.journey-val .jv-num{font-size:16px;font-weight:700;color:#0F172A;margin-top:3px}
-.journey-badge{background:linear-gradient(90deg,#0B4DCC,#1BA7E1);color:#fff;border-radius:7px;padding:5px 12px;font-size:12px;font-weight:600;text-align:center;flex-shrink:0}
-.journey-arrow{color:#CBD5E1;font-size:18px;flex-shrink:0}
+.journey-val .jv-num{font-size:18px;font-weight:700;color:#0F172A;margin-top:3px}
+.journey-badge{background:linear-gradient(90deg,#0B4DCC,#1BA7E1);color:#fff;border-radius:7px;padding:6px 16px;font-size:13px;font-weight:600;text-align:center;flex-shrink:0}
+.journey-arrow{color:#CBD5E1;font-size:20px;flex-shrink:0}
 
 /* CHART */
-.chart-wrap{background:#fff;border-radius:14px;border:1px solid #E5E7EB;padding:20px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.chart-wrap{background:#fff;border-radius:14px;border:1px solid #E5E7EB;padding:24px;margin-bottom:24px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.chart-sec-title{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.chart-sec-title::before{content:'';width:4px;height:20px;background:linear-gradient(180deg,#0B4DCC,#1BA7E1);border-radius:4px;flex-shrink:0}
+.chart-sec-title span{font-size:11px;font-weight:700;color:#1E4ED8;text-transform:uppercase;letter-spacing:0.8px}
 
 /* TABLE */
-.table-outer{border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:20px;overflow-x:auto}
-.ytable{width:100%;border-collapse:collapse;font-size:13px;min-width:400px}
-.ytable th{background:#F8FAFC;padding:10px 16px;text-align:right;font-weight:700;font-size:11px;color:#475569;text-transform:uppercase;letter-spacing:0.4px;border-bottom:1px solid #E5E7EB}
+.table-outer{border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;overflow-x:auto}
+.ytable{width:100%;border-collapse:collapse;font-size:13px;min-width:500px}
+.ytable th{background:#F8FAFC;padding:12px 20px;text-align:right;font-weight:700;font-size:11px;color:#475569;text-transform:uppercase;letter-spacing:0.4px;border-bottom:1px solid #E5E7EB}
 .ytable th:first-child{text-align:left}
-.ytable td{padding:10px 16px;border-bottom:1px solid #F1F5F9;text-align:right;color:#334155}
+.ytable td{padding:12px 20px;border-bottom:1px solid #F1F5F9;text-align:right;color:#334155}
 .ytable td:first-child{text-align:left;font-weight:500;color:#0F172A}
 .ytable tr:last-child td{border-bottom:none;background:#F0FDF4;font-weight:600;color:#15803D}
 .ytable tr:hover td{background:#F8FAFC}
@@ -115,41 +99,38 @@ input.error-input{border-color:#EF4444!important}
 /* FAQ */
 .faq-item{border-bottom:1px solid #F1F5F9}
 .faq-item:last-child{border-bottom:none}
-.faq-q{padding:16px 20px;font-size:14px;font-weight:600;color:#0F172A;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none;transition:background 0.15s}
+.faq-q{padding:16px 24px;font-size:14px;font-weight:600;color:#0F172A;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none;transition:background 0.15s}
 .faq-q:hover{background:#F8FAFC}
-.faq-icon{font-size:18px;color:#1E63FF;flex-shrink:0;font-weight:400;transition:transform 0.2s}
+.faq-icon{font-size:20px;color:#1E63FF;flex-shrink:0;font-weight:300;transition:transform 0.2s;line-height:1}
 .faq-item.open .faq-icon{transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.3s ease}
 .faq-item.open .faq-a{max-height:300px}
-.faq-a-inner{padding:0 20px 16px;font-size:13px;color:#475569;line-height:1.7}
+.faq-a-inner{padding:0 24px 18px;font-size:13px;color:#475569;line-height:1.7}
 
 /* DISCLAIMER */
-.disclaimer{background:#FFFBEB;border:1px solid #FDE68A;border-radius:12px;padding:16px 20px;margin-top:20px;display:flex;gap:12px;align-items:flex-start}
-.disclaimer-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.disclaimer{background:#FFFBEB;border:1px solid #FDE68A;border-radius:12px;padding:16px 20px;margin-top:24px;display:flex;gap:12px;align-items:flex-start}
 .disclaimer p{font-size:12px;color:#92400E;line-height:1.65}
 
-.hidden{display:none}
+/* EMPTY STATE */
+.results-empty{text-align:center;padding:48px 24px;color:#94A3B8}
+.results-empty .empty-icon{font-size:36px;margin-bottom:12px}
+.results-empty p{font-size:13px}
 
-@media(max-width:760px){
-  .grid-2{grid-template-columns:1fr}
-  .metrics{grid-template-columns:1fr 1fr}
-  .hero h1{font-size:22px}
-  .tab-btn{padding:8px 14px;font-size:12px}
-}
-@media(max-width:420px){
-  .metrics{grid-template-columns:1fr}
-}
+.hidden{display:none}
+.sec-gap{margin-top:32px}
+
+@media(max-width:1100px){.inputs-grid{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.inputs-grid{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.hero h1{font-size:22px}.main{padding:20px 16px}.tab-btn{padding:8px 14px;font-size:12px}}
+@media(max-width:400px){.metrics{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <div class="hero">
   <h1>CAGR Calculator</h1>
   <p>Calculate Compound Annual Growth Rate (CAGR), project future investment values, compare growth rates, and analyze long-term wealth creation.</p>
 </div>
 
-<!-- TABS -->
 <div class="tab-bar">
   <div class="tab-bar-inner">
     <button class="tab-btn active" onclick="switchTab('cagr',this)">Calculate CAGR</button>
@@ -161,104 +142,108 @@ input.error-input{border-color:#EF4444!important}
 
 <!-- TAB: CAGR -->
 <div id="tab-cagr">
-  <div class="grid-2">
-    <div>
-      <div class="card">
-        <div class="card-head"><div class="sec-title"><span>Investment Details</span></div></div>
-        <div class="card-body">
-          <div class="field">
-            <label>Starting Value</label>
-            <div class="input-wrap">
-              <span class="input-prefix">₹</span>
-              <input type="text" id="c-start" class="has-prefix" placeholder="1,00,000" oninput="fmtInput(this);calcCAGR()" onblur="calcCAGR()">
-            </div>
-            <div class="err" id="c-start-err">Starting value must be greater than ₹0</div>
+
+  <!-- 1. INVESTMENT DETAILS — full width -->
+  <div class="card">
+    <div class="card-head"><div class="sec-title"><span>Investment Details</span></div></div>
+    <div class="card-body">
+      <div class="inputs-grid">
+        <div class="field">
+          <label>Starting Value</label>
+          <div class="input-wrap">
+            <span class="input-prefix">₹</span>
+            <input type="text" id="c-start" class="has-prefix" placeholder="1,00,000" oninput="fmtInput(this);calcCAGR()" onblur="calcCAGR()">
           </div>
-          <div class="field">
-            <label>Start Date</label>
-            <input type="date" id="c-sdate" onchange="calcCAGR()">
-            <div class="err" id="c-sdate-err">Start date is required</div>
+          <div class="err" id="c-start-err">Must be greater than ₹0</div>
+        </div>
+        <div class="field">
+          <label>Start Date</label>
+          <input type="date" id="c-sdate" onchange="calcCAGR()">
+          <div class="err" id="c-sdate-err">Start date is required</div>
+        </div>
+        <div class="field">
+          <label>Ending Value</label>
+          <div class="input-wrap">
+            <span class="input-prefix">₹</span>
+            <input type="text" id="c-end" class="has-prefix" placeholder="2,00,000" oninput="fmtInput(this);calcCAGR()" onblur="calcCAGR()">
           </div>
-          <div class="field">
-            <label>Ending Value</label>
-            <div class="input-wrap">
-              <span class="input-prefix">₹</span>
-              <input type="text" id="c-end" class="has-prefix" placeholder="2,00,000" oninput="fmtInput(this);calcCAGR()" onblur="calcCAGR()">
-            </div>
-            <div class="err" id="c-end-err">Ending value must be greater than ₹0</div>
-          </div>
-          <div class="field">
-            <label>End Date</label>
-            <input type="date" id="c-edate" onchange="calcCAGR()">
-            <div class="err" id="c-edate-err">End date must be after start date</div>
-          </div>
-          <div class="btn-row">
-            <button class="btn btn-secondary" onclick="resetCAGR()">↺ Reset</button>
-          </div>
+          <div class="err" id="c-end-err">Must be greater than ₹0</div>
+        </div>
+        <div class="field">
+          <label>End Date</label>
+          <input type="date" id="c-edate" onchange="calcCAGR()">
+          <div class="err" id="c-edate-err">Must be after start date</div>
         </div>
       </div>
-    </div>
-
-    <div id="cagr-results">
-      <div class="results-empty">
-        <div class="empty-icon">📈</div>
-        <p>Enter your investment details to see CAGR results</p>
+      <div style="margin-top:20px">
+        <button class="btn btn-secondary" onclick="resetCAGR()">↺ Reset</button>
       </div>
     </div>
   </div>
+
+  <!-- 2. RESULTS — full width -->
+  <div id="cagr-results">
+    <div class="results-empty card">
+      <div class="empty-icon">📈</div>
+      <p>Enter your investment details above to see CAGR results</p>
+    </div>
+  </div>
+
 </div>
 
 <!-- TAB: FUTURE VALUE -->
 <div id="tab-fv" class="hidden">
-  <div class="grid-2">
-    <div>
-      <div class="card">
-        <div class="card-head"><div class="sec-title"><span>Projection Inputs</span></div></div>
-        <div class="card-body">
-          <div class="field">
-            <label>Starting Value</label>
-            <div class="input-wrap">
-              <span class="input-prefix">₹</span>
-              <input type="text" id="fv-start" class="has-prefix" placeholder="5,00,000" oninput="fmtInput(this);calcFV()" onblur="calcFV()">
-            </div>
-            <div class="err" id="fv-start-err">Starting value must be greater than ₹0</div>
+
+  <!-- 1. INPUTS — full width -->
+  <div class="card">
+    <div class="card-head"><div class="sec-title"><span>Projection Inputs</span></div></div>
+    <div class="card-body">
+      <div class="inputs-grid">
+        <div class="field">
+          <label>Starting Value</label>
+          <div class="input-wrap">
+            <span class="input-prefix">₹</span>
+            <input type="text" id="fv-start" class="has-prefix" placeholder="5,00,000" oninput="fmtInput(this);calcFV()" onblur="calcFV()">
           </div>
-          <div class="field">
-            <label>Start Date</label>
-            <input type="date" id="fv-sdate" onchange="calcFV()">
-            <div class="err" id="fv-sdate-err">Start date is required</div>
+          <div class="err" id="fv-start-err">Must be greater than ₹0</div>
+        </div>
+        <div class="field">
+          <label>Start Date</label>
+          <input type="date" id="fv-sdate" onchange="calcFV()">
+          <div class="err" id="fv-sdate-err">Start date is required</div>
+        </div>
+        <div class="field">
+          <label>CAGR (%)</label>
+          <div class="input-wrap">
+            <input type="text" id="fv-cagr" class="has-suffix" placeholder="12.00" oninput="fmtPct(this);calcFV()" onblur="calcFV()">
+            <span class="input-suffix">%</span>
           </div>
-          <div class="field">
-            <label>CAGR (%)</label>
-            <div class="input-wrap">
-              <input type="text" id="fv-cagr" class="has-suffix" placeholder="12.00" oninput="fmtPct(this);calcFV()" onblur="calcFV()">
-              <span class="input-suffix">%</span>
-            </div>
-            <div class="err" id="fv-cagr-err">CAGR must be between -99.99% and 1000%</div>
-          </div>
-          <div class="field">
-            <label>End Date</label>
-            <input type="date" id="fv-edate" onchange="calcFV()">
-            <div class="err" id="fv-edate-err">End date must be after start date</div>
-          </div>
-          <div class="btn-row">
-            <button class="btn btn-secondary" onclick="resetFV()">↺ Reset</button>
-          </div>
+          <div class="err" id="fv-cagr-err">Must be between -99.99% and 1000%</div>
+        </div>
+        <div class="field">
+          <label>End Date</label>
+          <input type="date" id="fv-edate" onchange="calcFV()">
+          <div class="err" id="fv-edate-err">Must be after start date</div>
         </div>
       </div>
-    </div>
-
-    <div id="fv-results">
-      <div class="results-empty">
-        <div class="empty-icon">🔮</div>
-        <p>Enter your inputs to project future value</p>
+      <div style="margin-top:20px">
+        <button class="btn btn-secondary" onclick="resetFV()">↺ Reset</button>
       </div>
     </div>
   </div>
+
+  <!-- 2. RESULTS — full width -->
+  <div id="fv-results">
+    <div class="results-empty card">
+      <div class="empty-icon">🔮</div>
+      <p>Enter your inputs above to project future value</p>
+    </div>
+  </div>
+
 </div>
 
 <!-- EDUCATIONAL -->
-<div class="card" style="margin-top:28px">
+<div class="card sec-gap">
   <div class="card-head"><div class="sec-title"><span>Understanding CAGR</span></div></div>
   <div class="card-body">
     <p style="font-size:13px;color:#475569;line-height:1.7;margin-bottom:8px">Compound Annual Growth Rate (CAGR) is the annualized rate of return that shows how an investment would have grown if it had compounded at a steady rate over time — smoothing out volatility to give a single, comparable growth figure.</p>
@@ -275,9 +260,9 @@ input.error-input{border-color:#EF4444!important}
 </div>
 
 <!-- FAQ -->
-<div class="card" style="margin-top:20px">
+<div class="card">
   <div class="card-head"><div class="sec-title"><span>Frequently Asked Questions</span></div></div>
-  <div id="faq-list" itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemtype="https://schema.org/FAQPage">
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
       <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">What is CAGR?</span><span class="faq-icon">+</span></div>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">CAGR (Compound Annual Growth Rate) represents the annualized rate at which an investment would have grown if it had compounded at a constant rate over a specific period. It provides a standardized way to measure investment performance over time.</div></div>
@@ -322,12 +307,12 @@ input.error-input{border-color:#EF4444!important}
 </div>
 
 <!-- DISCLAIMER -->
-<div class="disclaimer" style="margin-top:20px">
-  <span class="disclaimer-icon">⚠️</span>
+<div class="disclaimer">
+  <span style="font-size:18px;flex-shrink:0">⚠️</span>
   <p>This calculator provides estimates for educational purposes only. CAGR is a historical or projected annualized growth metric and does not guarantee future investment returns. Actual investment performance may differ due to market conditions, taxes, fees, and other factors. Please consult a qualified financial advisor before making investment decisions.</p>
 </div>
 
-</div><!-- /main -->
+</div>
 
 <script>
 let cagrChart=null,fvChart=null;
@@ -339,10 +324,7 @@ function switchTab(tab,btn){
   document.getElementById('tab-fv').classList.toggle('hidden',tab!=='fv');
 }
 
-function toggleFAQ(el){
-  let item=el.parentElement;
-  item.classList.toggle('open');
-}
+function toggleFAQ(el){el.parentElement.classList.toggle('open')}
 
 function fmtInput(el){
   let raw=el.value.replace(/[^0-9.]/g,'');
@@ -355,9 +337,7 @@ function fmtInput(el){
   el.value=parts.length>1?formatted+'.'+parts[1]:formatted;
 }
 
-function fmtPct(el){
-  el.value=el.value.replace(/[^0-9.\-]/g,'');
-}
+function fmtPct(el){el.value=el.value.replace(/[^0-9.\-]/g,'')}
 
 function parseAmt(str){
   if(!str) return NaN;
@@ -379,15 +359,13 @@ function fmtINR(n){
 function daysBetween(d1,d2){return(new Date(d2)-new Date(d1))/86400000}
 
 function durStr(days){
-  let yrs=Math.floor(days/365.25);
-  let rem=days-yrs*365.25;
-  let mos=Math.floor(rem/30.4375);
-  let ds=Math.round(rem-mos*30.4375);
-  let parts=[];
-  if(yrs>0) parts.push(yrs+(yrs===1?' Year':' Years'));
-  if(mos>0) parts.push(mos+(mos===1?' Month':' Months'));
-  if(ds>0) parts.push(ds+(ds===1?' Day':' Days'));
-  return parts.join(' ')||'0 Days';
+  let yrs=Math.floor(days/365.25),rem=days-yrs*365.25;
+  let mos=Math.floor(rem/30.4375),ds=Math.round(rem-mos*30.4375);
+  let p=[];
+  if(yrs>0) p.push(yrs+(yrs===1?' Year':' Years'));
+  if(mos>0) p.push(mos+(mos===1?' Month':' Months'));
+  if(ds>0) p.push(ds+(ds===1?' Day':' Days'));
+  return p.join(' ')||'0 Days';
 }
 
 function showErr(id,show){let el=document.getElementById(id);if(el)el.classList.toggle('show',show)}
@@ -407,113 +385,77 @@ function calcCAGR(){
   let days=daysBetween(sd,ed);
   let years=days/365.25;
   let cagr=(Math.pow(ev/sv,1/years)-1)*100;
-  let absGain=ev-sv;
-  let pctReturn=((ev-sv)/sv)*100;
-  let multiple=ev/sv;
-  renderCAGRResults(sv,ev,sd,ed,days,years,cagr,absGain,pctReturn,multiple);
+  renderCAGRResults(sv,ev,sd,days,years,cagr,(ev-sv),((ev-sv)/sv)*100,ev/sv);
 }
 
-function renderCAGRResults(sv,ev,sd,ed,days,years,cagr,absGain,pctReturn,multiple){
-  let gainsNeg=absGain<0;
-  let table=buildYearTable(sv,cagr/100,years,sd);
-  let html=`
+function renderCAGRResults(sv,ev,sd,days,years,cagr,absGain,pctReturn,multiple){
+  let neg=absGain<0;
+  let t=buildYearTable(sv,cagr/100,years,sd);
+  document.getElementById('cagr-results').innerHTML=`
   <div class="result-hero">
     <div class="rh-label">Compound Annual Growth Rate</div>
     <div class="rh-value">${cagr.toFixed(2)}%</div>
     <div class="rh-sub">Over ${durStr(Math.round(days))}</div>
   </div>
-  <div class="card">
-    <div class="card-head"><div class="sec-title"><span>Results Summary</span></div></div>
-    <div class="card-body">
-      <div class="metrics">
-        <div class="metric ${gainsNeg?'orange':'green'}">
-          <div class="m-label">Absolute Gain</div>
-          <div class="m-value">${fmtINR(absGain)}</div>
-          <div class="m-sub">${gainsNeg?'Loss on investment':'Profit on investment'}</div>
-        </div>
-        <div class="metric orange">
-          <div class="m-label">Total Return</div>
-          <div class="m-value">${pctReturn.toFixed(2)}%</div>
-          <div class="m-sub">Absolute percentage return</div>
-        </div>
-        <div class="metric blue">
-          <div class="m-label">Growth Multiple</div>
-          <div class="m-value">${multiple.toFixed(2)}x</div>
-          <div class="m-sub">Value multiplication factor</div>
-        </div>
-        <div class="metric gray">
-          <div class="m-label">Duration</div>
-          <div class="m-value" style="font-size:14px">${durStr(Math.round(days))}</div>
-          <div class="m-sub">${Math.round(days)} total days</div>
-        </div>
+  <div class="metrics">
+    <div class="metric ${neg?'orange':'green'}">
+      <div class="m-label">Absolute Gain</div>
+      <div class="m-value">${fmtINR(absGain)}</div>
+      <div class="m-sub">${neg?'Loss on investment':'Profit on investment'}</div>
+    </div>
+    <div class="metric orange">
+      <div class="m-label">Total Return</div>
+      <div class="m-value">${pctReturn.toFixed(2)}%</div>
+      <div class="m-sub">Absolute percentage return</div>
+    </div>
+    <div class="metric blue">
+      <div class="m-label">Growth Multiple</div>
+      <div class="m-value">${multiple.toFixed(2)}x</div>
+      <div class="m-sub">Value multiplication factor</div>
+    </div>
+    <div class="metric gray">
+      <div class="m-label">Duration</div>
+      <div class="m-value" style="font-size:16px">${durStr(Math.round(days))}</div>
+      <div class="m-sub">${Math.round(days)} total days</div>
+    </div>
+  </div>
+  <div class="journey">
+    <div class="journey-row">
+      <div class="journey-val">
+        <div class="jv-label">Initial Investment</div>
+        <div class="jv-num">${fmtINR(sv)}</div>
       </div>
-      <div class="journey">
-        <div class="journey-row">
-          <div class="journey-val">
-            <div class="jv-label">Initial Investment</div>
-            <div class="jv-num">${fmtINR(sv)}</div>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
-            <div class="journey-badge">${cagr.toFixed(2)}% CAGR</div>
-            <div class="journey-arrow">→</div>
-          </div>
-          <div class="journey-val" style="text-align:right">
-            <div class="jv-label">Final Value</div>
-            <div class="jv-num" style="color:#15803D">${fmtINR(ev)}</div>
-          </div>
-        </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+        <div class="journey-badge">${cagr.toFixed(2)}% CAGR</div>
+        <div class="journey-arrow">→</div>
+      </div>
+      <div class="journey-val" style="text-align:right">
+        <div class="jv-label">Final Value</div>
+        <div class="jv-num" style="color:#15803D">${fmtINR(ev)}</div>
       </div>
     </div>
   </div>
   <div class="chart-wrap">
-    <div class="sec-title" style="margin-bottom:14px"><span>Growth Trajectory</span></div>
-    <div style="position:relative;height:220px"><canvas id="cagrChartCanvas"></canvas></div>
+    <div class="chart-sec-title"><span>Growth Trajectory</span></div>
+    <div style="position:relative;min-height:450px"><canvas id="cagrChartCanvas"></canvas></div>
   </div>
-  <div class="card">
+  <div class="card" style="margin-bottom:0">
     <div class="card-head"><div class="sec-title"><span>Year-by-Year Breakdown</span></div></div>
-    <div class="card-body" style="padding:0">
-      <div class="table-outer">
+    <div style="padding:0">
+      <div class="table-outer" style="border-radius:0 0 16px 16px;border:none;border-top:1px solid #E5E7EB">
         <table class="ytable">
           <thead><tr><th>Year</th><th>Beginning Value</th><th>Growth Earned</th><th>Ending Value</th></tr></thead>
-          <tbody>${table.rows}</tbody>
+          <tbody>${t.rows}</tbody>
         </table>
       </div>
     </div>
   </div>`;
-  document.getElementById('cagr-results').innerHTML=html;
   setTimeout(()=>{
     if(cagrChart){cagrChart.destroy();cagrChart=null;}
     let canvas=document.getElementById('cagrChartCanvas');
     if(!canvas) return;
-    cagrChart=new Chart(canvas,{type:'line',data:{labels:table.chartData.map(d=>d.label),datasets:[{label:'Portfolio Value',data:table.chartData.map(d=>d.val),borderColor:'#1E63FF',backgroundColor:'rgba(30,99,255,0.08)',borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#1E63FF',fill:true,tension:0.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#94A3B8'}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:11},color:'#94A3B8',callback:v=>'₹'+(v>=10000000?(v/10000000).toFixed(1)+'Cr':v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000).toFixed(0)+'K':v)}}}}});
+    cagrChart=new Chart(canvas,{type:'line',data:{labels:t.chartData.map(d=>d.label),datasets:[{label:'Portfolio Value',data:t.chartData.map(d=>d.val),borderColor:'#1E63FF',backgroundColor:'rgba(30,99,255,0.08)',borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#1E63FF',fill:true,tension:0.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#94A3B8'}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:11},color:'#94A3B8',callback:v=>'₹'+(v>=10000000?(v/10000000).toFixed(1)+'Cr':v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000).toFixed(0)+'K':v)}}}}});
   },50);
-}
-
-function buildYearTable(sv,cagrDec,totalYears,startDate){
-  let rows='',data=[],chartData=[];
-  let fullYears=Math.floor(totalYears);
-  let partial=totalYears-fullYears;
-  let sd=new Date(startDate);
-  chartData.push({label:'Start',val:Math.round(sv*100)/100});
-  for(let y=1;y<=fullYears;y++){
-    let bv=sv*Math.pow(1+cagrDec,y-1);
-    let ev=sv*Math.pow(1+cagrDec,y);
-    let growth=ev-bv;
-    let yrLabel=new Date(sd.getFullYear()+y,sd.getMonth(),sd.getDate()).getFullYear();
-    rows+=`<tr><td>Year ${y} (${yrLabel})</td><td>${fmtINR(bv)}</td><td style="color:#15803D">+${fmtINR(growth)}</td><td>${fmtINR(ev)}</td></tr>`;
-    data.push([`Year ${y}`,bv.toFixed(2),growth.toFixed(2),ev.toFixed(2)]);
-    chartData.push({label:'Y'+y,val:Math.round(ev*100)/100});
-  }
-  if(partial>0.005){
-    let bv=sv*Math.pow(1+cagrDec,fullYears);
-    let ev=sv*Math.pow(1+cagrDec,totalYears);
-    let growth=ev-bv;
-    let partialMos=Math.round(partial*12);
-    rows+=`<tr class="partial-row"><td>Partial (${partialMos} mo.)</td><td>${fmtINR(bv)}</td><td style="color:#64748B">+${fmtINR(growth)}</td><td>${fmtINR(ev)}</td></tr>`;
-    data.push([`Partial`,bv.toFixed(2),growth.toFixed(2),ev.toFixed(2)]);
-    chartData.push({label:'End',val:Math.round(ev*100)/100});
-  }
-  return{rows,data,chartData};
 }
 
 function calcFV(){
@@ -530,98 +472,113 @@ function calcFV(){
   let days=daysBetween(sd,ed);
   let years=days/365.25;
   let fv=sv*Math.pow(1+cagrVal/100,years);
-  let gain=fv-sv;
-  let multiple=fv/sv;
-  let effGrowth=((fv-sv)/sv)*100;
-  renderFVResults(sv,fv,gain,multiple,effGrowth,cagrVal,days,years,sd);
+  renderFVResults(sv,fv,fv-sv,fv/sv,((fv-sv)/sv)*100,cagrVal,days,years,sd);
 }
 
 function renderFVResults(sv,fv,gain,multiple,effGrowth,cagr,days,years,sd){
-  let table=buildYearTable(sv,cagr/100,years,sd);
-  let html=`
+  let t=buildYearTable(sv,cagr/100,years,sd);
+  document.getElementById('fv-results').innerHTML=`
   <div class="result-hero">
     <div class="rh-label">Projected Future Value</div>
     <div class="rh-value">${fmtINR(fv)}</div>
     <div class="rh-sub">At ${cagr.toFixed(2)}% CAGR over ${durStr(Math.round(days))}</div>
   </div>
-  <div class="card">
-    <div class="card-head"><div class="sec-title"><span>Results Summary</span></div></div>
-    <div class="card-body">
-      <div class="metrics">
-        <div class="metric green">
-          <div class="m-label">Total Gain</div>
-          <div class="m-value">${fmtINR(gain)}</div>
-          <div class="m-sub">Growth on investment</div>
-        </div>
-        <div class="metric blue">
-          <div class="m-label">Wealth Multiple</div>
-          <div class="m-value">${multiple.toFixed(2)}x</div>
-          <div class="m-sub">Value multiplication</div>
-        </div>
-        <div class="metric orange">
-          <div class="m-label">Effective Growth</div>
-          <div class="m-value">${effGrowth.toFixed(2)}%</div>
-          <div class="m-sub">Total % increase</div>
-        </div>
-        <div class="metric gray">
-          <div class="m-label">Duration</div>
-          <div class="m-value" style="font-size:14px">${durStr(Math.round(days))}</div>
-          <div class="m-sub">${Math.round(days)} total days</div>
-        </div>
-      </div>
+  <div class="metrics">
+    <div class="metric green">
+      <div class="m-label">Total Gain</div>
+      <div class="m-value">${fmtINR(gain)}</div>
+      <div class="m-sub">Growth on investment</div>
+    </div>
+    <div class="metric blue">
+      <div class="m-label">Wealth Multiple</div>
+      <div class="m-value">${multiple.toFixed(2)}x</div>
+      <div class="m-sub">Value multiplication</div>
+    </div>
+    <div class="metric orange">
+      <div class="m-label">Effective Growth</div>
+      <div class="m-value">${effGrowth.toFixed(2)}%</div>
+      <div class="m-sub">Total % increase</div>
+    </div>
+    <div class="metric gray">
+      <div class="m-label">Duration</div>
+      <div class="m-value" style="font-size:16px">${durStr(Math.round(days))}</div>
+      <div class="m-sub">${Math.round(days)} total days</div>
     </div>
   </div>
   <div class="chart-wrap">
-    <div class="sec-title" style="margin-bottom:14px"><span>Growth Trajectory</span></div>
-    <div style="position:relative;height:220px"><canvas id="fvChartCanvas"></canvas></div>
+    <div class="chart-sec-title"><span>Growth Trajectory</span></div>
+    <div style="position:relative;min-height:450px"><canvas id="fvChartCanvas"></canvas></div>
   </div>
-  <div class="card">
+  <div class="card" style="margin-bottom:0">
     <div class="card-head"><div class="sec-title"><span>Year-by-Year Projection</span></div></div>
-    <div class="card-body" style="padding:0">
-      <div class="table-outer">
+    <div style="padding:0">
+      <div class="table-outer" style="border-radius:0 0 16px 16px;border:none;border-top:1px solid #E5E7EB">
         <table class="ytable">
           <thead><tr><th>Year</th><th>Opening Value</th><th>Growth Earned</th><th>Closing Value</th></tr></thead>
-          <tbody>${table.rows}</tbody>
+          <tbody>${t.rows}</tbody>
         </table>
       </div>
     </div>
   </div>`;
-  document.getElementById('fv-results').innerHTML=html;
   setTimeout(()=>{
     if(fvChart){fvChart.destroy();fvChart=null;}
     let canvas=document.getElementById('fvChartCanvas');
     if(!canvas) return;
-    fvChart=new Chart(canvas,{type:'line',data:{labels:table.chartData.map(d=>d.label),datasets:[{label:'Projected Value',data:table.chartData.map(d=>d.val),borderColor:'#1BA7E1',backgroundColor:'rgba(27,167,225,0.08)',borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#1BA7E1',fill:true,tension:0.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#94A3B8'}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:11},color:'#94A3B8',callback:v=>'₹'+(v>=10000000?(v/10000000).toFixed(1)+'Cr':v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000).toFixed(0)+'K':v)}}}}});
+    fvChart=new Chart(canvas,{type:'line',data:{labels:t.chartData.map(d=>d.label),datasets:[{label:'Projected Value',data:t.chartData.map(d=>d.val),borderColor:'#1BA7E1',backgroundColor:'rgba(27,167,225,0.08)',borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#1BA7E1',fill:true,tension:0.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#94A3B8'}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:11},color:'#94A3B8',callback:v=>'₹'+(v>=10000000?(v/10000000).toFixed(1)+'Cr':v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000).toFixed(0)+'K':v)}}}}});
   },50);
 }
 
+function buildYearTable(sv,cagrDec,totalYears,startDate){
+  let rows='',data=[],chartData=[];
+  let fullYears=Math.floor(totalYears),partial=totalYears-fullYears;
+  let sd=new Date(startDate);
+  chartData.push({label:'Start',val:Math.round(sv*100)/100});
+  for(let y=1;y<=fullYears;y++){
+    let bv=sv*Math.pow(1+cagrDec,y-1);
+    let ev=sv*Math.pow(1+cagrDec,y);
+    let growth=ev-bv;
+    let yr=new Date(sd.getFullYear()+y,sd.getMonth(),sd.getDate()).getFullYear();
+    rows+=`<tr><td>Year ${y} (${yr})</td><td>${fmtINR(bv)}</td><td style="color:#15803D">+${fmtINR(growth)}</td><td>${fmtINR(ev)}</td></tr>`;
+    chartData.push({label:'Y'+y,val:Math.round(ev*100)/100});
+  }
+  if(partial>0.005){
+    let bv=sv*Math.pow(1+cagrDec,fullYears);
+    let ev=sv*Math.pow(1+cagrDec,totalYears);
+    let growth=ev-bv;
+    let pm=Math.round(partial*12);
+    rows+=`<tr class="partial-row"><td>Partial (${pm} mo.)</td><td>${fmtINR(bv)}</td><td style="color:#64748B">+${fmtINR(growth)}</td><td>${fmtINR(ev)}</td></tr>`;
+    chartData.push({label:'End',val:Math.round(ev*100)/100});
+  }
+  return{rows,chartData};
+}
+
 function resetCAGR(){
-  ['c-start','c-end'].forEach(id=>{let el=document.getElementById(id);if(el)el.value='';});
-  ['c-sdate','c-edate'].forEach(id=>{let el=document.getElementById(id);if(el)el.value='';});
+  ['c-start','c-end'].forEach(id=>{let el=document.getElementById(id);if(el)el.value=''});
+  ['c-sdate','c-edate'].forEach(id=>{let el=document.getElementById(id);if(el)el.value=''});
   ['c-start-err','c-end-err','c-sdate-err','c-edate-err'].forEach(id=>showErr(id,false));
   ['c-start','c-end','c-sdate','c-edate'].forEach(id=>markInput(id,false));
-  document.getElementById('cagr-results').innerHTML='<div class="results-empty"><div class="empty-icon">📈</div><p>Enter your investment details to see CAGR results</p></div>';
+  document.getElementById('cagr-results').innerHTML='<div class="results-empty card"><div class="empty-icon">📈</div><p>Enter your investment details above to see CAGR results</p></div>';
   if(cagrChart){cagrChart.destroy();cagrChart=null;}
 }
 
 function resetFV(){
-  ['fv-start','fv-cagr'].forEach(id=>{let el=document.getElementById(id);if(el)el.value='';});
-  ['fv-sdate','fv-edate'].forEach(id=>{let el=document.getElementById(id);if(el)el.value='';});
+  ['fv-start','fv-cagr'].forEach(id=>{let el=document.getElementById(id);if(el)el.value=''});
+  ['fv-sdate','fv-edate'].forEach(id=>{let el=document.getElementById(id);if(el)el.value=''});
   ['fv-start-err','fv-cagr-err','fv-sdate-err','fv-edate-err'].forEach(id=>showErr(id,false));
   ['fv-start','fv-cagr','fv-sdate','fv-edate'].forEach(id=>markInput(id,false));
-  document.getElementById('fv-results').innerHTML='<div class="results-empty"><div class="empty-icon">🔮</div><p>Enter your inputs to project future value</p></div>';
+  document.getElementById('fv-results').innerHTML='<div class="results-empty card"><div class="empty-icon">🔮</div><p>Enter your inputs above to project future value</p></div>';
   if(fvChart){fvChart.destroy();fvChart=null;}
 }
 
 (function(){
   let today=new Date();
-  let fiveYrsAgo=new Date(today);fiveYrsAgo.setFullYear(today.getFullYear()-5);
-  let tenYrsOut=new Date(today);tenYrsOut.setFullYear(today.getFullYear()+10);
+  let fya=new Date(today);fya.setFullYear(today.getFullYear()-5);
+  let tyo=new Date(today);tyo.setFullYear(today.getFullYear()+10);
   let fmt=d=>d.toISOString().split('T')[0];
-  document.getElementById('c-sdate').value=fmt(fiveYrsAgo);
+  document.getElementById('c-sdate').value=fmt(fya);
   document.getElementById('c-edate').value=fmt(today);
   document.getElementById('fv-sdate').value=fmt(today);
-  document.getElementById('fv-edate').value=fmt(tenYrsOut);
+  document.getElementById('fv-edate').value=fmt(tyo);
 })();
 </script>
 </body>
