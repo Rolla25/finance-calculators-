@@ -25,7 +25,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 
 /* WRAP */
 .wrap{max-width:1080px;margin:0 auto;padding:32px 16px}
-.section+.section{margin-top:28px}
 
 /* TABS */
 .tab-bar{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:6px;display:flex;gap:6px;margin-bottom:24px}
@@ -33,13 +32,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .tab.active{background:var(--grad);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.3)}
 .tab-panel{display:none}.tab-panel.active{display:block}
 
-/* GRID */
+/* TWO-COLUMN GRID */
 .grid2{display:grid;grid-template-columns:340px 1fr;gap:24px;align-items:start}
 @media(max-width:820px){.grid2{grid-template-columns:1fr}}
 
+/* LEFT COLUMN — stacks its own children */
+.left-col{display:flex;flex-direction:column;gap:20px}
+
+/* RIGHT COLUMN — critical: flex column so cards stack in normal flow */
+.right-col{display:flex;flex-direction:column;gap:20px;min-width:0}
+
 /* CARD */
-.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
-.card+.card{margin-top:20px}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;width:100%;position:static;overflow:visible}
 
 /* SECTION HEADER */
 .sec-head{display:flex;align-items:center;gap:10px;margin-bottom:22px}
@@ -65,14 +69,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 
 /* ALERT */
 .alert{padding:12px 16px;border-radius:var(--radius-xs);font-size:13px;margin-top:14px;display:none;font-weight:500}
-.alert.show{display:block}
 .alert-error{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
 
-/* KPI GRID */
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
-.kpi{border-radius:var(--radius-sm);padding:18px 16px;border:1.5px solid var(--border)}
+/* KPI GRID — key rules: no fixed heights, auto rows, no overflow clipping */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;width:100%}
+.kpi{border-radius:var(--radius-sm);padding:18px 16px;border:1.5px solid var(--border);min-height:0}
 .kpi-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-muted);margin-bottom:8px}
-.kpi-val{font-size:22px;font-weight:800;color:var(--text)}
+.kpi-val{font-size:22px;font-weight:800;color:var(--text);word-break:break-word}
 .kpi.kpi-xirr{background:var(--grad);border-color:transparent}
 .kpi.kpi-xirr .kpi-label{color:rgba(255,255,255,.75)}
 .kpi.kpi-xirr .kpi-val{color:#fff;font-size:28px}
@@ -83,14 +86,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .kpi.kpi-blue{background:var(--blue-light);border-color:var(--blue-mid)}
 .kpi.kpi-blue .kpi-val{color:var(--blue-dark)}
 
-/* TABLE */
+/* RESULTS TABLE */
 .tbl-outer{border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);margin-top:14px}
 .tbl-scroll{overflow-x:auto;max-height:440px;overflow-y:auto}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:400px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:480px;table-layout:fixed}
 thead{position:sticky;top:0;z-index:2}
-th{background:linear-gradient(135deg,#1e3a6e,#1d4ed8);color:rgba(255,255,255,.9);padding:11px 14px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;cursor:pointer;user-select:none}
+th{background:linear-gradient(135deg,#1e3a6e,#1d4ed8);color:rgba(255,255,255,.9);padding:11px 14px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;cursor:pointer;user-select:none;overflow:hidden}
+th:nth-child(1){width:48px}
+th:nth-child(2){width:130px}
 th:hover{background:linear-gradient(135deg,#163060,#1a42c4)}
-td{padding:10px 14px;border-bottom:1px solid var(--border)}
+td{padding:10px 14px;border-bottom:1px solid var(--border);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 tbody tr:nth-child(even) td{background:#f8fafc}
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover td{background:var(--blue-light)}
@@ -98,27 +103,29 @@ td.pos{color:var(--green);font-weight:600}
 td.neg{color:var(--red);font-weight:600}
 td.neutral{color:var(--text);font-weight:500}
 
-/* FILTER ROW */
+/* FILTER */
 .filter-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .filter-row input{flex:1;padding:9px 13px;border:1.5px solid var(--border);border-radius:var(--radius-xs);font-size:13px;outline:none}
 .filter-row input:focus{border-color:var(--blue)}
 
-/* CF TABLE (manual entry) */
-.cf-entry-tbl{width:100%;border-collapse:collapse;margin-bottom:10px}
+/* MANUAL ENTRY TABLE */
+.cf-entry-tbl{width:100%;table-layout:fixed;border-collapse:collapse;margin-bottom:10px}
 .cf-entry-tbl th{background:var(--gray-bg);padding:9px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text-muted);border-bottom:2px solid var(--border);text-align:left}
-.cf-entry-tbl td{padding:4px 5px;border-bottom:1px solid var(--border)}
-.cf-entry-tbl input{width:100%;border:1.5px solid var(--border);border-radius:6px;padding:8px 10px;font-size:13px;color:var(--text);outline:none;transition:.15s;background:var(--white)}
+.cf-entry-tbl th:nth-child(1){width:36px}
+.cf-entry-tbl th:nth-child(4){width:40px}
+.cf-entry-tbl td{padding:4px 5px;border-bottom:1px solid var(--border);overflow:hidden}
+.cf-entry-tbl input{width:100%;max-width:100%;box-sizing:border-box;border:1.5px solid var(--border);border-radius:6px;padding:8px 10px;font-size:13px;color:var(--text);outline:none;transition:.15s;background:var(--white);min-width:0}
 .cf-entry-tbl input:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(37,99,235,.1)}
 .btn-del{background:none;border:none;color:var(--text-light);font-size:16px;cursor:pointer;padding:4px 8px;border-radius:6px;transition:.15s}
 .btn-del:hover{background:var(--red-bg);color:var(--red)}
 .add-row-bar{display:flex;gap:8px;margin-top:6px}
 
-/* INFO / EDU CARDS */
-.info-card{background:var(--blue-light);border:1.5px solid var(--blue-mid);border-radius:var(--radius-sm);padding:18px 20px;margin-top:18px}
+/* INFO CARD */
+.info-card{background:var(--blue-light);border:1.5px solid var(--blue-mid);border-radius:var(--radius-sm);padding:18px 20px}
 .info-card h3{font-size:13px;font-weight:700;color:var(--blue-dark);margin-bottom:8px;text-transform:uppercase;letter-spacing:.4px}
 .info-card p{font-size:13px;color:#1e40af;line-height:1.7}
 
-/* EDU SECTION */
+/* EDU */
 .edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:16px}
 .edu-card{background:var(--white);border-radius:var(--radius-sm);border:1.5px solid var(--border);padding:20px}
 .edu-card h4{font-size:13px;font-weight:700;color:var(--blue-dark);margin-bottom:8px}
@@ -134,13 +141,13 @@ td.neutral{color:var(--text);font-weight:500}
 .faq-q.open .chevron{transform:rotate(180deg);color:var(--blue)}
 .faq-q.open{color:var(--blue)}
 .faq-a{display:none;padding:0 20px 16px;font-size:13px;color:var(--text-muted);line-height:1.7;background:var(--white)}
-.faq-a ul{margin:8px 0 0 18px}
-.faq-a li{margin-bottom:4px}
+
+/* SECTIONS BELOW CALCULATOR */
+.below-section{margin-top:28px}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <div class="hero">
   <h1>XIRR Calculator</h1>
   <p>Calculate annualized returns for SIPs, mutual funds, stock portfolios, irregular investments, and custom cash flows using Excel-compatible XIRR methodology.</p>
@@ -148,208 +155,149 @@ td.neutral{color:var(--text);font-weight:500}
 
 <div class="wrap">
 
-<!-- TABS -->
-<div class="tab-bar">
-  <button class="tab active" onclick="switchTab(0)">Investment XIRR</button>
-  <button class="tab" onclick="switchTab(1)">Manual Cash Flow XIRR</button>
-</div>
-
-<!-- ═══ TAB 1 ═══ -->
-<div class="tab-panel active" id="tab0">
-<div class="grid2">
-
-<!-- LEFT -->
-<div>
-<div class="card">
-  <div class="sec-head"><div class="sec-head-bar"></div><h2>Investment Settings</h2></div>
-
-  <div class="field">
-    <label>Investment Amount (₹)</label>
-    <input type="number" id="t1-amount" value="10000" min="1"/>
-  </div>
-  <div class="field">
-    <label>Investment Frequency</label>
-    <select id="t1-freq" onchange="onFreqChange()">
-      <option value="onetime">One Time</option>
-      <option value="monthly" selected>Monthly</option>
-      <option value="quarterly">Quarterly</option>
-      <option value="halfyearly">Half-Yearly</option>
-      <option value="yearly">Yearly</option>
-    </select>
-  </div>
-  <div class="field">
-    <label>Start Date</label>
-    <input type="date" id="t1-start"/>
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab(0)">Investment XIRR</button>
+    <button class="tab" onclick="switchTab(1)">Manual Cash Flow XIRR</button>
   </div>
 
-  <div id="endSection">
-    <label style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:8px">End By</label>
-    <div class="end-toggle">
-      <button class="etbtn active" id="etDate" onclick="setEndMode('date')">End Date</button>
-      <button class="etbtn" id="etN" onclick="setEndMode('n')">No. of Installments</button>
-    </div>
-    <div class="field" id="endDateField">
-      <label>End Date</label>
-      <input type="date" id="t1-end"/>
-    </div>
-    <div class="field" id="endNField" style="display:none">
-      <label>Number of Installments</label>
-      <input type="number" id="t1-n" value="12" min="1"/>
-    </div>
-  </div>
+  <!-- TAB 1 -->
+  <div class="tab-panel active" id="tab0">
+    <div class="grid2">
 
-  <div class="field">
-    <label>Maturity Value (₹)</label>
-    <input type="number" id="t1-maturity" value="150000"/>
-  </div>
-  <div class="field">
-    <label>Maturity Date</label>
-    <input type="date" id="t1-matdate"/>
-  </div>
-
-  <button class="btn-calc" onclick="calcTab1()">Calculate XIRR</button>
-  <div class="alert alert-error" id="t1-err"></div>
-</div>
-
-<div class="info-card" style="margin-top:20px">
-  <h3>What is XIRR?</h3>
-  <p>XIRR measures the annualised return of investments made on different dates. Unlike CAGR, it accounts for the exact timing of each cash flow — making it far more accurate for SIPs, lump-sum top-ups, or any irregular investment pattern.</p>
-</div>
-</div>
-
-<!-- RIGHT -->
-<div id="t1-results" style="display:none">
-  <div class="card">
-    <div class="sec-head"><div class="sec-head-bar"></div><h2>Result Summary</h2></div>
-    <div class="kpi-grid" id="t1-kpis"></div>
-  </div>
-  <div class="card">
-    <div class="sec-head"><div class="sec-head-bar"></div><h2>Cash Flow Schedule</h2></div>
-    <div class="filter-row">
-      <input type="text" id="t1-search" placeholder="Search date or amount…" oninput="filterTable('t1-tbody','t1-search')"/>
-    </div>
-    <div class="tbl-outer">
-      <div class="tbl-scroll">
-        <table>
-          <thead><tr>
-            <th onclick="sortTable('t1-tbody',0,'n','t1')">#</th>
-            <th onclick="sortTable('t1-tbody',1,'d','t1')">Date</th>
-            <th onclick="sortTable('t1-tbody',2,'n','t1')">Cash Flow</th>
-            <th onclick="sortTable('t1-tbody',3,'n','t1')">Running Total</th>
-          </tr></thead>
-          <tbody id="t1-tbody"></tbody>
-        </table>
+      <!-- LEFT -->
+      <div class="left-col">
+        <div class="card">
+          <div class="sec-head"><div class="sec-head-bar"></div><h2>Investment Settings</h2></div>
+          <div class="field"><label>Investment Amount (₹)</label><input type="number" id="t1-amount" value="10000" min="1"/></div>
+          <div class="field">
+            <label>Investment Frequency</label>
+            <select id="t1-freq" onchange="onFreqChange()">
+              <option value="onetime">One Time</option>
+              <option value="monthly" selected>Monthly</option>
+              <option value="quarterly">Quarterly</option>
+              <option value="halfyearly">Half-Yearly</option>
+              <option value="yearly">Yearly</option>
+            </select>
+          </div>
+          <div class="field"><label>Start Date</label><input type="date" id="t1-start"/></div>
+          <div id="endSection">
+            <label style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:8px">End By</label>
+            <div class="end-toggle">
+              <button class="etbtn active" id="etDate" onclick="setEndMode('date')">End Date</button>
+              <button class="etbtn" id="etN" onclick="setEndMode('n')">No. of Installments</button>
+            </div>
+            <div class="field" id="endDateField"><label>End Date</label><input type="date" id="t1-end"/></div>
+            <div class="field" id="endNField" style="display:none"><label>Number of Installments</label><input type="number" id="t1-n" value="12" min="1"/></div>
+          </div>
+          <div class="field"><label>Maturity Value (₹)</label><input type="number" id="t1-maturity" value="150000"/></div>
+          <div class="field"><label>Maturity Date</label><input type="date" id="t1-matdate"/></div>
+          <button class="btn-calc" onclick="calcTab1()">Calculate XIRR</button>
+          <div class="alert alert-error" id="t1-err"></div>
+        </div>
+        <div class="info-card">
+          <h3>What is XIRR?</h3>
+          <p>XIRR measures the annualised return of investments made on different dates. Unlike CAGR, it accounts for the exact timing of each cash flow — making it far more accurate for SIPs, lump-sum top-ups, or any irregular investment pattern.</p>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
-</div>
-</div>
-
-<!-- ═══ TAB 2 ═══ -->
-<div class="tab-panel" id="tab1">
-<div class="grid2">
-
-<!-- LEFT -->
-<div>
-<div class="card">
-  <div class="sec-head"><div class="sec-head-bar"></div><h2>Manual Cash Flow Entries</h2></div>
-  <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">Outflows (investments) = negative &nbsp;|&nbsp; Inflows (redemptions) = positive. Matches Excel's XIRR function exactly.</p>
-  <table class="cf-entry-tbl" id="cf-table">
-    <thead><tr><th style="width:32px">#</th><th>Date</th><th>Cash Flow (₹)</th><th style="width:36px"></th></tr></thead>
-    <tbody id="cf-tbody"></tbody>
-  </table>
-  <div class="add-row-bar">
-    <button class="btn-sm" onclick="addRow()">+ Add Row</button>
-    <button class="btn-sm" onclick="addRow(5)">+ 5 Rows</button>
-  </div>
-  <button class="btn-calc" style="margin-top:18px" onclick="calcTab2()">Calculate XIRR</button>
-  <div class="alert alert-error" id="t2-err"></div>
-</div>
-
-<div class="info-card" style="margin-top:20px">
-  <h3>How to Use</h3>
-  <p>Enter each investment as a <strong>negative</strong> value and each redemption or maturity payout as a <strong>positive</strong> value. Dates can be in any order — the calculator sorts them automatically before computing XIRR.</p>
-</div>
-</div>
-
-<!-- RIGHT -->
-<div id="t2-results" style="display:none">
-  <div class="card">
-    <div class="sec-head"><div class="sec-head-bar"></div><h2>Result Summary</h2></div>
-    <div class="kpi-grid" id="t2-kpis"></div>
-  </div>
-  <div class="card">
-    <div class="sec-head"><div class="sec-head-bar"></div><h2>Cash Flow Table</h2></div>
-    <div class="filter-row">
-      <input type="text" id="t2-search" placeholder="Search date or amount…" oninput="filterTable('t2-tbody','t2-search')"/>
-    </div>
-    <div class="tbl-outer">
-      <div class="tbl-scroll">
-        <table>
-          <thead><tr>
-            <th onclick="sortTable('t2-tbody',0,'n','t2')">#</th>
-            <th onclick="sortTable('t2-tbody',1,'d','t2')">Date</th>
-            <th onclick="sortTable('t2-tbody',2,'n','t2')">Cash Flow</th>
-            <th onclick="sortTable('t2-tbody',3,'n','t2')">Running Total</th>
-          </tr></thead>
-          <tbody id="t2-tbody"></tbody>
-        </table>
+      <!-- RIGHT: flex column, cards stack naturally -->
+      <div class="right-col" id="t1-results" style="display:none">
+        <div class="card">
+          <div class="sec-head"><div class="sec-head-bar"></div><h2>Result Summary</h2></div>
+          <div class="kpi-grid" id="t1-kpis"></div>
+        </div>
+        <div class="card">
+          <div class="sec-head"><div class="sec-head-bar"></div><h2>Cash Flow Schedule</h2></div>
+          <div class="filter-row"><input type="text" id="t1-search" placeholder="Search date or amount…" oninput="filterTable('t1-tbody','t1-search')"/></div>
+          <div class="tbl-outer"><div class="tbl-scroll">
+            <table>
+              <thead><tr>
+                <th onclick="sortTable('t1-tbody',0,'n')">#</th>
+                <th onclick="sortTable('t1-tbody',1,'d')">Date</th>
+                <th onclick="sortTable('t1-tbody',2,'n')">Cash Flow</th>
+                <th onclick="sortTable('t1-tbody',3,'n')">Running Total</th>
+              </tr></thead>
+              <tbody id="t1-tbody"></tbody>
+            </table>
+          </div></div>
+        </div>
       </div>
+
     </div>
   </div>
-</div>
 
-</div>
-</div>
+  <!-- TAB 2 -->
+  <div class="tab-panel" id="tab1">
+    <div style="display:flex;flex-direction:column;gap:20px">
 
-<!-- ═══ UNDERSTANDING XIRR ═══ -->
-<div class="section card">
-  <div class="sec-head"><div class="sec-head-bar"></div><h2>Understanding XIRR</h2></div>
-  <div class="edu-grid">
-    <div class="edu-card">
-      <h4>What is XIRR?</h4>
-      <p>XIRR (Extended Internal Rate of Return) is the annualised return on investments where money flows on different dates. It accounts for both the amount and exact timing of every cash flow.</p>
-    </div>
-    <div class="edu-card">
-      <h4>XIRR vs CAGR</h4>
-      <p>CAGR assumes one investment and one redemption. XIRR handles multiple investments and withdrawals on different dates — making it far more accurate for real-world portfolios.</p>
-    </div>
-    <div class="edu-card">
-      <h4>XIRR vs IRR</h4>
-      <p>IRR assumes cash flows occur at equal time intervals. XIRR uses actual calendar dates, giving a more precise annualised rate for irregular timelines.</p>
-    </div>
-    <div class="edu-card">
-      <h4>SIP & Mutual Fund XIRR</h4>
-      <p>XIRR is the standard metric for evaluating SIP returns and mutual fund performance where investments happen monthly across varying market conditions.</p>
-    </div>
-    <div class="edu-card">
-      <h4>Stock Portfolio XIRR</h4>
-      <p>Enter every buy transaction as a negative cash flow and the current portfolio value or sale proceeds as a positive cash flow to compute your true annualised return.</p>
-    </div>
-    <div class="edu-card">
-      <h4>Excel Compatibility</h4>
-      <p>This calculator uses the same NPV formula and Newton-Raphson iterative solver as Microsoft Excel's XIRR function, ensuring results match within normal rounding tolerance.</p>
-    </div>
-    <div class="edu-card">
-      <h4>Common Mistakes</h4>
-      <p>Forgetting to enter redemptions as positive values, using incorrect dates, or mixing currencies are the most common errors that produce unexpected XIRR results.</p>
-    </div>
-    <div class="edu-card">
-      <h4>Negative XIRR</h4>
-      <p>A negative XIRR means total investments exceeded total returns on an annualised basis after accounting for timing — indicating a net loss on the portfolio.</p>
+      <!-- SECTION 1: Entry -->
+      <div class="card">
+        <div class="sec-head"><div class="sec-head-bar"></div><h2>Manual Cash Flow Entries</h2></div>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">Outflows (investments) = negative &nbsp;|&nbsp; Inflows (redemptions) = positive. Matches Excel's XIRR function exactly.</p>
+        <table class="cf-entry-tbl">
+          <thead><tr><th>#</th><th>Date</th><th>Cash Flow (₹)</th><th></th></tr></thead>
+          <tbody id="cf-tbody"></tbody>
+        </table>
+        <div class="add-row-bar">
+          <button class="btn-sm" onclick="addRow()">+ Add Row</button>
+          <button class="btn-sm" onclick="addRow(5)">+ 5 Rows</button>
+        </div>
+        <button class="btn-calc" style="margin-top:18px" onclick="calcTab2()">Calculate XIRR</button>
+        <div class="alert alert-error" id="t2-err"></div>
+        <div class="info-card" style="margin-top:18px">
+          <h3>How to Use</h3>
+          <p>Enter each investment as a <strong>negative</strong> value and each redemption or maturity payout as a <strong>positive</strong> value. Dates can be in any order — the calculator sorts them automatically before computing XIRR.</p>
+        </div>
+      </div>
+
+      <!-- SECTION 2 & 3: Results (hidden until calculated) -->
+      <div id="t2-results" style="display:none;flex-direction:column;gap:20px">
+        <div class="card">
+          <div class="sec-head"><div class="sec-head-bar"></div><h2>Result Summary</h2></div>
+          <div class="kpi-grid" id="t2-kpis"></div>
+        </div>
+        <div class="card">
+          <div class="sec-head"><div class="sec-head-bar"></div><h2>Cash Flow Table</h2></div>
+          <div class="filter-row"><input type="text" id="t2-search" placeholder="Search date or amount…" oninput="filterTable('t2-tbody','t2-search')"/></div>
+          <div class="tbl-outer"><div class="tbl-scroll">
+            <table>
+              <thead><tr>
+                <th onclick="sortTable('t2-tbody',0,'n')">#</th>
+                <th onclick="sortTable('t2-tbody',1,'d')">Date</th>
+                <th onclick="sortTable('t2-tbody',2,'n')">Cash Flow</th>
+                <th onclick="sortTable('t2-tbody',3,'n')">Running Total</th>
+              </tr></thead>
+              <tbody id="t2-tbody"></tbody>
+            </table>
+          </div></div>
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
 
-<!-- ═══ FAQ ═══ -->
-<div class="section card">
-  <div class="sec-head"><div class="sec-head-bar"></div><h2>Frequently Asked Questions</h2></div>
-  <div class="faq" id="faq-list"></div>
-</div>
+  <!-- UNDERSTANDING XIRR -->
+  <div class="below-section card">
+    <div class="sec-head"><div class="sec-head-bar"></div><h2>Understanding XIRR</h2></div>
+    <div class="edu-grid">
+      <div class="edu-card"><h4>What is XIRR?</h4><p>XIRR (Extended Internal Rate of Return) is the annualised return on investments where money flows on different dates. It accounts for both the amount and exact timing of every cash flow.</p></div>
+      <div class="edu-card"><h4>XIRR vs CAGR</h4><p>CAGR assumes one investment and one redemption. XIRR handles multiple investments and withdrawals on different dates — making it far more accurate for real-world portfolios.</p></div>
+      <div class="edu-card"><h4>XIRR vs IRR</h4><p>IRR assumes cash flows occur at equal time intervals. XIRR uses actual calendar dates, giving a more precise annualised rate for irregular timelines.</p></div>
+      <div class="edu-card"><h4>SIP & Mutual Fund XIRR</h4><p>XIRR is the standard metric for evaluating SIP returns and mutual fund performance where investments happen monthly across varying market conditions.</p></div>
+      <div class="edu-card"><h4>Stock Portfolio XIRR</h4><p>Enter every buy transaction as a negative cash flow and the current portfolio value or sale proceeds as a positive cash flow to compute your true annualised return.</p></div>
+      <div class="edu-card"><h4>Excel Compatibility</h4><p>This calculator uses the same NPV formula and Newton-Raphson iterative solver as Microsoft Excel's XIRR function, ensuring results match within normal rounding tolerance.</p></div>
+      <div class="edu-card"><h4>Common Mistakes</h4><p>Forgetting to enter redemptions as positive values, using incorrect dates, or mixing currencies are the most common errors that produce unexpected XIRR results.</p></div>
+      <div class="edu-card"><h4>Negative XIRR</h4><p>A negative XIRR means total investments exceeded total returns on an annualised basis after accounting for timing — indicating a net loss on the portfolio.</p></div>
+    </div>
+  </div>
 
-</div><!-- /wrap -->
+  <!-- FAQ -->
+  <div class="below-section card">
+    <div class="sec-head"><div class="sec-head-bar"></div><h2>Frequently Asked Questions</h2></div>
+    <div class="faq" id="faq-list"></div>
+  </div>
+
+</div>
 
 <script>
 // ─── UTILITIES ───────────────────────────────────────────────
@@ -369,12 +317,12 @@ function parseD(s){
   if(m) return new Date(+m[3],+m[2]-1,+m[1]);
   return null;
 }
-const days=(a,b)=>Math.round((b-a)/86400000);
+const daysBetween=(a,b)=>Math.round((b-a)/86400000);
 const addM=(d,m)=>{const r=new Date(d);r.setMonth(r.getMonth()+m);return r};
 
 // ─── XIRR ENGINE ─────────────────────────────────────────────
-function npv(r,cfs,dates){let s=0,t0=dates[0];for(let i=0;i<cfs.length;i++)s+=cfs[i]/Math.pow(1+r,days(t0,dates[i])/365);return s;}
-function dnpv(r,cfs,dates){let s=0,t0=dates[0];for(let i=0;i<cfs.length;i++){const t=days(t0,dates[i])/365;s-=t*cfs[i]/Math.pow(1+r,t+1);}return s;}
+function npv(r,cfs,dates){let s=0,t0=dates[0];for(let i=0;i<cfs.length;i++)s+=cfs[i]/Math.pow(1+r,daysBetween(t0,dates[i])/365);return s;}
+function dnpv(r,cfs,dates){let s=0,t0=dates[0];for(let i=0;i<cfs.length;i++){const t=daysBetween(t0,dates[i])/365;s-=t*cfs[i]/Math.pow(1+r,t+1);}return s;}
 function xirr(cfs,dates,g=0.1){
   let r=g;
   for(let i=0;i<300;i++){const v=npv(r,cfs,dates),dv=dnpv(r,cfs,dates);if(Math.abs(dv)<1e-14)break;const nr=r-v/dv;if(Math.abs(nr-r)<1e-10)return nr;r=Math.max(nr,-0.9999);}
@@ -401,8 +349,8 @@ let t1CFs=[];
 })();
 
 function onFreqChange(){
-  const v=document.getElementById('t1-freq').value;
-  document.getElementById('endSection').style.display=v==='onetime'?'none':'block';
+  document.getElementById('endSection').style.display=
+    document.getElementById('t1-freq').value==='onetime'?'none':'block';
 }
 function setEndMode(m){
   document.getElementById('etDate').classList.toggle('active',m==='date');
@@ -419,7 +367,7 @@ function genDates(freq,start,end){
 }
 
 function calcTab1(){
-  clearErr('t1-err');
+  document.getElementById('t1-err').style.display='none';
   const amt=+document.getElementById('t1-amount').value;
   const freq=document.getElementById('t1-freq').value;
   const start=parseD(document.getElementById('t1-start').value);
@@ -452,16 +400,14 @@ function calcTab1(){
   for(const g of[0.1,0.5,-.5,2,-.9]){rate=xirr(allCFs,allDates,g);if(!isNaN(rate)&&isFinite(rate)&&rate>-1)break;}
   if(isNaN(rate)||!isFinite(rate)) return showErr('t1-err','Could not compute XIRR. Please check your inputs.');
 
-  const totalInv=amt*invDates.length;
-  const gain=matVal-totalInv;
-  const dur=days(invDates[0],matDate);
+  const totalInv=amt*invDates.length,gain=matVal-totalInv,dur=daysBetween(invDates[0],matDate);
   let run=0;
   t1CFs=invDates.map((d,i)=>{run-=amt;return{date:d,cf:-amt,running:run,sr:i+1};});
   run+=matVal;t1CFs.push({date:matDate,cf:matVal,running:run,sr:t1CFs.length+1});
 
   renderKPIs('t1-kpis',rate,totalInv,matVal,gain,allCFs.length,dur);
   populateTbody('t1-tbody',t1CFs);
-  document.getElementById('t1-results').style.display='block';
+  document.getElementById('t1-results').style.display='flex';
 }
 
 // ─── TAB 2 ───────────────────────────────────────────────────
@@ -474,14 +420,14 @@ function addRow(n=1){
     tr.innerHTML=`<td style="text-align:center;font-size:12px;color:var(--text-light);padding:4px 8px">${idx}</td>
       <td><input type="date" class="cf-date"/></td>
       <td><input type="number" class="cf-amt" placeholder="e.g. −100000"/></td>
-      <td><button class="btn-del" onclick="this.closest('tr').remove();reindex()" title="Delete">✕</button></td>`;
+      <td><button class="btn-del" onclick="this.closest('tr').remove();reindex()">✕</button></td>`;
     tb.appendChild(tr);
   }
 }
 function reindex(){document.querySelectorAll('#cf-tbody tr').forEach((tr,i)=>tr.children[0].textContent=i+1);}
 
 function calcTab2(){
-  clearErr('t2-err');
+  document.getElementById('t2-err').style.display='none';
   const rows=document.querySelectorAll('#cf-tbody tr');
   const pairs=[],rejected=[];
   rows.forEach((tr,i)=>{
@@ -491,14 +437,14 @@ function calcTab2(){
     const d=parseD(rawDate);
     const v=rawCF===''?NaN:+rawCF.replace(/,/g,'');
     if(!rawDate){rejected.push(`Row ${i+1}: date missing`);return;}
-    if(!d||isNaN(d.getTime())){rejected.push(`Row ${i+1}: date "${rawDate}" invalid`);return;}
+    if(!d||isNaN(d.getTime())){rejected.push(`Row ${i+1}: date invalid`);return;}
     if(rawCF===''){rejected.push(`Row ${i+1}: amount missing`);return;}
-    if(isNaN(v)){rejected.push(`Row ${i+1}: "${rawCF}" not a number`);return;}
-    if(v===0){rejected.push(`Row ${i+1}: zero value skipped`);return;}
+    if(isNaN(v)){rejected.push(`Row ${i+1}: not a number`);return;}
+    if(v===0){rejected.push(`Row ${i+1}: zero skipped`);return;}
     pairs.push({date:d,cf:v});
   });
   if(rejected.length) console.warn('[XIRR] Rejected:\n'+rejected.join('\n'));
-  console.log(`[XIRR] Total: ${rows.length} | Valid: ${pairs.length} | Rejected: ${rejected.length}`);
+  console.log(`[XIRR] Total:${rows.length} Valid:${pairs.length} Rejected:${rejected.length}`);
 
   if(pairs.length<2) return showErr('t2-err',
     pairs.length===0?'No valid cash flows found. Please enter at least one investment and one redemption.':
@@ -514,31 +460,27 @@ function calcTab2(){
 
   const totalOut=Math.abs(pairs.filter(p=>p.cf<0).reduce((s,p)=>s+p.cf,0));
   const totalIn=pairs.filter(p=>p.cf>0).reduce((s,p)=>s+p.cf,0);
-  const net=totalIn-totalOut;
-  const dur=days(dates[0],dates[dates.length-1]);
+  const net=totalIn-totalOut,dur=daysBetween(dates[0],dates[dates.length-1]);
   let run=0;
   t2CFs=pairs.map((p,i)=>{run+=p.cf;return{date:p.date,cf:p.cf,running:run,sr:i+1};});
 
   renderKPIs('t2-kpis',rate,totalOut,totalIn,net,pairs.length,dur);
   populateTbody('t2-tbody',t2CFs);
-  document.getElementById('t2-results').style.display='block';
+  const r2=document.getElementById('t2-results');r2.style.display='flex';r2.style.flexDirection='column';r2.style.gap='20px';
 }
 
 // ─── SHARED ──────────────────────────────────────────────────
 function showErr(id,msg){const el=document.getElementById(id);el.textContent=msg;el.style.display='block';}
-function clearErr(id){document.getElementById(id).style.display='none';}
 
 function renderKPIs(id,rate,invested,withdrawn,net,count,dur){
   const gainCls=net>=0?'kpi-green':'kpi-red';
-  const xirrCls=rate>=0?'kpi-xirr':'kpi-xirr'; // always highlight
   document.getElementById(id).innerHTML=`
     <div class="kpi kpi-xirr"><div class="kpi-label">XIRR</div><div class="kpi-val">${fmtPct(rate*100)}</div></div>
     <div class="kpi kpi-blue"><div class="kpi-label">Total Invested</div><div class="kpi-val">₹${fmt(invested)}</div></div>
     <div class="kpi kpi-blue"><div class="kpi-label">Total Withdrawn</div><div class="kpi-val">₹${fmt(withdrawn)}</div></div>
     <div class="kpi ${gainCls}"><div class="kpi-label">Net ${net>=0?'Profit':'Loss'}</div><div class="kpi-val">${(net<0?'−':'')+'₹'+fmt(Math.abs(net))}</div></div>
     <div class="kpi"><div class="kpi-label">Cash Flows</div><div class="kpi-val">${count}</div></div>
-    <div class="kpi"><div class="kpi-label">Duration</div><div class="kpi-val">${(dur/365).toFixed(1)} yrs</div></div>
-  `;
+    <div class="kpi"><div class="kpi-label">Duration</div><div class="kpi-val">${(dur/365).toFixed(1)} yrs</div></div>`;
 }
 
 function populateTbody(tbId,cfs){
@@ -552,9 +494,8 @@ function populateTbody(tbId,cfs){
 }
 
 const sortState={};
-function sortTable(tbId,col,type,pfx){
-  const tb=document.getElementById(tbId);
-  const rows=Array.from(tb.rows);
+function sortTable(tbId,col,type){
+  const tb=document.getElementById(tbId),rows=Array.from(tb.rows);
   const key=tbId+col;const asc=sortState[key]=!sortState[key];
   const attrs=['data-sr','data-date','data-cf','data-run'];
   rows.sort((a,b)=>{
@@ -567,18 +508,20 @@ function sortTable(tbId,col,type,pfx){
 
 function filterTable(tbId,inputId){
   const q=document.getElementById(inputId).value.toLowerCase();
-  Array.from(document.getElementById(tbId).rows).forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';});
+  Array.from(document.getElementById(tbId).rows).forEach(r=>{
+    r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';
+  });
 }
 
 // ─── FAQ ─────────────────────────────────────────────────────
 const faqs=[
   {q:'What is XIRR?',a:'XIRR (Extended Internal Rate of Return) is the annualized return earned on investments where money is invested or withdrawn on different dates. It provides a more accurate measure of performance than CAGR when multiple cash flows are involved.'},
   {q:'How is XIRR different from CAGR?',a:'CAGR assumes a single investment at the beginning and a single redemption at the end. XIRR considers every investment and withdrawal along with the exact dates on which they occurred, making it more suitable for real-world investing.'},
-  {q:'When should I use XIRR instead of CAGR?',a:'Use XIRR whenever you have SIP investments, multiple investments made on different dates, partial withdrawals, dividend receipts, or irregular cash flows. Use CAGR only when there is a single investment and a single redemption.',list:true},
+  {q:'When should I use XIRR instead of CAGR?',a:'Use XIRR whenever you have SIP investments, multiple investments made on different dates, partial withdrawals, dividend receipts, or irregular cash flows. Use CAGR only when there is a single investment and a single redemption.'},
   {q:'How does this calculator work?',a:'This calculator uses the same methodology as Microsoft Excel\'s XIRR function. It calculates your annualized return by considering both the amount and timing of every cash flow.'},
   {q:'Is this calculator compatible with Excel\'s XIRR function?',a:'Yes. The calculator uses actual calendar dates and iterative solving methods to closely match Microsoft Excel\'s XIRR results.'},
-  {q:'What cash flows should be entered as negative values?',a:'Any money invested by you should be entered as a negative value because cash is leaving your pocket. Examples: Mutual fund purchase: −₹10,000 | Stock purchase: −₹50,000 | SIP installment: −₹5,000.'},
-  {q:'What cash flows should be entered as positive values?',a:'Any money received by you should be entered as a positive value. Examples: Mutual fund redemption: +₹2,00,000 | Dividend received: +₹5,000 | Sale of shares: +₹50,000 | Maturity amount: +₹10,00,000.'},
+  {q:'What cash flows should be entered as negative values?',a:'Any money invested by you should be entered as a negative value. Examples: Mutual fund purchase: −₹10,000 | Stock purchase: −₹50,000 | SIP installment: −₹5,000.'},
+  {q:'What cash flows should be entered as positive values?',a:'Any money received by you should be entered as a positive value. Examples: Mutual fund redemption: +₹2,00,000 | Dividend received: +₹5,000 | Maturity amount: +₹10,00,000.'},
   {q:'Why do I need at least one positive and one negative cash flow?',a:'XIRR measures investment returns. To calculate a return, there must be at least one investment (negative cash flow) and at least one inflow (positive cash flow).'},
   {q:'Can I calculate SIP returns using this calculator?',a:'Yes. You can either use the Investment XIRR tab for regular SIPs or manually enter each SIP installment in the Manual Cash Flow XIRR section.'},
   {q:'What if I haven\'t sold my investments yet?',a:'Enter the current market value of your portfolio as the final positive cash flow using today\'s date. This will calculate your portfolio\'s return up to the present day.'},
@@ -586,7 +529,6 @@ const faqs=[
   {q:'What does an XIRR of 15% mean?',a:'An XIRR of 15% means your investments generated an annualized return of approximately 15% per year after accounting for all cash flow dates and amounts.'},
   {q:'Does the order of cash flow entries matter?',a:'No. The calculator automatically sorts cash flows by date before performing the XIRR calculation.'},
 ];
-
 (function buildFAQ(){
   const list=document.getElementById('faq-list');
   faqs.forEach(({q,a})=>{
@@ -596,12 +538,7 @@ const faqs=[
     list.appendChild(item);
   });
 })();
-
-function toggleFAQ(el){
-  const ans=el.nextElementSibling;
-  const open=el.classList.toggle('open');
-  ans.style.display=open?'block':'none';
-}
+function toggleFAQ(el){const ans=el.nextElementSibling;const open=el.classList.toggle('open');ans.style.display=open?'block':'none';}
 
 // ─── INIT ────────────────────────────────────────────────────
 addRow(5);
