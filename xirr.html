@@ -468,7 +468,7 @@ let _rowId=0;
 function addRow(n=1){
   const tb=document.getElementById('cf-tbody');
   const ml=document.getElementById('cf-mobile-list');
-  if(!tb||!ml){console.error('addRow: missing elements',tb,ml);return;}
+  if(!tb) return;
   for(let i=0;i<n;i++){
     const idx=tb.children.length+1;
     const uid='cf-'+(++_rowId);
@@ -483,22 +483,23 @@ function addRow(n=1){
     tb.appendChild(tr);
 
     // Mobile div card
-    const div=document.createElement('div');
-    div.className='cf-mobile-row';
-    div.dataset.uid=uid;
-    div.innerHTML=`<div class="cf-mobile-field"><div class="cf-mobile-label">Date</div><input type="date" class="cf-date-m"/></div>
-      <div class="cf-mobile-field"><div class="cf-mobile-label">Cash Flow (₹)</div><input type="number" class="cf-amt-m" placeholder="e.g. −100000"/></div>
-      <button class="cf-mobile-del" onclick="delRow('${uid}')">Remove Row</button>`;
+    if(ml){
+      const div=document.createElement('div');
+      div.className='cf-mobile-row';
+      div.dataset.uid=uid;
+      div.innerHTML=`<div class="cf-mobile-field"><div class="cf-mobile-label">Date</div><input type="date" class="cf-date-m"/></div>
+        <div class="cf-mobile-field"><div class="cf-mobile-label">Cash Flow (₹)</div><input type="number" class="cf-amt-m" placeholder="e.g. −100000"/></div>
+        <button class="cf-mobile-del" onclick="delRow('${uid}')">Remove Row</button>`;
 
-    // Sync desktop ↔ mobile inputs
-    const dDate=tr.querySelector('.cf-date'), mDate=div.querySelector('.cf-date-m');
-    const dAmt=tr.querySelector('.cf-amt'),  mAmt=div.querySelector('.cf-amt-m');
-    dDate.addEventListener('input',()=>mDate.value=dDate.value);
-    mDate.addEventListener('input',()=>dDate.value=mDate.value);
-    dAmt.addEventListener('input',()=>mAmt.value=dAmt.value);
-    mAmt.addEventListener('input',()=>dAmt.value=dAmt.value);
+      const dDate=tr.querySelector('.cf-date'), mDate=div.querySelector('.cf-date-m');
+      const dAmt=tr.querySelector('.cf-amt'),  mAmt=div.querySelector('.cf-amt-m');
+      dDate.addEventListener('input',()=>mDate.value=dDate.value);
+      mDate.addEventListener('input',()=>dDate.value=mDate.value);
+      dAmt.addEventListener('input',()=>mAmt.value=dAmt.value);
+      mAmt.addEventListener('input',()=>dAmt.value=dAmt.value);
 
-    ml.appendChild(div);
+      ml.appendChild(div);
+    }
   }
 }
 
@@ -626,7 +627,7 @@ const faqs=[
 function toggleFAQ(el){const ans=el.nextElementSibling;const open=el.classList.toggle('open');ans.style.display=open?'block':'none';}
 
 // ─── INIT ────────────────────────────────────────────────────
-addRow(5);
+document.addEventListener('DOMContentLoaded', () => addRow(5));
 </script>
 </body>
 </html>
