@@ -90,13 +90,73 @@ table{width:100%;border-collapse:collapse;font-size:13px;min-width:400px}
 @media(max-width:768px){
   .card{padding:16px;min-width:0;max-width:100%;overflow:hidden}
   .tbl-outer{margin-left:0;margin-right:0;border-radius:var(--radius-xs)}
-  .cf-entry-tbl{table-layout:fixed;width:100%}
-  .cf-entry-tbl th:nth-child(1),.cf-entry-tbl td:nth-child(1){width:24px;padding:4px 2px}
-  .cf-entry-tbl th:nth-child(2),.cf-entry-tbl td:nth-child(2){width:42%;padding:4px 3px}
-  .cf-entry-tbl th:nth-child(3),.cf-entry-tbl td:nth-child(3){width:auto;padding:4px 3px}
-  .cf-entry-tbl th:nth-child(4),.cf-entry-tbl td:nth-child(4){width:28px;padding:4px 2px}
-  .cf-entry-tbl input{font-size:12px;padding:7px 6px}
-  .btn-del{padding:2px 4px;font-size:14px}
+
+  /* Hide the desktop table header on mobile */
+  .cf-entry-tbl thead{display:none}
+
+  /* Each row becomes a card-like block */
+  .cf-entry-tbl tbody tr{
+    display:block;
+    background:var(--gray-bg);
+    border-radius:var(--radius-xs);
+    padding:10px;
+    margin-bottom:10px;
+    border:1px solid var(--border);
+    position:relative;
+  }
+  .cf-entry-tbl tbody tr:last-child{margin-bottom:0}
+
+  /* Hide the # cell on mobile */
+  .cf-entry-tbl td:nth-child(1){display:none}
+
+  /* Date and Cash Flow cells stack vertically, full width */
+  .cf-entry-tbl td:nth-child(2),
+  .cf-entry-tbl td:nth-child(3){
+    display:block;
+    width:100%;
+    padding:0 0 8px 0;
+    border:none;
+  }
+  .cf-entry-tbl td:nth-child(3){padding-bottom:0}
+
+  /* Labels above each input */
+  .cf-entry-tbl td:nth-child(2)::before{
+    content:'Date';
+    display:block;
+    font-size:11px;
+    font-weight:700;
+    color:var(--text-muted);
+    text-transform:uppercase;
+    letter-spacing:.4px;
+    margin-bottom:4px;
+  }
+  .cf-entry-tbl td:nth-child(3)::before{
+    content:'Cash Flow (₹)';
+    display:block;
+    font-size:11px;
+    font-weight:700;
+    color:var(--text-muted);
+    text-transform:uppercase;
+    letter-spacing:.4px;
+    margin-bottom:4px;
+  }
+
+  /* Delete button floats top-right of the row block */
+  .cf-entry-tbl td:nth-child(4){
+    display:block;
+    position:absolute;
+    top:8px;right:8px;
+    width:auto;
+    padding:0;
+    border:none;
+  }
+
+  /* Inputs fill full width */
+  .cf-entry-tbl input{
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
+  }
 }
 thead{position:sticky;top:0;z-index:2}
 th{background:linear-gradient(135deg,#1e3a6e,#1d4ed8);color:rgba(255,255,255,.9);padding:11px 14px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;cursor:pointer;user-select:none}
