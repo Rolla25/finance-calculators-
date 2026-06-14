@@ -6,146 +6,303 @@
 <title>Corpusly Financial Calculators</title>
 
 <style>
+
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    background:#f5f7fb;
-    color:#1f2937;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:#f8fafc;
+color:#111827;
 }
 
 .container{
-    max-width:1300px;
-    margin:auto;
-    padding:60px 20px;
+max-width:1300px;
+margin:auto;
+padding:0 20px;
 }
 
 .hero{
-    text-align:center;
-    margin-bottom:60px;
+padding:100px 0 80px;
+text-align:center;
+background:linear-gradient(135deg,#2563eb,#1e40af);
+color:white;
 }
 
 .hero h1{
-    font-size:48px;
-    margin-bottom:15px;
+font-size:56px;
+margin-bottom:20px;
 }
 
 .hero p{
-    font-size:20px;
-    color:#6b7280;
+font-size:22px;
+max-width:700px;
+margin:auto;
+opacity:.95;
+}
+
+.hero-buttons{
+margin-top:35px;
+}
+
+.hero-buttons a{
+display:inline-block;
+padding:14px 28px;
+margin:10px;
+border-radius:10px;
+text-decoration:none;
+font-weight:600;
+}
+
+.primary{
+background:white;
+color:#2563eb;
+}
+
+.secondary{
+border:1px solid white;
+color:white;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+margin-top:-35px;
+}
+
+.stat{
+background:white;
+padding:25px;
+text-align:center;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.stat h2{
+color:#2563eb;
+margin-bottom:8px;
+}
+
+.section{
+padding:80px 0;
+}
+
+.section-title{
+text-align:center;
+font-size:38px;
+margin-bottom:50px;
 }
 
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:30px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
 }
 
 .card{
-    background:white;
-    border-radius:18px;
-    padding:32px;
-    text-align:center;
-    box-shadow:0 8px 25px rgba(0,0,0,0.08);
-    transition:0.25s;
+background:white;
+padding:30px;
+border-radius:18px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+transition:.3s;
 }
 
 .card:hover{
-    transform:translateY(-6px);
+transform:translateY(-6px);
 }
 
-.card h2{
-    margin-bottom:15px;
-    font-size:28px;
+.card h3{
+margin-bottom:10px;
 }
 
 .card p{
-    color:#6b7280;
-    line-height:1.6;
-    min-height:70px;
+color:#6b7280;
+line-height:1.6;
+margin-bottom:20px;
 }
 
-.btn{
-    display:inline-block;
-    margin-top:20px;
-    padding:12px 24px;
-    background:#2563eb;
-    color:white;
-    text-decoration:none;
-    border-radius:8px;
-    font-weight:600;
+.card a{
+display:inline-block;
+background:#2563eb;
+color:white;
+padding:10px 18px;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
 }
 
-.btn:hover{
-    background:#1d4ed8;
+.feature{
+background:white;
+padding:50px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+text-align:center;
+}
+
+.feature h2{
+font-size:36px;
+margin-bottom:15px;
+}
+
+.feature p{
+max-width:700px;
+margin:auto;
+line-height:1.7;
+color:#6b7280;
+margin-bottom:25px;
 }
 
 footer{
-    text-align:center;
-    margin-top:80px;
-    color:#6b7280;
+background:#111827;
+color:white;
+padding:40px;
+text-align:center;
+margin-top:80px;
 }
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:38px;
+}
+
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
 </style>
 </head>
 
 <body>
 
+<section class="hero">
 <div class="container">
 
-    <div class="hero">
-        <h1>Corpusly Financial Calculators</h1>
-        <p>Free financial calculators for investing, retirement planning and insurance decisions.</p>
-    </div>
+<h1>Financial Calculators for Smarter Money Decisions</h1>
 
-    <div class="grid">
+<p>
+Free calculators for investing, retirement planning, insurance and wealth creation.
+</p>
 
-        <div class="card">
-            <h2>SIP Calculator</h2>
-            <p>Calculate SIP returns, future value and step-up SIP growth.</p>
-            <a href="sip.html" class="btn">Open Calculator</a>
-        </div>
-
-        <div class="card">
-            <h2>Retirement Planner</h2>
-            <p>Estimate retirement corpus and long-term financial goals.</p>
-            <a href="retirementplanner.html" class="btn">Open Calculator</a>
-        </div>
-
-        <div class="card">
-            <h2>EPF Calculator</h2>
-            <p>Project EPF growth, interest earnings and retirement savings.</p>
-            <a href="epf.html" class="btn">Open Calculator</a>
-        </div>
-
-        <div class="card">
-            <h2>PPF Calculator</h2>
-            <p>Calculate PPF maturity value and yearly corpus growth.</p>
-            <a href="ppf.html" class="btn">Open Calculator</a>
-        </div>
-
-        <div class="card">
-            <h2>Term Insurance Calculator</h2>
-            <p>Estimate how much life insurance cover your family may need.</p>
-            <a href="termcoverage.html" class="btn">Open Calculator</a>
-        </div>
-
-        <div class="card">
-            <h2>Insurance Premium Comparator</h2>
-            <p>Compare premiums across insurers and identify cost-effective options.</p>
-            <a href="premiumcomparer.html" class="btn">Open Calculator</a>
-        </div>
-
-    </div>
-
-    <footer>
-        © 2026 Corpusly. All Rights Reserved.
-    </footer>
+<div class="hero-buttons">
+<a href="#calculators" class="primary">Explore Calculators</a>
+<a href="sip.html" class="secondary">Start with SIP</a>
+</div>
 
 </div>
+</section>
+
+<div class="container">
+
+<div class="stats">
+<div class="stat">
+<h2>9+</h2>
+<p>Calculators</p>
+</div>
+
+<div class="stat">
+<h2>100%</h2>
+<p>Free</p>
+</div>
+
+<div class="stat">
+<h2>0</h2>
+<p>Login Required</p>
+</div>
+
+<div class="stat">
+<h2>Instant</h2>
+<p>Results</p>
+</div>
+</div>
+
+<section class="section">
+
+<div class="feature">
+<h2>Retirement Planner</h2>
+<p>
+Plan your retirement corpus, account for inflation, estimate withdrawals and understand how long your wealth can last.
+</p>
+
+<a href="retirementplanner.html">Open Retirement Planner</a>
+</div>
+
+</section>
+
+<section class="section" id="calculators">
+
+<h2 class="section-title">All Calculators</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>SIP Calculator</h3>
+<p>Calculate SIP returns and future wealth.</p>
+<a href="sip.html">Open</a>
+</div>
+
+<div class="card">
+<h3>SWP Calculator</h3>
+<p>Estimate systematic withdrawal plans.</p>
+<a href="swp.html">Open</a>
+</div>
+
+<div class="card">
+<h3>CAGR Calculator</h3>
+<p>Calculate annualized investment returns.</p>
+<a href="cagr.html">Open</a>
+</div>
+
+<div class="card">
+<h3>XIRR Calculator</h3>
+<p>Calculate returns from irregular cashflows.</p>
+<a href="xirr.html">Open</a>
+</div>
+
+<div class="card">
+<h3>EPF Calculator</h3>
+<p>Project EPF growth and retirement savings.</p>
+<a href="epf.html">Open</a>
+</div>
+
+<div class="card">
+<h3>PPF Calculator</h3>
+<p>Calculate long term PPF wealth creation.</p>
+<a href="ppf.html">Open</a>
+</div>
+
+<div class="card">
+<h3>Retirement Planner</h3>
+<p>Estimate retirement corpus requirements.</p>
+<a href="retirementplanner.html">Open</a>
+</div>
+
+<div class="card">
+<h3>Term Coverage</h3>
+<p>Estimate ideal life insurance coverage.</p>
+<a href="termcoverage.html">Open</a>
+</div>
+
+<div class="card">
+<h3>Premium Comparator</h3>
+<p>Compare insurance premiums across insurers.</p>
+<a href="premiumcomparer.html">Open</a>
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<footer>
+© 2026 Corpusly Financial Calculators
+</footer>
 
 </body>
 </html>
