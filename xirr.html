@@ -1,1 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>XIRR Calculator</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1E3A5F;--teal:#2A7F9E;--teal-light:#e8f4f8;
+  --green:#1a7a4a;--green-bg:#e8f5ee;
+  --red:#c0392b;--red-bg:#fdecea;
+  --gray-bg:#f5f6f8;--border:#dde2ea;
+  --text:#1a2433;--text-muted:#6b7a8d;
+  --white:#fff;--card-shadow:0 1px 4px rgba(0,0,0,.07);
+  --radius:12px;--radius-sm:8px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--gray-bg);color:var(--text);font-size:14px;min-height:100vh}
+h2{font-size:16px;font-weight:600;color:var(--navy)}
+h3{font-size:14px;font-weight:600;color:var(--navy)}
 
+.hdr{background:var(--navy);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:12px}
+.hdr-icon{width:36px;height:36px;background:var(--teal);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.hdr h1{color:#fff;font-size:20px;font-weight:600}
+.hdr p{color:rgba(255,255,255,.65);font-size:13px;margin-top:2px}
+
+.tabs{display:flex;background:var(--white);border-bottom:1px solid var(--border);padding:0 24px}
+.tab{padding:14px 20px;cursor:pointer;font-size:14px;font-weight:500;color:var(--text-muted);border-bottom:2px solid transparent;transition:.15s;display:flex;align-items:center;gap:6px}
+.tab.active{color:var(--teal);border-color:var(--teal)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px}
+.grid2{display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start}
+@media(max-width:800px){.grid2{grid-template-columns:1fr}}
+
+.card{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--card-shadow);padding:20px}
+.card+.card{margin-top:14px}
+.card-title{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+
+label{display:block;font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:5px;letter-spacing:.2px}
+input,select{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;color:var(--text);background:var(--white);outline:none;transition:.15s}
+input:focus,select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(42,127,158,.1)}
+.field{margin-bottom:13px}
+
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;cursor:pointer;border:none;transition:.15s}
+.btn-primary{background:var(--navy);color:#fff}.btn-primary:hover{background:#16304f}
+.btn-outline{background:var(--white);color:var(--text);border:1px solid var(--border)}.btn-outline:hover{background:var(--gray-bg)}
+.btn-danger{background:var(--white);color:var(--red);border:1px solid #f5c6c2;padding:5px 9px;font-size:12px}.btn-danger:hover{background:var(--red-bg)}
+.btn-sm{padding:7px 12px;font-size:12px}
+.btn-full{width:100%;justify-content:center;margin-top:4px}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.kpi{background:var(--gray-bg);border-radius:var(--radius-sm);padding:14px;border:1px solid var(--border)}
+.kpi-label{font-size:10px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.kpi-val{font-size:19px;font-weight:700;color:var(--navy)}
+.kpi-val.green{color:var(--green)}
+.kpi-val.red{color:var(--red)}
+.kpi.highlight{background:var(--navy);border-color:var(--navy)}
+.kpi.highlight .kpi-label{color:rgba(255,255,255,.55)}
+.kpi.highlight .kpi-val{color:#fff;font-size:22px}
+
+.tbl-wrap{overflow-x:auto;max-height:420px;overflow-y:auto;margin-top:10px;border:1px solid var(--border);border-radius:var(--radius-sm)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead{position:sticky;top:0;z-index:2}
+th{background:var(--navy);color:rgba(255,255,255,.85);padding:9px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;cursor:pointer;user-select:none}
+th:hover{background:#16304f}
+th .sort-icon{opacity:.4;margin-left:4px;font-size:10px}
+th.sorted .sort-icon{opacity:1}
+td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#f8f9fb}
+td.pos{color:var(--green);font-weight:500}
+td.neg{color:var(--red);font-weight:500}
+
+.cf-tbl{width:100%;border-collapse:collapse}
+.cf-tbl th{background:var(--gray-bg);padding:8px 10px;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;border:1px solid var(--border)}
+.cf-tbl td{padding:3px 5px;border:1px solid var(--border)}
+.cf-tbl input{border:none;border-radius:0;padding:7px 8px;font-size:13px;background:transparent}
+.cf-tbl input:focus{outline:none;box-shadow:inset 0 -2px 0 var(--teal)}
+
+.alert{padding:10px 14px;border-radius:var(--radius-sm);font-size:13px;margin-top:10px;display:none}
+.alert.show{display:flex;align-items:center;gap:8px}
+.alert-error{background:var(--red-bg);color:var(--red);border:1px solid #f5c6c2}
+
+.info-box{background:var(--teal-light);border:1px solid #b3d8e5;border-radius:var(--radius-sm);padding:14px;margin-top:14px}
+.info-box p{font-size:13px;color:#1a5e72;line-height:1.65}
+
+.export-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+
+.filter-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.filter-row input{padding:7px 10px;font-size:13px;flex:1}
+
+.end-toggle{display:flex;gap:6px;margin-bottom:13px}
+.etbtn{flex:1;padding:8px;text-align:center;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-size:13px;font-weight:500;color:var(--text-muted);background:var(--white);transition:.15s}
+.etbtn.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-icon"><i class="ti ti-chart-line" style="color:#fff"></i></div>
+  <div>
+    <h1>XIRR Calculator</h1>
+    <p>Extended Internal Rate of Return — Excel-compatible</p>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab(0)"><i class="ti ti-calendar-repeat"></i> Investment XIRR</div>
+  <div class="tab" onclick="switchTab(1)"><i class="ti ti-table"></i> Manual Cash Flow XIRR</div>
+</div>
+
+<!-- ═══ TAB 1 ═══ -->
+<div class="tab-panel active" id="tab0">
+<div class="wrap">
+<div class="grid2">
+
+<div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-settings"></i> Investment Settings</div>
+
+    <div class="field">
+      <label>Investment Amount (₹)</label>
+      <input type="number" id="t1-amount" value="10000" min="1"/>
+    </div>
+    <div class="field">
+      <label>Investment Frequency</label>
+      <select id="t1-freq" onchange="onFreqChange()">
+        <option value="onetime">One Time</option>
+        <option value="monthly" selected>Monthly</option>
+        <option value="quarterly">Quarterly</option>
+        <option value="halfyearly">Half-Yearly</option>
+        <option value="yearly">Yearly</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Start Date</label>
+      <input type="date" id="t1-start"/>
+    </div>
+
+    <div id="endSection">
+      <label style="margin-bottom:6px">End By</label>
+      <div class="end-toggle">
+        <div class="etbtn active" id="etDate" onclick="setEndMode('date')">End Date</div>
+        <div class="etbtn" id="etN" onclick="setEndMode('n')">No. of Installments</div>
+      </div>
+      <div class="field" id="endDateField">
+        <label>End Date</label>
+        <input type="date" id="t1-end"/>
+      </div>
+      <div class="field" id="endNField" style="display:none">
+        <label>Number of Installments</label>
+        <input type="number" id="t1-n" value="12" min="1"/>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Maturity Value (₹)</label>
+      <input type="number" id="t1-maturity" value="150000"/>
+    </div>
+    <div class="field">
+      <label>Maturity Date</label>
+      <input type="date" id="t1-matdate"/>
+    </div>
+
+    <button class="btn btn-primary btn-full" onclick="calcTab1()">
+      <i class="ti ti-calculator"></i> Calculate XIRR
+    </button>
+    <div class="alert alert-error" id="t1-err"></div>
+  </div>
+
+  <div class="info-box">
+    <h3 style="margin-bottom:6px;color:#1a5e72"><i class="ti ti-info-circle"></i> What is XIRR?</h3>
+    <p>XIRR measures the annualised return of investments made on different dates. Unlike CAGR, it accounts for the exact timing of each cash flow — making it far more accurate for SIPs, lump-sum top-ups, or any irregular investment pattern.</p>
+  </div>
+</div>
+
+<div id="t1-results" style="display:none">
+  <div class="card">
+    <div class="card-title"><i class="ti ti-trending-up"></i> Result Summary</div>
+    <div class="kpi-grid" id="t1-kpis"></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-list-details"></i> Cash Flow Schedule</div>
+    <div class="export-bar">
+      <button class="btn btn-outline btn-sm" onclick="exportCSV(t1CFs,'investment_cashflows')"><i class="ti ti-download"></i> Export CSV</button>
+      <button class="btn btn-outline btn-sm" onclick="exportExcel(t1CFs,'investment_cashflows')"><i class="ti ti-file-spreadsheet"></i> Export Excel</button>
+    </div>
+    <div class="filter-row">
+      <input type="text" id="t1-search" placeholder="Search date or amount…" oninput="filterTable('t1-tbody','t1-search')"/>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th onclick="sortTable('t1-tbody',0,'n')" id="t1-h0"># <span class="sort-icon">↕</span></th>
+          <th onclick="sortTable('t1-tbody',1,'d')" id="t1-h1">Date <span class="sort-icon">↕</span></th>
+          <th onclick="sortTable('t1-tbody',2,'n')" id="t1-h2">Cash Flow <span class="sort-icon">↕</span></th>
+          <th onclick="sortTable('t1-tbody',3,'n')" id="t1-h3">Running Total <span class="sort-icon">↕</span></th>
+        </tr></thead>
+        <tbody id="t1-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- ═══ TAB 2 ═══ -->
+<div class="tab-panel" id="tab1">
+<div class="wrap">
+<div class="grid2">
+
+<div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-table"></i> Cash Flow Entries</div>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px">Outflows = negative (−) &nbsp;|&nbsp; Inflows = positive (+). Matches Excel's XIRR function exactly.</p>
+    <table class="cf-tbl" id="cf-table">
+      <thead><tr><th style="width:32px">#</th><th>Date</th><th>Cash Flow (₹)</th><th style="width:32px"></th></tr></thead>
+      <tbody id="cf-tbody"></tbody>
+    </table>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button class="btn btn-outline btn-sm" onclick="addRow()"><i class="ti ti-plus"></i> Add Row</button>
+      <button class="btn btn-outline btn-sm" onclick="addRow(5)">+ 5 Rows</button>
+    </div>
+    <button class="btn btn-primary btn-full" style="margin-top:14px" onclick="calcTab2()">
+      <i class="ti ti-calculator"></i> Calculate XIRR
+    </button>
+    <div class="alert alert-error" id="t2-err"></div>
+  </div>
+
+  <div class="info-box">
+    <h3 style="margin-bottom:6px;color:#1a5e72"><i class="ti ti-info-circle"></i> How to use</h3>
+    <p>Enter each investment as a <strong>negative</strong> value and each redemption or maturity payout as a <strong>positive</strong> value. Dates can be in any order — the calculator sorts them automatically.</p>
+  </div>
+</div>
+
+<div id="t2-results" style="display:none">
+  <div class="card">
+    <div class="card-title"><i class="ti ti-trending-up"></i> Result Summary</div>
+    <div class="kpi-grid" id="t2-kpis"></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-list-details"></i> Cash Flow Table</div>
+    <div class="export-bar">
+      <button class="btn btn-outline btn-sm" onclick="exportCSV(t2CFs,'xirr_cashflows')"><i class="ti ti-download"></i> Export CSV</button>
+      <button class="btn btn-outline btn-sm" onclick="exportExcel(t2CFs,'xirr_cashflows')"><i class="ti ti-file-spreadsheet"></i> Export Excel</button>
+    </div>
+    <div class="filter-row">
+      <input type="text" id="t2-search" placeholder="Search date or amount…" oninput="filterTable('t2-tbody','t2-search')"/>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th onclick="sortTable('t2-tbody',0,'n')" id="t2-h0"># <span class="sort-icon">↕</span></th>
+          <th onclick="sortTable('t2-tbody',1,'d')" id="t2-h1">Date <span class="sort-icon">↕</span></th>
+          <th onclick="sortTable('t2-tbody',2,'n')" id="t2-h2">Cash Flow <span class="sort-icon">↕</span></th>
+          <th onclick="sortTable('t2-tbody',3,'n')" id="t2-h3">Running Total <span class="sort-icon">↕</span></th>
+        </tr></thead>
+        <tbody id="t2-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+// ─── UTILITIES ───────────────────────────────────────────────
+const fmt=n=>new Intl.NumberFormat('en-IN',{maximumFractionDigits:0}).format(Math.round(Math.abs(n)));
+const fmtSigned=n=>(n<0?'−':'')+'₹'+fmt(n);
+const fmtPct=n=>n.toFixed(2)+'%';
+const parseD=s=>{if(!s)return null;const[y,m,d]=s.split('-');return new Date(+y,+m-1,+d)};
+const days=(a,b)=>Math.round((b-a)/86400000);
+const addM=(d,m)=>{const r=new Date(d);r.setMonth(r.getMonth()+m);return r};
+const fmtDate=d=>d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+
+// ─── XIRR ENGINE ─────────────────────────────────────────────
+function npv(r,cfs,dates){
+  let s=0,t0=dates[0];
+  for(let i=0;i<cfs.length;i++) s+=cfs[i]/Math.pow(1+r,days(t0,dates[i])/365);
+  return s;
+}
+function dnpv(r,cfs,dates){
+  let s=0,t0=dates[0];
+  for(let i=0;i<cfs.length;i++){const t=days(t0,dates[i])/365;s-=t*cfs[i]/Math.pow(1+r,t+1);}
+  return s;
+}
+function xirr(cfs,dates,g=0.1){
+  let r=g;
+  for(let i=0;i<300;i++){
+    const v=npv(r,cfs,dates),dv=dnpv(r,cfs,dates);
+    if(Math.abs(dv)<1e-14) break;
+    const nr=r-v/dv;
+    if(Math.abs(nr-r)<1e-10) return nr;
+    r=Math.max(nr,-0.9999);
+  }
+  let lo=-0.9999,hi=100,mid;
+  for(let i=0;i<600;i++){
+    mid=(lo+hi)/2;
+    const vm=npv(mid,cfs,dates);
+    if(Math.abs(vm)<1e-10) return mid;
+    npv(lo,cfs,dates)*vm<0?hi=mid:lo=mid;
+    if(hi-lo<1e-12) return mid;
+  }
+  return NaN;
+}
+
+// ─── TABS ────────────────────────────────────────────────────
+function switchTab(i){
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',i===j));
+  document.querySelectorAll('.tab-panel').forEach((p,j)=>p.classList.toggle('active',i===j));
+}
+
+// ─── TAB 1 ───────────────────────────────────────────────────
+let t1CFs=[];
+
+(()=>{
+  const today=new Date();
+  const end=new Date(today);end.setFullYear(end.getFullYear()+1);
+  const mat=new Date(end);mat.setFullYear(mat.getFullYear()+2);
+  const iso=d=>d.toISOString().split('T')[0];
+  document.getElementById('t1-start').value=iso(today);
+  document.getElementById('t1-end').value=iso(end);
+  document.getElementById('t1-matdate').value=iso(mat);
+})();
+
+function onFreqChange(){
+  const v=document.getElementById('t1-freq').value;
+  document.getElementById('endSection').style.display=v==='onetime'?'none':'block';
+}
+
+function setEndMode(m){
+  document.getElementById('etDate').classList.toggle('active',m==='date');
+  document.getElementById('etN').classList.toggle('active',m==='n');
+  document.getElementById('endDateField').style.display=m==='date'?'block':'none';
+  document.getElementById('endNField').style.display=m==='n'?'block':'none';
+}
+
+function genDates(freq,start,end){
+  if(freq==='onetime') return[new Date(start)];
+  const step={monthly:1,quarterly:3,halfyearly:6,yearly:12}[freq];
+  const arr=[];let cur=new Date(start);
+  while(cur<=end){arr.push(new Date(cur));cur=addM(cur,step);}
+  return arr;
+}
+
+function calcTab1(){
+  const err=id=>document.getElementById(id);
+  err('t1-err').style.display='none';
+  const amt=+document.getElementById('t1-amount').value;
+  const freq=document.getElementById('t1-freq').value;
+  const start=parseD(document.getElementById('t1-start').value);
+  const matVal=+document.getElementById('t1-maturity').value;
+  const matDate=parseD(document.getElementById('t1-matdate').value);
+  if(!amt||!start||!matVal||!matDate) return showErr('t1-err','Please fill all required fields.');
+
+  let invDates=[];
+  if(freq==='onetime'){
+    invDates=[new Date(start)];
+  } else {
+    const mode=document.getElementById('etDate').classList.contains('active')?'date':'n';
+    if(mode==='date'){
+      const end=parseD(document.getElementById('t1-end').value);
+      if(!end) return showErr('t1-err','Please enter an end date.');
+      if(end<start) return showErr('t1-err','End date must be after start date.');
+      invDates=genDates(freq,start,end);
+    } else {
+      const n=+document.getElementById('t1-n').value;
+      if(!n||n<1) return showErr('t1-err','Enter a valid number of installments.');
+      const step={monthly:1,quarterly:3,halfyearly:6,yearly:12}[freq];
+      let cur=new Date(start);
+      for(let i=0;i<n;i++){invDates.push(new Date(cur));cur=addM(cur,step);}
+    }
+  }
+
+  if(matDate<=invDates[invDates.length-1]) return showErr('t1-err','Maturity date must be after all investment dates.');
+
+  const allCFs=[...invDates.map(()=>-amt),matVal];
+  const allDates=[...invDates,matDate];
+
+  let rate=NaN;
+  for(const g of[0.1,0.5,-.5,2,-.9]){rate=xirr(allCFs,allDates,g);if(!isNaN(rate)&&isFinite(rate)&&rate>-1) break;}
+  if(isNaN(rate)||!isFinite(rate)) return showErr('t1-err','Could not compute XIRR. Please check your inputs.');
+
+  const totalInv=amt*invDates.length;
+  const gain=matVal-totalInv;
+  const dur=days(invDates[0],matDate);
+
+  let run=0;
+  t1CFs=invDates.map((d,i)=>{run-=amt;return{date:d,cf:-amt,running:run,sr:i+1};});
+  run+=matVal;
+  t1CFs.push({date:matDate,cf:matVal,running:run,sr:t1CFs.length+1});
+
+  renderKPIs('t1-kpis',[
+    {l:'XIRR',v:fmtPct(rate*100),cls:'highlight'},
+    {l:'Total Invested',v:'₹'+fmt(totalInv)},
+    {l:'Total Withdrawn',v:'₹'+fmt(matVal)},
+    {l:'Net Profit',v:(gain>=0?'':'−')+'₹'+fmt(Math.abs(gain)),cls:gain>=0?'green':'red'},
+    {l:'Cash Flows',v:allCFs.length},
+    {l:'Duration',v:(dur/365).toFixed(1)+' yrs'},
+  ]);
+  populateTbody('t1-tbody',t1CFs);
+  document.getElementById('t1-results').style.display='block';
+}
+
+// ─── TAB 2 ───────────────────────────────────────────────────
+let t2CFs=[];
+
+function addRow(n=1){
+  const tb=document.getElementById('cf-tbody');
+  for(let i=0;i<n;i++){
+    const idx=tb.children.length+1;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="text-align:center;font-size:12px;color:var(--text-muted)">${idx}</td>
+      <td><input type="date" class="cf-date"/></td>
+      <td><input type="number" class="cf-amt" placeholder="e.g. −100000"/></td>
+      <td><button class="btn btn-danger" onclick="this.closest('tr').remove();reindex()" title="Delete row"><i class="ti ti-trash"></i></button></td>`;
+    tb.appendChild(tr);
+  }
+}
+
+function reindex(){
+  document.querySelectorAll('#cf-tbody tr').forEach((tr,i)=>tr.children[0].textContent=i+1);
+}
+
+function calcTab2(){
+  document.getElementById('t2-err').style.display='none';
+  const rows=document.querySelectorAll('#cf-tbody tr');
+  const pairs=[];
+  rows.forEach(tr=>{
+    const d=tr.querySelector('.cf-date').value;
+    const v=tr.querySelector('.cf-amt').value;
+    if(d&&v!=='') pairs.push({date:parseD(d),cf:+v});
+  });
+
+  if(pairs.length<2) return showErr('t2-err','Enter at least two cash flows.');
+  if(!pairs.some(p=>p.cf>0)) return showErr('t2-err','At least one cash flow must be positive (inflow).');
+  if(!pairs.some(p=>p.cf<0)) return showErr('t2-err','At least one cash flow must be negative (outflow).');
+
+  pairs.sort((a,b)=>a.date-b.date);
+  const cfs=pairs.map(p=>p.cf),dates=pairs.map(p=>p.date);
+
+  let rate=NaN;
+  for(const g of[0.1,0.5,-.5,2,-.9]){rate=xirr(cfs,dates,g);if(!isNaN(rate)&&isFinite(rate)&&rate>-1) break;}
+  if(isNaN(rate)||!isFinite(rate)) return showErr('t2-err','XIRR could not converge. Try adjusting cash flows or dates.');
+
+  const totalOut=Math.abs(pairs.filter(p=>p.cf<0).reduce((s,p)=>s+p.cf,0));
+  const totalIn=pairs.filter(p=>p.cf>0).reduce((s,p)=>s+p.cf,0);
+  const net=totalIn-totalOut;
+  const dur=days(dates[0],dates[dates.length-1]);
+
+  let run=0;
+  t2CFs=pairs.map((p,i)=>{run+=p.cf;return{date:p.date,cf:p.cf,running:run,sr:i+1};});
+
+  renderKPIs('t2-kpis',[
+    {l:'XIRR',v:fmtPct(rate*100),cls:'highlight'},
+    {l:'Total Invested',v:'₹'+fmt(totalOut)},
+    {l:'Total Withdrawn',v:'₹'+fmt(totalIn)},
+    {l:'Net Gain/Loss',v:(net>=0?'':'−')+'₹'+fmt(Math.abs(net)),cls:net>=0?'green':'red'},
+    {l:'Cash Flows',v:pairs.length},
+    {l:'Duration',v:(dur/365).toFixed(1)+' yrs'},
+  ]);
+  populateTbody('t2-tbody',t2CFs);
+  document.getElementById('t2-results').style.display='block';
+}
+
+// ─── SHARED ──────────────────────────────────────────────────
+function showErr(id,msg){
+  const el=document.getElementById(id);
+  el.innerHTML=`<i class="ti ti-alert-circle"></i> ${msg}`;
+  el.style.display='flex';
+}
+
+function renderKPIs(id,items){
+  document.getElementById(id).innerHTML=items.map(({l,v,cls})=>
+    `<div class="kpi ${cls||''}"><div class="kpi-label">${l}</div><div class="kpi-val ${cls&&cls!=='highlight'?cls:''}">${v}</div></div>`
+  ).join('');
+}
+
+function populateTbody(tbId,cfs){
+  const tb=document.getElementById(tbId);
+  tb.innerHTML=cfs.map(r=>`<tr
+    data-sr="${r.sr}"
+    data-date="${r.date.toISOString()}"
+    data-cf="${r.cf}"
+    data-run="${r.running}">
+    <td>${r.sr}</td>
+    <td style="white-space:nowrap">${fmtDate(r.date)}</td>
+    <td class="${r.cf<0?'neg':'pos'}">${fmtSigned(r.cf)}</td>
+    <td class="${r.running<0?'neg':'pos'}">${fmtSigned(r.running)}</td>
+  </tr>`).join('');
+}
+
+// Sorting
+const sortState={};
+function sortTable(tbId,col,type){
+  const tb=document.getElementById(tbId);
+  const prefix=tbId.replace('-tbody','-');
+  const rows=Array.from(tb.rows);
+  const key=tbId+col;
+  const asc=sortState[key]=!sortState[key];
+  const attrs=['data-sr','data-date','data-cf','data-run'];
+  rows.sort((a,b)=>{
+    let av=a.getAttribute(attrs[col]),bv=b.getAttribute(attrs[col]);
+    if(type==='n'){av=+av;bv=+bv;}
+    else if(type==='d'){av=new Date(av);bv=new Date(bv);}
+    return asc?(av>bv?1:-1):(av<bv?1:-1);
+  });
+  rows.forEach(r=>tb.appendChild(r));
+  document.querySelectorAll(`[id^="${prefix}h"]`).forEach(h=>h.classList.remove('sorted'));
+  document.getElementById(prefix+'h'+col).classList.add('sorted');
+}
+
+// Filter
+function filterTable(tbId,inputId){
+  const q=document.getElementById(inputId).value.toLowerCase();
+  Array.from(document.getElementById(tbId).rows).forEach(r=>{
+    r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';
+  });
+}
+
+// Export
+function exportCSV(cfs,name){
+  const h='Sr,Date,Cash Flow,Running Total\n';
+  const body=cfs.map(r=>`${r.sr},${fmtDate(r.date)},${r.cf},${r.running}`).join('\n');
+  dl(new Blob([h+body],{type:'text/csv'}),name+'.csv');
+}
+function exportExcel(cfs,name){
+  const rows=[['Sr','Date','Cash Flow','Running Total'],...cfs.map(r=>[r.sr,fmtDate(r.date),r.cf,r.running])];
+  dl(new Blob([rows.map(r=>r.join('\t')).join('\n')],{type:'application/vnd.ms-excel'}),name+'.xls');
+}
+function dl(blob,fname){
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fname;a.click();
+}
+
+// Init
+addRow(5);
+</script>
+</body>
+</html>
