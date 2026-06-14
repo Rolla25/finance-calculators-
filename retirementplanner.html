@@ -34,7 +34,11 @@ body{background:var(--bg);font-family:'Segoe UI',system-ui,sans-serif;color:var(
 /* ── GRID ── */
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-@media(max-width:560px){.two-col,.three-col{grid-template-columns:1fr}}
+@media(max-width:560px){
+  .two-col,.three-col{grid-template-columns:1fr}
+  .two-col .field:not(:last-child){margin-bottom:0}
+  .two-col{margin-bottom:16px}
+}
 
 /* ── FIELDS ── */
 .field{margin-bottom:16px}
