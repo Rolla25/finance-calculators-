@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>XIRR Calculator</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -99,7 +99,6 @@ td.neg{color:var(--red);font-weight:500}
 <body>
 
 <div class="hdr">
-  <div class="hdr-icon"><i class="ti ti-chart-line" style="color:#fff"></i></div>
   <div>
     <h1>XIRR Calculator</h1>
     <p>Extended Internal Rate of Return — Excel-compatible</p>
@@ -107,8 +106,8 @@ td.neg{color:var(--red);font-weight:500}
 </div>
 
 <div class="tabs">
-  <div class="tab active" onclick="switchTab(0)"><i class="ti ti-calendar-repeat"></i> Investment XIRR</div>
-  <div class="tab" onclick="switchTab(1)"><i class="ti ti-table"></i> Manual Cash Flow XIRR</div>
+  <div class="tab active" onclick="switchTab(0)">Investment XIRR</div>
+  <div class="tab" onclick="switchTab(1)">Manual Cash Flow XIRR</div>
 </div>
 
 <!-- ═══ TAB 1 ═══ -->
@@ -118,7 +117,7 @@ td.neg{color:var(--red);font-weight:500}
 
 <div>
   <div class="card">
-    <div class="card-title"><i class="ti ti-settings"></i> Investment Settings</div>
+    <div class="card-title">Investment Settings</div>
 
     <div class="field">
       <label>Investment Amount (₹)</label>
@@ -164,29 +163,23 @@ td.neg{color:var(--red);font-weight:500}
       <input type="date" id="t1-matdate"/>
     </div>
 
-    <button class="btn btn-primary btn-full" onclick="calcTab1()">
-      <i class="ti ti-calculator"></i> Calculate XIRR
-    </button>
+    <button class="btn btn-primary btn-full" onclick="calcTab1()">Calculate XIRR</button>
     <div class="alert alert-error" id="t1-err"></div>
   </div>
 
   <div class="info-box">
-    <h3 style="margin-bottom:6px;color:#1a5e72"><i class="ti ti-info-circle"></i> What is XIRR?</h3>
+    <h3 style="margin-bottom:6px;color:#1a5e72">What is XIRR?</h3>
     <p>XIRR measures the annualised return of investments made on different dates. Unlike CAGR, it accounts for the exact timing of each cash flow — making it far more accurate for SIPs, lump-sum top-ups, or any irregular investment pattern.</p>
   </div>
 </div>
 
 <div id="t1-results" style="display:none">
   <div class="card">
-    <div class="card-title"><i class="ti ti-trending-up"></i> Result Summary</div>
+    <div class="card-title">Result Summary</div>
     <div class="kpi-grid" id="t1-kpis"></div>
   </div>
   <div class="card">
-    <div class="card-title"><i class="ti ti-list-details"></i> Cash Flow Schedule</div>
-    <div class="export-bar">
-      <button class="btn btn-outline btn-sm" onclick="exportCSV(t1CFs,'investment_cashflows')"><i class="ti ti-download"></i> Export CSV</button>
-      <button class="btn btn-outline btn-sm" onclick="exportExcel(t1CFs,'investment_cashflows')"><i class="ti ti-file-spreadsheet"></i> Export Excel</button>
-    </div>
+    <div class="card-title">Cash Flow Schedule</div>
     <div class="filter-row">
       <input type="text" id="t1-search" placeholder="Search date or amount…" oninput="filterTable('t1-tbody','t1-search')"/>
     </div>
@@ -215,39 +208,33 @@ td.neg{color:var(--red);font-weight:500}
 
 <div>
   <div class="card">
-    <div class="card-title"><i class="ti ti-table"></i> Cash Flow Entries</div>
+    <div class="card-title">Cash Flow Entries</div>
     <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px">Outflows = negative (−) &nbsp;|&nbsp; Inflows = positive (+). Matches Excel's XIRR function exactly.</p>
     <table class="cf-tbl" id="cf-table">
       <thead><tr><th style="width:32px">#</th><th>Date</th><th>Cash Flow (₹)</th><th style="width:32px"></th></tr></thead>
       <tbody id="cf-tbody"></tbody>
     </table>
     <div style="display:flex;gap:8px;margin-top:10px">
-      <button class="btn btn-outline btn-sm" onclick="addRow()"><i class="ti ti-plus"></i> Add Row</button>
+      <button class="btn btn-outline btn-sm" onclick="addRow()">+ Add Row</button>
       <button class="btn btn-outline btn-sm" onclick="addRow(5)">+ 5 Rows</button>
     </div>
-    <button class="btn btn-primary btn-full" style="margin-top:14px" onclick="calcTab2()">
-      <i class="ti ti-calculator"></i> Calculate XIRR
-    </button>
+    <button class="btn btn-primary btn-full" style="margin-top:14px" onclick="calcTab2()">Calculate XIRR</button>
     <div class="alert alert-error" id="t2-err"></div>
   </div>
 
   <div class="info-box">
-    <h3 style="margin-bottom:6px;color:#1a5e72"><i class="ti ti-info-circle"></i> How to use</h3>
+    <h3 style="margin-bottom:6px;color:#1a5e72">How to use</h3>
     <p>Enter each investment as a <strong>negative</strong> value and each redemption or maturity payout as a <strong>positive</strong> value. Dates can be in any order — the calculator sorts them automatically.</p>
   </div>
 </div>
 
 <div id="t2-results" style="display:none">
   <div class="card">
-    <div class="card-title"><i class="ti ti-trending-up"></i> Result Summary</div>
+    <div class="card-title">Result Summary</div>
     <div class="kpi-grid" id="t2-kpis"></div>
   </div>
   <div class="card">
-    <div class="card-title"><i class="ti ti-list-details"></i> Cash Flow Table</div>
-    <div class="export-bar">
-      <button class="btn btn-outline btn-sm" onclick="exportCSV(t2CFs,'xirr_cashflows')"><i class="ti ti-download"></i> Export CSV</button>
-      <button class="btn btn-outline btn-sm" onclick="exportExcel(t2CFs,'xirr_cashflows')"><i class="ti ti-file-spreadsheet"></i> Export Excel</button>
-    </div>
+    <div class="card-title">Cash Flow Table</div>
     <div class="filter-row">
       <input type="text" id="t2-search" placeholder="Search date or amount…" oninput="filterTable('t2-tbody','t2-search')"/>
     </div>
@@ -419,7 +406,7 @@ function addRow(n=1){
     tr.innerHTML=`<td style="text-align:center;font-size:12px;color:var(--text-muted)">${idx}</td>
       <td><input type="date" class="cf-date"/></td>
       <td><input type="number" class="cf-amt" placeholder="e.g. −100000"/></td>
-      <td><button class="btn btn-danger" onclick="this.closest('tr').remove();reindex()" title="Delete row"><i class="ti ti-trash"></i></button></td>`;
+      <td><button class="btn btn-danger" onclick="this.closest('tr').remove();reindex()" title="Delete row">✕</button></td>`;
     tb.appendChild(tr);
   }
 }
