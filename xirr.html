@@ -87,78 +87,48 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .tbl-outer{border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);margin-top:14px;max-width:100%;width:100%}
 .tbl-scroll{overflow-x:auto;max-height:440px;overflow-y:auto;width:100%}
 table{width:100%;border-collapse:collapse;font-size:13px;min-width:400px}
+/* Mobile entry cards — hidden on desktop */
+.cf-mobile-list{display:none}
+
+/* Desktop table — hidden on mobile */
 @media(max-width:768px){
   .card{padding:16px;min-width:0;max-width:100%;overflow:hidden}
-  .tbl-outer{margin-left:0;margin-right:0;border-radius:var(--radius-xs)}
-
-  .cf-entry-tbl{display:block;width:100%;box-sizing:border-box}
-  .cf-entry-tbl thead{display:none}
-  .cf-entry-tbl tbody{display:flex;flex-direction:column;gap:10px;width:100%}
-
-  /* Each row = compact white card, height driven by content only */
-  .cf-entry-tbl tbody tr{
-    display:flex;
-    flex-direction:column;
-    width:100%;
-    box-sizing:border-box;
+  .tbl-outer{border-radius:var(--radius-xs)}
+  #cf-table{display:none}
+  .cf-mobile-list{display:flex;flex-direction:column;gap:10px;width:100%;margin-bottom:10px}
+  .cf-mobile-row{
     background:var(--white);
     border:1.5px solid var(--border);
     border-radius:var(--radius-sm);
-    padding:12px;
-    gap:8px;
-    height:auto;
-  }
-
-  /* Hide row number */
-  .cf-entry-tbl td:nth-child(1){display:none}
-
-  /* Date and Cash Flow cells */
-  .cf-entry-tbl td:nth-child(2),
-  .cf-entry-tbl td:nth-child(3){
+    padding:14px;
     display:flex;
     flex-direction:column;
+    gap:10px;
     width:100%;
     box-sizing:border-box;
-    padding:0;
-    border:none;
-    height:auto;
   }
-  .cf-entry-tbl td:nth-child(2)::before{
-    content:'Date';
+  .cf-mobile-field{display:flex;flex-direction:column;gap:4px}
+  .cf-mobile-label{
     font-size:11px;font-weight:700;
     color:var(--text-muted);
     text-transform:uppercase;letter-spacing:.4px;
-    margin-bottom:4px;
   }
-  .cf-entry-tbl td:nth-child(3)::before{
-    content:'Cash Flow (₹)';
-    font-size:11px;font-weight:700;
-    color:var(--text-muted);
-    text-transform:uppercase;letter-spacing:.4px;
-    margin-bottom:4px;
+  .cf-mobile-field input{
+    width:100%;max-width:100%;box-sizing:border-box;
+    padding:10px 12px;
+    border:1.5px solid var(--border);
+    border-radius:var(--radius-xs);
+    font-size:14px;color:var(--text);
+    background:var(--white);outline:none;
   }
-
-  /* Delete button cell */
-  .cf-entry-tbl td:nth-child(4){
-    display:flex;
-    justify-content:flex-end;
-    padding:0;
-    border:none;
-    height:auto;
-  }
-  .btn-del{
-    padding:6px 14px;font-size:13px;
+  .cf-mobile-field input:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(37,99,235,.1)}
+  .cf-mobile-del{
+    align-self:flex-end;
+    padding:7px 16px;font-size:13px;font-weight:500;
     border-radius:var(--radius-xs);
     border:1.5px solid var(--red-border);
-    background:var(--red-bg);
-    color:var(--red);
-    height:auto;
-  }
-
-  .cf-entry-tbl input{
-    width:100%;max-width:100%;
-    box-sizing:border-box;
-    height:auto;
+    background:var(--red-bg);color:var(--red);
+    cursor:pointer;
   }
 }
 thead{position:sticky;top:0;z-index:2}
@@ -496,17 +466,51 @@ function calcTab1(){
 let t2CFs=[];
 function addRow(n=1){
   const tb=document.getElementById('cf-tbody');
+  const ml=document.getElementById('cf-mobile-list');
   for(let i=0;i<n;i++){
     const idx=tb.children.length+1;
+    const uid='cf-'+Date.now()+'-'+idx;
+
+    // Desktop table row
     const tr=document.createElement('tr');
+    tr.dataset.uid=uid;
     tr.innerHTML=`<td style="text-align:center;font-size:12px;color:var(--text-light);padding:4px 8px">${idx}</td>
       <td><input type="date" class="cf-date"/></td>
       <td><input type="number" class="cf-amt" placeholder="e.g. −100000"/></td>
-      <td><button class="btn-del" onclick="this.closest('tr').remove();reindex()" title="Delete">✕</button></td>`;
+      <td><button class="btn-del" onclick="delRow('${uid}')" title="Delete">✕</button></td>`;
     tb.appendChild(tr);
+
+    // Mobile div card
+    const div=document.createElement('div');
+    div.className='cf-mobile-row';
+    div.dataset.uid=uid;
+    div.innerHTML=`<div class="cf-mobile-field"><div class="cf-mobile-label">Date</div><input type="date" class="cf-date-m"/></div>
+      <div class="cf-mobile-field"><div class="cf-mobile-label">Cash Flow (₹)</div><input type="number" class="cf-amt-m" placeholder="e.g. −100000"/></div>
+      <button class="cf-mobile-del" onclick="delRow('${uid}')">Remove Row</button>`;
+
+    // Keep desktop and mobile inputs in sync
+    const dDate=tr.querySelector('.cf-date'), mDate=div.querySelector('.cf-date-m');
+    const dAmt=tr.querySelector('.cf-amt'),  mAmt=div.querySelector('.cf-amt-m');
+    dDate.addEventListener('input',()=>mDate.value=dDate.value);
+    mDate.addEventListener('input',()=>dDate.value=mDate.value);
+    dAmt.addEventListener('input',()=>mAmt.value=dAmt.value);
+    mAmt.addEventListener('input',()=>dAmt.value=dAmt.value);
+
+    ml.appendChild(div);
   }
 }
-function reindex(){document.querySelectorAll('#cf-tbody tr').forEach((tr,i)=>tr.children[0].textContent=i+1);}
+
+function delRow(uid){
+  const tr=document.querySelector(`#cf-tbody tr[data-uid="${uid}"]`);
+  const div=document.querySelector(`#cf-mobile-list .cf-mobile-row[data-uid="${uid}"]`);
+  if(tr) tr.remove();
+  if(div) div.remove();
+  reindex();
+}
+
+function reindex(){
+  document.querySelectorAll('#cf-tbody tr').forEach((tr,i)=>tr.children[0].textContent=i+1);
+}
 
 function calcTab2(){
   clearErr('t2-err');
