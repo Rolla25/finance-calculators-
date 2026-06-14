@@ -464,12 +464,13 @@ function calcTab1(){
 
 // ─── TAB 2 ───────────────────────────────────────────────────
 let t2CFs=[];
+let _rowId=0;
 function addRow(n=1){
   const tb=document.getElementById('cf-tbody');
   const ml=document.getElementById('cf-mobile-list');
   for(let i=0;i<n;i++){
     const idx=tb.children.length+1;
-    const uid='cf-'+Date.now()+'-'+idx;
+    const uid='cf-'+(++_rowId);
 
     // Desktop table row
     const tr=document.createElement('tr');
