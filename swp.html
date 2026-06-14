@@ -1,93 +1,117 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SWP Calculator</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F8FAFC;color:#111827;font-size:15px;line-height:1.6}
-.wrap{max-width:920px;margin:0 auto;padding:24px 16px}
-h1{font-size:22px;font-weight:600;color:#1E3A8A;margin-bottom:4px}
-.subtitle{color:#6B7280;font-size:14px;margin-bottom:24px}
-.tabs{display:flex;background:#fff;border:1px solid #E5E7EB;border-radius:10px;padding:4px;margin-bottom:24px;width:fit-content}
-.tab{padding:8px 24px;border-radius:7px;border:none;background:transparent;cursor:pointer;font-size:14px;font-weight:500;color:#6B7280;transition:all .2s}
-.tab.active{background:#1E3A8A;color:#fff}
-.card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:24px;margin-bottom:20px}
-.card-title{font-size:15px;font-weight:600;color:#1E3A8A;margin-bottom:16px}
-.field{margin-bottom:18px}
-.field label{display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px}
-.field input[type=number]{width:100%;padding:10px 14px;border:1px solid #E5E7EB;border-radius:8px;font-size:15px;color:#111827;background:#fff;outline:none;transition:border .2s}
-.field input[type=number]:focus{border-color:#1E3A8A}
-.hint{font-size:12px;color:#6B7280;margin-top:5px;line-height:1.5}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f7fb;color:#111827;font-size:15px;line-height:1.6}
+.hero{background:linear-gradient(135deg,#1d4ed8 0%,#2563eb 50%,#38bdf8 100%);padding:44px 24px 48px;text-align:center;color:#fff}
+.hero h1{font-size:28px;font-weight:700;margin-bottom:10px;letter-spacing:-.3px}
+.hero p{font-size:15px;opacity:.88;max-width:580px;margin:0 auto;line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:32px 16px}
+.tab-wrap{display:flex;background:#fff;border-radius:14px;padding:5px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:28px;gap:4px}
+.tab{flex:1;padding:11px 0;border-radius:10px;border:none;background:transparent;cursor:pointer;font-size:14px;font-weight:600;color:#6B7280;transition:all .25s}
+.tab.active{background:linear-gradient(135deg,#1d4ed8,#38bdf8);color:#fff;box-shadow:0 2px 10px rgba(29,78,216,.3)}
+.card{background:#fff;border-radius:18px;padding:28px;margin-bottom:22px;box-shadow:0 2px 16px rgba(0,0,0,.06)}
+.section-label{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.section-label .bar{width:4px;height:20px;background:linear-gradient(180deg,#1d4ed8,#38bdf8);border-radius:2px;flex-shrink:0}
+.section-label span{font-size:12px;font-weight:700;letter-spacing:.8px;color:#1d4ed8;text-transform:uppercase}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:13px;font-weight:600;color:#374151;margin-bottom:7px}
+.field input[type=number]{width:100%;padding:13px 16px;border:1.5px solid #E5E7EB;border-radius:10px;font-size:15px;color:#111827;background:#fff;outline:none;transition:border .2s,box-shadow .2s;-moz-appearance:textfield}
+.field input[type=number]::-webkit-inner-spin-button,.field input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+.field input[type=number]:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.field .hint{font-size:12px;color:#9CA3AF;margin-top:6px;line-height:1.5}
+.err{color:#EF4444;font-size:12px;margin-top:5px;display:none}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.btn-calc{width:100%;padding:13px;background:#1E3A8A;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s;margin-top:4px}
-.btn-calc:hover{background:#163270}
-.err{color:#EF4444;font-size:12px;margin-top:4px;display:none}
-.toggle-row{display:flex;align-items:center;gap:10px;background:#F0F9FF;border:1px solid #BAE6FD;border-radius:8px;padding:12px 14px;margin-bottom:18px;cursor:pointer}
-.toggle-row input[type=checkbox]{width:16px;height:16px;accent-color:#1E3A8A;cursor:pointer;flex-shrink:0}
-.toggle-row span{font-size:13px;font-weight:500;color:#0C4A6E;user-select:none}
-.infl-block{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:14px 16px;margin-bottom:18px}
-.infl-note{font-size:12px;color:#14532D;margin-top:10px;line-height:1.6}
-.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
-.metric{background:#F8FAFC;border:1px solid #E5E7EB;border-radius:10px;padding:14px 16px}
-.metric .lbl{font-size:12px;color:#6B7280;margin-bottom:4px}
-.metric .val{font-size:17px;font-weight:700;color:#111827}
-.metric .val.green{color:#10B981}
-.metric .val.blue{color:#1E3A8A}
-.metric .val.amber{color:#D97706}
-.table-wrap{overflow-x:auto;border:1px solid #E5E7EB;border-radius:10px}
+.toggle-row{display:flex;align-items:center;gap:12px;background:#f0f9ff;border:1.5px solid #bae6fd;border-radius:12px;padding:14px 18px;margin-bottom:20px;cursor:pointer}
+.toggle-row input[type=checkbox]{width:17px;height:17px;accent-color:#1d4ed8;cursor:pointer;flex-shrink:0}
+.toggle-row span{font-size:14px;font-weight:600;color:#0c4a6e;user-select:none}
+.infl-card{background:#f0fdf4;border:1.5px solid #86efac;border-radius:14px;padding:18px 20px;margin-bottom:20px}
+.infl-card .field{margin-bottom:12px}
+.infl-note{font-size:12px;color:#166534;line-height:1.6;margin-top:10px}
+.btn-calc{width:100%;padding:15px;background:linear-gradient(135deg,#1d4ed8,#38bdf8);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;letter-spacing:.2px;box-shadow:0 4px 14px rgba(29,78,216,.3);transition:opacity .2s,transform .15s;margin-top:4px}
+.btn-calc:hover{opacity:.93;transform:translateY(-1px)}
+.btn-calc:active{transform:translateY(0)}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+.metric{background:#f8fafc;border:1.5px solid #E5E7EB;border-radius:14px;padding:16px 18px;transition:box-shadow .2s}
+.metric:hover{box-shadow:0 4px 14px rgba(0,0,0,.08)}
+.metric .lbl{font-size:11.5px;font-weight:600;color:#6B7280;margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
+.metric .val{font-size:18px;font-weight:700;color:#111827;line-height:1.2}
+.metric .val.green{color:#059669}
+.metric .val.blue{color:#1d4ed8}
+.metric .val.amber{color:#d97706}
+.metric .val.red{color:#dc2626}
+.tbl-outer{overflow-x:auto;border-radius:14px;border:1.5px solid #E5E7EB}
+.tbl-scroll{max-height:460px;overflow-y:auto}
 table{width:100%;border-collapse:collapse;font-size:13px;min-width:580px}
-thead th{background:#1E3A8A;color:#fff;padding:10px 14px;text-align:right;font-weight:600;position:sticky;top:0;z-index:1;white-space:nowrap}
+thead th{background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;padding:12px 16px;text-align:right;font-weight:600;position:sticky;top:0;z-index:2;white-space:nowrap;letter-spacing:.2px}
 thead th:first-child{text-align:center}
 thead th:nth-child(5){text-align:center}
-tbody tr:nth-child(even){background:#F8FAFC}
-tbody tr:hover{background:#EFF6FF}
-tbody tr.infl-row{background:#FFFBEB}
-tbody tr.infl-row:hover{background:#FEF3C7}
-tbody td{padding:9px 14px;border-bottom:1px solid #F0F0F0;text-align:right;white-space:nowrap}
-tbody td:first-child{text-align:center;color:#6B7280;font-weight:500}
+tbody tr{transition:background .15s}
+tbody tr:nth-child(even){background:#f8fafc}
+tbody tr:hover{background:#eff6ff}
+tbody tr.infl-row{background:#fffbeb}
+tbody tr.infl-row:hover{background:#fef3c7}
+tbody td{padding:11px 16px;border-bottom:1px solid #f0f0f0;text-align:right;white-space:nowrap}
+tbody td:first-child{text-align:center;color:#6B7280;font-weight:600;font-size:12px}
 tbody td:nth-child(5){text-align:center}
-.badge-yes{display:inline-block;font-size:11px;font-weight:600;background:#FFFBEB;color:#92400E;border:1px solid #FDE68A;padding:1px 8px;border-radius:20px}
-.badge-no{display:inline-block;font-size:11px;color:#D1D5DB;padding:1px 8px}
-.tbl-scroll{max-height:440px;overflow-y:auto}
-.results-section{display:none}
-.disclaimer{background:#FFFBEB;border:1px solid #FDE68A;border-radius:12px;padding:20px 24px;margin-top:20px}
-.disclaimer h3{font-size:14px;font-weight:600;color:#92400E;margin-bottom:8px}
-.disclaimer p{font-size:13px;color:#78350F;margin-bottom:8px;line-height:1.7}
+tbody tr:last-child td{border-bottom:none}
+.badge-yes{display:inline-block;font-size:11px;font-weight:700;background:#fef3c7;color:#92400e;border:1px solid #fde68a;padding:2px 10px;border-radius:20px}
+.badge-no{color:#d1d5db;font-size:13px}
+.tbl-count{font-size:12px;color:#9CA3AF;margin-top:10px}
+.disclaimer{background:#fffbeb;border:1.5px solid #fde68a;border-radius:16px;padding:22px 26px;margin-bottom:22px}
+.disclaimer-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.disclaimer-head .icon{font-size:20px}
+.disclaimer-head h3{font-size:14px;font-weight:700;color:#92400e}
+.disclaimer p{font-size:13px;color:#78350f;margin-bottom:8px;line-height:1.75}
 .disclaimer p:last-child{margin-bottom:0}
-@media(max-width:580px){.row2{grid-template-columns:1fr}.summary-grid{grid-template-columns:1fr 1fr}}
+.faq-item{background:#fff;border-radius:14px;margin-bottom:10px;box-shadow:0 1px 8px rgba(0,0,0,.05);overflow:hidden}
+.faq-q{width:100%;text-align:left;background:none;border:none;padding:18px 22px;font-size:14px;font-weight:700;color:#000;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-q .chevron{font-size:12px;color:#6B7280;transition:transform .25s;flex-shrink:0}
+.faq-a{font-size:13px;color:#6B7280;line-height:1.75;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s}
+.faq-item.open .faq-a{max-height:400px;padding:0 22px 18px}
+.faq-item.open .chevron{transform:rotate(180deg)}
+.results-section{display:none}
+@media(max-width:600px){.row2{grid-template-columns:1fr}.summary-grid{grid-template-columns:1fr 1fr}.hero h1{font-size:22px}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>SWP Calculator</h1>
-  <p class="subtitle">Systematic Withdrawal Plan — Plan your retirement corpus withdrawals</p>
 
-  <div class="tabs">
+<div class="hero">
+  <h1>SWP Calculator</h1>
+  <p>Plan systematic withdrawals from your investment corpus, estimate retirement income, adjust for inflation, and analyse portfolio sustainability.</p>
+</div>
+
+<div class="wrap">
+
+  <div class="tab-wrap">
     <button class="tab active" onclick="switchMode('duration')">Fixed Duration</button>
     <button class="tab" onclick="switchMode('withdrawal')">Fixed Withdrawal</button>
   </div>
 
   <div class="card">
-    <div class="card-title">Calculator Inputs</div>
+    <div class="section-label"><div class="bar"></div><span>SWP Inputs</span></div>
 
     <div class="field">
       <label>Initial Corpus / Investment (₹)</label>
       <input type="number" id="corpus" placeholder="e.g. 5000000" min="1000" step="1000" oninput="clrE('e-corpus')">
+      <div class="hint">Total investment or retirement corpus available for withdrawals.</div>
       <div class="err" id="e-corpus">Please enter a valid corpus of at least ₹1,000.</div>
     </div>
 
     <div class="field">
       <label>Expected Annual Return (%)</label>
       <input type="number" id="annReturn" placeholder="e.g. 12.00" min="0" max="30" step="0.01" oninput="clrE('e-return')">
-      <div class="hint">Enter between 0% and 30%. Decimal values allowed (e.g. 7.5, 10.25).</div>
+      <div class="hint">Enter expected annual return before withdrawals. Decimal values allowed (e.g. 7.5, 10.25).</div>
       <div class="err" id="e-return">Return must be between 0% and 30%.</div>
     </div>
 
     <label class="toggle-row" for="inflToggle">
       <input type="checkbox" id="inflToggle" onchange="toggleInflation()">
-      <span>Inflation-Adjusted SWP</span>
+      <span>Enable Inflation-Adjusted SWP</span>
     </label>
 
     <div id="inflBlock" style="display:none">
-      <div class="infl-block">
-        <div class="field" style="margin-bottom:0">
+      <div class="infl-card">
+        <div class="field">
           <label>Expected Inflation Rate (%)</label>
           <input type="number" id="inflRate" placeholder="e.g. 6.00" min="0" max="30" step="0.01" value="6" oninput="clrE('e-infl')">
           <div class="err" id="e-infl">Inflation rate must be between 0% and 30%.</div>
@@ -112,8 +136,9 @@ tbody td:nth-child(5){text-align:center}
 
     <div id="swpField" style="display:none">
       <div class="field">
-        <label>Monthly SWP Amount (₹) <span style="font-size:12px;color:#6B7280;font-weight:400">(Year 1 amount if inflation-adjusted)</span></label>
+        <label>Monthly SWP Amount (₹) <span style="font-size:12px;color:#9CA3AF;font-weight:400">(Year 1 amount if inflation-adjusted)</span></label>
         <input type="number" id="swpAmount" placeholder="e.g. 50000" min="1" step="100" oninput="clrE('e-swp')">
+        <div class="hint">Monthly amount you wish to withdraw from your corpus.</div>
         <div class="err" id="e-swp">Please enter a valid monthly withdrawal amount greater than ₹0.</div>
       </div>
     </div>
@@ -123,124 +148,151 @@ tbody td:nth-child(5){text-align:center}
 
   <div class="results-section" id="results">
     <div class="card">
-      <div class="card-title">Summary</div>
+      <div class="section-label"><div class="bar"></div><span>SWP Summary</span></div>
       <div class="summary-grid" id="summaryGrid"></div>
     </div>
 
     <div class="card">
-      <div class="card-title">Withdrawal Schedule</div>
-      <div class="table-wrap">
+      <div class="section-label"><div class="bar"></div><span>Withdrawal Schedule</span></div>
+      <div class="tbl-outer">
         <div class="tbl-scroll">
           <table>
             <thead>
               <tr>
                 <th style="text-align:center">Month</th>
-                <th style="text-align:right">Opening Corpus</th>
-                <th style="text-align:right">Interest Earned</th>
-                <th style="text-align:right">Monthly Withdrawal</th>
+                <th>Opening Corpus</th>
+                <th>Interest Earned</th>
+                <th>Monthly Withdrawal</th>
                 <th style="text-align:center">Inflation Applied</th>
-                <th style="text-align:right">Closing Corpus</th>
+                <th>Closing Corpus</th>
               </tr>
             </thead>
             <tbody id="tableBody"></tbody>
           </table>
         </div>
       </div>
-      <div style="font-size:12px;color:#6B7280;margin-top:10px" id="rowCount"></div>
+      <div class="tbl-count" id="rowCount"></div>
     </div>
   </div>
 
   <div class="disclaimer">
-    <h3>Important Disclaimer</h3>
+    <div class="disclaimer-head"><span class="icon">⚠️</span><h3>Important Disclaimer</h3></div>
     <p>This calculator is intended for educational and illustrative purposes only and assumes a constant rate of return throughout the withdrawal period. Actual investment returns are unlikely to be consistent and may vary significantly over time.</p>
-    <p>For market-linked investments such as mutual funds, stocks, ETFs, and other securities, portfolio values can fluctuate due to market conditions. During periods of weak or negative returns, withdrawals may reduce the principal investment faster than projected, causing the corpus to deplete sooner than estimated. During periods of stronger returns, the corpus may last longer than projected.</p>
+    <p>For market-linked investments such as mutual funds, stocks, ETFs, and other securities, portfolio values can fluctuate due to market conditions. During periods of weak or negative returns, withdrawals may reduce the principal investment faster than projected, causing the corpus to deplete sooner than estimated.</p>
     <p>The calculations provided are estimates only and should not be interpreted as a guarantee of future performance, returns, or corpus longevity. Actual outcomes may differ due to market volatility, sequence of returns risk, taxes, expenses, inflation, and changes in withdrawal patterns.</p>
     <p>Users should use the results as indicative projections and not as financial advice or a prediction of future investment performance.</p>
   </div>
+
+  <div class="card">
+    <div class="section-label"><div class="bar"></div><span>Frequently Asked Questions</span></div>
+    <div id="faqList"></div>
+  </div>
+
 </div>
 
 <script>
-let mode = 'duration';
-let scheduleData = [];
+let mode='duration', scheduleData=[];
 
-function switchMode(m) {
-  mode = m;
+const FAQS=[
+  {q:"How does this SWP calculator work?",a:"This calculator estimates how long your investment corpus may last based on your initial investment, withdrawal amount, expected rate of return, and inflation assumptions. It projects the corpus value month by month throughout the withdrawal period."},
+  {q:"What is the difference between Fixed Duration and Fixed Withdrawal modes?",a:"In Fixed Duration mode, the calculator determines the maximum sustainable withdrawal amount for your chosen time horizon. In Fixed Withdrawal mode, the calculator estimates how long your corpus can support a specified monthly withdrawal amount."},
+  {q:"What does Inflation Adjusted SWP mean?",a:"An inflation-adjusted SWP increases your withdrawal amount periodically to help maintain purchasing power over time. Without inflation adjustments, the real value of your withdrawals may decline as living costs rise."},
+  {q:"Why does the withdrawal amount increase when inflation adjustment is enabled?",a:"The calculator increases withdrawals based on the inflation rate entered by the user. This simulates a retiree increasing income over time to maintain a similar standard of living despite rising prices."},
+  {q:'What does "Corpus Lasts For" mean?',a:"This metric indicates the estimated duration for which your investment corpus can continue supporting withdrawals before being fully depleted, based on the assumptions entered."},
+  {q:"Why does my corpus continue growing even after withdrawals begin?",a:"If investment returns exceed the amount being withdrawn, the remaining corpus may continue to grow despite regular withdrawals. This is common when withdrawal rates are conservative relative to expected returns."},
+  {q:"What happens if my withdrawal amount is too high?",a:"Higher withdrawal amounts may cause the corpus to deplete faster. If withdrawals consistently exceed the growth generated by the investments, the corpus will eventually be exhausted."},
+  {q:"What is considered a safe withdrawal rate?",a:"There is no universally safe withdrawal rate. It depends on investment returns, inflation, retirement duration, risk tolerance, and market conditions. Many investors use withdrawal rates between 3% and 5% annually as a starting reference point."},
+  {q:"Should I account for inflation in retirement planning?",a:"Yes. Inflation can significantly reduce purchasing power over long retirement periods. Ignoring inflation may result in retirement income that appears adequate today but becomes insufficient in the future."},
+  {q:"Does this calculator guarantee my corpus will last as projected?",a:"No. The calculator assumes a constant rate of return and does not account for market volatility, sequence of returns risk, taxes, or changing withdrawal needs. Actual results may differ significantly from projections."},
+  {q:"Why are actual investment returns likely to differ from the calculator's projections?",a:"Real world investments rarely generate the same return every year. Markets experience periods of growth, decline, and volatility, which can impact how long a withdrawal strategy remains sustainable."},
+  {q:"Can I use this calculator for retirement planning?",a:"Yes. The calculator is particularly useful for estimating sustainable retirement income, testing different withdrawal strategies, and understanding the long term impact of inflation and investment returns but we advise you to consult a financial planner before investing."},
+  {q:"Does the calculator account for taxes?",a:"No. The calculations are based on pre-tax assumptions. Actual withdrawals and corpus growth may be affected by taxation depending on the investment type and applicable tax laws."},
+  {q:"What is sequence of returns risk?",a:"Sequence of returns risk refers to the danger of experiencing poor investment returns early in retirement while making withdrawals. Early losses combined with withdrawals can reduce portfolio longevity even if long term average returns remain unchanged."},
+  {q:"Why does the withdrawal schedule show month by month projections?",a:"The withdrawal schedule provides transparency into how the corpus evolves over time, including investment growth, withdrawals, inflation adjustments, and remaining corpus values at each stage."},
+];
+
+(function buildFAQ(){
+  const el=document.getElementById('faqList');
+  FAQS.forEach((f,i)=>{
+    el.innerHTML+=`<div class="faq-item" id="faq${i}">
+      <button class="faq-q" onclick="toggleFAQ(${i})"><span>${f.q}</span><span class="chevron">▼</span></button>
+      <div class="faq-a">${f.a}</div>
+    </div>`;
+  });
+})();
+
+function toggleFAQ(i){document.getElementById('faq'+i).classList.toggle('open');}
+
+function switchMode(m){
+  mode=m;
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',(i===0&&m==='duration')||(i===1&&m==='withdrawal')));
-  document.getElementById('durFields').style.display = m==='duration'?'block':'none';
-  document.getElementById('swpField').style.display = m==='withdrawal'?'block':'none';
+  document.getElementById('durFields').style.display=m==='duration'?'block':'none';
+  document.getElementById('swpField').style.display=m==='withdrawal'?'block':'none';
   document.getElementById('results').style.display='none';
 }
 
-function toggleInflation() {
-  document.getElementById('inflBlock').style.display = document.getElementById('inflToggle').checked?'block':'none';
+function toggleInflation(){
+  document.getElementById('inflBlock').style.display=document.getElementById('inflToggle').checked?'block':'none';
 }
 
 function clrE(id){document.getElementById(id).style.display='none';}
 function showE(id){document.getElementById(id).style.display='block';}
 
-function fmtINR(n) {
+function fmtINR(n){
   if(isNaN(n)||!isFinite(n)) return '₹0';
   const neg=n<0; n=Math.round(Math.abs(n));
-  const s=n.toString(), last3=s.slice(-3), rest=s.slice(0,-3);
+  const s=n.toString(),last3=s.slice(-3),rest=s.slice(0,-3);
   const fmt=rest?rest.replace(/\B(?=(\d{2})+(?!\d))/g,',')+','+last3:last3;
   return (neg?'-':'')+'₹'+fmt;
 }
 
-function fmtDuration(totalMonths) {
-  const y=Math.floor(totalMonths/12), m=totalMonths%12;
+function fmtDuration(totalMonths){
+  const y=Math.floor(totalMonths/12),m=totalMonths%12;
   if(y&&m) return y+' Year'+(y>1?'s':'')+' '+m+' Month'+(m>1?'s':'');
   if(y) return y+' Year'+(y>1?'s':'');
   return m+' Month'+(m>1?'s':'');
 }
 
-function maxInflSWP(corpus, mRate, totalMonths, inflAnnual) {
-  let lo=0, hi=corpus*2, W1=0;
-  for(let i=0;i<60;i++){
-    const mid=(lo+hi)/2;
-    const end=runInflCorpus(corpus,mRate,mid,totalMonths,inflAnnual);
-    if(end>0){lo=mid;W1=mid;}else{hi=mid;}
-  }
+function maxInflSWP(corpus,mRate,totalMonths,inflAnnual){
+  let lo=0,hi=corpus*2,W1=0;
+  for(let i=0;i<60;i++){const mid=(lo+hi)/2;(runInflCorpus(corpus,mRate,mid,totalMonths,inflAnnual)>0)?(lo=mid,W1=mid):(hi=mid);}
   return W1;
 }
 
-function runInflCorpus(corpus, mRate, W1, totalMonths, inflAnnual) {
+function runInflCorpus(corpus,mRate,W1,totalMonths,inflAnnual){
   let bal=corpus;
   for(let i=1;i<=totalMonths;i++){
     if(bal<=0) return 0;
-    const w=W1*Math.pow(1+inflAnnual/100, Math.floor((i-1)/12));
-    bal=Math.max(0, bal+bal*mRate-w);
+    bal=Math.max(0,bal+bal*mRate-W1*Math.pow(1+inflAnnual/100,Math.floor((i-1)/12)));
   }
   return bal;
 }
 
-function simulate(corpus, mRate, W1, maxMonths, inflAnnual) {
-  const rows=[]; let bal=corpus;
+function simulate(corpus,mRate,W1,maxMonths,inflAnnual){
+  const rows=[];let bal=corpus;
   for(let i=1;i<=maxMonths;i++){
     if(bal<=0.005) break;
     const yr=Math.floor((i-1)/12);
-    const w=W1*Math.pow(1+(inflAnnual>0?inflAnnual/100:0), yr);
+    const w=W1*Math.pow(1+(inflAnnual>0?inflAnnual/100:0),yr);
     const inflApplied=inflAnnual>0&&(i-1)%12===0&&i>1;
-    const open=bal, interest=open*mRate;
-    const withdrawal=Math.min(w, open+interest);
-    const close=Math.max(0, open+interest-withdrawal);
-    rows.push({month:i, open, interest, withdrawal, close, inflApplied});
-    bal=close;
-    if(bal<0.01) break;
+    const open=bal,interest=open*mRate;
+    const withdrawal=Math.min(w,open+interest);
+    const close=Math.max(0,open+interest-withdrawal);
+    rows.push({month:i,open,interest,withdrawal,close,inflApplied});
+    bal=close;if(bal<0.01) break;
   }
   return rows;
 }
 
-function calculate() {
+function calculate(){
   const corpus=parseFloat(document.getElementById('corpus').value);
   const annReturn=parseFloat(document.getElementById('annReturn').value);
   const inflOn=document.getElementById('inflToggle').checked;
   const inflRate=inflOn?parseFloat(document.getElementById('inflRate').value):0;
   let ok=true;
-
   if(!corpus||corpus<1000){showE('e-corpus');ok=false;}
   if(isNaN(annReturn)||annReturn<0||annReturn>30){showE('e-return');ok=false;}
   if(inflOn&&(isNaN(inflRate)||inflRate<0||inflRate>30)){showE('e-infl');ok=false;}
-
   const mRate=annReturn/12/100;
 
   if(mode==='duration'){
@@ -249,9 +301,8 @@ function calculate() {
     const totalMonths=dy*12+dm;
     if(totalMonths<1||totalMonths>1200){showE('e-dur');ok=false;}
     if(!ok) return;
-    let W1=inflOn
-      ? maxInflSWP(corpus,mRate,totalMonths,inflRate)
-      : (mRate===0 ? corpus/totalMonths : corpus*mRate*Math.pow(1+mRate,totalMonths)/(Math.pow(1+mRate,totalMonths)-1));
+    const W1=inflOn?maxInflSWP(corpus,mRate,totalMonths,inflRate)
+      :(mRate===0?corpus/totalMonths:corpus*mRate*Math.pow(1+mRate,totalMonths)/(Math.pow(1+mRate,totalMonths)-1));
     scheduleData=simulate(corpus,mRate,W1,totalMonths,inflOn?inflRate:0);
     const totW=scheduleData.reduce((a,r)=>a+r.withdrawal,0);
     const totI=scheduleData.reduce((a,r)=>a+r.interest,0);
@@ -290,7 +341,7 @@ function renderSummary(m,d){
       +(d.inflOn?metric('Final Year SWP',fmtINR(d.finalYrSWP),'green'):'')
       +metric('Total Withdrawn',fmtINR(d.totW))
       +metric('Total Interest Earned',fmtINR(d.totI),'green')
-      +metric('Ending Corpus',fmtINR(d.endC));
+      +metric(d.endC<1?'Corpus Depleted':'Ending Corpus',fmtINR(d.endC),d.endC<1000?'red':'');
   } else {
     const longevity=d.forever?'100+ Years':fmtDuration(d.n);
     g.innerHTML=
@@ -302,22 +353,21 @@ function renderSummary(m,d){
       +metric('Corpus Lasts For',longevity,'green')
       +metric('Total Withdrawn',fmtINR(d.totW))
       +metric('Total Interest Earned',fmtINR(d.totI),'green')
-      +metric('Ending Corpus',fmtINR(d.endC));
+      +metric(d.endC<1?'Corpus Depleted':'Ending Corpus',fmtINR(d.endC),d.endC<1000?'red':'');
   }
 }
 
 function renderTable(data){
-  const tb=document.getElementById('tableBody');
-  tb.innerHTML=data.map(r=>`
+  document.getElementById('tableBody').innerHTML=data.map(r=>`
     <tr class="${r.inflApplied?'infl-row':''}">
       <td>Month ${r.month}</td>
       <td>${fmtINR(r.open)}</td>
-      <td style="color:#10B981">${fmtINR(r.interest)}</td>
-      <td style="color:#EF4444">${fmtINR(r.withdrawal)}</td>
+      <td style="color:#059669">${fmtINR(r.interest)}</td>
+      <td style="color:#dc2626">${fmtINR(r.withdrawal)}</td>
       <td>${r.inflApplied?'<span class="badge-yes">Yes ↑</span>':'<span class="badge-no">—</span>'}</td>
-      <td style="${r.close<1000?'color:#EF4444;font-weight:600':''}">${fmtINR(r.close)}</td>
+      <td style="${r.close<1000?'color:#dc2626;font-weight:700':''}">${fmtINR(r.close)}</td>
     </tr>`).join('');
-  document.getElementById('rowCount').textContent=`${data.length} months shown`;
+  document.getElementById('rowCount').textContent=`${data.length} months in projection`;
 }
 </script>
 </body></html>
