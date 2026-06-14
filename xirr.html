@@ -91,80 +91,74 @@ table{width:100%;border-collapse:collapse;font-size:13px;min-width:400px}
   .card{padding:16px;min-width:0;max-width:100%;overflow:hidden}
   .tbl-outer{margin-left:0;margin-right:0;border-radius:var(--radius-xs)}
 
-  /* Collapse table display entirely on mobile */
-  .cf-entry-tbl,
-  .cf-entry-tbl tbody,
-  .cf-entry-tbl tr,
-  .cf-entry-tbl td{display:block;width:100%;box-sizing:border-box}
-
-  /* Hide thead */
+  .cf-entry-tbl{display:block;width:100%;box-sizing:border-box}
   .cf-entry-tbl thead{display:none}
+  .cf-entry-tbl tbody{display:flex;flex-direction:column;gap:10px;width:100%}
 
-  /* Each row = self-contained white card */
+  /* Each row = compact white card, height driven by content only */
   .cf-entry-tbl tbody tr{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    box-sizing:border-box;
     background:var(--white);
     border:1.5px solid var(--border);
     border-radius:var(--radius-sm);
-    padding:14px;
-    margin-bottom:10px;
-    width:100%;
-    box-sizing:border-box;
-    overflow:hidden;
+    padding:12px;
+    gap:8px;
+    height:auto;
   }
-  .cf-entry-tbl tbody tr:last-child{margin-bottom:0}
 
-  /* Hide row number cell */
+  /* Hide row number */
   .cf-entry-tbl td:nth-child(1){display:none}
 
-  /* Date cell */
-  .cf-entry-tbl td:nth-child(2){
-    padding:0 0 10px 0;
+  /* Date and Cash Flow cells */
+  .cf-entry-tbl td:nth-child(2),
+  .cf-entry-tbl td:nth-child(3){
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    box-sizing:border-box;
+    padding:0;
     border:none;
+    height:auto;
   }
   .cf-entry-tbl td:nth-child(2)::before{
     content:'Date';
-    display:block;
     font-size:11px;font-weight:700;
     color:var(--text-muted);
     text-transform:uppercase;letter-spacing:.4px;
-    margin-bottom:5px;
-  }
-
-  /* Cash Flow cell */
-  .cf-entry-tbl td:nth-child(3){
-    padding:0 0 10px 0;
-    border:none;
+    margin-bottom:4px;
   }
   .cf-entry-tbl td:nth-child(3)::before{
     content:'Cash Flow (₹)';
-    display:block;
     font-size:11px;font-weight:700;
     color:var(--text-muted);
     text-transform:uppercase;letter-spacing:.4px;
-    margin-bottom:5px;
+    margin-bottom:4px;
   }
 
-  /* Delete button cell — full width, right-aligned */
+  /* Delete button cell */
   .cf-entry-tbl td:nth-child(4){
-    padding:0;
-    border:none;
     display:flex;
     justify-content:flex-end;
+    padding:0;
+    border:none;
+    height:auto;
   }
   .btn-del{
-    padding:6px 14px;
-    font-size:13px;
+    padding:6px 14px;font-size:13px;
     border-radius:var(--radius-xs);
     border:1.5px solid var(--red-border);
     background:var(--red-bg);
     color:var(--red);
+    height:auto;
   }
 
-  /* Inputs fill full cell width */
   .cf-entry-tbl input{
-    width:100%;
-    max-width:100%;
+    width:100%;max-width:100%;
     box-sizing:border-box;
+    height:auto;
   }
 }
 thead{position:sticky;top:0;z-index:2}
