@@ -87,11 +87,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .tbl-outer{border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);margin-top:14px;max-width:100%;width:100%}
 .tbl-scroll{overflow-x:auto;max-height:440px;overflow-y:auto;width:100%}
 table{width:100%;border-collapse:collapse;font-size:13px;min-width:400px}
-@media(max-width:600px){
+@media(max-width:768px){
   .card{padding:16px;min-width:0;max-width:100%;overflow:hidden}
   .tbl-outer{margin-left:0;margin-right:0;border-radius:var(--radius-xs)}
-  .cf-entry-tbl td{padding:4px 4px 4px 0}
-  .cf-entry-tbl td+td{padding-left:8px}
+  .cf-entry-tbl{table-layout:fixed;width:100%}
+  .cf-entry-tbl th:nth-child(1),.cf-entry-tbl td:nth-child(1){width:24px;padding:4px 2px}
+  .cf-entry-tbl th:nth-child(2),.cf-entry-tbl td:nth-child(2){width:42%;padding:4px 3px}
+  .cf-entry-tbl th:nth-child(3),.cf-entry-tbl td:nth-child(3){width:auto;padding:4px 3px}
+  .cf-entry-tbl th:nth-child(4),.cf-entry-tbl td:nth-child(4){width:28px;padding:4px 2px}
+  .cf-entry-tbl input{font-size:12px;padding:7px 6px}
+  .btn-del{padding:2px 4px;font-size:14px}
 }
 thead{position:sticky;top:0;z-index:2}
 th{background:linear-gradient(135deg,#1e3a6e,#1d4ed8);color:rgba(255,255,255,.9);padding:11px 14px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;cursor:pointer;user-select:none}
