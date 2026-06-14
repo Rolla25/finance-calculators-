@@ -468,6 +468,7 @@ let _rowId=0;
 function addRow(n=1){
   const tb=document.getElementById('cf-tbody');
   const ml=document.getElementById('cf-mobile-list');
+  if(!tb||!ml){console.error('addRow: missing elements',tb,ml);return;}
   for(let i=0;i<n;i++){
     const idx=tb.children.length+1;
     const uid='cf-'+(++_rowId);
@@ -489,7 +490,7 @@ function addRow(n=1){
       <div class="cf-mobile-field"><div class="cf-mobile-label">Cash Flow (₹)</div><input type="number" class="cf-amt-m" placeholder="e.g. −100000"/></div>
       <button class="cf-mobile-del" onclick="delRow('${uid}')">Remove Row</button>`;
 
-    // Keep desktop and mobile inputs in sync
+    // Sync desktop ↔ mobile inputs
     const dDate=tr.querySelector('.cf-date'), mDate=div.querySelector('.cf-date-m');
     const dAmt=tr.querySelector('.cf-amt'),  mAmt=div.querySelector('.cf-amt-m');
     dDate.addEventListener('input',()=>mDate.value=dDate.value);
