@@ -105,10 +105,12 @@ td.neg{color:var(--red);font-weight:600}
 td.neutral{color:var(--text);font-weight:500}
 
 /* CF TABLE (manual entry) */
-.cf-entry-tbl{width:100%;border-collapse:collapse;margin-bottom:10px}
-.cf-entry-tbl th{background:var(--gray-bg);padding:9px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text-muted);border-bottom:2px solid var(--border);text-align:left}
-.cf-entry-tbl td{padding:4px 5px;border-bottom:1px solid var(--border)}
-.cf-entry-tbl input{width:100%;border:1.5px solid var(--border);border-radius:6px;padding:8px 10px;font-size:13px;color:var(--text);outline:none;transition:.15s;background:var(--white)}
+.cf-entry-tbl{width:100%;table-layout:fixed;border-collapse:collapse;margin-bottom:10px}
+.cf-entry-tbl th{background:var(--gray-bg);padding:9px 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text-muted);border-bottom:2px solid var(--border);text-align:left;overflow:hidden}
+.cf-entry-tbl th:nth-child(1){width:32px}
+.cf-entry-tbl th:nth-child(4){width:36px}
+.cf-entry-tbl td{padding:4px 5px;border-bottom:1px solid var(--border);overflow:hidden}
+.cf-entry-tbl input{width:100%;max-width:100%;box-sizing:border-box;border:1.5px solid var(--border);border-radius:6px;padding:8px 10px;font-size:13px;color:var(--text);outline:none;transition:.15s;background:var(--white);min-width:0}
 .cf-entry-tbl input:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(37,99,235,.1)}
 .btn-del{background:none;border:none;color:var(--text-light);font-size:16px;cursor:pointer;padding:4px 8px;border-radius:6px;transition:.15s}
 .btn-del:hover{background:var(--red-bg);color:var(--red)}
