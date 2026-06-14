@@ -1,1 +1,323 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SWP Calculator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F8FAFC;color:#111827;font-size:15px;line-height:1.6}
+.wrap{max-width:920px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;font-weight:600;color:#1E3A8A;margin-bottom:4px}
+.subtitle{color:#6B7280;font-size:14px;margin-bottom:24px}
+.tabs{display:flex;background:#fff;border:1px solid #E5E7EB;border-radius:10px;padding:4px;margin-bottom:24px;width:fit-content}
+.tab{padding:8px 24px;border-radius:7px;border:none;background:transparent;cursor:pointer;font-size:14px;font-weight:500;color:#6B7280;transition:all .2s}
+.tab.active{background:#1E3A8A;color:#fff}
+.card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:24px;margin-bottom:20px}
+.card-title{font-size:15px;font-weight:600;color:#1E3A8A;margin-bottom:16px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px}
+.field input[type=number]{width:100%;padding:10px 14px;border:1px solid #E5E7EB;border-radius:8px;font-size:15px;color:#111827;background:#fff;outline:none;transition:border .2s}
+.field input[type=number]:focus{border-color:#1E3A8A}
+.hint{font-size:12px;color:#6B7280;margin-top:5px;line-height:1.5}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.btn-calc{width:100%;padding:13px;background:#1E3A8A;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s;margin-top:4px}
+.btn-calc:hover{background:#163270}
+.err{color:#EF4444;font-size:12px;margin-top:4px;display:none}
+.toggle-row{display:flex;align-items:center;gap:10px;background:#F0F9FF;border:1px solid #BAE6FD;border-radius:8px;padding:12px 14px;margin-bottom:18px;cursor:pointer}
+.toggle-row input[type=checkbox]{width:16px;height:16px;accent-color:#1E3A8A;cursor:pointer;flex-shrink:0}
+.toggle-row span{font-size:13px;font-weight:500;color:#0C4A6E;user-select:none}
+.infl-block{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:14px 16px;margin-bottom:18px}
+.infl-note{font-size:12px;color:#14532D;margin-top:10px;line-height:1.6}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.metric{background:#F8FAFC;border:1px solid #E5E7EB;border-radius:10px;padding:14px 16px}
+.metric .lbl{font-size:12px;color:#6B7280;margin-bottom:4px}
+.metric .val{font-size:17px;font-weight:700;color:#111827}
+.metric .val.green{color:#10B981}
+.metric .val.blue{color:#1E3A8A}
+.metric .val.amber{color:#D97706}
+.table-wrap{overflow-x:auto;border:1px solid #E5E7EB;border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:580px}
+thead th{background:#1E3A8A;color:#fff;padding:10px 14px;text-align:right;font-weight:600;position:sticky;top:0;z-index:1;white-space:nowrap}
+thead th:first-child{text-align:center}
+thead th:nth-child(5){text-align:center}
+tbody tr:nth-child(even){background:#F8FAFC}
+tbody tr:hover{background:#EFF6FF}
+tbody tr.infl-row{background:#FFFBEB}
+tbody tr.infl-row:hover{background:#FEF3C7}
+tbody td{padding:9px 14px;border-bottom:1px solid #F0F0F0;text-align:right;white-space:nowrap}
+tbody td:first-child{text-align:center;color:#6B7280;font-weight:500}
+tbody td:nth-child(5){text-align:center}
+.badge-yes{display:inline-block;font-size:11px;font-weight:600;background:#FFFBEB;color:#92400E;border:1px solid #FDE68A;padding:1px 8px;border-radius:20px}
+.badge-no{display:inline-block;font-size:11px;color:#D1D5DB;padding:1px 8px}
+.tbl-scroll{max-height:440px;overflow-y:auto}
+.results-section{display:none}
+.disclaimer{background:#FFFBEB;border:1px solid #FDE68A;border-radius:12px;padding:20px 24px;margin-top:20px}
+.disclaimer h3{font-size:14px;font-weight:600;color:#92400E;margin-bottom:8px}
+.disclaimer p{font-size:13px;color:#78350F;margin-bottom:8px;line-height:1.7}
+.disclaimer p:last-child{margin-bottom:0}
+@media(max-width:580px){.row2{grid-template-columns:1fr}.summary-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>SWP Calculator</h1>
+  <p class="subtitle">Systematic Withdrawal Plan — Plan your retirement corpus withdrawals</p>
 
+  <div class="tabs">
+    <button class="tab active" onclick="switchMode('duration')">Fixed Duration</button>
+    <button class="tab" onclick="switchMode('withdrawal')">Fixed Withdrawal</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Calculator Inputs</div>
+
+    <div class="field">
+      <label>Initial Corpus / Investment (₹)</label>
+      <input type="number" id="corpus" placeholder="e.g. 5000000" min="1000" step="1000" oninput="clrE('e-corpus')">
+      <div class="err" id="e-corpus">Please enter a valid corpus of at least ₹1,000.</div>
+    </div>
+
+    <div class="field">
+      <label>Expected Annual Return (%)</label>
+      <input type="number" id="annReturn" placeholder="e.g. 12.00" min="0" max="30" step="0.01" oninput="clrE('e-return')">
+      <div class="hint">Enter between 0% and 30%. Decimal values allowed (e.g. 7.5, 10.25).</div>
+      <div class="err" id="e-return">Return must be between 0% and 30%.</div>
+    </div>
+
+    <label class="toggle-row" for="inflToggle">
+      <input type="checkbox" id="inflToggle" onchange="toggleInflation()">
+      <span>Inflation-Adjusted SWP</span>
+    </label>
+
+    <div id="inflBlock" style="display:none">
+      <div class="infl-block">
+        <div class="field" style="margin-bottom:0">
+          <label>Expected Inflation Rate (%)</label>
+          <input type="number" id="inflRate" placeholder="e.g. 6.00" min="0" max="30" step="0.01" value="6" oninput="clrE('e-infl')">
+          <div class="err" id="e-infl">Inflation rate must be between 0% and 30%.</div>
+        </div>
+        <p class="infl-note">Inflation-adjusted SWP increases your withdrawals every year to help maintain purchasing power. Higher inflation rates generally reduce the sustainable withdrawal amount or shorten corpus longevity.</p>
+      </div>
+    </div>
+
+    <div id="durFields">
+      <div class="row2">
+        <div class="field">
+          <label>Duration — Years</label>
+          <input type="number" id="durYears" min="0" max="100" step="1" value="20" placeholder="0–100" oninput="clrE('e-dur')">
+        </div>
+        <div class="field">
+          <label>Duration — Months</label>
+          <input type="number" id="durMonths" min="0" max="11" step="1" value="0" placeholder="0–11" oninput="clrE('e-dur')">
+        </div>
+      </div>
+      <div class="err" id="e-dur">Duration must be between 1 month and 1,200 months.</div>
+    </div>
+
+    <div id="swpField" style="display:none">
+      <div class="field">
+        <label>Monthly SWP Amount (₹) <span style="font-size:12px;color:#6B7280;font-weight:400">(Year 1 amount if inflation-adjusted)</span></label>
+        <input type="number" id="swpAmount" placeholder="e.g. 50000" min="1" step="100" oninput="clrE('e-swp')">
+        <div class="err" id="e-swp">Please enter a valid monthly withdrawal amount greater than ₹0.</div>
+      </div>
+    </div>
+
+    <button class="btn-calc" onclick="calculate()">Calculate SWP</button>
+  </div>
+
+  <div class="results-section" id="results">
+    <div class="card">
+      <div class="card-title">Summary</div>
+      <div class="summary-grid" id="summaryGrid"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Withdrawal Schedule</div>
+      <div class="table-wrap">
+        <div class="tbl-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th style="text-align:center">Month</th>
+                <th style="text-align:right">Opening Corpus</th>
+                <th style="text-align:right">Interest Earned</th>
+                <th style="text-align:right">Monthly Withdrawal</th>
+                <th style="text-align:center">Inflation Applied</th>
+                <th style="text-align:right">Closing Corpus</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div style="font-size:12px;color:#6B7280;margin-top:10px" id="rowCount"></div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <h3>Important Disclaimer</h3>
+    <p>This calculator is intended for educational and illustrative purposes only and assumes a constant rate of return throughout the withdrawal period. Actual investment returns are unlikely to be consistent and may vary significantly over time.</p>
+    <p>For market-linked investments such as mutual funds, stocks, ETFs, and other securities, portfolio values can fluctuate due to market conditions. During periods of weak or negative returns, withdrawals may reduce the principal investment faster than projected, causing the corpus to deplete sooner than estimated. During periods of stronger returns, the corpus may last longer than projected.</p>
+    <p>The calculations provided are estimates only and should not be interpreted as a guarantee of future performance, returns, or corpus longevity. Actual outcomes may differ due to market volatility, sequence of returns risk, taxes, expenses, inflation, and changes in withdrawal patterns.</p>
+    <p>Users should use the results as indicative projections and not as financial advice or a prediction of future investment performance.</p>
+  </div>
+</div>
+
+<script>
+let mode = 'duration';
+let scheduleData = [];
+
+function switchMode(m) {
+  mode = m;
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',(i===0&&m==='duration')||(i===1&&m==='withdrawal')));
+  document.getElementById('durFields').style.display = m==='duration'?'block':'none';
+  document.getElementById('swpField').style.display = m==='withdrawal'?'block':'none';
+  document.getElementById('results').style.display='none';
+}
+
+function toggleInflation() {
+  document.getElementById('inflBlock').style.display = document.getElementById('inflToggle').checked?'block':'none';
+}
+
+function clrE(id){document.getElementById(id).style.display='none';}
+function showE(id){document.getElementById(id).style.display='block';}
+
+function fmtINR(n) {
+  if(isNaN(n)||!isFinite(n)) return '₹0';
+  const neg=n<0; n=Math.round(Math.abs(n));
+  const s=n.toString(), last3=s.slice(-3), rest=s.slice(0,-3);
+  const fmt=rest?rest.replace(/\B(?=(\d{2})+(?!\d))/g,',')+','+last3:last3;
+  return (neg?'-':'')+'₹'+fmt;
+}
+
+function fmtDuration(totalMonths) {
+  const y=Math.floor(totalMonths/12), m=totalMonths%12;
+  if(y&&m) return y+' Year'+(y>1?'s':'')+' '+m+' Month'+(m>1?'s':'');
+  if(y) return y+' Year'+(y>1?'s':'');
+  return m+' Month'+(m>1?'s':'');
+}
+
+function maxInflSWP(corpus, mRate, totalMonths, inflAnnual) {
+  let lo=0, hi=corpus*2, W1=0;
+  for(let i=0;i<60;i++){
+    const mid=(lo+hi)/2;
+    const end=runInflCorpus(corpus,mRate,mid,totalMonths,inflAnnual);
+    if(end>0){lo=mid;W1=mid;}else{hi=mid;}
+  }
+  return W1;
+}
+
+function runInflCorpus(corpus, mRate, W1, totalMonths, inflAnnual) {
+  let bal=corpus;
+  for(let i=1;i<=totalMonths;i++){
+    if(bal<=0) return 0;
+    const w=W1*Math.pow(1+inflAnnual/100, Math.floor((i-1)/12));
+    bal=Math.max(0, bal+bal*mRate-w);
+  }
+  return bal;
+}
+
+function simulate(corpus, mRate, W1, maxMonths, inflAnnual) {
+  const rows=[]; let bal=corpus;
+  for(let i=1;i<=maxMonths;i++){
+    if(bal<=0.005) break;
+    const yr=Math.floor((i-1)/12);
+    const w=W1*Math.pow(1+(inflAnnual>0?inflAnnual/100:0), yr);
+    const inflApplied=inflAnnual>0&&(i-1)%12===0&&i>1;
+    const open=bal, interest=open*mRate;
+    const withdrawal=Math.min(w, open+interest);
+    const close=Math.max(0, open+interest-withdrawal);
+    rows.push({month:i, open, interest, withdrawal, close, inflApplied});
+    bal=close;
+    if(bal<0.01) break;
+  }
+  return rows;
+}
+
+function calculate() {
+  const corpus=parseFloat(document.getElementById('corpus').value);
+  const annReturn=parseFloat(document.getElementById('annReturn').value);
+  const inflOn=document.getElementById('inflToggle').checked;
+  const inflRate=inflOn?parseFloat(document.getElementById('inflRate').value):0;
+  let ok=true;
+
+  if(!corpus||corpus<1000){showE('e-corpus');ok=false;}
+  if(isNaN(annReturn)||annReturn<0||annReturn>30){showE('e-return');ok=false;}
+  if(inflOn&&(isNaN(inflRate)||inflRate<0||inflRate>30)){showE('e-infl');ok=false;}
+
+  const mRate=annReturn/12/100;
+
+  if(mode==='duration'){
+    const dy=parseInt(document.getElementById('durYears').value)||0;
+    const dm=parseInt(document.getElementById('durMonths').value)||0;
+    const totalMonths=dy*12+dm;
+    if(totalMonths<1||totalMonths>1200){showE('e-dur');ok=false;}
+    if(!ok) return;
+    let W1=inflOn
+      ? maxInflSWP(corpus,mRate,totalMonths,inflRate)
+      : (mRate===0 ? corpus/totalMonths : corpus*mRate*Math.pow(1+mRate,totalMonths)/(Math.pow(1+mRate,totalMonths)-1));
+    scheduleData=simulate(corpus,mRate,W1,totalMonths,inflOn?inflRate:0);
+    const totW=scheduleData.reduce((a,r)=>a+r.withdrawal,0);
+    const totI=scheduleData.reduce((a,r)=>a+r.interest,0);
+    const endC=scheduleData.length?scheduleData[scheduleData.length-1].close:corpus;
+    const finalYrSWP=inflOn?W1*Math.pow(1+inflRate/100,Math.floor((scheduleData.length-1)/12)):null;
+    renderSummary('duration',{corpus,annReturn,inflOn,inflRate,totalMonths,W1,totW,totI,endC,finalYrSWP});
+  } else {
+    const swp=parseFloat(document.getElementById('swpAmount').value);
+    if(!swp||swp<=0){showE('e-swp');ok=false;}
+    if(!ok) return;
+    scheduleData=simulate(corpus,mRate,swp,1200,inflOn?inflRate:0);
+    const totW=scheduleData.reduce((a,r)=>a+r.withdrawal,0);
+    const totI=scheduleData.reduce((a,r)=>a+r.interest,0);
+    const endC=scheduleData.length?scheduleData[scheduleData.length-1].close:corpus;
+    const forever=scheduleData.length>=1200&&endC>0.01;
+    const finalYrSWP=inflOn?swp*Math.pow(1+inflRate/100,Math.floor((scheduleData.length-1)/12)):null;
+    renderSummary('withdrawal',{corpus,annReturn,inflOn,inflRate,swp,n:scheduleData.length,totW,totI,endC,forever,finalYrSWP});
+  }
+
+  renderTable(scheduleData);
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function metric(lbl,val,cls=''){return`<div class="metric"><div class="lbl">${lbl}</div><div class="val ${cls}">${val}</div></div>`;}
+
+function renderSummary(m,d){
+  const g=document.getElementById('summaryGrid');
+  if(m==='duration'){
+    g.innerHTML=
+      metric('Initial Corpus',fmtINR(d.corpus),'blue')
+      +metric('Annual Return',d.annReturn.toFixed(2)+'% p.a.')
+      +(d.inflOn?metric('Inflation Rate',d.inflRate.toFixed(2)+'% p.a.','amber'):'')
+      +metric('Duration',fmtDuration(d.totalMonths))
+      +metric('Starting Monthly SWP',fmtINR(d.W1),'green')
+      +(d.inflOn?metric('Final Year SWP',fmtINR(d.finalYrSWP),'green'):'')
+      +metric('Total Withdrawn',fmtINR(d.totW))
+      +metric('Total Interest Earned',fmtINR(d.totI),'green')
+      +metric('Ending Corpus',fmtINR(d.endC));
+  } else {
+    const longevity=d.forever?'100+ Years':fmtDuration(d.n);
+    g.innerHTML=
+      metric('Initial Corpus',fmtINR(d.corpus),'blue')
+      +metric('Annual Return',d.annReturn.toFixed(2)+'% p.a.')
+      +(d.inflOn?metric('Inflation Rate',d.inflRate.toFixed(2)+'% p.a.','amber'):'')
+      +metric('Monthly SWP',fmtINR(d.swp))
+      +(d.inflOn?metric('Final Year SWP',fmtINR(d.finalYrSWP),'amber'):'')
+      +metric('Corpus Lasts For',longevity,'green')
+      +metric('Total Withdrawn',fmtINR(d.totW))
+      +metric('Total Interest Earned',fmtINR(d.totI),'green')
+      +metric('Ending Corpus',fmtINR(d.endC));
+  }
+}
+
+function renderTable(data){
+  const tb=document.getElementById('tableBody');
+  tb.innerHTML=data.map(r=>`
+    <tr class="${r.inflApplied?'infl-row':''}">
+      <td>Month ${r.month}</td>
+      <td>${fmtINR(r.open)}</td>
+      <td style="color:#10B981">${fmtINR(r.interest)}</td>
+      <td style="color:#EF4444">${fmtINR(r.withdrawal)}</td>
+      <td>${r.inflApplied?'<span class="badge-yes">Yes ↑</span>':'<span class="badge-no">—</span>'}</td>
+      <td style="${r.close<1000?'color:#EF4444;font-weight:600':''}">${fmtINR(r.close)}</td>
+    </tr>`).join('');
+  document.getElementById('rowCount').textContent=`${data.length} months shown`;
+}
+</script>
+</body></html>
