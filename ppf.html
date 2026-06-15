@@ -91,6 +91,21 @@ tr.ext-row td{background:#FFFBEB!important}
 tr.ext-row:hover td{background:#FEF3C7!important}
 tr.ext-row td:first-child{color:#92400E}
 
+/* ===== Corpusly Footer ===== */
+.corpusly-footer{background:#111827;color:#E5E7EB;padding-top:48px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;}
+.corpusly-footer .container{max-width:1200px;margin:0 auto;padding:0 20px;}
+.corpusly-footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.corpusly-footer-logo{font-size:1.4rem;font-weight:800;color:#fff;letter-spacing:-0.02em;display:inline-flex;align-items:flex-start;margin-bottom:12px;}
+.corpusly-footer-logo .accent{color:#DBEAFE;}
+.corpusly-footer-logo .dot{width:6px;height:6px;border-radius:50%;background:#10B981;margin-left:4px;margin-top:4px;flex-shrink:0;}
+.corpusly-footer-col p{color:#9CA3AF;font-size:0.9rem;max-width:320px;margin:0;}
+.corpusly-footer-col h4{color:#DBEAFE;font-size:0.8rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:14px;}
+.corpusly-footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin:0;padding:0;}
+.corpusly-footer-col ul a{color:#9CA3AF;font-size:0.9rem;text-decoration:none;transition:color .2s;}
+.corpusly-footer-col ul a:hover{color:#fff;}
+.corpusly-footer-bottom{text-align:center;padding:18px 0;color:#9CA3AF;font-size:0.85rem;}
+@media (max-width:768px){.corpusly-footer-grid{grid-template-columns:1fr;gap:28px;}}
+
 /* FAQ — matches landing page accordion exactly */
 .accordion{display:grid;grid-template-columns:1fr;gap:14px}
 .accordion-item{background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(15,23,42,0.08);overflow:hidden}
@@ -408,5 +423,43 @@ document.getElementById('faqList').innerHTML=faqs.map((f,i)=>`
 });
 calcPPF();
 </script>
+<footer class="corpusly-footer">
+  <div class="container">
+    <div class="corpusly-footer-grid">
+      <div class="corpusly-footer-col">
+        <div class="corpusly-footer-logo">Corpus<span class="accent">ly</span><span class="dot"></span></div>
+        <p>Corpusly provides free, browser-based financial calculators built on industry-standard formulas to help you plan investments, retirement and insurance with confidence.</p>
+      </div>
+      <div class="corpusly-footer-col">
+        <h4>Calculators</h4>
+        <ul>
+          <li><a href="sip.html">SIP Calculator</a></li>
+          <li><a href="swp.html">SWP Calculator</a></li>
+          <li><a href="cagr.html">CAGR Calculator</a></li>
+          <li><a href="xirr.html">XIRR Calculator</a></li>
+          <li><a href="epf.html">EPF Calculator</a></li>
+          <li><a href="ppf.html">PPF Calculator</a></li>
+          <li><a href="retirementplanner.html">Retirement Planner</a></li>
+          <li><a href="termcoverage.html">Term Coverage</a></li>
+          <li><a href="premiumcomparer.html">Premium Comparer</a></li>
+        </ul>
+      </div>
+      <div class="corpusly-footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="methodology.html">Methodology</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="corpusly-footer-bottom">
+      <p>&copy; 2026 Corpusly Financial Calculators</p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
