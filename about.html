@@ -1,8 +1,121 @@
 <section id="about" class="about-section">
-    <div class="container">
-        <h1>About Corpusly</h1>
+    <style>
+        .about-section {
+            background: #f8fbff;
+            padding: 80px 20px;
+            font-family: Arial, sans-serif;
+            color: #1f2937;
+        }
 
-        <h2>Smarter Financial Decisions Start with Better Calculations</h2>
+        .about-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .about-section h1 {
+            color: #0f4c81;
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .about-subtitle {
+            text-align: center;
+            color: #2563eb;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .about-section h2 {
+            color: #0f4c81;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-size: 28px;
+            border-left: 5px solid #2563eb;
+            padding-left: 15px;
+        }
+
+        .about-section h3 {
+            color: #2563eb;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .about-section p {
+            line-height: 1.8;
+            margin-bottom: 18px;
+            font-size: 16px;
+        }
+
+        .about-section ul {
+            margin: 15px 0 25px 25px;
+            padding: 0;
+        }
+
+        .about-section li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        .feature-list li {
+            list-style: none;
+            padding-left: 0;
+            font-weight: 500;
+        }
+
+        .feature-list li::before {
+            content: "✓ ";
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .disclaimer-box {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px solid #dbeafe;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .about-container {
+                padding: 30px 20px;
+            }
+
+            .about-section h1 {
+                font-size: 32px;
+            }
+
+            .about-subtitle {
+                font-size: 18px;
+            }
+
+            .about-section h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+
+    <div class="about-container">
+
+        <h1>About Corpusly</h1>
+        <div class="about-subtitle">
+            Smarter Financial Decisions Start with Better Calculations
+        </div>
 
         <p>
             Corpusly is a free financial calculator platform designed to help individuals make informed
@@ -74,7 +187,7 @@
 
         <p>We aim to provide:</p>
 
-        <ul>
+        <ul class="feature-list">
             <li>Transparent calculations</li>
             <li>Clear assumptions</li>
             <li>Practical outputs</li>
@@ -97,23 +210,24 @@
 
         <h2>Important Disclaimer</h2>
 
-        <p>
-            Corpusly is an educational and informational platform.
-        </p>
+        <div class="disclaimer-box">
+            <p>
+                Corpusly is an educational and informational platform.
+            </p>
 
-        <p>
-            The calculators and information available on this website do not constitute financial, investment,
-            tax, insurance, legal, or professional advice.
-        </p>
+            <p>
+                The calculators and information available on this website do not constitute financial, investment,
+                tax, insurance, legal, or professional advice.
+            </p>
 
-        <p>
-            Users should consult qualified professionals before making financial decisions.
-        </p>
+            <p>
+                Users should consult qualified professionals before making financial decisions.
+            </p>
+        </div>
 
-        <hr>
-
-        <p class="copyright">
+        <div class="footer-note">
             © 2026 Corpusly Financial Calculators. All Rights Reserved.
-        </p>
+        </div>
+
     </div>
 </section>
