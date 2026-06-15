@@ -91,15 +91,14 @@ tr.ext-row td{background:#FFFBEB!important}
 tr.ext-row:hover td{background:#FEF3C7!important}
 tr.ext-row td:first-child{color:#92400E}
 
-/* FAQ */
-.faq-list{display:flex;flex-direction:column;gap:8px}
-.faq-item{border:1px solid #E5E7EB;border-radius:10px;overflow:hidden;background:#fff}
-.faq-q{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;gap:12px;user-select:none}
-.faq-q span{font-size:13px;font-weight:700;color:#111827;flex:1}
-.faq-icon{width:20px;height:20px;flex-shrink:0;color:#111827;transition:transform .25s}
-.faq-item.open .faq-icon{transform:rotate(45deg)}
-.faq-a{font-size:13px;color:#374151;line-height:1.65;padding:0 16px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
-.faq-item.open .faq-a{max-height:200px;padding:0 16px 14px}
+/* FAQ — matches landing page accordion exactly */
+.accordion{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.accordion-item{background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(15,23,42,0.08);overflow:hidden}
+.accordion-item summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:0.95rem;gap:12px;color:#111827}
+.accordion-item summary::-webkit-details-marker{display:none}
+.accordion-item summary .chevron{width:20px;height:20px;color:#2563EB;flex-shrink:0;transition:transform .25s}
+.accordion-item[open] summary .chevron{transform:rotate(180deg)}
+.accordion-item .accordion-body{padding:0 20px 18px;color:#6B7280;font-size:0.88rem;line-height:1.65}
 </style>
 </head>
 <body>
@@ -209,7 +208,7 @@ tr.ext-row td:first-child{color:#92400E}
   <!-- FAQ -->
   <div class="card">
     <div class="card-title faq-card-title">Frequently Asked Questions</div>
-    <div class="faq-list" id="faqList"></div>
+    <div class="accordion" id="faqList"></div>
   </div>
 
 </div>
@@ -392,18 +391,12 @@ const faqs=[
   ["Can I use this calculator for an existing PPF account?","Yes. Simply enter your current account age and current PPF balance, and the calculator will estimate future growth based on the remaining tenure."]
 ];
 document.getElementById('faqList').innerHTML=faqs.map((f,i)=>`
-  <div class="faq-item" id="faq${i}">
-    <div class="faq-q" onclick="toggleFaq(${i})">
-      <span>${f[0]}</span>
-      <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    </div>
-    <div class="faq-a">${f[1]}</div>
-  </div>`).join('');
-
-function toggleFaq(i){
-  const el=document.getElementById('faq'+i);
-  el.classList.toggle('open');
-}
+  <details class="accordion-item">
+    <summary>${f[0]}
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </summary>
+    <div class="accordion-body">${f[1]}</div>
+  </details>`).join('');
 
 ['ppfAge','curBal','contrib','stepup','rate','inflation','ext'].forEach(id=>{
   const el=document.getElementById(id);
