@@ -1,0 +1,345 @@
+```html
+<section id="methodology" class="methodology-section">
+    <style>
+        .methodology-section {
+            background: #f8fbff;
+            padding: 80px 20px;
+            font-family: Arial, sans-serif;
+            color: #1f2937;
+        }
+
+        .methodology-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .methodology-section h1 {
+            color: #0f4c81;
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .methodology-subtitle {
+            text-align: center;
+            color: #2563eb;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .methodology-section h2 {
+            color: #0f4c81;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-size: 28px;
+            border-left: 5px solid #2563eb;
+            padding-left: 15px;
+        }
+
+        .methodology-section p {
+            line-height: 1.8;
+            margin-bottom: 18px;
+            font-size: 16px;
+        }
+
+        .methodology-section ul {
+            margin: 15px 0 25px 25px;
+            padding: 0;
+        }
+
+        .methodology-section li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        .calculator-box {
+            background: #ffffff;
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .calculator-box h2 {
+            margin-top: 0;
+        }
+
+        .assumption-box {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .important-box {
+            background: linear-gradient(135deg, #2563eb, #0f4c81);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+            line-height: 1.8;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px solid #dbeafe;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .methodology-container {
+                padding: 30px 20px;
+            }
+
+            .methodology-section h1 {
+                font-size: 32px;
+            }
+
+            .methodology-subtitle {
+                font-size: 18px;
+            }
+
+            .methodology-section h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+
+    <div class="methodology-container">
+
+        <h1>Methodology</h1>
+
+        <div class="methodology-subtitle">
+            How Our Calculators Work
+        </div>
+
+        <p>
+            At Corpusly, we believe users should understand how financial calculations are performed.
+        </p>
+
+        <p>
+            Our calculators are built using widely accepted financial formulas and methodologies commonly used by investors, financial planners, financial institutions, and spreadsheet software.
+        </p>
+
+        <p>
+            The purpose of this page is to explain the assumptions and methodologies behind the calculations available on Corpusly.
+        </p>
+
+        <div class="calculator-box">
+            <h2>SIP Calculator</h2>
+
+            <p>The SIP Calculator estimates the future value of regular investments made over time.</p>
+
+            <p>The calculation considers:</p>
+            <ul>
+                <li>Monthly investment amount</li>
+                <li>Expected annual return</li>
+                <li>Investment duration</li>
+                <li>Optional step-up contributions</li>
+            </ul>
+
+            <p><strong>Assumptions:</strong></p>
+
+            <ul>
+                <li>Returns are compounded annually.</li>
+                <li>Contributions are made regularly throughout the investment period.</li>
+                <li>Return rates remain constant for projection purposes.</li>
+            </ul>
+
+            <p>The calculator is intended to provide an estimate of long term investment growth.</p>
+        </div>
+
+        <div class="calculator-box">
+            <h2>SWP Calculator</h2>
+
+            <p>The SWP Calculator estimates how a corpus may behave when periodic withdrawals are made.</p>
+
+            <p>The calculation considers:</p>
+            <ul>
+                <li>Initial investment amount</li>
+                <li>Expected annual return</li>
+                <li>Monthly withdrawal amount</li>
+                <li>Duration of withdrawals</li>
+            </ul>
+
+            <p><strong>Assumptions:</strong></p>
+
+            <ul>
+                <li>Returns are earned on the remaining corpus.</li>
+                <li>Withdrawals occur at regular intervals.</li>
+                <li>Investment returns remain constant for projection purposes.</li>
+            </ul>
+
+            <p>Results help users understand withdrawal sustainability and corpus longevity.</p>
+        </div>
+
+        <div class="calculator-box">
+            <h2>CAGR Calculator</h2>
+
+            <p>The CAGR (Compound Annual Growth Rate) Calculator measures the annualized rate of return between an initial value and a final value over a specified period.</p>
+
+            <p>The calculation considers:</p>
+
+            <ul>
+                <li>Beginning value</li>
+                <li>Ending value</li>
+                <li>Investment duration</li>
+            </ul>
+
+            <p>CAGR helps investors compare the performance of investments across different time periods.</p>
+        </div>
+
+        <div class="calculator-box">
+            <h2>XIRR Calculator</h2>
+
+            <p>The XIRR Calculator measures annualized returns when investments and withdrawals occur on different dates.</p>
+
+            <p>The calculation considers:</p>
+
+            <ul>
+                <li>Multiple cash flows</li>
+                <li>Actual transaction dates</li>
+                <li>Final investment value</li>
+            </ul>
+
+            <p>The methodology is similar to the XIRR function available in spreadsheet software such as Microsoft Excel and Google Sheets.</p>
+
+            <p>XIRR is commonly used for evaluating mutual fund investments, SIPs, and portfolios with irregular cash flows.</p>
+        </div>
+
+        <div class="calculator-box">
+            <h2>EPF Calculator</h2>
+
+            <p>The EPF Calculator estimates future Employee Provident Fund balances.</p>
+
+            <p>The calculation includes:</p>
+
+            <ul>
+                <li>Employee contributions</li>
+                <li>Employer contributions</li>
+                <li>Annual salary growth assumptions</li>
+                <li>EPF interest rates</li>
+            </ul>
+
+            <p>Results are intended to provide an estimate of long term retirement savings accumulation.</p>
+        </div>
+
+        <div class="calculator-box">
+            <h2>PPF Calculator</h2>
+
+            <p>The PPF Calculator estimates the maturity value of Public Provident Fund investments.</p>
+
+            <p>The calculation considers:</p>
+
+            <ul>
+                <li>Annual contributions</li>
+                <li>Applicable interest assumptions</li>
+                <li>Investment tenure</li>
+            </ul>
+
+            <p>Actual interest rates are determined by the Government of India and may change periodically.</p>
+        </div>
+
+        <div class="calculator-box">
+            <h2>Retirement Planner</h2>
+
+            <p>The Retirement Planner estimates the corpus required to support expenses after retirement.</p>
+
+            <p>The calculation may consider:</p>
+
+            <ul>
+                <li>Current age</li>
+                <li>Retirement age</li>
+                <li>Current expenses</li>
+                <li>Inflation assumptions</li>
+                <li>Expected investment returns</li>
+                <li>Life expectancy</li>
+            </ul>
+
+            <p>The planner projects future expenses and estimates the corpus required to support those expenses throughout retirement.</p>
+        </div>
+
+        <div class="calculator-box">
+            <h2>Term Insurance Coverage Calculator</h2>
+
+            <p>The Term Insurance Coverage Calculator estimates the amount of life insurance coverage that may be appropriate based on a user's financial situation.</p>
+
+            <p>The calculation may consider:</p>
+
+            <ul>
+                <li>Annual income</li>
+                <li>Existing assets</li>
+                <li>Outstanding liabilities</li>
+                <li>Financial dependents</li>
+                <li>Future financial obligations</li>
+            </ul>
+
+            <p>Results are intended as general guidance only and should not be treated as insurance recommendations.</p>
+        </div>
+
+        <div class="calculator-box">
+            <h2>Insurance Premium Comparator</h2>
+
+            <p>The Insurance Premium Comparator allows users to compare premiums across different insurance scenarios.</p>
+
+            <p>Results are based on information entered by users and should be used for comparison purposes only.</p>
+
+            <p>Actual premiums may vary based on underwriting decisions, policy terms, medical history, and insurer-specific factors.</p>
+        </div>
+
+        <div class="assumption-box">
+            <h2>Assumptions and Limitations</h2>
+
+            <p>
+                Financial calculations require assumptions regarding investment returns, inflation rates, interest rates, contributions, withdrawals, and other variables.
+            </p>
+
+            <p>
+                Actual outcomes may differ significantly from projected results.
+            </p>
+
+            <p>
+                Users should view all outputs as estimates rather than guarantees.
+            </p>
+        </div>
+
+        <div class="assumption-box">
+            <h2>Transparency and Accuracy</h2>
+
+            <p>
+                We strive to make our calculations transparent, easy to understand, and based on widely accepted financial methodologies.
+            </p>
+
+            <p>
+                While every effort is made to ensure accuracy, users should independently verify information before making financial decisions.
+            </p>
+        </div>
+
+        <div class="important-box">
+            <strong>Important Disclaimer</strong><br><br>
+
+            Corpusly is an educational and informational platform.
+
+            The calculators and information available on this website do not constitute financial, investment, tax, legal, accounting, or insurance advice.
+
+            Users should consult qualified professionals before making financial decisions.
+        </div>
+
+        <div class="footer-note">
+            © 2026 Corpusly Financial Calculators. All Rights Reserved.
+        </div>
+
+    </div>
+</section>
+```
