@@ -70,7 +70,9 @@ input:focus{outline:none;border-color:#1E63FF;box-shadow:0 0 0 3px rgba(30,99,25
 .faq-item{border:1px solid #E5E7EB;border-radius:10px;margin-bottom:8px;overflow:hidden;background:#fff}
 .faq-q{width:100%;background:none;border:none;text-align:left;padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .faq-q-text{font-size:14px;font-weight:700;color:#111827;line-height:1.4}
-.faq-icon{font-size:18px;color:#0B4DCC;flex-shrink:0;transition:transform 0.25s;line-height:1}
+.faq-icon{display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#0B4DCC;transition:transform 0.25s}
+.faq-icon svg{width:16px;height:16px;display:block}
+.faq-icon.open{transform:rotate(180deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s ease;padding:0 16px;font-size:13px;color:#4B5563;line-height:1.75}
 .faq-a.open{max-height:300px;padding:0 16px 14px}
 .content{padding:1.25rem}
@@ -102,6 +104,23 @@ input:focus{outline:none;border-color:#1E63FF;box-shadow:0 0 0 3px rgba(30,99,25
 }
 .row-label{display:block;font-size:11px;font-weight:600;color:#6B7280;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px}
 @media(min-width:601px){.row-label{display:none}}
+
+/* ===== Corpusly Footer ===== */
+.corpusly-footer{background:#111827;color:#E5E7EB;padding-top:48px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;}
+.corpusly-footer .container{max-width:1200px;margin:0 auto;padding:0 20px;}
+.corpusly-footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.corpusly-footer-logo{font-size:1.4rem;font-weight:800;color:#fff;letter-spacing:-0.02em;display:inline-flex;align-items:flex-start;margin-bottom:12px;}
+.corpusly-footer-logo .accent{color:#DBEAFE;}
+.corpusly-footer-logo .dot{width:6px;height:6px;border-radius:50%;background:#10B981;margin-left:4px;margin-top:4px;flex-shrink:0;}
+.corpusly-footer-col p{color:#9CA3AF;font-size:0.9rem;max-width:320px;margin:0;}
+.corpusly-footer-col h4{color:#DBEAFE;font-size:0.8rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:14px;}
+.corpusly-footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin:0;padding:0;}
+.corpusly-footer-col ul a{color:#9CA3AF;font-size:0.9rem;text-decoration:none;transition:color .2s;}
+.corpusly-footer-col ul a:hover{color:#fff;}
+.corpusly-footer-bottom{text-align:center;padding:18px 0;color:#9CA3AF;font-size:0.85rem;}
+@media(max-width:768px){
+  .corpusly-footer-grid{grid-template-columns:1fr;gap:28px;}
+}
 </style>
 </head>
 <body>
@@ -350,15 +369,15 @@ var faqs = [
   { q: "How much term insurance cover do I really need?",
     a: "The ideal term insurance cover depends on your family's future financial needs, outstanding liabilities, long-term goals, and existing investments. This calculator estimates the minimum cover required to help your dependents maintain their lifestyle if you are no longer around." },
   { q: "Why is my recommended cover higher than my annual income?",
-    a: "Many traditional rules suggest buying cover equal to 10–20 times annual income. However, this calculator uses your actual expenses, loans, future goals, and investment assumptions, which may result in a higher or lower recommendation depending on your circumstances." },
+    a: "Many traditional rules suggest buying cover equal to 10\u201320 times annual income. However, this calculator uses your actual expenses, loans, future goals, and investment assumptions, which may result in a higher or lower recommendation depending on your circumstances." },
   { q: "Should I include my spouse's income?",
     a: "If your spouse's income would continue even after your death, you may reduce household expenses accordingly before entering them into the calculator. If the income is uncertain or temporary, it may be safer not to rely on it." },
   { q: "Should I include all my investments?",
     a: "Include investments that your family could realistically access and use for future financial needs, such as mutual funds, fixed deposits, stocks, EPF balances, and other financial assets. Do not include assets that may be difficult to liquidate quickly unless you expect your family to rely on them." },
   { q: "Why does inflation matter when calculating insurance needs?",
-    a: "The cost of living generally increases over time. A family that needs ₹50,000 per month today may require significantly more in the future. Accounting for inflation helps estimate the true amount needed to support future expenses." },
+    a: "The cost of living generally increases over time. A family that needs \u20b950,000 per month today may require significantly more in the future. Accounting for inflation helps estimate the true amount needed to support future expenses." },
   { q: "What life expectancy should I use?",
-    a: "You may use your expected life expectancy based on family history, health conditions, and personal assumptions. If unsure, using a conservative estimate such as 80–90 years can provide a larger safety margin." },
+    a: "You may use your expected life expectancy based on family history, health conditions, and personal assumptions. If unsure, using a conservative estimate such as 80\u201390 years can provide a larger safety margin." },
   { q: "Does this calculator replace financial advice?",
     a: "No. The result is an educational estimate based on the assumptions you provide. A qualified financial advisor can help evaluate additional factors such as taxes, estate planning, insurance riders, and changing family circumstances." },
   { q: "What happens if I already have term insurance?",
@@ -369,6 +388,8 @@ var faqs = [
     a: "It is generally advisable to review your coverage after major life events such as marriage, having children, taking a home loan, significant income changes, or building substantial investments." }
 ];
 
+var chevronSVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+
 var faqContainer = document.getElementById('faq-list');
 for (var fi = 0; fi < faqs.length; fi++) {
   (function(f) {
@@ -376,7 +397,7 @@ for (var fi = 0; fi < faqs.length; fi++) {
     item.className = 'faq-item';
     var btn = document.createElement('button');
     btn.className = 'faq-q';
-    btn.innerHTML = '<span class="faq-q-text">' + f.q + '</span><span class="faq-icon">+</span>';
+    btn.innerHTML = '<span class="faq-q-text">' + f.q + '</span><span class="faq-icon">' + chevronSVG + '</span>';
     var ans = document.createElement('div');
     ans.className = 'faq-a';
     ans.textContent = f.a;
@@ -399,5 +420,43 @@ addGoal("Children's Education", 10, 1500000, 8);
 addGoal("Children's Marriage",  20, 2000000, 7);
 </script>
 </div><!-- end .content -->
+<footer class="corpusly-footer">
+  <div class="container">
+    <div class="corpusly-footer-grid">
+      <div class="corpusly-footer-col">
+        <div class="corpusly-footer-logo">Corpus<span class="accent">ly</span><span class="dot"></span></div>
+        <p>Corpusly provides free, browser-based financial calculators built on industry-standard formulas to help you plan investments, retirement and insurance with confidence.</p>
+      </div>
+      <div class="corpusly-footer-col">
+        <h4>Calculators</h4>
+        <ul>
+          <li><a href="sip.html">SIP Calculator</a></li>
+          <li><a href="swp.html">SWP Calculator</a></li>
+          <li><a href="cagr.html">CAGR Calculator</a></li>
+          <li><a href="xirr.html">XIRR Calculator</a></li>
+          <li><a href="epf.html">EPF Calculator</a></li>
+          <li><a href="ppf.html">PPF Calculator</a></li>
+          <li><a href="retirementplanner.html">Retirement Planner</a></li>
+          <li><a href="termcoverage.html">Term Coverage</a></li>
+          <li><a href="premiumcomparer.html">Premium Comparer</a></li>
+        </ul>
+      </div>
+      <div class="corpusly-footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="methodology.html">Methodology</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="corpusly-footer-bottom">
+      <p>&copy; 2026 Corpusly Financial Calculators</p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
