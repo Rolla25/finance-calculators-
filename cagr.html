@@ -409,14 +409,7 @@ function switchTab(tab,btn){
 function toggleFAQ(el){el.parentElement.classList.toggle('open')}
 
 function fmtInput(el){
-  let raw=el.value.replace(/[^0-9.]/g,'');
-  let parts=raw.split('.');
-  let int=parts[0];
-  let last3=int.slice(-3);
-  let rest=int.slice(0,int.length-3);
-  if(rest) rest=rest.replace(/\B(?=(\d{2})+(?!\d))/g,',');
-  let formatted=(rest?rest+',':'')+last3;
-  el.value=parts.length>1?formatted+'.'+parts[1]:formatted;
+  el.value=el.value.replace(/[^0-9.]/g,'');
 }
 
 function fmtPct(el){el.value=el.value.replace(/[^0-9.\-]/g,'')}
