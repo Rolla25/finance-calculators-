@@ -90,7 +90,7 @@ table.bk tr:hover td{background:#F9FAFB}
 .faq-item{border-bottom:1px solid #E5E7EB}
 .faq-item:last-child{border-bottom:none}
 .faq-q{width:100%;background:none;border:none;text-align:left;padding:14px 0;font-size:13px;font-weight:700;color:#111;cursor:pointer;font-family:inherit;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.faq-q .arrow{font-size:16px;color:#1E63FF;transition:transform .2s;flex-shrink:0}
+.faq-q .arrow{font-size:14px;color:#1E63FF;transition:transform .2s;flex-shrink:0;font-weight:700}
 .faq-q.open .arrow{transform:rotate(180deg)}
 .faq-a{font-size:12px;color:#6B7280;padding:0 0 14px;line-height:1.7;display:none}
 .faq-a.open{display:block}
@@ -123,6 +123,86 @@ table.bk tr:hover td{background:#F9FAFB}
   .toggle-btn{padding:12px}
   .reset-btn{width:100%;justify-content:center}
   .su-preview{padding-left:0;margin-top:8px}
+/* ===== Corpusly Footer — self-contained ===== */
+.corpusly-footer,
+.corpusly-footer *{
+  box-sizing:border-box;
+}
+.corpusly-footer{
+  width:100%;
+  background:#111827 !important;
+  color:#E5E7EB !important;
+  padding-top:48px;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  line-height:1.6;
+  margin-top:24px;
+}
+.corpusly-footer .container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 20px;
+}
+.corpusly-footer-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:32px;
+  padding-bottom:32px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.corpusly-footer-logo{
+  font-size:1.4rem;
+  font-weight:800;
+  color:#ffffff !important;
+  letter-spacing:-0.02em;
+  display:inline-flex;
+  align-items:flex-start;
+  margin:0 0 12px 0;
+}
+.corpusly-footer-logo .accent{color:#DBEAFE !important;}
+.corpusly-footer-logo .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#10B981 !important;
+  margin-left:4px;margin-top:4px;flex-shrink:0;
+}
+.corpusly-footer-col p{
+  color:#9CA3AF !important;
+  font-size:0.9rem;
+  max-width:320px;
+  margin:0;
+}
+.corpusly-footer-col h4{
+  color:#DBEAFE !important;
+  font-size:0.8rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.07em;
+  margin:0 0 14px 0;
+}
+.corpusly-footer-col ul{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  margin:0;
+  padding:0;
+}
+.corpusly-footer-col ul li{margin:0;padding:0;}
+.corpusly-footer a{
+  color:#9CA3AF !important;
+  font-size:0.9rem;
+  text-decoration:none;
+  transition:color .2s;
+}
+.corpusly-footer-col ul a:hover{color:#fff !important;}
+.corpusly-footer-bottom{
+  text-align:center;
+  padding:18px 0;
+  color:#9CA3AF !important;
+  font-size:0.85rem;
+}
+.corpusly-footer-bottom p{margin:0;}
+@media (max-width:768px){
+  .corpusly-footer-grid{grid-template-columns:1fr;gap:28px;}
 }
 </style>
 
@@ -251,39 +331,39 @@ table.bk tr:hover td{background:#F9FAFB}
   <div class="sh"><div class="sh-bar"></div><span class="sh-text">Frequently Asked Questions</span></div>
   <div itemscope itemtype="https://schema.org/FAQPage">
     <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">What is a SIP?</span><span class="arrow">▾</span></button>
+      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">What is a SIP?</span><span class="arrow">⌄</span></button>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">A Systematic Investment Plan (SIP) allows you to invest a fixed amount regularly in mutual funds, helping you build wealth through disciplined investing and compounding.</span></div>
     </div>
     <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">How is the SIP maturity value calculated?</span><span class="arrow">▾</span></button>
+      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">How is the SIP maturity value calculated?</span><span class="arrow">⌄</span></button>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">The calculator estimates the future value of your investments based on your SIP amount, investment duration, expected return, and any step-up contributions.</span></div>
     </div>
     <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">What return rate should I assume?</span><span class="arrow">▾</span></button>
+      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">What return rate should I assume?</span><span class="arrow">⌄</span></button>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Use a conservative return assumption based on your investment horizon and asset allocation. Actual returns may be higher or lower than estimated.</span></div>
     </div>
     <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">What is a Step-Up SIP?</span><span class="arrow">▾</span></button>
+      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">What is a Step-Up SIP?</span><span class="arrow">⌄</span></button>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">A Step-Up SIP increases your SIP amount periodically, usually every year, allowing your investments to grow as your income increases.</span></div>
     </div>
     <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">How does inflation affect my investment goal?</span><span class="arrow">▾</span></button>
+      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">How does inflation affect my investment goal?</span><span class="arrow">⌄</span></button>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Inflation reduces purchasing power over time. The calculator can adjust your target corpus to estimate how much money you may actually need in the future.</span></div>
     </div>
     <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">What is the difference between a fixed SIP and a Step-Up SIP?</span><span class="arrow">▾</span></button>
+      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">What is the difference between a fixed SIP and a Step-Up SIP?</span><span class="arrow">⌄</span></button>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">A fixed SIP remains the same throughout the investment period, while a Step-Up SIP increases at a chosen annual rate.</span></div>
     </div>
     <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">Can I include an existing lump sum investment?</span><span class="arrow">▾</span></button>
+      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">Can I include an existing lump sum investment?</span><span class="arrow">⌄</span></button>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Yes. You can add an existing lump sum investment, and the calculator will project its future value alongside your SIP contributions.</span></div>
     </div>
     <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">How much SIP do I need to reach my financial goal?</span><span class="arrow">▾</span></button>
+      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">How much SIP do I need to reach my financial goal?</span><span class="arrow">⌄</span></button>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">The calculator estimates the monthly SIP required based on your target corpus, investment duration, expected return, inflation assumptions, and step-up rate.</span></div>
     </div>
     <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">Does SIP guarantee returns?</span><span class="arrow">▾</span></button>
+      <button class="faq-q" onclick="toggleFaq(this)"><span itemprop="name">Does SIP guarantee returns?</span><span class="arrow">⌄</span></button>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">No. SIP is a method of investing, not an investment product. Returns depend on the performance of the underlying mutual fund and market conditions.</span></div>
     </div>
   </div>
@@ -669,3 +749,42 @@ function resetCalc(){
 }
 calc();
 </script>
+
+<footer class="corpusly-footer">
+  <div class="container">
+    <div class="corpusly-footer-grid">
+      <div class="corpusly-footer-col">
+        <div class="corpusly-footer-logo">Corpus<span class="accent">ly</span><span class="dot"></span></div>
+        <p>Corpusly provides free, browser-based financial calculators built on industry-standard formulas to help you plan investments, retirement and insurance with confidence.</p>
+      </div>
+      <div class="corpusly-footer-col">
+        <h4>Calculators</h4>
+        <ul>
+          <li><a href="sip.html">SIP Calculator</a></li>
+          <li><a href="swp.html">SWP Calculator</a></li>
+          <li><a href="cagr.html">CAGR Calculator</a></li>
+          <li><a href="xirr.html">XIRR Calculator</a></li>
+          <li><a href="epf.html">EPF Calculator</a></li>
+          <li><a href="ppf.html">PPF Calculator</a></li>
+          <li><a href="retirementplanner.html">Retirement Planner</a></li>
+          <li><a href="termcoverage.html">Term Coverage</a></li>
+          <li><a href="premiumcomparer.html">Premium Comparer</a></li>
+        </ul>
+      </div>
+      <div class="corpusly-footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="methodology.html">Methodology</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="corpusly-footer-bottom">
+      <p>&copy; 2026 Corpusly Financial Calculators</p>
+    </div>
+  </div>
+</footer>
