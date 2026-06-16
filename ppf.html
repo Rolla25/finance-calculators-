@@ -214,6 +214,7 @@ tr.ext-row td:first-child{color:#92400E}
           <th>Contribution</th>
           <th>Interest Earned</th>
           <th>Closing Balance</th>
+          <th id="realHeader" style="display:none">Real Value (Inflation-Adj.)</th>
         </tr></thead>
         <tbody id="projBody"></tbody>
       </table>
@@ -275,6 +276,12 @@ function calcPPF(){
   const remaining=15-p.age;
   let rows=[],bal=p.curBal,annual=p.contrib;
   let totalContrib=0,totalInterest=0;
+
+  // Real rate of return (used for inflation-adjusted projection)
+  const realRate=p.inflation>0?(((1+p.rate/100)/(1+p.inflation/100))-1)*100:0;
+  let realBal=p.curBal,realAnnual=p.contrib;
+  let realRows=[];
+
   for(let y=1;y<=remaining;y++){
     let c=Math.min(annual,PPF_LIMIT);
     let open=bal;
@@ -283,9 +290,20 @@ function calcPPF(){
     totalContrib+=c;totalInterest+=interest;
     rows.push({yr:p.age+y,open:Math.round(open),contrib:Math.round(c),interest,close:Math.round(bal),ext:false});
     if(p.stepup>0)annual=Math.min(annual*(1+p.stepup/100),PPF_LIMIT);
+
+    // Parallel real-return projection
+    let rc=Math.min(realAnnual,PPF_LIMIT);
+    let ropen=realBal;
+    let rinterest=(ropen+rc)*realRate/100;
+    realBal=ropen+rc+rinterest;
+    realRows.push({yr:p.age+y,close:realBal,ext:false});
+    if(p.stepup>0)realAnnual=Math.min(realAnnual*(1+p.stepup/100),PPF_LIMIT);
   }
+
   const matCorpus=bal,matContrib=totalContrib,matInterest=totalInterest;
+  const matInfAdj=p.inflation>0?realBal:0;
   let extContrib=0,extInterest=0;
+
   if(p.ext!=='none'){
     for(let y=1;y<=5;y++){
       let c=p.ext==='withcontrib'?Math.min(annual,PPF_LIMIT):0;
@@ -296,15 +314,21 @@ function calcPPF(){
       totalContrib+=c;totalInterest+=interest;
       rows.push({yr:15+y,open:Math.round(open),contrib:Math.round(c),interest,close:Math.round(bal),ext:true});
       if(p.stepup>0&&p.ext==='withcontrib')annual=Math.min(annual*(1+p.stepup/100),PPF_LIMIT);
+
+      // Parallel real-return projection during extension
+      let rc=p.ext==='withcontrib'?Math.min(realAnnual,PPF_LIMIT):0;
+      let ropen=realBal;
+      let rinterest=(ropen+rc)*realRate/100;
+      realBal=ropen+rc+rinterest;
+      realRows.push({yr:15+y,close:realBal,ext:true});
+      if(p.stepup>0&&p.ext==='withcontrib')realAnnual=Math.min(realAnnual*(1+p.stepup/100),PPF_LIMIT);
     }
   }
+
   const finalCorpus=bal;
-  let matInfAdj=0,finalInfAdj=0;
-  if(p.inflation>0){
-    matInfAdj=matCorpus/Math.pow(1+p.inflation/100,remaining);
-    finalInfAdj=finalCorpus/Math.pow(1+p.inflation/100,remaining+(p.ext!=='none'?5:0));
-  }
-  calcData={p,rows,matCorpus,matContrib,matInterest,extContrib,extInterest,finalCorpus,matInfAdj,finalInfAdj};
+  const finalInfAdj=p.inflation>0?realBal:0;
+
+  calcData={p,rows,realRows,matCorpus,matContrib,matInterest,extContrib,extInterest,finalCorpus,matInfAdj,finalInfAdj};
   render();
 }
 
@@ -328,12 +352,14 @@ function render(){
       ${p.inflation>0?`<div class="ext-metric inf-e"><div class="eml">Inflation-Adjusted</div><div class="emv">${fmt(finalInfAdj)}</div></div>`:''}
     `;
   }else extSec.style.display='none';
-  document.getElementById('projBody').innerHTML=rows.map(r=>`
+  document.getElementById('projBody').innerHTML=rows.map((r,i)=>`
     <tr class="${r.ext?'ext-row':''}">
       <td>${r.ext?'Ext ':''}Yr ${r.yr}</td>
       <td>${fmtFull(r.open)}</td><td>${fmtFull(r.contrib)}</td>
       <td>${fmtFull(r.interest)}</td><td>${fmtFull(r.close)}</td>
+      ${p.inflation>0?`<td>${fmtFull(calcData.realRows[i].close)}</td>`:''}
     </tr>`).join('');
+  document.getElementById('realHeader').style.display=p.inflation>0?'':'none';
   renderChart(activeChart);
 }
 
@@ -361,13 +387,14 @@ function renderChart(idx){
     ];
     legendItems=[{c:'#BFDBFE',l:'Amount Invested'},{c:'#16A34A',l:'Interest Earned'}];
   }else{
+    const{realRows}=calcData;
     const corpus=rows.map(r=>r.close);
-    const adjCorpus=rows.map((r,i)=>Math.round(r.close/Math.pow(1+p.inflation/100,i+1)));
+    const adjCorpus=realRows.map(r=>Math.round(r.close));
     datasets=[
       {label:'Nominal',data:corpus,borderColor:'#1E63FF',backgroundColor:'rgba(30,99,255,0.07)',fill:true,tension:0.4,pointRadius:2,borderWidth:2},
       {label:'Adjusted',data:adjCorpus,borderColor:'#16A34A',backgroundColor:'rgba(22,163,74,0.07)',fill:true,tension:0.4,pointRadius:2,borderWidth:1.5,borderDash:[5,4]}
     ];
-    legendItems=[{c:'#1E63FF',l:'Nominal Corpus'},{c:'#16A34A',l:'Inflation-Adjusted',dash:true}];
+    legendItems=[{c:'#1E63FF',l:'Nominal Corpus'},{c:'#16A34A',l:'Inflation-Adjusted (Real Return)',dash:true}];
   }
   document.getElementById('chartLegend').innerHTML=legendItems.map(i=>`
     <span><span class="dot" style="background:${i.dash?'transparent':''}; ${i.dash?`outline:2px dashed ${i.c};`:''} background-color:${i.dash?'transparent':i.c}"></span>${i.l}</span>`).join('');
