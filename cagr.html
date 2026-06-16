@@ -7,7 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#F3F4F8;color:#1E293B;font-size:15px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#F3F4F8;color:#1E293B;font-size:15px;margin:0}
 
 .hero{background:linear-gradient(90deg,#0B4DCC,#1E63FF,#1BA7E1);padding:40px 24px 36px;text-align:center}
 .hero h1{font-size:28px;font-weight:700;color:#fff;letter-spacing:-0.4px;margin-bottom:10px}
@@ -102,7 +102,7 @@ input.error-input{border-color:#EF4444!important}
 .faq-q{padding:16px 24px;font-size:14px;font-weight:600;color:#0F172A;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none;transition:background 0.15s}
 .faq-q:hover{background:#F8FAFC}
 .faq-icon{font-size:20px;color:#1E63FF;flex-shrink:0;font-weight:300;transition:transform 0.2s;line-height:1}
-.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-item.open .faq-icon{transform:rotate(180deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height 0.3s ease}
 .faq-item.open .faq-a{max-height:300px}
 .faq-a-inner{padding:0 24px 18px;font-size:13px;color:#475569;line-height:1.7}
@@ -122,6 +122,88 @@ input.error-input{border-color:#EF4444!important}
 @media(max-width:1100px){.inputs-grid{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.inputs-grid{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.hero h1{font-size:22px}.main{padding:20px 16px}.tab-btn{padding:8px 14px;font-size:12px}}
 @media(max-width:400px){.metrics{grid-template-columns:1fr}}
+
+/* ===== Corpusly Footer — self-contained ===== */
+.corpusly-footer,
+.corpusly-footer *{
+  box-sizing:border-box;
+}
+.corpusly-footer{
+  width:100%;
+  background:#111827;
+  color:#E5E7EB;
+  padding-top:48px;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  line-height:1.6;
+}
+.corpusly-footer .container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 20px;
+}
+.corpusly-footer-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:32px;
+  padding-bottom:32px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.corpusly-footer-logo{
+  font-size:1.4rem;
+  font-weight:800;
+  color:#fff;
+  letter-spacing:-0.02em;
+  display:inline-flex;
+  align-items:flex-start;
+  margin:0 0 12px 0;
+}
+.corpusly-footer-logo .accent{color:#DBEAFE;}
+.corpusly-footer-logo .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#10B981;
+  margin-left:4px;margin-top:4px;flex-shrink:0;
+}
+.corpusly-footer-col p{
+  color:#9CA3AF;
+  font-size:0.9rem;
+  max-width:320px;
+  margin:0;
+}
+.corpusly-footer-col h4{
+  color:#DBEAFE;
+  font-size:0.8rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.07em;
+  margin:0 0 14px 0;
+}
+.corpusly-footer-col ul{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  margin:0;
+  padding:0;
+}
+.corpusly-footer-col ul li{margin:0;padding:0;}
+.corpusly-footer a{
+  color:#9CA3AF;
+  font-size:0.9rem;
+  text-decoration:none;
+  transition:color .2s;
+}
+.corpusly-footer-col ul a:hover{color:#fff;}
+.corpusly-footer-bottom{
+  text-align:center;
+  padding:18px 0;
+  color:#9CA3AF;
+  font-size:0.85rem;
+}
+.corpusly-footer-bottom p{margin:0;}
+@media (max-width:768px){
+  .corpusly-footer-grid{grid-template-columns:1fr;gap:28px;}
+}
+
 </style>
 </head>
 <body>
@@ -264,43 +346,43 @@ input.error-input{border-color:#EF4444!important}
   <div class="card-head"><div class="sec-title"><span>Frequently Asked Questions</span></div></div>
   <div itemscope itemtype="https://schema.org/FAQPage">
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">What is CAGR?</span><span class="faq-icon">+</span></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">What is CAGR?</span><span class="faq-icon">⌄</span></div>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">CAGR (Compound Annual Growth Rate) represents the annualized rate at which an investment would have grown if it had compounded at a constant rate over a specific period. It provides a standardized way to measure investment performance over time.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Why is CAGR different from average annual return?</span><span class="faq-icon">+</span></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Why is CAGR different from average annual return?</span><span class="faq-icon">⌄</span></div>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Average annual return simply averages yearly returns and does not account for compounding. CAGR incorporates the effect of compounding and therefore provides a more accurate measure of long-term investment growth.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Can CAGR be negative?</span><span class="faq-icon">+</span></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Can CAGR be negative?</span><span class="faq-icon">⌄</span></div>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Yes. If the ending value of an investment is lower than its starting value, the CAGR will be negative, indicating an overall decline in value during the investment period.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Is a higher CAGR always better?</span><span class="faq-icon">+</span></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Is a higher CAGR always better?</span><span class="faq-icon">⌄</span></div>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Generally, a higher CAGR indicates stronger growth. However, investors should also consider risk, volatility, investment duration, and whether the returns are sustainable before making investment decisions.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Can CAGR be used to compare different investments?</span><span class="faq-icon">+</span></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Can CAGR be used to compare different investments?</span><span class="faq-icon">⌄</span></div>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Yes. CAGR is commonly used to compare the performance of mutual funds, stocks, portfolios, business revenues, and other investments across different time periods.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Does CAGR account for volatility?</span><span class="faq-icon">+</span></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Does CAGR account for volatility?</span><span class="faq-icon">⌄</span></div>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">No. CAGR smooths out year-to-year fluctuations and shows a constant annual growth rate. Two investments can have the same CAGR while experiencing very different levels of volatility.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">What inputs are required to calculate CAGR?</span><span class="faq-icon">+</span></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">What inputs are required to calculate CAGR?</span><span class="faq-icon">⌄</span></div>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">To calculate CAGR, you need three inputs: the starting value, the ending value, and the investment duration in years.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Can CAGR be used for SIP investments?</span><span class="faq-icon">+</span></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Can CAGR be used for SIP investments?</span><span class="faq-icon">⌄</span></div>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Not accurately. CAGR works best when there is a single initial investment and a single ending value. For SIPs and other investments involving multiple cash flows, XIRR is generally a more appropriate measure.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">What is a good CAGR for long-term investing?</span><span class="faq-icon">+</span></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">What is a good CAGR for long-term investing?</span><span class="faq-icon">⌄</span></div>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">There is no universal benchmark. A good CAGR depends on the asset class, investment horizon, and market conditions. Investors typically compare CAGR against relevant market indices and investment alternatives.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Does CAGR predict future returns?</span><span class="faq-icon">+</span></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Does CAGR predict future returns?</span><span class="faq-icon">⌄</span></div>
       <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">No. CAGR measures historical growth and should not be used as a guarantee of future performance. Actual future returns may be higher or lower depending on market conditions and investment risks.</div></div>
     </div>
   </div>
@@ -581,5 +663,44 @@ function resetFV(){
   document.getElementById('fv-edate').value=fmt(tyo);
 })();
 </script>
+
+<footer class="corpusly-footer">
+  <div class="container">
+    <div class="corpusly-footer-grid">
+      <div class="corpusly-footer-col">
+        <div class="corpusly-footer-logo">Corpus<span class="accent">ly</span><span class="dot"></span></div>
+        <p>Corpusly provides free, browser-based financial calculators built on industry-standard formulas to help you plan investments, retirement and insurance with confidence.</p>
+      </div>
+      <div class="corpusly-footer-col">
+        <h4>Calculators</h4>
+        <ul>
+          <li><a href="sip.html">SIP Calculator</a></li>
+          <li><a href="swp.html">SWP Calculator</a></li>
+          <li><a href="cagr.html">CAGR Calculator</a></li>
+          <li><a href="xirr.html">XIRR Calculator</a></li>
+          <li><a href="epf.html">EPF Calculator</a></li>
+          <li><a href="ppf.html">PPF Calculator</a></li>
+          <li><a href="retirementplanner.html">Retirement Planner</a></li>
+          <li><a href="termcoverage.html">Term Coverage</a></li>
+          <li><a href="premiumcomparer.html">Premium Comparer</a></li>
+        </ul>
+      </div>
+      <div class="corpusly-footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="methodology.html">Methodology</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="corpusly-footer-bottom">
+      <p>&copy; 2026 Corpusly Financial Calculators</p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
