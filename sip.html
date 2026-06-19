@@ -539,7 +539,7 @@ function calcFV(){
     </div></div>`;
   }
 
-  html+=`<div class="meta">Return: ${rate}% p.a. &nbsp;·&nbsp; ${yr}y ${mo}m &nbsp;·&nbsp; Monthly compounding${suOn?' &nbsp;·&nbsp; Step-up: '+suRate+'%/yr':''}${inflOn?' &nbsp;·&nbsp; Inflation: '+inflRate+'%':''}</div>`;
+  html+=`<div class="meta">Return: ${rate}% p.a. &nbsp;·&nbsp; ${yr}y ${mo}m${suOn?' &nbsp;·&nbsp; Step-up: '+suRate+'%/yr':''}${inflOn?' &nbsp;·&nbsp; Inflation: '+inflRate+'%':''}</div>`;
 
   html+=`<div class="card"><div class="sh"><div class="sh-bar"></div><span class="sh-text">Charts &amp; Analysis</span></div>
   <div class="tabs">
