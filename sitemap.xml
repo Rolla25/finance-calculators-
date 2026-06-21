@@ -1,8 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
     <loc>https://www.corpusly.in/</loc>
-    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <url>
+    <loc>https://www.corpusly.in/sip-calculator</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.corpusly.in/swp-calculator</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.corpusly.in/cagr-calculator</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.corpusly.in/xirr-calculator</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.corpusly.in/epf-calculator</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.corpusly.in/ppf-calculator</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.corpusly.in/retirement-planner</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.corpusly.in/term-coverage</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.corpusly.in/premium-comparer</loc>
+    <priority>0.9</priority>
+  </url>
+
 </urlset>
