@@ -1,1 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chit Fund Calculator — XIRR & Return Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#1b2a4a;
+    --ink-soft:#3a4d74;
+    --ink-faint:#6b7a9c;
+    --paper:#efe8d8;
+    --paper-dark:#e2d7bd;
+    --paper-darker:#d3c6a3;
+    --line:#c3b491;
+    --brass:#a9781f;
+    --brass-light:#c99a3d;
+    --brass-pale:#f0dfae;
+    --maroon:#7a2e2e;
+    --forest:#3f6b4a;
+    --white-ish:#faf7ef;
+    --shadow: 0 1px 0 rgba(27,42,74,0.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--paper);
+    background-image:
+      linear-gradient(var(--paper-dark) 1px, transparent 1px);
+    background-size: 100% 42px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height:1.5;
+    padding-bottom: 80px;
+  }
+  ::selection{ background: var(--brass-pale); }
+  a{ color: var(--brass); }
 
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    margin:0 0 8px 0;
+    color: var(--ink);
+    letter-spacing:-0.01em;
+  }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  /* ===== HEADER ===== */
+  header.hero{
+    border-bottom: 3px double var(--ink);
+    padding: 40px 0 28px;
+    background: linear-gradient(180deg, var(--white-ish), var(--paper));
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 32px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color: var(--brass);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  header.hero h1{ font-size: 40px; line-height:1.08; margin-bottom:12px; }
+  header.hero p.sub{
+    max-width:52ch;
+    color: var(--ink-soft);
+    font-size:15px;
+  }
+  .wheel-box{ display:flex; justify-content:center; align-items:center; }
+  #wheelSvg{ width: 100%; max-width: 300px; height:auto; }
+
+  /* ===== SECTION SHELLS ===== */
+  section{ padding: 36px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom: 20px; flex-wrap:wrap;}
+  .section-head h2{ font-size:24px; }
+  .section-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color: var(--brass);
+    border:1px solid var(--brass);
+    border-radius:2px;
+    padding:2px 7px;
+    margin-right:10px;
+  }
+
+  /* ===== CARD ===== */
+  .card{
+    background: var(--white-ish);
+    border:1px solid var(--line);
+    border-radius:3px;
+    box-shadow: var(--shadow);
+  }
+
+  /* ===== INPUT GRID ===== */
+  .input-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:1px;
+    background: var(--line);
+    border:1px solid var(--line);
+    border-radius:3px;
+    overflow:hidden;
+  }
+  .field{
+    background: var(--white-ish);
+    padding: 14px 16px;
+  }
+  .field label{
+    display:block;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color: var(--ink-faint);
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .field input, .field select{
+    width:100%;
+    border:none;
+    background:transparent;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:17px;
+    color: var(--ink);
+    padding:2px 0;
+    border-bottom: 1.5px solid transparent;
+    outline:none;
+  }
+  .field input:focus, .field select:focus{
+    border-bottom-color: var(--brass);
+  }
+  .field .hint{ font-size:11px; color:var(--ink-faint); margin-top:4px; }
+  .field.error input{ color: var(--maroon); }
+  .field .err-msg{ font-size:11px; color: var(--maroon); margin-top:4px; display:none; }
+  .field.error .err-msg{ display:block; }
+
+  .btn-row{ display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  button{
+    font-family:'Inter', sans-serif;
+    font-size:13.5px;
+    font-weight:600;
+    padding:10px 18px;
+    border-radius:3px;
+    cursor:pointer;
+    border:1.5px solid var(--ink);
+    background: var(--ink);
+    color: var(--white-ish);
+    transition: transform .08s ease, opacity .15s ease;
+  }
+  button.secondary{
+    background: transparent;
+    color: var(--ink);
+  }
+  button.brass{
+    background: var(--brass);
+    border-color: var(--brass);
+  }
+  button:hover{ opacity:0.85; }
+  button:active{ transform: scale(0.98); }
+
+  /* ===== TABLE ===== */
+  .table-scroll{ overflow-x:auto; border:1px solid var(--line); border-radius:3px; }
+  table{ width:100%; border-collapse:collapse; font-family:'IBM Plex Mono', monospace; font-size:13px; min-width:920px; }
+  thead th{
+    text-align:right;
+    font-family:'Inter', sans-serif;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color: var(--ink-faint);
+    background: var(--paper-dark);
+    padding:10px 10px;
+    border-bottom:1px solid var(--line);
+    position:sticky; top:0;
+  }
+  thead th:first-child, thead th:nth-child(2){ text-align:left; }
+  tbody td{
+    padding:7px 10px;
+    text-align:right;
+    border-bottom:1px solid var(--paper-dark);
+    white-space:nowrap;
+  }
+  tbody td:first-child, tbody td:nth-child(2){ text-align:left; }
+  tbody tr:hover{ background: var(--paper-dark); }
+  tr.payout-row{ background: var(--brass-pale) !important; }
+  tr.payout-row td{ font-weight:700; color:var(--ink); }
+  .row-tag{
+    display:inline-block; font-size:10px; font-family:'Inter',sans-serif; font-weight:700;
+    padding:1px 6px; border-radius:8px; margin-left:6px; vertical-align:middle;
+  }
+  .row-tag.payout{ background:var(--brass); color:white; }
+  td input[type="number"], td input[type="date"]{
+    width:100%; min-width:76px; border:none; background:transparent;
+    font-family:'IBM Plex Mono', monospace; font-size:13px; text-align:right; color:var(--ink);
+    border-bottom:1px dashed var(--line); outline:none; padding:2px 0;
+  }
+  td input:focus{ border-bottom-color: var(--brass); }
+  .cf-neg{ color: var(--maroon); }
+  .cf-pos{ color: var(--forest); }
+
+  /* ===== RESULTS ===== */
+  .results-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:1px;
+    background: var(--line);
+    border:1px solid var(--line);
+    border-radius:3px;
+    overflow:hidden;
+    margin-bottom:20px;
+  }
+  .stat{ background: var(--white-ish); padding:16px 18px; }
+  .stat .stat-label{ font-size:10.5px; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-faint); font-weight:700; margin-bottom:6px; }
+  .stat .stat-value{ font-family:'Fraunces', serif; font-size:23px; font-weight:600; }
+  .stat.big{ grid-column: span 2; }
+  .stat.hi{ background: var(--ink); color: var(--white-ish); }
+  .stat.hi .stat-label{ color: var(--brass-light); }
+  .pos{ color: var(--forest); }
+  .neg{ color: var(--maroon); }
+  .stat.hi .pos{ color:#8fd6a4; }
+  .stat.hi .neg{ color:#e39a9a; }
+
+  /* ===== STEPS ===== */
+  .steps{
+    background: var(--white-ish); border:1px solid var(--line); border-radius:3px;
+    padding:18px 22px; font-family:'IBM Plex Mono', monospace; font-size:13.5px; line-height:2;
+  }
+  .steps .step-line{ display:flex; justify-content:space-between; gap:16px; border-bottom:1px dotted var(--paper-darker); padding:4px 0; }
+  .steps .step-line:last-child{ border-bottom:none; font-weight:600; }
+  .steps .k{ color: var(--ink-soft); }
+  .steps .v{ color: var(--ink); }
+
+  /* ===== COMPARISON ===== */
+  .compare-toggle-row{ display:flex; align-items:center; gap:14px; }
+  .callout-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin: 20px 0; }
+  .callout{ background: var(--white-ish); border:1px solid var(--line); border-left:4px solid var(--brass); border-radius:3px; padding:14px 16px; }
+  .callout.forest{ border-left-color: var(--forest); }
+  .callout.maroon{ border-left-color: var(--maroon); }
+  .callout .callout-label{ font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); font-weight:700; margin-bottom:6px;}
+  .callout .callout-main{ font-family:'Fraunces',serif; font-size:19px; font-weight:600; }
+  .callout .callout-sub{ font-size:12px; color:var(--ink-soft); margin-top:2px; }
+  #compareRows tr{ cursor:pointer; }
+  #compareRows tr:hover{ background: var(--brass-pale); }
+  .chart-wrap{ background: var(--white-ish); border:1px solid var(--line); border-radius:3px; padding:18px; margin-bottom:20px; }
+  .rank-badge{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:20px; height:20px; border-radius:50%; background:var(--paper-dark);
+    font-size:10.5px; font-weight:700; margin-right:6px; font-family:'Inter',sans-serif;
+  }
+  .rank-badge.top{ background: var(--brass); color:white; }
+
+  /* ===== EXPLAINER ===== */
+  .explain-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .explain-block h4{ font-size:15px; color:var(--brass); margin-bottom:6px; }
+  .explain-block p{ font-size:14px; color: var(--ink-soft); margin:0 0 10px 0; }
+
+  footer{ text-align:center; padding: 30px 0 10px; font-size:12px; color: var(--ink-faint); }
+
+  @media (max-width: 880px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .input-grid{ grid-template-columns: repeat(2,1fr); }
+    .results-grid{ grid-template-columns: repeat(2,1fr); }
+    .stat.big{ grid-column: span 2; }
+    .callout-row{ grid-template-columns:1fr; }
+    .explain-grid{ grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Chit Fund &nbsp;·&nbsp; Bid Discount &nbsp;·&nbsp; XIRR</div>
+      <h1>Chit Fund Calculator</h1>
+      <p class="sub">Work out the real, annualised return (XIRR) of an Indian chit fund — the way a member actually experiences it: monthly contributions, a shifting dividend, and one lump sum landing on the month you win the bid.</p>
+    </div>
+    <div class="wheel-box">
+      <svg id="wheelSvg" viewBox="0 0 300 300"></svg>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ INPUTS ============ -->
+  <section id="inputs-section">
+    <div class="section-head">
+      <h2><span class="section-num">01</span>Set up the chit fund</h2>
+      <div class="btn-row" style="margin:0;">
+        <button class="secondary" id="btnSample">Fill sample data</button>
+        <button class="secondary" id="btnReset">Reset</button>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="field" id="field-members">
+        <label for="inMembers">Number of members</label>
+        <input type="number" id="inMembers" min="2" max="100" step="1">
+        <div class="err-msg"></div>
+      </div>
+      <div class="field" id="field-contribution">
+        <label for="inContribution">Monthly contribution (₹)</label>
+        <input type="number" id="inContribution" min="500" step="500">
+        <div class="err-msg"></div>
+      </div>
+      <div class="field" id="field-duration">
+        <label for="inDuration">Duration (months)</label>
+        <input type="number" id="inDuration" min="2" max="60" step="1">
+        <div class="err-msg"></div>
+      </div>
+      <div class="field" id="field-expense">
+        <label for="inExpense">Fixed monthly expense (₹)</label>
+        <input type="number" id="inExpense" min="0" step="500">
+        <div class="err-msg"></div>
+      </div>
+      <div class="field" id="field-payout">
+        <label for="inPayout">Month you receive the chit</label>
+        <select id="inPayout"></select>
+      </div>
+      <div class="field" id="field-start">
+        <label for="inStart">First installment date</label>
+        <input type="date" id="inStart">
+      </div>
+      <div class="field big" style="grid-column: span 2;">
+        <label>Total monthly pool</label>
+        <div class="mono" id="poolDisplay" style="font-size:17px; padding-top:2px;">—</div>
+        <div class="hint">Members × monthly contribution</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TABLE ============ -->
+  <section id="table-section">
+    <div class="section-head">
+      <h2><span class="section-num">02</span>Monthly bid discounts &amp; cash flow</h2>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Date</th>
+            <th>Bid discount (₹)</th>
+            <th>Dividend pool (₹)</th>
+            <th>Dividend / member (₹)</th>
+            <th>Net contribution (₹)</th>
+            <th>Amount received (₹)</th>
+            <th>Cash flow (₹)</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ STEP BY STEP ============ -->
+  <section id="steps-section">
+    <div class="section-head"><h2><span class="section-num">03</span>How the payout month is worked out</h2></div>
+    <div class="steps" id="stepsBox"></div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section id="results-section">
+    <div class="section-head"><h2><span class="section-num">04</span>Results for month <span id="payoutMonthLabel">—</span></h2></div>
+    <div class="results-grid" id="resultsGrid"></div>
+  </section>
+
+  <!-- ============ COMPARISON ============ -->
+  <section id="compare-section">
+    <div class="section-head">
+      <h2><span class="section-num">05</span>Compare all payout months</h2>
+      <div class="compare-toggle-row">
+        <button class="brass" id="btnCompare">Run comparison</button>
+      </div>
+    </div>
+    <div id="compareBody" style="display:none;">
+      <div class="callout-row" id="calloutRow"></div>
+      <div class="chart-wrap">
+        <canvas id="xirrChart" height="90"></canvas>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Payout month</th>
+              <th>Amount received (₹)</th>
+              <th>Total dividends (₹)</th>
+              <th>Total net contribution (₹)</th>
+              <th>Annual XIRR</th>
+              <th>Monthly IRR</th>
+            </tr>
+          </thead>
+          <tbody id="compareRows"></tbody>
+        </table>
+      </div>
+      <p class="hint" style="color:var(--ink-faint); font-size:12px; margin-top:10px;">Click any row to load that month into the calculator above.</p>
+    </div>
+  </section>
+
+  <!-- ============ EXPLAINER ============ -->
+  <section id="explain-section">
+    <div class="section-head"><h2><span class="section-num">06</span>How to read this</h2></div>
+    <div class="explain-grid">
+      <div class="explain-block">
+        <h4>Where the dividend comes from</h4>
+        <p>Each month, members bid for the pool by offering a discount — essentially agreeing to take less than the full pool in exchange for cash now. The foreman deducts a fixed expense from that discount, and whatever remains — the dividend pool — is split evenly across every member, including the one who wins that month. That's why your monthly outlay keeps shrinking as dividends accumulate.</p>
+      </div>
+      <div class="explain-block">
+        <h4>How the winner's payout is worked out</h4>
+        <p>The winning member simply receives the full pool minus the discount they bid. Everyone else keeps contributing their usual amount, reduced by that month's dividend. So the payout size depends entirely on how large a discount was bid in the month you win.</p>
+      </div>
+      <div class="explain-block">
+        <h4>Why XIRR, and not CAGR</h4>
+        <p>CAGR assumes one lump sum invested for a fixed, even period. A chit fund is nothing like that — money moves in and out every single month, in uneven amounts, and the big payout can land on any date within the term. XIRR is built exactly for this: it finds the single annualised rate that reconciles a series of irregularly dated, irregularly sized cash flows, which is what actually happens here.</p>
+      </div>
+      <div class="explain-block">
+        <h4>Early payout vs. late payout</h4>
+        <p>Take the chit early and the cash flow shape is a loan: a lump sum lands up front, then you keep paying in for the rest of the term. Take it late and the shape flips to an investment: you pay in for most of the term before a lump sum lands near the end. XIRR is calculated the same way either side of that line, so the number itself doesn't announce which shape you're looking at — a positive figure on an early month is your effective interest cost, while the same-looking positive figure on a late month is your effective return. The comparison table below tags each month "cost" or "gain" so you're never reading one as the other.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>Chit Fund Calculator — a Corpusly calculator. Figures are illustrative; verify with your chit fund's actual bye-laws and foreman's records.</footer>
+
+<script>
+/* ============================================================
+   STATE
+============================================================ */
+const DEFAULTS = {
+  members: 24,
+  contribution: 70000,
+  duration: 24,
+  expense: 17000,
+  payoutMonth: 16,
+  startDate: null // set at init to today
+};
+
+let state = {
+  members: DEFAULTS.members,
+  contribution: DEFAULTS.contribution,
+  duration: DEFAULTS.duration,
+  expense: DEFAULTS.expense,
+  payoutMonth: DEFAULTS.payoutMonth,
+  startDate: new Date(),
+  discounts: [],
+  dates: []
+};
+
+/* ============================================================
+   HELPERS
+============================================================ */
+function inr(num, decimals){
+  if(decimals===undefined) decimals = 0;
+  if(isNaN(num) || num===null) return '—';
+  return new Intl.NumberFormat('en-IN', {style:'currency', currency:'INR', maximumFractionDigits:decimals, minimumFractionDigits:decimals}).format(num);
+}
+function pct(num, decimals){
+  if(decimals===undefined) decimals=2;
+  if(isNaN(num) || num===null) return '—';
+  return (num*100).toFixed(decimals) + '%';
+}
+function fmtDate(d){
+  return new Intl.DateTimeFormat('en-IN', {day:'2-digit', month:'short', year:'numeric'}).format(d);
+}
+function toDateInputValue(d){
+  const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+function addMonths(date, n){
+  const d = new Date(date);
+  const day = d.getDate();
+  d.setDate(1);
+  d.setMonth(d.getMonth()+n);
+  const daysInMonth = new Date(d.getFullYear(), d.getMonth()+1, 0).getDate();
+  d.setDate(Math.min(day, daysInMonth));
+  return d;
+}
+function clamp(v, min, max){ return Math.min(Math.max(v, min), max); }
+
+/* ============================================================
+   FINANCIAL MATH
+============================================================ */
+function xnpv(rate, cfs, dates){
+  const t0 = dates[0].getTime();
+  let sum = 0;
+  for(let i=0;i<cfs.length;i++){
+    const years = (dates[i].getTime() - t0) / (365*86400000);
+    sum += cfs[i] / Math.pow(1+rate, years);
+  }
+  return sum;
+}
+// Generic root finder: scans a wide range of rates for sign changes (a cash
+// flow stream with a single lump payout can mathematically have more than
+// one root), bisects every bracket it finds, then returns the root closest
+// to 0% -- the economically plausible one for a real person's rate of return.
+function findRoot(flow, scanMin, scanMax, steps){
+  let prevRate = scanMin, prevVal = flow(scanMin);
+  const roots = [];
+  for(let i=1;i<=steps;i++){
+    const rate = scanMin + (scanMax-scanMin)*i/steps;
+    const val = flow(rate);
+    if(isFinite(prevVal) && isFinite(val)){
+      if(prevVal === 0){
+        roots.push(prevRate);
+      } else if(prevVal*val < 0){
+        let lo=prevRate, hi=rate, fLo=prevVal, mid=lo;
+        for(let k=0;k<100;k++){
+          mid = (lo+hi)/2;
+          const fMid = flow(mid);
+          if(Math.abs(fMid) < 1e-7) break;
+          if(fLo*fMid < 0){ hi=mid; } else { lo=mid; fLo=fMid; }
+        }
+        roots.push(mid);
+      }
+    }
+    prevRate = rate; prevVal = val;
+  }
+  if(roots.length === 0) return NaN;
+  roots.sort((a,b)=> Math.abs(a)-Math.abs(b));
+  return roots[0];
+}
+function xirr(cfs, dates){
+  const flow = r => xnpv(r, cfs, dates);
+  return findRoot(flow, -0.95, 8, 1500);
+}
+function periodNPV(rate, cfs){
+  let sum=0;
+  for(let i=0;i<cfs.length;i++){ sum += cfs[i]/Math.pow(1+rate, i); }
+  return sum;
+}
+function periodIRR(cfs){
+  const flow = r => periodNPV(r, cfs);
+  return findRoot(flow, -0.95, 8, 1500);
+}
+
+/* ============================================================
+   DATA GENERATION
+============================================================ */
+function sampleDiscounts(D, pool, expense){
+  const maxDiscount = Math.max(expense + 2000, Math.round(pool*0.16));
+  const arr = [];
+  for(let i=0;i<D;i++){
+    const t = D>1 ? i/(D-1) : 0;
+    let val = expense + (maxDiscount-expense)*(1-t);
+    val = Math.round(val/500)*500;
+    arr.push(clamp(val, expense, pool));
+  }
+  return arr;
+}
+function generateDates(startDate, D){
+  const arr=[];
+  for(let i=0;i<D;i++) arr.push(addMonths(startDate, i));
+  return arr;
+}
+
+function pool(){ return state.members * state.contribution; }
+
+function resyncArrays(){
+  const D = state.duration;
+  const p = pool();
+  // discounts
+  if(state.discounts.length < D){
+    const extra = sampleDiscounts(D, p, state.expense).slice(state.discounts.length);
+    state.discounts = state.discounts.concat(extra);
+  } else if(state.discounts.length > D){
+    state.discounts = state.discounts.slice(0, D);
+  }
+  state.discounts = state.discounts.map(v => clamp(v, state.expense, p));
+  // dates
+  state.dates = generateDates(state.startDate, D);
+  // payout month bounds
+  state.payoutMonth = clamp(state.payoutMonth, 1, D);
+}
+
+/* ============================================================
+   CORE COMPUTATION
+============================================================ */
+function computeBase(){
+  const N = state.members, C = state.contribution, E = state.expense, p = pool();
+  const rows = [];
+  for(let i=0;i<state.duration;i++){
+    const discount = state.discounts[i];
+    const dividendPool = discount - E;
+    const dividendPerMember = dividendPool / N;
+    const netContribution = C - dividendPerMember;
+    rows.push({
+      month: i+1,
+      date: state.dates[i],
+      discount, dividendPool, dividendPerMember, netContribution
+    });
+  }
+  return rows;
+}
+
+function computeScenario(base, payoutMonth){
+  const p = pool();
+  const idx = payoutMonth - 1;
+  const amountReceived = p - base[idx].discount;
+  const cfs = [];
+  const dates = [];
+  let totalGross = 0, totalDividends = 0, totalNet = 0;
+  for(let i=0;i<base.length;i++){
+    const row = base[i];
+    totalGross += state.contribution;
+    totalDividends += row.dividendPerMember;
+    totalNet += row.netContribution;
+    let cf;
+    if(i === idx){ cf = amountReceived - row.netContribution; }
+    else { cf = -row.netContribution; }
+    cfs.push(cf);
+    dates.push(row.date);
+  }
+  const annualXirr = xirr(cfs, dates);
+  const monthlyIrr = periodIRR(cfs);
+  const totalProfit = cfs.reduce((a,b)=>a+b,0);
+  return {
+    payoutMonth, amountReceived, cfs, dates,
+    totalGross, totalDividends, totalNet, totalProfit,
+    annualXirr, monthlyIrr
+  };
+}
+
+/* ============================================================
+   RENDER: WHEEL
+============================================================ */
+function renderWheel(){
+  const svg = document.getElementById('wheelSvg');
+  const D = state.duration;
+  const cx=150, cy=150, rBase=48, rMax=68;
+  const maxDiscount = Math.max(...state.discounts, 1);
+  let parts = [];
+  parts.push(`<circle cx="${cx}" cy="${cy}" r="${rBase-6}" fill="var(--white-ish, #faf7ef)" stroke="var(--ink,#1b2a4a)" stroke-width="1.5"/>`);
+  for(let i=0;i<D;i++){
+    const angle = (i/D)*2*Math.PI - Math.PI/2;
+    const len = rBase + (state.discounts[i]/maxDiscount)*rMax;
+    const x1 = cx + rBase*Math.cos(angle), y1 = cy + rBase*Math.sin(angle);
+    const x2 = cx + len*Math.cos(angle), y2 = cy + len*Math.sin(angle);
+    const isPayout = (i+1)===state.payoutMonth;
+    const isPast = (i+1) < state.payoutMonth;
+    let stroke = isPayout ? '#a9781f' : (isPast ? '#3a4d74' : '#c3b491');
+    let width = isPayout ? 4 : 2;
+    parts.push(`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${stroke}" stroke-width="${width}" stroke-linecap="round"/>`);
+    if(isPayout){
+      parts.push(`<circle cx="${x2.toFixed(1)}" cy="${y2.toFixed(1)}" r="5" fill="#a9781f"/>`);
+    }
+  }
+  parts.push(`<text x="${cx}" y="${cy-6}" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="22" fill="#1b2a4a">${state.payoutMonth}</text>`);
+  parts.push(`<text x="${cx}" y="${cy+14}" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" letter-spacing="1" fill="#6b7a9c">OF ${D} MONTHS</text>`);
+  svg.innerHTML = parts.join('');
+}
+
+/* ============================================================
+   RENDER: TABLE
+============================================================ */
+function buildTable(){
+  const base = computeBase();
+  const scenario = computeScenario(base, state.payoutMonth);
+  const tbody = document.getElementById('tableBody');
+  const p = pool();
+  let html='';
+  for(let i=0;i<base.length;i++){
+    const row = base[i];
+    const isPayout = row.month === state.payoutMonth;
+    const cf = scenario.cfs[i];
+    const received = isPayout ? scenario.amountReceived : null;
+    html += `<tr class="${isPayout?'payout-row':''}" data-i="${i}">
+      <td>${row.month}${isPayout?'<span class="row-tag payout">payout</span>':''}</td>
+      <td><input type="date" class="dateInput" data-i="${i}" value="${toDateInputValue(row.date)}"></td>
+      <td><input type="number" class="discInput" data-i="${i}" min="${state.expense}" max="${p}" step="500" value="${Math.round(row.discount)}"></td>
+      <td class="cellDividendPool">${inr(row.dividendPool)}</td>
+      <td class="cellDividendPer">${inr(row.dividendPerMember,0)}</td>
+      <td class="cellNetContrib">${inr(row.netContribution,0)}</td>
+      <td class="cellReceived">${received!==null ? inr(received,0) : '—'}</td>
+      <td class="cellCashflow ${cf>=0?'cf-pos':'cf-neg'}">${cf>=0?'':'−'}${inr(Math.abs(cf),0)}</td>
+    </tr>`;
+  }
+  tbody.innerHTML = html;
+  attachTableListeners();
+}
+
+function updateComputedCells(){
+  const base = computeBase();
+  const scenario = computeScenario(base, state.payoutMonth);
+  const trs = document.querySelectorAll('#tableBody tr');
+  trs.forEach((tr,i)=>{
+    const row = base[i];
+    const isPayout = row.month === state.payoutMonth;
+    tr.classList.toggle('payout-row', isPayout);
+    const monthCell = tr.children[0];
+    monthCell.innerHTML = `${row.month}${isPayout?'<span class="row-tag payout">payout</span>':''}`;
+    tr.querySelector('.cellDividendPool').textContent = inr(row.dividendPool);
+    tr.querySelector('.cellDividendPer').textContent = inr(row.dividendPerMember,0);
+    tr.querySelector('.cellNetContrib').textContent = inr(row.netContribution,0);
+    tr.querySelector('.cellReceived').textContent = isPayout ? inr(scenario.amountReceived,0) : '—';
+    const cf = scenario.cfs[i];
+    const cfCell = tr.querySelector('.cellCashflow');
+    cfCell.textContent = (cf>=0?'':'−') + inr(Math.abs(cf),0);
+    cfCell.className = 'cellCashflow ' + (cf>=0?'cf-pos':'cf-neg');
+  });
+  return scenario;
+}
+
+function attachTableListeners(){
+  document.querySelectorAll('.discInput').forEach(inp=>{
+    inp.addEventListener('input', e=>{
+      const i = parseInt(e.target.dataset.i);
+      let val = parseFloat(e.target.value);
+      if(isNaN(val)) val = state.expense;
+      state.discounts[i] = val;
+      renderDynamic();
+    });
+    inp.addEventListener('blur', e=>{
+      const i = parseInt(e.target.dataset.i);
+      const p = pool();
+      const clamped = clamp(state.discounts[i], state.expense, p);
+      state.discounts[i] = clamped;
+      e.target.value = Math.round(clamped);
+      renderDynamic();
+    });
+  });
+  document.querySelectorAll('.dateInput').forEach(inp=>{
+    inp.addEventListener('change', e=>{
+      const i = parseInt(e.target.dataset.i);
+      const d = new Date(e.target.value + 'T00:00:00');
+      if(!isNaN(d.getTime())){
+        state.dates[i] = d;
+        renderDynamic();
+      }
+    });
+  });
+}
+
+/* ============================================================
+   RENDER: STEPS
+============================================================ */
+function renderSteps(scenario){
+  const N=state.members, C=state.contribution, E=state.expense, P=state.payoutMonth;
+  const base = computeBase();
+  const row = base[P-1];
+  const p = pool();
+  const box = document.getElementById('stepsBox');
+  box.innerHTML = `
+    <div class="step-line"><span class="k">Total pool = ${N} members × ${inr(C)}</span><span class="v">${inr(p)}</span></div>
+    <div class="step-line"><span class="k">Bid discount in month ${P}</span><span class="v">${inr(row.discount)}</span></div>
+    <div class="step-line"><span class="k">Dividend pool = discount − fixed expense (${inr(E)})</span><span class="v">${inr(row.dividendPool)}</span></div>
+    <div class="step-line"><span class="k">Dividend / member = dividend pool ÷ ${N}</span><span class="v">${inr(row.dividendPerMember,0)}</span></div>
+    <div class="step-line"><span class="k">Amount received = pool − discount</span><span class="v">${inr(scenario.amountReceived,0)}</span></div>
+    <div class="step-line"><span class="k">Net contribution this month = ${inr(C)} − dividend/member</span><span class="v">${inr(row.netContribution,0)}</span></div>
+    <div class="step-line"><span class="k">Cash flow this month = amount received − net contribution</span><span class="v">${inr(scenario.amountReceived - row.netContribution,0)}</span></div>
+  `;
+}
+
+/* ============================================================
+   RENDER: RESULTS
+============================================================ */
+function renderResults(scenario){
+  document.getElementById('payoutMonthLabel').textContent = state.payoutMonth;
+  const grid = document.getElementById('resultsGrid');
+  const xirrClass = scenario.annualXirr>=0 ? 'pos':'neg';
+  const monthlyClass = scenario.monthlyIrr>=0 ? 'pos':'neg';
+  const profitClass = scenario.totalProfit>=0 ? 'pos':'neg';
+  const xirrNaN = isNaN(scenario.annualXirr);
+  const monthlyNaN = isNaN(scenario.monthlyIrr);
+
+  const costGain = scenario.totalProfit >= 0 ? 'gain' : 'cost';
+  const costGainTag = `<span class="row-tag" style="background:${costGain==='gain'?'var(--forest)':'var(--maroon)'};color:#fff; vertical-align:middle;">${costGain}</span>`;
+
+  const xirrDisplay = xirrNaN
+    ? `n/a ${costGainTag}`
+    : `<span class="${xirrClass}">${pct(scenario.annualXirr)}</span>`;
+
+  const monthlyDisplay = monthlyNaN
+    ? `n/a ${costGainTag}`
+    : `<span class="${monthlyClass}">${pct(scenario.monthlyIrr)}</span>`;
+
+  grid.innerHTML = `
+    <div class="stat hi big">
+      <div class="stat-label">Effective annual XIRR${xirrNaN?' (fallback)':''}</div>
+      <div class="stat-value">${xirrDisplay}</div>
+    </div>
+    <div class="stat hi big">
+      <div class="stat-label">Monthly IRR${monthlyNaN?' (fallback)':''}</div>
+      <div class="stat-value">${monthlyDisplay}</div>
+    </div>
+    <div class="stat"><div class="stat-label">Amount received</div><div class="stat-value">${inr(scenario.amountReceived,0)}</div></div>
+    <div class="stat"><div class="stat-label">Total gross contributions</div><div class="stat-value">${inr(scenario.totalGross,0)}</div></div>
+    <div class="stat"><div class="stat-label">Total dividends received</div><div class="stat-value">${inr(scenario.totalDividends,0)}</div></div>
+    <div class="stat"><div class="stat-label">Total net contributions</div><div class="stat-value">${inr(scenario.totalNet,0)}</div></div>
+    <div class="stat big"><div class="stat-label">Total profit / loss (undiscounted)</div><div class="stat-value ${profitClass}">${scenario.totalProfit>=0?'':'−'}${inr(Math.abs(scenario.totalProfit),0)}</div></div>
+    ${xirrNaN ? `<div class="stat big" style="grid-column: span 4;"><div class="stat-label">Why there's no exact rate</div><div style="font-size:13px; color:var(--ink-soft); line-height:1.5;">This month's cash flows never cross zero at any interest rate — it sits right on the borrowing/investing fence. There's no single annualised rate to report, but the Total Profit/Loss above still tells you the direction: it's a <strong>${costGain}</strong> month, since you end up ${scenario.totalProfit>=0?'net ahead':'net behind'} in rupee terms.</div></div>` : ''}
+  `;
+}
+
+/* ============================================================
+   RENDER: PAYOUT SELECT
+============================================================ */
+function renderPayoutSelect(){
+  const sel = document.getElementById('inPayout');
+  let html='';
+  for(let i=1;i<=state.duration;i++){
+    html += `<option value="${i}" ${i===state.payoutMonth?'selected':''}>Month ${i}</option>`;
+  }
+  sel.innerHTML = html;
+}
+
+/* ============================================================
+   RENDER: INPUT FIELDS (values only, no full rebuild)
+============================================================ */
+function syncInputValues(){
+  document.getElementById('inMembers').value = state.members;
+  document.getElementById('inContribution').value = state.contribution;
+  document.getElementById('inDuration').value = state.duration;
+  document.getElementById('inExpense').value = state.expense;
+  document.getElementById('inStart').value = toDateInputValue(state.startDate);
+  document.getElementById('poolDisplay').textContent = inr(pool());
+}
+
+/* ============================================================
+   MASTER RENDER FUNCTIONS
+============================================================ */
+function renderDynamic(){
+  // updates that don't require rebuilding table rows or select options
+  const scenario = updateComputedCells();
+  renderSteps(scenario);
+  renderResults(scenario);
+  renderWheel();
+  document.getElementById('poolDisplay').textContent = inr(pool());
+}
+
+function renderFull(){
+  resyncArrays();
+  syncInputValues();
+  renderPayoutSelect();
+  buildTable();
+  const base = computeBase();
+  const scenario = computeScenario(base, state.payoutMonth);
+  renderSteps(scenario);
+  renderResults(scenario);
+  renderWheel();
+  if(document.getElementById('compareBody').style.display !== 'none'){
+    runComparison();
+  }
+}
+
+/* ============================================================
+   COMPARISON MODE
+============================================================ */
+let xirrChartInstance = null;
+
+function runComparison(){
+  const base = computeBase();
+  const results = [];
+  for(let m=1;m<=state.duration;m++){
+    results.push(computeScenario(base, m));
+  }
+  // A month is a "cost" or a "gain" based on the one number that actually
+  // settles it: Total Profit/Loss. If you end up paying in more than you
+  // got back (nominal, undiscounted), that's a cost. If you end up ahead,
+  // that's a gain. This works for every month, whether or not XIRR itself
+  // has a real solution -- profit/loss is always computable.
+  const classify = r => r.totalProfit >= 0 ? 'gain' : 'cost';
+
+  const validXirr = results.filter(r=>!isNaN(r.annualXirr));
+  const gainPool = validXirr.filter(r=> classify(r)==='gain');
+  const costPool = validXirr.filter(r=> classify(r)==='cost');
+  const best = gainPool.length ? gainPool.reduce((a,b)=> b.annualXirr>a.annualXirr?b:a, gainPool[0]) : null;
+  const lowestBorrow = costPool.length ? costPool.reduce((a,b)=> b.annualXirr<a.annualXirr?b:a, costPool[0]) : null;
+  const closestZero = validXirr.length ? validXirr.reduce((a,b)=> Math.abs(b.annualXirr)<Math.abs(a.annualXirr)?b:a, validXirr[0]) : null;
+
+  const calloutRow = document.getElementById('calloutRow');
+  calloutRow.innerHTML = `
+    <div class="callout forest">
+      <div class="callout-label">Highest investment return</div>
+      <div class="callout-main">${best ? `Month ${best.payoutMonth} · ${pct(best.annualXirr)}` : 'n/a'}</div>
+      <div class="callout-sub">Best month where you end up net ahead</div>
+    </div>
+    <div class="callout maroon">
+      <div class="callout-label">Lowest borrowing cost</div>
+      <div class="callout-main">${lowestBorrow ? `Month ${lowestBorrow.payoutMonth} · ${pct(lowestBorrow.annualXirr)}` : 'n/a'}</div>
+      <div class="callout-sub">Cheapest month among those where you end up net behind</div>
+    </div>
+    <div class="callout">
+      <div class="callout-label">Closest to 0% XIRR</div>
+      <div class="callout-main">${closestZero ? `Month ${closestZero.payoutMonth} · ${pct(closestZero.annualXirr)}` : 'n/a'}</div>
+      <div class="callout-sub">Roughly a wash between borrowing and investing</div>
+    </div>
+  `;
+
+  // table, ranked -- rank by whichever value is actually on display (real
+  // root if it exists, modified fallback otherwise) so the full list stays
+  // in a sensible order with no gaps in the middle.
+  const ranked = [...results].sort((a,b)=> {
+    const av = isNaN(a.annualXirr) ? -Infinity : a.annualXirr;
+    const bv = isNaN(b.annualXirr) ? -Infinity : b.annualXirr;
+    return bv - av;
+  });
+  const rankOf = {};
+  ranked.forEach((r,idx)=> rankOf[r.payoutMonth] = idx+1);
+
+  const tbody = document.getElementById('compareRows');
+  let html='';
+  results.forEach(r=>{
+    const rank = rankOf[r.payoutMonth];
+    const isCurrent = r.payoutMonth === state.payoutMonth;
+    const costGainTag = classify(r)==='gain'
+      ? '<span class="row-tag" style="background:var(--forest);color:#fff;">gain</span>'
+      : '<span class="row-tag" style="background:var(--maroon);color:#fff;">cost</span>';
+    html += `<tr data-month="${r.payoutMonth}" class="${isCurrent?'payout-row':''}">
+      <td><span class="rank-badge ${rank<=3?'top':''}">${rank}</span></td>
+      <td>Month ${r.payoutMonth}${isCurrent?'<span class="row-tag payout">current</span>':''}</td>
+      <td>${inr(r.amountReceived,0)}</td>
+      <td>${inr(r.totalDividends,0)}</td>
+      <td>${inr(r.totalNet,0)}</td>
+      <td class="${isNaN(r.annualXirr) ? (r.totalProfit>=0?'cf-pos':'cf-neg') : (r.annualXirr>=0?'cf-pos':'cf-neg')}">${isNaN(r.annualXirr)?'n/a':pct(r.annualXirr)} ${costGainTag}</td>
+      <td class="${r.monthlyIrr>=0?'cf-pos':'cf-neg'}">${isNaN(r.monthlyIrr)?'n/a':pct(r.monthlyIrr)}</td>
+    </tr>`;
+  });
+  tbody.innerHTML = html;
+  tbody.querySelectorAll('tr').forEach(tr=>{
+    tr.addEventListener('click', ()=>{
+      state.payoutMonth = parseInt(tr.dataset.month);
+      document.getElementById('inPayout').value = state.payoutMonth;
+      renderPayoutSelect();
+      buildTable();
+      renderDynamic();
+      runComparison();
+      document.getElementById('results-section').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  // chart -- maroon for cost months (net behind), forest for gain months,
+  // brass gold for whichever month is currently loaded above. Months with
+  // no real XIRR simply have no bar (a genuine gap), rather than a modified
+  // estimate standing in for a value that doesn't exist.
+  const ctx = document.getElementById('xirrChart').getContext('2d');
+  const labels = results.map(r=>'M'+r.payoutMonth);
+  const data = results.map(r=> isNaN(r.annualXirr) ? null : r.annualXirr*100);
+  const colors = results.map(r=>{
+    if(r.payoutMonth===state.payoutMonth) return '#a9781f';
+    return classify(r)==='gain' ? '#3f6b4a' : '#a34a4a';
+  });
+  if(xirrChartInstance) xirrChartInstance.destroy();
+  xirrChartInstance = new Chart(ctx, {
+    type:'bar',
+    data:{ labels, datasets:[{ label:'Annual XIRR (%)', data, backgroundColor:colors, borderRadius:2 }] },
+    options:{
+      responsive:true,
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: c=> c.formattedValue + '%' } } },
+      scales:{
+        y:{ grid:{ color:'#e2d7bd' }, ticks:{ callback: v=> v+'%' } },
+        x:{ grid:{ display:false } }
+      }
+    }
+  });
+
+  document.getElementById('compareBody').style.display = 'block';
+}
+
+/* ============================================================
+   TOP-LEVEL INPUT LISTENERS
+============================================================ */
+function handleStructuralInput(){
+  state.members = parseInt(document.getElementById('inMembers').value) || DEFAULTS.members;
+  state.contribution = parseFloat(document.getElementById('inContribution').value) || DEFAULTS.contribution;
+  state.duration = parseInt(document.getElementById('inDuration').value) || DEFAULTS.duration;
+  state.expense = parseFloat(document.getElementById('inExpense').value) || 0;
+  const startVal = document.getElementById('inStart').value;
+  if(startVal) state.startDate = new Date(startVal + 'T00:00:00');
+  validateFields();
+  renderFull();
+}
+
+function validateFields(){
+  const setErr = (fieldId, msg) => {
+    const f = document.getElementById(fieldId);
+    f.classList.toggle('error', !!msg);
+    f.querySelector('.err-msg').textContent = msg || '';
+  };
+  let ok = true;
+  if(state.members < 2){ setErr('field-members','Need at least 2 members'); ok=false; } else setErr('field-members','');
+  if(state.contribution <= 0){ setErr('field-contribution','Must be greater than 0'); ok=false; } else setErr('field-contribution','');
+  if(state.duration < 2){ setErr('field-duration','Need at least 2 months'); ok=false; } else setErr('field-duration','');
+  if(state.expense < 0 || state.expense >= pool()){ setErr('field-expense','Must be less than the pool'); ok=false; } else setErr('field-expense','');
+  state.members = Math.max(2, Math.min(state.members, 200));
+  state.duration = Math.max(2, Math.min(state.duration, 120));
+  state.expense = Math.max(0, state.expense);
+  return ok;
+}
+
+function initListeners(){
+  ['inMembers','inContribution','inDuration','inExpense','inStart'].forEach(id=>{
+    document.getElementById(id).addEventListener('change', handleStructuralInput);
+  });
+  document.getElementById('inPayout').addEventListener('change', e=>{
+    state.payoutMonth = parseInt(e.target.value);
+    buildTable();
+    renderDynamic();
+    if(document.getElementById('compareBody').style.display !== 'none') runComparison();
+  });
+  document.getElementById('btnSample').addEventListener('click', ()=>{
+    state.discounts = sampleDiscounts(state.duration, pool(), state.expense);
+    state.dates = generateDates(state.startDate, state.duration);
+    state.payoutMonth = Math.min(16, state.duration);
+    renderFull();
+  });
+  document.getElementById('btnReset').addEventListener('click', ()=>{
+    state = {
+      members: DEFAULTS.members,
+      contribution: DEFAULTS.contribution,
+      duration: DEFAULTS.duration,
+      expense: DEFAULTS.expense,
+      payoutMonth: DEFAULTS.payoutMonth,
+      startDate: new Date(),
+      discounts: [],
+      dates: []
+    };
+    state.discounts = sampleDiscounts(state.duration, pool(), state.expense);
+    document.querySelectorAll('.field').forEach(f=>{ f.classList.remove('error'); const e=f.querySelector('.err-msg'); if(e) e.textContent=''; });
+    renderFull();
+  });
+  document.getElementById('btnCompare').addEventListener('click', runComparison);
+}
+
+/* ============================================================
+   INIT
+============================================================ */
+function init(){
+  state.discounts = sampleDiscounts(state.duration, pool(), state.expense);
+  state.dates = generateDates(state.startDate, state.duration);
+  initListeners();
+  renderFull();
+}
+init();
+</script>
+</body>
+</html>
