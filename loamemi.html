@@ -1,1 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced EMI Calculator</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;background:#f0f2f5;color:#1a1a2e;line-height:1.6}
+.wrap{max-width:1340px;margin:0 auto;padding:20px}
+h1{font-size:22px;font-weight:500;margin-bottom:4px}
+.subtitle{font-size:13px;color:#6b7280;margin-bottom:20px}
+.tabs{display:flex;border-bottom:2px solid #e5e7eb;margin-bottom:20px}
+.tab{padding:10px 20px;cursor:pointer;font-size:13px;font-weight:500;color:#6b7280;border-bottom:2.5px solid transparent;margin-bottom:-2px;transition:all .15s}
+.tab.active{color:#1a56db;border-bottom-color:#1a56db}
+.tab:hover:not(.active){color:#1a1a2e}
+.panel{display:none}.panel.active{display:block}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:16px}
+.card-title{font-size:15px;font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:8px;color:#1a1a2e}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.grid5{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px}
+label{font-size:12px;color:#6b7280;display:block;margin-bottom:5px;font-weight:500}
+input[type=number],input[type=date],select{width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:13px;background:#fff;color:#1a1a2e;outline:none;transition:border .15s}
+input:focus,select:focus{border-color:#1a56db;box-shadow:0 0 0 3px rgba(26,86,219,.08)}
+input.err-field{border-color:#ef4444!important}
+.err-msg{font-size:11px;color:#ef4444;margin-top:3px;display:none}.err-msg.show{display:block}
+.btn{padding:8px 16px;border-radius:8px;border:1px solid #d1d5db;background:#fff;color:#374151;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s}
+.btn:hover{background:#f9fafb}
+.btn-primary{background:#1a56db;color:#fff;border-color:#1a56db}.btn-primary:hover{background:#1649c0}
+.btn-danger{background:#fef2f2;color:#991b1b;border-color:#fca5a5}.btn-danger:hover{background:#fee2e2}
+.btn-sm{padding:6px 12px;font-size:12px}
+.metric-card{background:#f8faff;border:1px solid #dbeafe;border-radius:10px;padding:16px;text-align:center}
+.metric-label{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;font-weight:500}
+.metric-value{font-size:18px;font-weight:500;color:#1a1a2e}
+.metric-value.hi{color:#1a56db;font-size:22px}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+.note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px;font-size:12px;color:#1e40af;margin-bottom:16px}
+.info-box{background:#fefce8;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:12px;color:#78350f;margin-top:10px;line-height:1.9}
+.tbl-wrap{overflow-x:auto;border-radius:10px;border:1px solid #e5e7eb}
+table{width:100%;border-collapse:collapse;font-size:12px;background:#fff}
+thead tr{background:#f1f5f9}
+th{padding:9px 10px;text-align:right;color:#374151;font-weight:600;font-size:11px;letter-spacing:.3px;border-bottom:2px solid #cbd5e1;white-space:nowrap}
+th:first-child{text-align:left;padding-left:14px;min-width:130px}
+th:nth-child(2){text-align:left;min-width:90px}
+td{padding:7px 10px;text-align:right;color:#1a1a2e;border-bottom:1px solid #f1f5f9;background:#fff;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:12px}
+td:first-child{text-align:left;padding-left:14px}
+td:nth-child(2){text-align:left;color:#6b7280;font-size:11.5px}
+tbody tr:nth-child(even) td{background:#f9fafb}
+tbody tr:hover td{background:#eff6ff!important}
+.row-disburse td{background:#fdf4ff!important}
+.row-prepay  td{background:#f0fdf4!important}
+.row-prepay:hover td{background:#dcfce7!important}
+.row-emi     td{background:#fff!important}
+.row-closure td{background:#fef9c3!important;font-weight:600}
+.row-stepup  td{background:#fdf4ff!important}
+.row-year    td{background:#eff6ff!important;color:#1e40af;font-weight:600}
+.b{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:4px;white-space:nowrap}
+.b-emi    {background:#eff6ff;color:#1e40af}
+.b-pp     {background:#dcfce7;color:#166534}
+.b-dis    {background:#f3e8ff;color:#7e22ce}
+.b-cls    {background:#fef9c3;color:#713f12}
+.b-su     {background:#f3e8ff;color:#7e22ce;font-style:italic}
+.b-yr     {background:#dbeafe;color:#1e40af}
+.acol     {color:#b45309;font-weight:500}
+.muted    {color:#9ca3af}
+.toggle-group{display:flex;border:1px solid #d1d5db;border-radius:8px;overflow:hidden;width:fit-content}
+.toggle-btn{padding:7px 16px;font-size:12px;cursor:pointer;border:none;background:#fff;color:#6b7280;font-weight:500;transition:all .15s}
+.toggle-btn.active{background:#1a56db;color:#fff}
+.toggle-btn:hover:not(.active){background:#f3f4f6}
+.tbl-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px}
+.cmp-table thead tr{background:#f1f5f9}
+.cmp-table th{padding:9px 13px;color:#374151;font-weight:600;font-size:12px;text-align:left;border-bottom:2px solid #e5e7eb}
+.cmp-table td{padding:9px 13px;border-bottom:1px solid #f1f5f9;color:#1a1a2e}
+.cmp-table tbody tr:nth-child(even) td{background:#f9fafb}
+.savings{color:#166534;font-weight:600}
+.pp-entry{border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:10px;background:#f9fafb}
+.su-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.su-tab{padding:7px 16px;border-radius:20px;border:1px solid #d1d5db;font-size:12px;cursor:pointer;font-weight:500;background:#fff;color:#6b7280;transition:all .15s}
+.su-tab.active{background:#1a56db;color:#fff;border-color:#1a56db}
+.divider{border:none;border-top:1px solid #e5e7eb;margin:16px 0}
+.audit-link{font-size:11.5px;color:#1a56db;cursor:pointer;text-decoration:underline;margin-left:auto}
+@media(max-width:640px){.grid2,.grid3,.grid4,.grid5{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr 1fr}th,td{padding:6px 7px;font-size:11px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><i class="ti ti-calculator"></i> Advanced EMI Calculator</h1>
+<p class="subtitle">Daily accrual between every event · Interest splits correctly around mid-cycle prepayments · Audit-ready ledger</p>
 
+<div class="card">
+  <div class="card-title"><i class="ti ti-settings"></i> Master Loan Inputs</div>
+  <div class="grid5">
+    <div><label>Loan Amount (₹)</label><input type="number" id="loanAmt" value="3000000" min="1" step="1000"></div>
+    <div><label>Interest Rate (% p.a.)</label><input type="number" id="rate" value="8.5" min="0.01" max="36" step="0.05"></div>
+    <div><label>Loan Tenure</label>
+      <div style="display:flex;gap:6px">
+        <input type="number" id="tenure" value="10" min="1" style="flex:1">
+        <select id="tenureUnit" style="width:88px"><option value="years">Years</option><option value="months">Months</option></select>
+      </div>
+    </div>
+    <div><label>Disbursement Date</label>
+      <input type="date" id="disburseDate" value="2025-05-20">
+      <div class="err-msg" id="err-dd">Required</div>
+    </div>
+    <div><label>First EMI Date</label>
+      <input type="date" id="firstEmiDate" value="2025-07-20">
+      <div class="err-msg" id="err-fd">Must be after disbursement date</div>
+    </div>
+  </div>
+  <div id="gap-info" class="info-box" style="display:none"></div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('standard',this)">Standard EMI</div>
+  <div class="tab" onclick="switchTab('prepay',this)">Prepayment</div>
+  <div class="tab" onclick="switchTab('stepup',this)">Step-Up EMI</div>
+</div>
+
+<div id="panel-standard" class="panel active">
+  <div id="std-results" class="result-grid"></div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-table"></i> Loan Ledger
+      <span class="audit-link" onclick="toggleAudit()"><i class="ti ti-bug"></i> Audit (2dp)</span>
+    </div>
+    <div class="tbl-controls">
+      <div class="toggle-group">
+        <button class="toggle-btn active" id="std-m" onclick="setStdView('monthly')">Monthly</button>
+        <button class="toggle-btn" id="std-y" onclick="setStdView('yearly')">Yearly</button>
+      </div>
+    </div>
+    <div id="std-audit-wrap" style="display:none;margin-bottom:14px"></div>
+    <div id="std-tbl-wrap"></div>
+  </div>
+</div>
+
+<div id="panel-prepay" class="panel">
+  <div class="note"><i class="ti ti-info-circle"></i>
+    <strong>Prepayments are processed on their exact date.</strong>
+    Interest accrues on the higher balance up to the prepayment date,
+    then on the reduced balance from that date onward — correctly split across the EMI cycle.
+    EMIs always split automatically into interest + principal.
+  </div>
+  <div class="card">
+    <div class="card-title"><i class="ti ti-cash"></i> Prepayments</div>
+    <div id="pp-entries"></div>
+    <button class="btn btn-primary btn-sm" onclick="addPpEntry()"><i class="ti ti-plus"></i> Add Prepayment</button>
+  </div>
+  <div id="pp-results"></div>
+</div>
+
+<div id="panel-stepup" class="panel">
+  <div class="card">
+    <div class="card-title"><i class="ti ti-trending-up"></i> Step-Up Configuration</div>
+    <div class="su-tabs">
+      <div class="su-tab active" id="sm-pct" onclick="setStepMode('pct',this)">% Step-Up Only</div>
+      <div class="su-tab" id="sm-fixed" onclick="setStepMode('fixed',this)">Fixed Additional</div>
+      <div class="su-tab" id="sm-combo" onclick="setStepMode('combo',this)">Combination</div>
+    </div>
+    <div id="sp-inp" class="grid2"><div><label>Step-Up % (yearly)</label><input type="number" id="stepPct" value="10" min="0" max="100" step="0.5"></div></div>
+    <div id="sf-inp" class="grid2" style="display:none"><div><label>Fixed Additional Monthly (₹)</label><input type="number" id="stepFixed" value="5000" min="0" step="500"></div></div>
+    <div id="sc-inp" class="grid2" style="display:none">
+      <div><label>Step-Up % (yearly)</label><input type="number" id="stepPct2" value="10" min="0" max="100" step="0.5"></div>
+      <div><label>Fixed Additional Monthly (₹)</label><input type="number" id="stepFixed2" value="5000" min="0" step="500"></div>
+    </div>
+    <hr class="divider">
+    <div class="card-title" style="font-size:13px;margin-bottom:10px"><i class="ti ti-cash"></i> Prepayments during Step-Up (optional)</div>
+    <div id="su-pp-entries"></div>
+    <button class="btn btn-sm" onclick="addSuPpEntry()"><i class="ti ti-plus"></i> Add Prepayment</button>
+  </div>
+  <div id="su-results"></div>
+</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════
+const toDate = s => s ? new Date(s + 'T00:00:00') : null;
+const daysBetween = (a, b) => Math.round((b - a) / 86400000);
+const addMonths = (d, n) => { const r = new Date(d); r.setMonth(r.getMonth() + n); return r; };
+
+function fmtDate(d) {
+  if (!d) return '';
+  const M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return d.getDate().toString().padStart(2,'0') + '-' + M[d.getMonth()] + '-' + d.getFullYear();
+}
+const fmtI = v => '₹' + Math.round(v).toLocaleString('en-IN');
+const fmtA = v => '₹' + v.toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2});
+const dash = () => '<span class="muted">—</span>';
+
+// ═══════════════════════════════════════════
+// FORMULAS
+// ═══════════════════════════════════════════
+function calcEMI(P, annualRate, n) {
+  if (P <= 0 || n <= 0) return 0;
+  if (annualRate === 0) return P / n;
+  const r = annualRate / 1200;
+  return (P * r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
+}
+function calcRemainingTenure(bal, annualRate, emi) {
+  if (bal <= 0.005) return 0;
+  if (annualRate === 0) return Math.ceil(bal / emi);
+  const r = annualRate / 1200;
+  if (emi <= bal * r + 0.005) return 9999;
+  return Math.ceil(-Math.log(1 - bal * r / emi) / Math.log(1+r));
+}
+// Actual/365 daily accrual — the single interest formula used everywhere
+const accrueInt = (principal, annualRate, days) =>
+  days > 0 ? principal * (annualRate / 100 / 365) * days : 0;
+
+// ═══════════════════════════════════════════
+// VALIDATION
+// ═══════════════════════════════════════════
+function validate() {
+  const dd = toDate(document.getElementById('disburseDate').value);
+  const fd = toDate(document.getElementById('firstEmiDate').value);
+  ['disburseDate','firstEmiDate'].forEach(id => {
+    document.getElementById(id).classList.remove('err-field');
+  });
+  ['err-dd','err-fd'].forEach(id => document.getElementById(id).classList.remove('show'));
+  let ok = true;
+  if (!dd) { document.getElementById('disburseDate').classList.add('err-field'); document.getElementById('err-dd').classList.add('show'); ok = false; }
+  if (!fd) { document.getElementById('firstEmiDate').classList.add('err-field'); document.getElementById('err-fd').classList.add('show'); ok = false; }
+  if (dd && fd && fd <= dd) {
+    document.getElementById('firstEmiDate').classList.add('err-field');
+    document.getElementById('err-fd').textContent = 'First EMI Date must be after Disbursement Date';
+    document.getElementById('err-fd').classList.add('show'); ok = false;
+  }
+  document.getElementById('gap-info').style.display = 'none';
+  return ok;
+}
+
+function getLoanParams() {
+  const amt   = parseFloat(document.getElementById('loanAmt').value)   || 0;
+  const rate  = parseFloat(document.getElementById('rate').value)       || 0;
+  const tv    = parseFloat(document.getElementById('tenure').value)     || 0;
+  const unit  = document.getElementById('tenureUnit').value;
+  const months = unit === 'years' ? Math.round(tv * 12) : Math.round(tv);
+  const dd = toDate(document.getElementById('disburseDate').value);
+  const fd = toDate(document.getElementById('firstEmiDate').value);
+  return { amt, rate, months, disburseDate: dd, firstEmiDate: fd };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CORE ENGINE — Pure chronological event walk, daily accrual between events
+//
+// KEY DESIGN:
+//
+// 1. Build a flat timeline of ALL events:
+//      disburse → [pre-EMI prepayments] → firstEMI → [EMI + prepayment events]
+//    sorted by date.
+//
+// 2. Walk forward event by event.
+//    Between every two consecutive events:
+//      accruedInt += balance × (rate/365) × days
+//    This is the ONLY place interest is calculated.
+//
+// 3. Prepayment mid-cycle (e.g. between EMI 1 and EMI 2):
+//    - Accrue interest from last event → prepayment date on current balance.
+//    - Apply prepayment (reduce principal or clear accrued interest first).
+//    - Continue accruing on the new, lower balance until the next EMI.
+//    - At EMI date: EMI pays from accruedInt first, remainder reduces principal.
+//    → Result: EMI interest reflects two sub-periods at two different balances.
+//
+// 4. Step-up: baseEMI multiplied on each anniversary of firstEmiDate.
+//    The new EMI applies from that point forward.
+//
+// 5. Tenure: anchored to disburseDate + totalMonths.
+//    numEMIs = totalMonths − floor(months from disburse → firstEMI).
+//
+// 6. All intermediate values: full float. Rounding only at display layer.
+// ═══════════════════════════════════════════════════════════════════════════
+function buildSchedule(P, annualRate, totalMonths, disburseDate, firstEmiDate, prepayEvents, stepup) {
+
+  // Number of EMIs = tenure − months already elapsed before first EMI
+  const mElapsed = (firstEmiDate.getFullYear() - disburseDate.getFullYear()) * 12
+                 + (firstEmiDate.getMonth() - disburseDate.getMonth());
+  let numEMIs = Math.max(1, totalMonths - mElapsed);
+
+  // Filter and sort all prepayments
+  const allPPs = (prepayEvents || [])
+    .filter(e => e.amount > 0 && e.date && e.date > disburseDate)
+    .sort((a, b) => a.date - b.date);
+
+  const preEmiPPs  = allPPs.filter(e => e.date < firstEmiDate);
+  const postEmiPPs = allPPs.filter(e => e.date >= firstEmiDate);
+
+  const ledger = []; // output event rows
+
+  // ── Running state ─────────────────────────────────────────────────────
+  let principal  = P;
+  let accruedInt = 0;   // interest accrued but not yet collected by an EMI
+  let prevDate   = disburseDate;
+
+  // ── Disbursement ──────────────────────────────────────────────────────
+  ledger.push(makeRow('disburse', disburseDate, 0, 0, 0, P, 0, 0, 0, 0, '', '', P, 0));
+
+  // ── Helper: accrue interest from prevDate to targetDate on principal ──
+  function accrueToDate(targetDate) {
+    const days = daysBetween(prevDate, targetDate);
+    if (days > 0) accruedInt += accrueInt(principal, annualRate, days);
+    return days;
+  }
+
+  // ── Helper: apply a prepayment event ─────────────────────────────────
+  function applyPrepayment(pp) {
+    const days = accrueToDate(pp.date);
+    const pOpen  = principal;
+    const aiOpen = accruedInt - accrueInt(principal, annualRate, days);
+    const intThisPeriod = accrueInt(principal, annualRate, days);
+
+    let ppAmt = pp.amount;
+    let toInt = 0, toPrin = 0;
+    const alloc = pp.allocation || 'principal';
+
+    if (alloc === 'principal') {
+      toPrin = Math.min(ppAmt, principal);
+      principal -= toPrin;
+    } else {
+      // interest-first or automatic: clear accrued interest, rest to principal
+      toInt = Math.min(ppAmt, accruedInt);
+      accruedInt -= toInt;
+      const rem = ppAmt - toInt;
+      toPrin = Math.min(rem, principal);
+      principal -= toPrin;
+    }
+
+    ledger.push(makeRow('prepay', pp.date, days, pOpen, intThisPeriod,
+      0, 0, 0, ppAmt, toInt, toPrin, alloc, pp.action, principal, accruedInt));
+    prevDate = pp.date;
+  }
+
+  // ── PRE-EMI PERIOD: Disbursement → firstEmiDate ───────────────────────
+  for (const pp of preEmiPPs) applyPrepayment(pp, 0); // no EMIs done yet
+
+  // Accrue remaining pre-EMI period to firstEmiDate
+  {
+    const days = accrueToDate(firstEmiDate);
+    const intThisPeriod = accrueInt(principal, annualRate, days);
+    if (days > 0) {
+      ledger.push(makeRow('pre-emi-accrue', firstEmiDate, days, principal,
+        intThisPeriod, 0, 0, 0, 0, 0, 0, '', '', principal, accruedInt));
+    }
+    prevDate = firstEmiDate;
+  }
+
+  // ── Capitalise: accruedInt folds into principal ───────────────────────
+  // All pre-EMI interest (accrued across the whole pre-EMI period,
+  // correctly accounting for any prepayments) is added to principal.
+  // accruedInt resets to 0. prevDate is now firstEmiDate.
+  principal  = principal + accruedInt;
+  accruedInt = 0;
+  const adjustedPrincipal = principal;
+
+  // EMI calculated on adjusted principal for numEMIs months
+  let emi     = calcEMI(adjustedPrincipal, annualRate, numEMIs);
+  let baseEmi = emi;
+  let stepupPeriodsApplied = 0;
+
+  // ── EMI PERIOD ────────────────────────────────────────────────────────
+  // EMI 1 fires ON firstEmiDate (m=0 → addMonths(firstEmiDate, 0)).
+  // prevDate = firstEmiDate after capitalisation.
+  // Days from prevDate → EMI 1 date = 0, so accrueToDate adds nothing.
+  //
+  // For EMI 1 (and any EMI with no mid-cycle prepayment), interest is
+  // computed using the standard monthly reducing-balance rate:
+  //   interestForEMI = openingPrincipal × (annualRate / 1200)
+  // This is exact and matches the EMI formula used to derive `emi`.
+  //
+  // For EMIs that DO have a mid-cycle prepayment, accrueToDate is
+  // called twice: once from prevDate → prepayment date, and once from
+  // prepayment date → emiDate, giving correct daily split accrual.
+  // accruedInt accumulates those sub-period amounts and is consumed here.
+  //
+  // When there is no mid-cycle prepayment, accruedInt = 0 at the EMI
+  // date, so we fall back to the monthly-rate calculation explicitly.
+
+  let pendingPPs = postEmiPPs.slice();
+  let emiNum = 0;
+
+  for (let m = 0; m < numEMIs + 600; m++) {
+    if (principal < 0.005) break;
+
+    // EMI 1 = firstEmiDate, EMI 2 = firstEmiDate + 1 month, etc.
+    const emiDate = addMonths(firstEmiDate, m);
+    emiNum++;
+
+    // Step-up: count full 12-month periods from firstEmiDate to emiDate
+    if (stepup) {
+      const msFromFirst = (emiDate.getFullYear() - firstEmiDate.getFullYear()) * 12
+                        + (emiDate.getMonth() - firstEmiDate.getMonth());
+      if (msFromFirst > 0) {
+        const periodsNow = Math.floor(msFromFirst / 12);
+        if (periodsNow > stepupPeriodsApplied) {
+          for (let i = 0; i < periodsNow - stepupPeriodsApplied; i++) {
+            if (stepup.type === 'pct' || stepup.type === 'combo') {
+              baseEmi = baseEmi * (1 + stepup.pct / 100);
+              emi = baseEmi;
+            }
+          }
+          stepupPeriodsApplied = periodsNow;
+          ledger.push({
+            type:'stepup_note', date:emiDate, days:0,
+            principalOpen:principal, intAccrued:0,
+            emiAmt:0, intPaid:0, principalPaid:0, additional:0,
+            ppTotal:0, ppToInt:0, ppToPrin:0, allocation:'', action:'',
+            principalClose:principal, accruedIntClose:accruedInt,
+            note:`Step-up period ${stepupPeriodsApplied}: base EMI → ${fmtI(emi)}`
+          });
+        }
+      }
+    }
+
+    // Drain prepayments strictly before this EMI date
+    while (pendingPPs.length > 0 && pendingPPs[0].date < emiDate) {
+      const pp = pendingPPs.shift();
+      applyPrepayment(pp, emiNum - 1); // emiNum-1 EMIs done before this prepayment
+    }
+    if (principal < 0.005) break;
+
+    // Accrue interest from prevDate → emiDate.
+    // If no mid-cycle prepayment occurred, prevDate === emiDate for EMI 1,
+    // OR prevDate is the previous EMI date for EMI 2+, giving the correct
+    // day count. accrueToDate adds to accruedInt.
+    const days = accrueToDate(emiDate);
+
+    // Interest for this EMI:
+    // • If a mid-cycle prepayment occurred, accruedInt > 0 and holds the
+    //   correct daily-accrual amount (split across two sub-periods).
+    // • If no prepayment occurred (normal month), accruedInt may be 0
+    //   (EMI 1 on firstEmiDate, prevDate === emiDate) or the full
+    //   month's daily accrual (EMI 2+ where prevDate = last EMI date).
+    //   In the clean-month case we use the standard monthly rate so
+    //   the schedule matches the EMI formula exactly.
+    const hasMidCyclePP = accruedInt > 0.005;
+    let intForThisEMI;
+    if (hasMidCyclePP) {
+      // Daily-accrual already accumulated correctly in accruedInt
+      intForThisEMI = accruedInt;
+    } else {
+      // Standard monthly reducing-balance: r × openingPrincipal
+      intForThisEMI = principal * (annualRate / 1200);
+      accruedInt = intForThisEMI; // load into bucket so payment logic works
+    }
+
+    const intThisPeriod = intForThisEMI; // for display column
+    const pOpen = principal;
+
+    // Apply EMI
+    let emiAmt = emi;
+    let additional = 0;
+    if (stepup && (stepup.type === 'fixed' || stepup.type === 'combo')) {
+      additional = stepup.fixed;
+    }
+
+    // Last EMI: settle exactly
+    const totalOwed = principal + accruedInt;
+    if (emiAmt + additional >= totalOwed) { emiAmt = totalOwed; additional = 0; }
+
+    // EMI pays accrued interest first, remainder reduces principal
+    const intPaid       = Math.min(emiAmt, accruedInt);
+    accruedInt         -= intPaid;
+    const principalPaid = Math.max(0, emiAmt - intPaid);
+    principal           = Math.max(0, principal - principalPaid - additional);
+
+    ledger.push(makeRow('emi', emiDate, days, pOpen, intThisPeriod,
+      emiAmt, intPaid, principalPaid + additional, 0, 0, 0, '', '',
+      principal, accruedInt, emiNum, additional));
+
+    prevDate = emiDate;
+
+    // Drain prepayments on exactly this EMI date
+    while (pendingPPs.length > 0 &&
+           pendingPPs[0].date.getTime() === emiDate.getTime()) {
+      const pp = pendingPPs.shift();
+      applyPrepayment(pp);
+      const emisDone = ledger.filter(e => e.type === 'emi').length;
+      const emisLeft = numEMIs - emisDone;
+      if (pp.action === 'emi' && principal > 0 && emisLeft > 0) {
+        emi = calcEMI(principal, annualRate, emisLeft);
+        baseEmi = emi;
+      }
+    }
+
+    if (principal < 0.005) break;
+  }
+
+  // Closure
+  const lastEv = ledger.filter(e => ['emi','prepay'].includes(e.type)).slice(-1)[0];
+  ledger.push(makeRow('closure', lastEv ? lastEv.date : firstEmiDate,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0));
+
+  return {
+    ledger,
+    adjustedPrincipal,
+    openingEMI: calcEMI(adjustedPrincipal, annualRate, numEMIs),
+    numEMIs
+  };
+}
+
+// ── Row factory ───────────────────────────────────────────────────────────
+function makeRow(type, date, days, principalOpen, intAccrued,
+    emiAmt, intPaid, principalPaid, ppTotal, ppToInt, ppToPrin,
+    allocation, action, principalClose, accruedIntClose, emiNum, additional) {
+  return {
+    type, date, days, principalOpen, intAccrued,
+    emiAmt:        emiAmt        || 0,
+    intPaid:       intPaid       || 0,
+    principalPaid: principalPaid || 0,
+    ppTotal:       ppTotal       || 0,
+    ppToInt:       ppToInt       || 0,
+    ppToPrin:      ppToPrin      || 0,
+    allocation:    allocation    || '',
+    action:        action        || '',
+    principalClose,
+    accruedIntClose: accruedIntClose || 0,
+    emiNum:        emiNum        || 0,
+    additional:    additional    || 0
+  };
+}
+
+// ═══════════════════════════════════════════
+// TABLE COLUMNS
+// ═══════════════════════════════════════════
+const HDR = `
+  <th>Event</th>
+  <th>Date</th>
+  <th>Days</th>
+  <th>Opening Principal</th>
+  <th>Interest Accrued</th>
+  <th>EMI Amount</th>
+  <th>Interest Paid</th>
+  <th>Principal Repaid</th>
+  <th>Prepay → Int</th>
+  <th>Prepay → Prin</th>
+  <th>Closing Principal</th>`;
+
+function rowHtml(ev, precise) {
+  const f = precise ? fmtA : fmtI;
+  const d = dash();
+
+  if (ev.type === 'disburse') return `<tr class="row-disburse">
+    <td><span class="b b-dis">Disbursement</span></td>
+    <td>${fmtDate(ev.date)}</td><td>—</td>
+    <td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td>
+    <td><strong>${f(ev.principalClose)}</strong></td></tr>`;
+
+  if (ev.type === 'pre-emi-accrue') return `<tr class="row-disburse">
+    <td><span class="b" style="background:#fff7ed;color:#9a3412">Pre-EMI</span></td>
+    <td>${fmtDate(ev.date)}</td><td>${ev.days}</td>
+    <td>${f(ev.principalOpen)}</td>
+    <td class="acol">${f(ev.intAccrued)}</td>
+    <td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td>
+    <td>${f(ev.principalClose)} <span style="font-size:10px;color:#b45309">(+${f(ev.accruedIntClose)} cap.)</span></td></tr>`;
+
+  if (ev.type === 'prepay') {
+    const lbl = {principal:'Principal', interest:'Int First', automatic:'Automatic'}[ev.allocation] || 'Prepay';
+    return `<tr class="row-prepay">
+      <td><span class="b b-pp">Prepayment<br><span style="font-size:10px;font-weight:400">${lbl}</span></span></td>
+      <td>${fmtDate(ev.date)}</td><td>${ev.days || '—'}</td>
+      <td>${f(ev.principalOpen)}</td>
+      <td class="acol">${ev.intAccrued > 0.005 ? f(ev.intAccrued) : d}</td>
+      <td>${d}</td><td>${d}</td><td>${d}</td>
+      <td>${ev.ppToInt  > 0.005 ? f(ev.ppToInt)  : d}</td>
+      <td>${ev.ppToPrin > 0.005 ? f(ev.ppToPrin) : d}</td>
+      <td>${f(ev.principalClose)}</td></tr>`;
+  }
+
+  if (ev.type === 'emi') {
+    const addNote = ev.additional > 0
+      ? `<br><span style="font-size:10px;color:#6b7280">+${f(ev.additional)} addl</span>` : '';
+    return `<tr class="row-emi">
+      <td><span class="b b-emi">EMI ${ev.emiNum}</span></td>
+      <td>${fmtDate(ev.date)}</td><td>${ev.days}</td>
+      <td>${f(ev.principalOpen)}</td>
+      <td class="acol">${f(ev.intAccrued)}</td>
+      <td>${f(ev.emiAmt)}${addNote}</td>
+      <td>${f(ev.intPaid)}</td>
+      <td>${f(ev.principalPaid)}</td>
+      <td>${d}</td><td>${d}</td>
+      <td>${f(ev.principalClose)}</td></tr>`;
+  }
+
+  if (ev.type === 'stepup_note') return `<tr class="row-stepup">
+    <td><span class="b b-su">Step-Up</span></td>
+    <td>${fmtDate(ev.date)}</td><td>—</td>
+    <td colspan="8" style="text-align:left;color:#7e22ce;padding-left:10px">${ev.note}</td></tr>`;
+
+  if (ev.type === 'closure') return `<tr class="row-closure">
+    <td><span class="b b-cls">Loan Closure</span></td>
+    <td>${fmtDate(ev.date)}</td><td>—</td>
+    <td colspan="7" style="text-align:center;color:#713f12">Loan fully repaid</td>
+    <td style="color:#166534;font-weight:700">₹0</td></tr>`;
+
+  return '';
+}
+
+function buildTableHtml(ledger, precise) {
+  return `<div class="tbl-wrap"><table>
+    <thead><tr>${HDR}</tr></thead>
+    <tbody>${ledger.map(e => rowHtml(e, precise)).join('')}</tbody>
+  </table></div>`;
+}
+
+function buildYearlyHtml(ledger) {
+  const ym = {};
+  ledger.forEach(ev => {
+    if (!['emi','prepay','pre-emi-accrue'].includes(ev.type)) return;
+    const y = ev.date.getFullYear();
+    if (!ym[y]) ym[y] = { open: ev.principalOpen, intAcc:0, emi:0, intPd:0, prin:0, ppI:0, ppP:0, close:0 };
+    ym[y].intAcc += ev.intAccrued  || 0;
+    ym[y].emi    += ev.emiAmt      || 0;
+    ym[y].intPd  += ev.intPaid     || 0;
+    ym[y].prin   += (ev.principalPaid || 0);
+    ym[y].ppI    += ev.ppToInt     || 0;
+    ym[y].ppP    += ev.ppToPrin    || 0;
+    ym[y].close   = ev.principalClose;
+  });
+  const hdr = `<th>Year</th><th>Opening Principal</th><th>Interest Accrued</th><th>Total EMI</th><th>Interest Paid</th><th>Principal Repaid</th><th>Prepay→Int</th><th>Prepay→Prin</th><th>Closing Principal</th>`;
+  const rows = Object.entries(ym).map(([y,d]) => `<tr class="row-year">
+    <td><span class="b b-yr">${y}</span></td>
+    <td>${fmtI(d.open)}</td><td class="acol">${fmtI(d.intAcc)}</td>
+    <td>${fmtI(d.emi)}</td><td>${fmtI(d.intPd)}</td><td>${fmtI(d.prin)}</td>
+    <td>${d.ppI > 0.5 ? fmtI(d.ppI) : dash()}</td>
+    <td>${d.ppP > 0.5 ? fmtI(d.ppP) : dash()}</td>
+    <td>${fmtI(d.close)}</td></tr>`).join('');
+  return `<div class="tbl-wrap"><table>
+    <thead><tr>${hdr}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+// ═══════════════════════════════
+// SUMMARY
+// ═══════════════════════════════
+function summarise(result) {
+  const { ledger } = result;
+  const emiEvs = ledger.filter(e => e.type === 'emi');
+  const ppEvs  = ledger.filter(e => e.type === 'prepay');
+  const preAcc = ledger.filter(e => e.type === 'pre-emi-accrue');
+  const lastEmi = emiEvs[emiEvs.length - 1];
+  return {
+    emiCount:    emiEvs.length,
+    totalEmi:    emiEvs.reduce((s,e) => s + e.emiAmt, 0),
+    totalInt:    emiEvs.reduce((s,e) => s + e.intPaid, 0),
+    totalPrepay: ppEvs.reduce((s,e)  => s + e.ppTotal, 0),
+    preEmiInt:   preAcc.reduce((s,e) => s + e.intAccrued, 0),
+    lastDate:    lastEmi ? lastEmi.date : null
+  };
+}
+
+// ═══════════════════════════════
+// STANDARD TAB
+// ═══════════════════════════════
+let stdView = 'monthly', stdResult = null, stdAuditOpen = false;
+
+function renderStandard() {
+  if (!validate()) return;
+  const { amt, rate, months, disburseDate, firstEmiDate } = getLoanParams();
+  const result = buildSchedule(amt, rate, months, disburseDate, firstEmiDate, [], null);
+  stdResult = result;
+  const s = summarise(result);
+  const mElapsed = (firstEmiDate.getFullYear() - disburseDate.getFullYear()) * 12
+                 + (firstEmiDate.getMonth() - disburseDate.getMonth());
+  const gapDays = daysBetween(disburseDate, firstEmiDate);
+
+  document.getElementById('std-results').innerHTML = `
+    <div class="metric-card"><div class="metric-label">Monthly EMI</div><div class="metric-value hi">${fmtI(result.openingEMI)}</div></div>
+    <div class="metric-card"><div class="metric-label">Loan Amount</div><div class="metric-value">${fmtI(amt)}</div></div>
+    <div class="metric-card"><div class="metric-label">Pre-EMI Interest</div><div class="metric-value" style="color:#b45309">${fmtI(s.preEmiInt)}</div></div>
+    <div class="metric-card"><div class="metric-label">Adj. Principal</div><div class="metric-value">${fmtI(result.adjustedPrincipal)}</div></div>
+    <div class="metric-card"><div class="metric-label">No. of EMIs</div><div class="metric-value">${result.numEMIs}</div></div>
+    <div class="metric-card"><div class="metric-label">Total Interest</div><div class="metric-value">${fmtI(s.totalInt)}</div></div>
+    <div class="metric-card"><div class="metric-label">Total Payable</div><div class="metric-value">${fmtI(s.totalEmi)}</div></div>
+    <div class="metric-card"><div class="metric-label">Loan Closure</div><div class="metric-value" style="font-size:14px">${fmtDate(s.lastDate)}</div></div>`;
+
+  const gi = document.getElementById('gap-info');
+  gi.style.display = 'block';
+  gi.innerHTML = `<strong>${gapDays} days</strong> pre-EMI gap · ${mElapsed} calendar months elapsed →
+    <strong>${result.numEMIs} EMIs</strong> (${months} months − ${mElapsed} elapsed).
+    Pre-EMI interest (actual/365): <strong>${fmtI(s.preEmiInt)}</strong>.
+    Adjusted opening balance: <strong>${fmtI(result.adjustedPrincipal)}</strong>.
+    EMI: <strong>${fmtI(result.openingEMI)}</strong>.
+    Loan closes: <strong>${fmtDate(addMonths(disburseDate, months))}</strong>.`;
+
+  renderStdTable();
+}
+
+function renderStdTable() {
+  if (!stdResult) return;
+  document.getElementById('std-tbl-wrap').innerHTML =
+    stdView === 'monthly'
+      ? buildTableHtml(stdResult.ledger, false)
+      : buildYearlyHtml(stdResult.ledger);
+}
+function setStdView(v) {
+  stdView = v;
+  document.getElementById('std-m').classList.toggle('active', v === 'monthly');
+  document.getElementById('std-y').classList.toggle('active', v === 'yearly');
+  renderStdTable();
+}
+function toggleAudit() {
+  stdAuditOpen = !stdAuditOpen;
+  const el = document.getElementById('std-audit-wrap');
+  if (stdAuditOpen && stdResult) {
+    el.style.display = 'block';
+    el.innerHTML = '<div style="font-size:12px;font-weight:600;color:#374151;margin-bottom:6px"><i class="ti ti-bug"></i> Audit — 2dp precision</div>'
+      + buildTableHtml(stdResult.ledger, true);
+  } else el.style.display = 'none';
+}
+
+// ═══════════════════════════════════════════
+// PREPAYMENT TAB — state-safe management
+// ═══════════════════════════════════════════
+let ppEntries = [], ppId = 0;
+
+function savePpState() {
+  ppEntries.forEach(e => {
+    const d  = document.getElementById('ppe-d-'  + e.id);
+    const a  = document.getElementById('ppe-a-'  + e.id);
+    const al = document.getElementById('ppe-al-' + e.id);
+    const ac = document.getElementById('ppe-ac-' + e.id);
+    if (d)  e.date       = d.value;
+    if (a)  e.amount     = a.value;
+    if (al) e.allocation = al.value;
+    if (ac) e.action     = ac.value;
+  });
+}
+function addPpEntry() {
+  savePpState();
+  const { disburseDate } = getLoanParams();
+  const min = disburseDate ? disburseDate.toISOString().split('T')[0] : '';
+  ppEntries.push({ id: ++ppId, date: min, amount: '500000', allocation: 'principal', action: 'tenure' });
+  renderPpEntries();
+}
+function removePpEntry(id) {
+  savePpState();
+  ppEntries = ppEntries.filter(e => e.id !== id);
+  renderPpEntries(); computePrepay();
+}
+function renderPpEntries() {
+  const { disburseDate } = getLoanParams();
+  const min = disburseDate ? disburseDate.toISOString().split('T')[0] : '';
+  document.getElementById('pp-entries').innerHTML = ppEntries.map(e => `
+    <div class="pp-entry">
+      <div class="grid4" style="align-items:end">
+        <div><label>Prepayment Date</label>
+          <input type="date" id="ppe-d-${e.id}" min="${min}" value="${e.date || min}" onchange="computePrepay()">
+          <div class="err-msg" id="ppe-err-${e.id}"></div></div>
+        <div><label>Amount (₹)</label>
+          <input type="number" id="ppe-a-${e.id}" value="${e.amount || 500000}" min="1" step="1000" onchange="computePrepay()"></div>
+        <div><label>Allocation</label>
+          <select id="ppe-al-${e.id}" onchange="computePrepay()">
+            <option value="principal" ${(e.allocation||'principal')==='principal'?'selected':''}>Principal (Default)</option>
+            <option value="interest"  ${e.allocation==='interest' ?'selected':''}>Interest First</option>
+            <option value="automatic" ${e.allocation==='automatic'?'selected':''}>Automatic</option>
+          </select></div>
+        <div><label>Action After Prepayment</label>
+          <select id="ppe-ac-${e.id}" onchange="computePrepay()">
+            <option value="tenure" ${(e.action||'tenure')==='tenure'?'selected':''}>Reduce Tenure</option>
+            <option value="emi"    ${e.action==='emi'?'selected':''}>Reduce EMI</option>
+          </select></div>
+      </div>
+      <div style="margin-top:10px;text-align:right">
+        <button class="btn btn-danger btn-sm" onclick="removePpEntry(${e.id})"><i class="ti ti-trash"></i> Remove</button>
+      </div>
+    </div>`).join('');
+}
+function getPpEvents() {
+  const { disburseDate } = getLoanParams();
+  return ppEntries.map(e => {
+    const d  = toDate(document.getElementById('ppe-d-'  + e.id)?.value);
+    const amt = parseFloat(document.getElementById('ppe-a-'  + e.id)?.value) || 0;
+    const allocation = document.getElementById('ppe-al-' + e.id)?.value || 'principal';
+    const action     = document.getElementById('ppe-ac-' + e.id)?.value || 'tenure';
+    const errEl = document.getElementById('ppe-err-' + e.id);
+    if (errEl) { errEl.textContent = ''; errEl.classList.remove('show'); }
+    if (d && disburseDate && d < disburseDate) {
+      if (errEl) { errEl.textContent = 'Cannot be before disbursement date'; errEl.classList.add('show'); }
+      return null;
+    }
+    return { date:d, amount:amt, allocation, action };
+  }).filter(e => e && e.amount > 0 && e.date);
+}
+function computePrepay() {
+  if (!validate()) return;
+  const { amt, rate, months, disburseDate, firstEmiDate } = getLoanParams();
+  const evts = getPpEvents();
+  if (!evts.length) { document.getElementById('pp-results').innerHTML = ''; return; }
+  const origResult = buildSchedule(amt, rate, months, disburseDate, firstEmiDate, [], null);
+  const revResult  = buildSchedule(amt, rate, months, disburseDate, firstEmiDate, evts, null);
+  renderPpResults(origResult, revResult, evts);
+}
+function renderPpResults(origResult, revResult, ppEvts) {
+  const os = summarise(origResult), rs = summarise(revResult);
+  const intSaved = os.totalInt - rs.totalInt;
+  const mSaved   = os.emiCount - rs.emiCount;
+  const action   = ppEvts[0]?.action;
+  const firstPpDate = ppEvts[0]?.date;
+  const emiAfterPp  = revResult.ledger.find(e => e.type === 'emi' && e.date > firstPpDate);
+  const revEmiAmt   = emiAfterPp ? emiAfterPp.emiAmt : origResult.openingEMI;
+
+  document.getElementById('pp-results').innerHTML = `
+    <div class="result-grid">
+      ${action==='emi'    ? `<div class="metric-card"><div class="metric-label">Revised EMI</div><div class="metric-value hi">${fmtI(revEmiAmt)}</div></div>` : ''}
+      ${action==='tenure' ? `<div class="metric-card"><div class="metric-label">Revised EMI Count</div><div class="metric-value hi">${rs.emiCount}</div></div>` : ''}
+      <div class="metric-card"><div class="metric-label">New Loan Closure</div><div class="metric-value">${fmtDate(rs.lastDate)}</div></div>
+      <div class="metric-card"><div class="metric-label">Interest Saved</div><div class="metric-value" style="color:#166534">${fmtI(intSaved)}</div></div>
+      ${action==='tenure' ? `<div class="metric-card"><div class="metric-label">Months Saved</div><div class="metric-value" style="color:#166534">${Math.max(0,mSaved)}</div></div>` : ''}
+    </div>
+    <div class="card">
+      <div class="card-title"><i class="ti ti-arrows-diff"></i> Comparison</div>
+      <div class="tbl-wrap"><table class="cmp-table">
+        <thead><tr><th>Metric</th><th>Original</th><th>With Prepayment</th><th>Saved</th></tr></thead>
+        <tbody>
+          <tr><td>EMI</td><td>${fmtI(origResult.openingEMI)}</td><td>${fmtI(revEmiAmt)}</td>
+              <td class="savings">${action==='emi'?fmtI(origResult.openingEMI-revEmiAmt):'—'}</td></tr>
+          <tr><td>No. of EMIs</td><td>${os.emiCount}</td><td>${rs.emiCount}</td>
+              <td class="savings">${Math.max(0,mSaved)>0?Math.max(0,mSaved)+' months':'—'}</td></tr>
+          <tr><td>Loan Closure</td><td>${fmtDate(os.lastDate)}</td><td>${fmtDate(rs.lastDate)}</td><td>—</td></tr>
+          <tr><td>Total Interest</td><td>${fmtI(os.totalInt)}</td><td>${fmtI(rs.totalInt)}</td>
+              <td class="savings">${fmtI(intSaved)}</td></tr>
+          <tr><td>Total EMI Paid</td><td>${fmtI(os.totalEmi)}</td><td>${fmtI(rs.totalEmi)}</td><td>—</td></tr>
+          <tr><td>Adj. Principal</td><td>${fmtI(origResult.adjustedPrincipal)}</td><td>${fmtI(revResult.adjustedPrincipal)}</td>
+              <td class="savings">${fmtI(origResult.adjustedPrincipal-revResult.adjustedPrincipal)}</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><i class="ti ti-table"></i> Prepayment Loan Ledger
+        <span class="audit-link" onclick="const a=this.nextElementSibling;a.style.display=a.style.display==='none'?'block':'none'">
+          <i class="ti ti-bug"></i> Audit</span>
+      </div>
+      <div style="display:none;margin-bottom:12px">${buildTableHtml(revResult.ledger, true)}</div>
+      ${buildTableHtml(revResult.ledger, false)}
+    </div>`;
+}
+
+// ═══════════════════════════════════════════
+// STEP-UP TAB — state-safe management
+// ═══════════════════════════════════════════
+let stepMode = 'pct', suPpEntries = [], suPpId = 0;
+
+function saveSuPpState() {
+  suPpEntries.forEach(e => {
+    const d  = document.getElementById('sppe-d-'  + e.id);
+    const a  = document.getElementById('sppe-a-'  + e.id);
+    const al = document.getElementById('sppe-al-' + e.id);
+    const ac = document.getElementById('sppe-ac-' + e.id);
+    if (d)  e.date       = d.value;
+    if (a)  e.amount     = a.value;
+    if (al) e.allocation = al.value;
+    if (ac) e.action     = ac.value;
+  });
+}
+function setStepMode(mode, el) {
+  stepMode = mode;
+  document.querySelectorAll('.su-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('sp-inp').style.display = mode==='pct'   ? '' : 'none';
+  document.getElementById('sf-inp').style.display = mode==='fixed' ? '' : 'none';
+  document.getElementById('sc-inp').style.display = mode==='combo' ? '' : 'none';
+  computeStepUp();
+}
+function addSuPpEntry() {
+  saveSuPpState();
+  const { disburseDate } = getLoanParams();
+  const min = disburseDate ? disburseDate.toISOString().split('T')[0] : '';
+  suPpEntries.push({ id: ++suPpId, date: min, amount: '500000', allocation: 'principal', action: 'tenure' });
+  renderSuPpEntries();
+}
+function removeSuPpEntry(id) {
+  saveSuPpState();
+  suPpEntries = suPpEntries.filter(e => e.id !== id);
+  renderSuPpEntries(); computeStepUp();
+}
+function renderSuPpEntries() {
+  const { disburseDate } = getLoanParams();
+  const min = disburseDate ? disburseDate.toISOString().split('T')[0] : '';
+  document.getElementById('su-pp-entries').innerHTML = suPpEntries.map(e => `
+    <div class="pp-entry" style="margin-bottom:8px">
+      <div class="grid4" style="align-items:end">
+        <div><label>Prepayment Date</label>
+          <input type="date" id="sppe-d-${e.id}" min="${min}" value="${e.date || min}" onchange="computeStepUp()"></div>
+        <div><label>Amount (₹)</label>
+          <input type="number" id="sppe-a-${e.id}" value="${e.amount || 500000}" min="1" step="1000" onchange="computeStepUp()"></div>
+        <div><label>Allocation</label>
+          <select id="sppe-al-${e.id}" onchange="computeStepUp()">
+            <option value="principal" ${(e.allocation||'principal')==='principal'?'selected':''}>Principal (Default)</option>
+            <option value="interest"  ${e.allocation==='interest' ?'selected':''}>Interest First</option>
+            <option value="automatic" ${e.allocation==='automatic'?'selected':''}>Automatic</option>
+          </select></div>
+        <div><label>Action</label>
+          <select id="sppe-ac-${e.id}" onchange="computeStepUp()">
+            <option value="tenure" ${(e.action||'tenure')==='tenure'?'selected':''}>Reduce Tenure</option>
+            <option value="emi"    ${e.action==='emi'?'selected':''}>Reduce EMI</option>
+          </select></div>
+      </div>
+      <div style="margin-top:10px;text-align:right">
+        <button class="btn btn-danger btn-sm" onclick="removeSuPpEntry(${e.id})"><i class="ti ti-trash"></i> Remove</button>
+      </div>
+    </div>`).join('');
+}
+function getSuPpEvents() {
+  const { disburseDate } = getLoanParams();
+  return suPpEntries.map(e => ({
+    date:       toDate(document.getElementById('sppe-d-'  + e.id)?.value),
+    amount:     parseFloat(document.getElementById('sppe-a-'  + e.id)?.value) || 0,
+    allocation: document.getElementById('sppe-al-' + e.id)?.value || 'principal',
+    action:     document.getElementById('sppe-ac-' + e.id)?.value || 'tenure'
+  })).filter(e => e.amount > 0 && e.date && (!disburseDate || e.date > disburseDate));
+}
+function getStepupCfg() {
+  if (stepMode==='pct')   return { type:'pct',   pct:parseFloat(document.getElementById('stepPct').value)||0,   fixed:0 };
+  if (stepMode==='fixed') return { type:'fixed',  pct:0, fixed:parseFloat(document.getElementById('stepFixed').value)||0 };
+  return { type:'combo', pct:parseFloat(document.getElementById('stepPct2').value)||0, fixed:parseFloat(document.getElementById('stepFixed2').value)||0 };
+}
+function computeStepUp() {
+  if (!validate()) return;
+  const { amt, rate, months, disburseDate, firstEmiDate } = getLoanParams();
+  const su   = getStepupCfg();
+  const evts = getSuPpEvents();
+  const origResult = buildSchedule(amt, rate, months, disburseDate, firstEmiDate, [], null);
+  const revResult  = buildSchedule(amt, rate, months, disburseDate, firstEmiDate, evts, su);
+  renderSuResults(origResult, revResult, su);
+}
+function renderSuResults(origResult, revResult, su) {
+  const os = summarise(origResult), rs = summarise(revResult);
+  const intSaved = os.totalInt - rs.totalInt;
+  const mSaved   = os.emiCount - rs.emiCount;
+
+  const pyear = {};
+  revResult.ledger.filter(e => e.type==='emi').forEach(e => {
+    const y = e.date.getFullYear();
+    if (!pyear[y]) pyear[y] = { emi:e.emiAmt, add:e.additional||0 };
+  });
+  const progRows = Object.entries(pyear).map(([y,d]) =>
+    `<tr><td>${y}</td><td>${fmtI(d.emi)}</td><td>${d.add>0?fmtI(d.add):dash()}</td><td>${fmtI(d.emi+d.add)}</td></tr>`).join('');
+
+  document.getElementById('su-results').innerHTML = `
+    <div class="result-grid">
+      <div class="metric-card"><div class="metric-label">Revised EMI Count</div><div class="metric-value hi">${rs.emiCount}</div></div>
+      <div class="metric-card"><div class="metric-label">New Loan Closure</div><div class="metric-value">${fmtDate(rs.lastDate)}</div></div>
+      <div class="metric-card"><div class="metric-label">Interest Saved</div><div class="metric-value" style="color:#166534">${fmtI(intSaved)}</div></div>
+      <div class="metric-card"><div class="metric-label">Months Saved</div><div class="metric-value" style="color:#166534">${Math.max(0,mSaved)}</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><i class="ti ti-trending-up"></i> EMI Progression by Year</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Year</th><th>Base EMI</th><th>Additional</th><th>Total Monthly Payment</th></tr></thead>
+        <tbody>${progRows}</tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><i class="ti ti-arrows-diff"></i> Comparison</div>
+      <div class="tbl-wrap"><table class="cmp-table">
+        <thead><tr><th>Metric</th><th>Original</th><th>With Step-Up</th><th>Saved</th></tr></thead>
+        <tbody>
+          <tr><td>Initial EMI</td><td>${fmtI(origResult.openingEMI)}</td><td>${fmtI(origResult.openingEMI)}</td><td>—</td></tr>
+          <tr><td>No. of EMIs</td><td>${os.emiCount}</td><td>${rs.emiCount}</td><td class="savings">${Math.max(0,mSaved)} months</td></tr>
+          <tr><td>Loan Closure</td><td>${fmtDate(os.lastDate)}</td><td>${fmtDate(rs.lastDate)}</td><td>—</td></tr>
+          <tr><td>Total Interest</td><td>${fmtI(os.totalInt)}</td><td>${fmtI(rs.totalInt)}</td><td class="savings">${fmtI(intSaved)}</td></tr>
+          <tr><td>Total EMI Paid</td><td>${fmtI(os.totalEmi)}</td><td>${fmtI(rs.totalEmi)}</td><td>—</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><i class="ti ti-table"></i> Step-Up Loan Ledger
+        <span class="audit-link" onclick="const a=this.nextElementSibling;a.style.display=a.style.display==='none'?'block':'none'">
+          <i class="ti ti-bug"></i> Audit</span>
+      </div>
+      <div style="display:none;margin-bottom:12px">${buildTableHtml(revResult.ledger, true)}</div>
+      ${buildTableHtml(revResult.ledger, false)}
+    </div>`;
+}
+
+// ═══════════════════════════════
+// TABS & INIT
+// ═══════════════════════════════
+function switchTab(name, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+  if (name === 'prepay') computePrepay();
+  if (name === 'stepup') computeStepUp();
+}
+['loanAmt','rate','tenure','tenureUnit','disburseDate','firstEmiDate'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    renderStandard();
+    const active = document.querySelector('.tab.active').textContent.trim();
+    if (active === 'Prepayment')  computePrepay();
+    if (active === 'Step-Up EMI') computeStepUp();
+  });
+});
+['stepPct','stepFixed','stepPct2','stepFixed2'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', computeStepUp);
+});
+renderStandard();
+</script>
+</body>
+</html>
