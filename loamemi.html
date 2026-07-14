@@ -226,8 +226,8 @@ tbody tr:hover td{background:#eff6ff!important}
   <!-- Master Inputs -->
   <div class="card">
     <div class="section-title">Loan Details</div>
-    <div class="five-col">
-      <div class="field" style="grid-column:span 1">
+    <div class="loan-primary-fields">
+      <div class="field">
         <label>Loan Amount</label>
         <div class="input-wrap"><span class="adorn">₹</span><input type="number" id="loanAmt" value="3000000" min="1" step="1000"></div>
         <div class="err-msg" id="e-amt"></div>
@@ -245,6 +245,8 @@ tbody tr:hover td{background:#eff6ff!important}
         </div>
         <div class="err-msg" id="e-ten" style="display:none"></div>
       </div>
+    </div>
+    <div class="loan-date-fields">
       <div class="field">
         <label>Disbursement Date</label>
         <div class="input-wrap"><input type="date" id="disburseDate" value="2025-05-20"></div>
