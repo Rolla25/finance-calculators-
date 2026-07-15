@@ -321,7 +321,6 @@ tbody tr:hover td{background:#eff6ff!important}
     <div class="card">
       <div class="card-title" style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
         <span style="font-size:15px;font-weight:700;color:#1e293b">Loan Ledger</span>
-        <span class="audit-link" onclick="toggleAudit()">Full Audit</span>
       </div>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
         <div class="toggle-group">
@@ -329,7 +328,6 @@ tbody tr:hover td{background:#eff6ff!important}
           <button class="toggle-btn" id="std-y" onclick="setStdView('yearly')">Yearly</button>
         </div>
       </div>
-      <div id="std-audit-wrap" style="display:none;margin-bottom:12px"></div>
       <div id="std-tbl-wrap"></div>
     </div>
     </div>
@@ -404,7 +402,7 @@ tbody tr:hover td{background:#eff6ff!important}
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         How is the EMI calculated?
-        <span class="faq-icon">+</span>
+        <span class="faq-icon">V</span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
         The calculator uses the loan amount, annual interest rate and repayment tenure to estimate the EMI using the reducing-balance method.
@@ -414,7 +412,7 @@ tbody tr:hover td{background:#eff6ff!important}
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         What is pre-EMI interest?
-        <span class="faq-icon">+</span>
+        <span class="faq-icon">V</span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
         It is the interest accrued between the loan disbursement date and the first EMI date. This calculator adds it to the outstanding principal before calculating the EMI.
@@ -424,7 +422,7 @@ tbody tr:hover td{background:#eff6ff!important}
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         How does a prepayment affect my loan?
-        <span class="faq-icon">+</span>
+        <span class="faq-icon">V</span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
         A prepayment reduces the outstanding principal. You can use it either to lower your future EMI or shorten the loan tenure.
@@ -434,7 +432,7 @@ tbody tr:hover td{background:#eff6ff!important}
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         What is a step-up EMI?
-        <span class="faq-icon">+</span>
+        <span class="faq-icon">V</span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
         A step-up EMI increases your repayment periodically by a percentage, fixed monthly amount or both. This can help repay the loan sooner and reduce total interest.
@@ -444,7 +442,7 @@ tbody tr:hover td{background:#eff6ff!important}
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         Why might the result differ from my lender's schedule?
-        <span class="faq-icon">+</span>
+        <span class="faq-icon">V</span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
         Lenders may use different rounding rules, day-count methods, fees and prepayment policies. The calculator's results are estimates and should be confirmed with your lender.
@@ -454,7 +452,7 @@ tbody tr:hover td{background:#eff6ff!important}
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         Can I add multiple prepayments?
-        <span class="faq-icon">+</span>
+        <span class="faq-icon">V</span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
         Yes. You can enter multiple prepayments with different dates, amounts and actions. They are processed chronologically.
@@ -464,7 +462,7 @@ tbody tr:hover td{background:#eff6ff!important}
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         What is the difference between "Reduce EMI" and "Reduce Tenure"?
-        <span class="faq-icon">+</span>
+        <span class="faq-icon">V</span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
         "Reduce EMI" recalculates a lower EMI over the remaining repayment period. "Reduce Tenure" retains the current EMI and uses the lower principal balance to repay the loan sooner.
@@ -474,7 +472,7 @@ tbody tr:hover td{background:#eff6ff!important}
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         Does the loan tenure begin from the disbursement date?
-        <span class="faq-icon">+</span>
+        <span class="faq-icon">V</span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
         Yes. The calculator treats the entered tenure as beginning from the disbursement date. Calendar months between disbursement and the first EMI are deducted when determining the number of regular EMIs.
@@ -484,7 +482,7 @@ tbody tr:hover td{background:#eff6ff!important}
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         Why does the first EMI date affect my EMI?
-        <span class="faq-icon">+</span>
+        <span class="faq-icon">V</span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
         A longer gap between disbursement and the first EMI creates more pre-EMI interest. Since that interest is capitalised, it can increase the adjusted principal and consequently the EMI.
@@ -833,7 +831,7 @@ function summarise(result){
 }
 
 // ── Standard tab ──────────────────────────────────────────────────────────────
-let stdView='monthly',stdResult=null,stdAuditMode=false;
+let stdView='monthly',stdResult=null;
 function renderStandardCalc(){
   const p=getLoanParams();
   const result=buildSchedule(p.amt,p.rate,p.months,p.disburseDate,p.firstEmiDate,[],null,p.preEmiMode,p.sameDayMode);
@@ -880,20 +878,12 @@ function handleCalculateClick(){
 }
 function renderStdTable(){
   if(!stdResult)return;
-  document.getElementById('std-tbl-wrap').innerHTML=stdView==='monthly'?buildTableHtml(stdResult.ledger,stdAuditMode?'audit':'main'):buildYearlyHtml(stdResult.ledger);
+  document.getElementById('std-tbl-wrap').innerHTML=stdView==='monthly'?buildTableHtml(stdResult.ledger,'main'):buildYearlyHtml(stdResult.ledger);
 }
 function setStdView(v){
   stdView=v;
   document.getElementById('std-m').classList.toggle('active',v==='monthly');
   document.getElementById('std-y').classList.toggle('active',v==='yearly');
-  renderStdTable();
-}
-function toggleAudit(){
-  stdAuditMode=!stdAuditMode;
-  if(stdView!=='monthly'){stdView='monthly';document.getElementById('std-m').classList.add('active');document.getElementById('std-y').classList.remove('active');}
-  const el=document.getElementById('std-audit-wrap');
-  if(stdAuditMode&&stdResult){el.style.display='block';el.innerHTML='<div class="note-box" style="margin-bottom:8px">Full audit — 2dp precision · Internal balance checks · Carry-forward tracking</div>'+buildTableHtml(stdResult.ledger,'audit');}
-  else el.style.display='none';
   renderStdTable();
 }
 
@@ -1001,9 +991,7 @@ function renderPpResults(origResult,revResult,ppEvts){
     <div class="card">
       <div class="card-title" style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
         <span style="font-size:15px;font-weight:700;color:#1e293b">Prepayment Loan Ledger</span>
-        <span class="audit-link" onclick="const a=this.nextElementSibling;a.style.display=a.style.display==='none'?'block':'none'">Full Audit</span>
       </div>
-      <div style="display:none;margin-bottom:12px">${buildTableHtml(revResult.ledger,'audit')}</div>
       ${buildTableHtml(revResult.ledger,'main')}
     </div>`;
 }
@@ -1113,9 +1101,7 @@ function renderSuResults(origResult,revResult){
     <div class="card">
       <div class="card-title" style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
         <span style="font-size:15px;font-weight:700;color:#1e293b">Step-Up Loan Ledger</span>
-        <span class="audit-link" onclick="const a=this.nextElementSibling;a.style.display=a.style.display==='none'?'block':'none'">Full Audit</span>
       </div>
-      <div style="display:none;margin-bottom:12px">${buildTableHtml(revResult.ledger,'audit')}</div>
       ${buildTableHtml(revResult.ledger,'main')}
     </div>`;
 }
