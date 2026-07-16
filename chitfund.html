@@ -3,44 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chit Fund Calculator — XIRR & Return Analysis</title>
+<title>Chit Fund Calculator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root{
-    --ink:#1b2a4a;
-    --ink-soft:#3a4d74;
-    --ink-faint:#6b7a9c;
-    --paper:#efe8d8;
-    --paper-dark:#e2d7bd;
-    --paper-darker:#d3c6a3;
-    --line:#c3b491;
-    --brass:#a9781f;
-    --brass-light:#c99a3d;
-    --brass-pale:#f0dfae;
-    --maroon:#7a2e2e;
-    --forest:#3f6b4a;
-    --white-ish:#faf7ef;
-    --shadow: 0 1px 0 rgba(27,42,74,0.06);
+    --ink:#111827;
+    --ink-soft:#374151;
+    --ink-faint:#6B7280;
+    --paper:#F3F4F6;
+    --paper-dark:#E5E7EB;
+    --paper-darker:#D1D5DB;
+    --line:#E5E7EB;
+    --brass:#1E63FF;
+    --brass-light:#60A5FA;
+    --brass-pale:#EFF6FF;
+    --maroon:#DC2626;
+    --forest:#059669;
+    --white-ish:#FFFFFF;
+    --shadow:0 1px 6px rgba(0,0,0,0.05);
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    background: var(--paper);
-    background-image:
-      linear-gradient(var(--paper-dark) 1px, transparent 1px);
-    background-size: 100% 42px;
+    background:var(--paper);
     color: var(--ink);
     font-family: 'Inter', sans-serif;
     line-height:1.5;
-    padding-bottom: 80px;
+    padding-bottom:0;
   }
   ::selection{ background: var(--brass-pale); }
   a{ color: var(--brass); }
 
   h1,h2,h3,h4{
-    font-family:'Fraunces', serif;
+    font-family:'Inter', sans-serif;
     font-weight:600;
     margin:0 0 8px 0;
     color: var(--ink);
@@ -52,32 +49,42 @@
 
   /* ===== HEADER ===== */
   header.hero{
-    border-bottom: 3px double var(--ink);
-    padding: 40px 0 28px;
-    background: linear-gradient(180deg, var(--white-ish), var(--paper));
+    border:0;
+    padding:32px 28px;
+    margin-bottom:24px;
+    background:linear-gradient(135deg,#0B4DCC,#1E63FF,#1BA7E1);
+    color:#fff;
+    text-align:center;
   }
   .hero-grid{
-    display:grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 32px;
-    align-items:center;
+    display:block;
+    max-width:900px;
   }
   .eyebrow{
+    display:none;
     font-family:'IBM Plex Mono', monospace;
     font-size:11.5px;
     letter-spacing:0.14em;
     text-transform:uppercase;
-    color: var(--brass);
+    color:rgba(255,255,255,.8);
     font-weight:600;
     margin-bottom:10px;
   }
-  header.hero h1{ font-size: 40px; line-height:1.08; margin-bottom:12px; }
-  header.hero p.sub{
-    max-width:52ch;
-    color: var(--ink-soft);
-    font-size:15px;
+  header.hero h1{
+    color:#fff;
+    font-size:22px;
+    line-height:1.2;
+    margin-bottom:8px;
+    letter-spacing:0;
   }
-  .wheel-box{ display:flex; justify-content:center; align-items:center; }
+  header.hero p.sub{
+    max-width:700px;
+    margin:0 auto;
+    color:rgba(255,255,255,.9);
+    font-size:13px;
+    line-height:1.6;
+  }
+  .wheel-box{ display:none; }
   #wheelSvg{ width: 100%; max-width: 300px; height:auto; }
 
   /* ===== SECTION SHELLS ===== */
@@ -99,7 +106,7 @@
   .card{
     background: var(--white-ish);
     border:1px solid var(--line);
-    border-radius:3px;
+    border-radius:16px;
     box-shadow: var(--shadow);
   }
 
@@ -110,7 +117,7 @@
     gap:1px;
     background: var(--line);
     border:1px solid var(--line);
-    border-radius:3px;
+    border-radius:12px;
     overflow:hidden;
   }
   .field{
@@ -151,16 +158,17 @@
     font-size:13.5px;
     font-weight:600;
     padding:10px 18px;
-    border-radius:3px;
+    border-radius:10px;
     cursor:pointer;
-    border:1.5px solid var(--ink);
-    background: var(--ink);
-    color: var(--white-ish);
+    border:1.5px solid var(--brass);
+    background:var(--brass);
+    color:#fff;
     transition: transform .08s ease, opacity .15s ease;
   }
   button.secondary{
-    background: transparent;
-    color: var(--ink);
+    background:#fff;
+    border-color:#D1D5DB;
+    color:#6B7280;
   }
   button.brass{
     background: var(--brass);
@@ -216,7 +224,7 @@
     gap:1px;
     background: var(--line);
     border:1px solid var(--line);
-    border-radius:3px;
+    border-radius:10px;
     overflow:hidden;
     margin-bottom:20px;
   }
@@ -260,12 +268,140 @@
   }
   .rank-badge.top{ background: var(--brass); color:white; }
 
-  /* ===== EXPLAINER ===== */
-  .explain-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-  .explain-block h4{ font-size:15px; color:var(--brass); margin-bottom:6px; }
-  .explain-block p{ font-size:14px; color: var(--ink-soft); margin:0 0 10px 0; }
+  /* ===== FREQUENTLY ASKED QUESTIONS ===== */
+  .faq-head{ margin-bottom:22px; }
+  .faq-head h2{
+    margin:0 0 6px;
+    color:#0B4DCC;
+    font-size:26px;
+    letter-spacing:-0.4px;
+  }
+  .faq-head p{ margin:0; color:#6B7280; font-size:14px; }
+  .faq-list{ background:transparent; }
+  .faq-list details{
+    margin-bottom:10px;
+    border:1px solid #E5E7EB;
+    border-radius:14px;
+    background:#fff;
+    overflow:hidden;
+    box-shadow:0 4px 14px rgba(17,24,39,.03);
+  }
+  .faq-list summary{
+    position:relative;
+    padding:19px 55px 19px 21px;
+    color:#111827;
+    cursor:pointer;
+    list-style:none;
+    font-size:14px;
+    font-weight:700;
+  }
+  .faq-list summary::-webkit-details-marker{ display:none; }
+  .faq-list summary::after{
+    content:"⌄";
+    position:absolute;
+    top:15px;
+    right:18px;
+    width:24px;
+    height:24px;
+    display:grid;
+    place-items:center;
+    color:#0B4DCC;
+    font-size:18px;
+    font-weight:700;
+    transition:transform .2s;
+  }
+  .faq-list details[open] summary{
+    color:#0B4DCC;
+    background:#F0F7FF;
+  }
+  .faq-list details[open] summary::after{ transform:rotate(180deg); }
+  .faq-list details p{
+    margin:0;
+    padding:0 55px 20px 21px;
+    color:#374151;
+    font-size:13px;
+    line-height:1.7;
+  }
 
-  footer{ text-align:center; padding: 30px 0 10px; font-size:12px; color: var(--ink-faint); }
+  /* ===== CORPUSLY FOOTER ===== */
+  .corpusly-footer{
+    width:100%;
+    margin-top:24px;
+    padding:48px 0 0;
+    background:#111827;
+    color:#E5E7EB;
+    text-align:left;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:15px;
+    line-height:1.6;
+  }
+  .corpusly-footer *{ box-sizing:border-box; }
+  .corpusly-footer .footer-container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 20px;
+  }
+  .corpusly-footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr;
+    gap:64px;
+    padding-bottom:32px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .corpusly-footer-logo{
+    display:inline-flex;
+    align-items:flex-start;
+    margin:0 0 12px;
+    color:#fff;
+    font-size:1.4rem;
+    font-weight:800;
+    letter-spacing:-.02em;
+  }
+  .corpusly-footer-logo .accent{ color:#DBEAFE; }
+  .corpusly-footer-logo .dot{
+    width:6px;
+    height:6px;
+    margin:4px 0 0 4px;
+    border-radius:50%;
+    background:#10B981;
+  }
+  .corpusly-footer-col p{
+    max-width:320px;
+    margin:0;
+    color:#9CA3AF;
+    font-size:.9rem;
+  }
+  .corpusly-footer-col h4{
+    margin:0 0 14px;
+    color:#DBEAFE;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:.8rem;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.07em;
+  }
+  .corpusly-footer-col ul{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+  .corpusly-footer a{
+    color:#9CA3AF;
+    font-size:.9rem;
+    text-decoration:none;
+    transition:color .2s;
+  }
+  .corpusly-footer a:hover{ color:#fff; }
+  .corpusly-footer-bottom{
+    padding:18px 0;
+    color:#9CA3AF;
+    text-align:center;
+    font-size:.85rem;
+  }
+  .corpusly-footer-bottom p{ margin:0; }
 
   @media (max-width: 880px){
     .hero-grid{ grid-template-columns:1fr; }
@@ -273,7 +409,9 @@
     .results-grid{ grid-template-columns: repeat(2,1fr); }
     .stat.big{ grid-column: span 2; }
     .callout-row{ grid-template-columns:1fr; }
-    .explain-grid{ grid-template-columns:1fr; }
+    .faq-list summary{ padding-left:17px; }
+    .faq-list details p{ padding-left:17px; padding-right:25px; }
+    .corpusly-footer-grid{ grid-template-columns:1fr; gap:28px; }
   }
   @media (prefers-reduced-motion: reduce){
     *{ transition:none !important; }
@@ -285,9 +423,9 @@
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow">Chit Fund &nbsp;·&nbsp; Bid Discount &nbsp;·&nbsp; XIRR</div>
+      <div class="eyebrow">Committee &nbsp;·&nbsp; Kametti &nbsp;·&nbsp; Chit Fund</div>
       <h1>Chit Fund Calculator</h1>
-      <p class="sub">Work out the real, annualised return (XIRR) of an Indian chit fund — the way a member actually experiences it: monthly contributions, a shifting dividend, and one lump sum landing on the month you win the bid.</p>
+      <p class="sub">Calculate the real annualised return from a chit fund using monthly contributions, dividends and the payout received when you win the bid.</p>
     </div>
     <div class="wheel-box">
       <svg id="wheelSvg" viewBox="0 0 300 300"></svg>
@@ -300,7 +438,7 @@
   <!-- ============ INPUTS ============ -->
   <section id="inputs-section">
     <div class="section-head">
-      <h2><span class="section-num">01</span>Set up the chit fund</h2>
+      <h2><span class="section-num">01</span>Set Up</h2>
       <div class="btn-row" style="margin:0;">
         <button class="secondary" id="btnSample">Fill sample data</button>
         <button class="secondary" id="btnReset">Reset</button>
@@ -413,32 +551,104 @@
     </div>
   </section>
 
-  <!-- ============ EXPLAINER ============ -->
-  <section id="explain-section">
-    <div class="section-head"><h2><span class="section-num">06</span>How to read this</h2></div>
-    <div class="explain-grid">
-      <div class="explain-block">
-        <h4>Where the dividend comes from</h4>
-        <p>Each month, members bid for the pool by offering a discount — essentially agreeing to take less than the full pool in exchange for cash now. The foreman deducts a fixed expense from that discount, and whatever remains — the dividend pool — is split evenly across every member, including the one who wins that month. That's why your monthly outlay keeps shrinking as dividends accumulate.</p>
-      </div>
-      <div class="explain-block">
-        <h4>How the winner's payout is worked out</h4>
-        <p>The winning member simply receives the full pool minus the discount they bid. Everyone else keeps contributing their usual amount, reduced by that month's dividend. So the payout size depends entirely on how large a discount was bid in the month you win.</p>
-      </div>
-      <div class="explain-block">
-        <h4>Why XIRR, and not CAGR</h4>
-        <p>CAGR assumes one lump sum invested for a fixed, even period. A chit fund is nothing like that — money moves in and out every single month, in uneven amounts, and the big payout can land on any date within the term. XIRR is built exactly for this: it finds the single annualised rate that reconciles a series of irregularly dated, irregularly sized cash flows, which is what actually happens here.</p>
-      </div>
-      <div class="explain-block">
-        <h4>Early payout vs. late payout</h4>
-        <p>Take the chit early and the cash flow shape is a loan: a lump sum lands up front, then you keep paying in for the rest of the term. Take it late and the shape flips to an investment: you pay in for most of the term before a lump sum lands near the end. XIRR is calculated the same way either side of that line, so the number itself doesn't announce which shape you're looking at — a positive figure on an early month is your effective interest cost, while the same-looking positive figure on a late month is your effective return. The comparison table below tags each month "cost" or "gain" so you're never reading one as the other.</p>
-      </div>
+  <!-- ============ FREQUENTLY ASKED QUESTIONS ============ -->
+  <section id="explain-section" class="faq" aria-labelledby="faqTitle">
+    <div class="faq-head">
+      <h2 id="faqTitle">Frequently Asked Questions</h2>
+      <p>Quick explanations for entering your chit-fund details and understanding the results.</p>
+    </div>
+    <div class="faq-list">
+      <details>
+        <summary>What information should I enter in the calculator?</summary>
+        <p>Enter the number of members, monthly contribution, duration, fixed monthly expense, the month in which you receive the chit and the first instalment date. Then enter the actual bid discount for each month wherever it is available.</p>
+      </details>
+      <details>
+        <summary>Where does the monthly dividend come from?</summary>
+        <p>The winning member accepts less than the full pool by bidding a discount. After subtracting the entered fixed expense, the remaining discount becomes the dividend pool and is divided among the members according to the calculator’s assumptions.</p>
+      </details>
+      <details>
+        <summary>How is the winner’s payout calculated?</summary>
+        <p>The estimated payout is the total monthly pool minus the winning bid discount. The result therefore changes when the number of members, contribution amount or discount changes.</p>
+      </details>
+      <details>
+        <summary>Do I stop paying after receiving the chit?</summary>
+        <p>No. The calculator assumes that you continue making the required monthly contributions for the remaining term after receiving the payout, subject to the dividend adjustment for each month.</p>
+      </details>
+      <details>
+        <summary>Why does the calculator use XIRR instead of CAGR?</summary>
+        <p>CAGR is designed for one investment and one ending value over a regular period. A chit fund has multiple dated payments, changing dividends and one large payout, so XIRR is more suitable for estimating the annualised rate across those uneven cash flows.</p>
+      </details>
+      <details>
+        <summary>What does the XIRR result mean?</summary>
+        <p>XIRR is the annualised rate that makes the present value of all entered cash outflows and inflows balance. It should be interpreted together with whether the payout timing makes the arrangement behave more like borrowing or investing.</p>
+      </details>
+      <details>
+        <summary>How should I read an early payout?</summary>
+        <p>An early payout generally resembles borrowing: you receive a large amount near the beginning and continue paying instalments afterwards. In this case, the displayed annualised rate is better understood as an estimated financing cost rather than an investment return.</p>
+      </details>
+      <details>
+        <summary>How should I read a late payout?</summary>
+        <p>A late payout generally resembles investing: you make payments for much of the term before receiving the large inflow. In this case, the displayed annualised rate is closer to an estimated investment return.</p>
+      </details>
+      <details>
+        <summary>What is the fixed monthly expense?</summary>
+        <p>Use this field for the foreman’s commission or other fixed amount deducted before the balance of the monthly discount is distributed. Enter the amount specified by the chit fund’s records or agreement.</p>
+      </details>
+      <details>
+        <summary>What does the payout-month comparison show?</summary>
+        <p>It recalculates the cash-flow pattern for different possible payout months using the entered assumptions. This helps you compare how receiving the chit earlier or later changes the estimated cost or return.</p>
+      </details>
+      <details>
+        <summary>Why might my actual return differ from this estimate?</summary>
+        <p>Actual bid discounts, payment dates, missed payments, penalties, taxes, commissions, member defaults and the chit fund’s bye-laws can change the cash flows. Replace sample values with the actual records for a more meaningful estimate.</p>
+      </details>
+      <details>
+        <summary>Can I rely on this calculator for a financial decision?</summary>
+        <p>This calculator is an educational estimation tool. Verify the result against the registered chit agreement, auction statements, receipts and foreman records, and seek qualified advice before making a significant borrowing or investment decision.</p>
+      </details>
     </div>
   </section>
 
 </div>
 
-<footer>Chit Fund Calculator — a Corpusly calculator. Figures are illustrative; verify with your chit fund's actual bye-laws and foreman's records.</footer>
+<footer class="corpusly-footer">
+  <div class="footer-container">
+    <div class="corpusly-footer-grid">
+      <div class="corpusly-footer-col">
+        <div class="corpusly-footer-logo">Corpus<span class="accent">ly</span><span class="dot"></span></div>
+        <p>Corpusly provides free, browser-based financial calculators built on industry-standard formulas to help you plan investments, retirement and insurance with confidence.</p>
+      </div>
+      <div class="corpusly-footer-col">
+        <h4>Calculators</h4>
+        <ul>
+          <li><a href="sip.html">SIP Calculator</a></li>
+          <li><a href="swp.html">SWP Calculator</a></li>
+          <li><a href="cagr.html">CAGR Calculator</a></li>
+          <li><a href="xirr.html">XIRR Calculator</a></li>
+          <li><a href="epf.html">EPF Calculator</a></li>
+          <li><a href="ppf.html">PPF Calculator</a></li>
+          <li><a href="retirementplanner.html">Retirement Planner</a></li>
+          <li><a href="termcoverage.html">Term Coverage</a></li>
+          <li><a href="premiumcomparer.html">Premium Comparer</a></li>
+          <li><a href="loanemi.html">Advanced EMI Calculator</a></li>
+          <li><a href="taxcalculator.html">Income Tax Calculator</a></li>
+        </ul>
+      </div>
+      <div class="corpusly-footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="methodology.html">Methodology</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="corpusly-footer-bottom"><p>&copy; 2026 Corpusly Financial Calculators</p></div>
+  </div>
+</footer>
 
 <script>
 /* ============================================================
@@ -647,7 +857,7 @@ function renderWheel(){
   const cx=150, cy=150, rBase=48, rMax=68;
   const maxDiscount = Math.max(...state.discounts, 1);
   let parts = [];
-  parts.push(`<circle cx="${cx}" cy="${cy}" r="${rBase-6}" fill="var(--white-ish, #faf7ef)" stroke="var(--ink,#1b2a4a)" stroke-width="1.5"/>`);
+  parts.push(`<circle cx="${cx}" cy="${cy}" r="${rBase-6}" fill="var(--white-ish, #ffffff)" stroke="var(--ink,#111827)" stroke-width="1.5"/>`);
   for(let i=0;i<D;i++){
     const angle = (i/D)*2*Math.PI - Math.PI/2;
     const len = rBase + (state.discounts[i]/maxDiscount)*rMax;
@@ -655,15 +865,15 @@ function renderWheel(){
     const x2 = cx + len*Math.cos(angle), y2 = cy + len*Math.sin(angle);
     const isPayout = (i+1)===state.payoutMonth;
     const isPast = (i+1) < state.payoutMonth;
-    let stroke = isPayout ? '#a9781f' : (isPast ? '#3a4d74' : '#c3b491');
+    let stroke = isPayout ? '#1E63FF' : (isPast ? '#374151' : '#D1D5DB');
     let width = isPayout ? 4 : 2;
     parts.push(`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${stroke}" stroke-width="${width}" stroke-linecap="round"/>`);
     if(isPayout){
-      parts.push(`<circle cx="${x2.toFixed(1)}" cy="${y2.toFixed(1)}" r="5" fill="#a9781f"/>`);
+      parts.push(`<circle cx="${x2.toFixed(1)}" cy="${y2.toFixed(1)}" r="5" fill="#1E63FF"/>`);
     }
   }
-  parts.push(`<text x="${cx}" y="${cy-6}" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="22" fill="#1b2a4a">${state.payoutMonth}</text>`);
-  parts.push(`<text x="${cx}" y="${cy+14}" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" letter-spacing="1" fill="#6b7a9c">OF ${D} MONTHS</text>`);
+  parts.push(`<text x="${cx}" y="${cy-6}" text-anchor="middle" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#111827">${state.payoutMonth}</text>`);
+  parts.push(`<text x="${cx}" y="${cy+14}" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" letter-spacing="1" fill="#6B7280">OF ${D} MONTHS</text>`);
   svg.innerHTML = parts.join('');
 }
 
@@ -777,35 +987,22 @@ function renderResults(scenario){
   const xirrClass = scenario.annualXirr>=0 ? 'pos':'neg';
   const monthlyClass = scenario.monthlyIrr>=0 ? 'pos':'neg';
   const profitClass = scenario.totalProfit>=0 ? 'pos':'neg';
-  const xirrNaN = isNaN(scenario.annualXirr);
-  const monthlyNaN = isNaN(scenario.monthlyIrr);
-
-  const costGain = scenario.totalProfit >= 0 ? 'gain' : 'cost';
-  const costGainTag = `<span class="row-tag" style="background:${costGain==='gain'?'var(--forest)':'var(--maroon)'};color:#fff; vertical-align:middle;">${costGain}</span>`;
-
-  const xirrDisplay = xirrNaN
-    ? `n/a ${costGainTag}`
-    : `<span class="${xirrClass}">${pct(scenario.annualXirr)}</span>`;
-
-  const monthlyDisplay = monthlyNaN
-    ? `n/a ${costGainTag}`
-    : `<span class="${monthlyClass}">${pct(scenario.monthlyIrr)}</span>`;
-
+  const noSolution = isNaN(scenario.annualXirr) || isNaN(scenario.monthlyIrr);
   grid.innerHTML = `
     <div class="stat hi big">
-      <div class="stat-label">Effective annual XIRR${xirrNaN?' (fallback)':''}</div>
-      <div class="stat-value">${xirrDisplay}</div>
+      <div class="stat-label">Effective annual XIRR</div>
+      <div class="stat-value ${xirrClass}">${isNaN(scenario.annualXirr)?'Not uniquely determined':pct(scenario.annualXirr)}</div>
     </div>
     <div class="stat hi big">
-      <div class="stat-label">Monthly IRR${monthlyNaN?' (fallback)':''}</div>
-      <div class="stat-value">${monthlyDisplay}</div>
+      <div class="stat-label">Monthly IRR</div>
+      <div class="stat-value ${monthlyClass}">${isNaN(scenario.monthlyIrr)?'Not uniquely determined':pct(scenario.monthlyIrr)}</div>
     </div>
     <div class="stat"><div class="stat-label">Amount received</div><div class="stat-value">${inr(scenario.amountReceived,0)}</div></div>
     <div class="stat"><div class="stat-label">Total gross contributions</div><div class="stat-value">${inr(scenario.totalGross,0)}</div></div>
     <div class="stat"><div class="stat-label">Total dividends received</div><div class="stat-value">${inr(scenario.totalDividends,0)}</div></div>
     <div class="stat"><div class="stat-label">Total net contributions</div><div class="stat-value">${inr(scenario.totalNet,0)}</div></div>
     <div class="stat big"><div class="stat-label">Total profit / loss (undiscounted)</div><div class="stat-value ${profitClass}">${scenario.totalProfit>=0?'':'−'}${inr(Math.abs(scenario.totalProfit),0)}</div></div>
-    ${xirrNaN ? `<div class="stat big" style="grid-column: span 4;"><div class="stat-label">Why there's no exact rate</div><div style="font-size:13px; color:var(--ink-soft); line-height:1.5;">This month's cash flows never cross zero at any interest rate — it sits right on the borrowing/investing fence. There's no single annualised rate to report, but the Total Profit/Loss above still tells you the direction: it's a <strong>${costGain}</strong> month, since you end up ${scenario.totalProfit>=0?'net ahead':'net behind'} in rupee terms.</div></div>` : ''}
+    ${noSolution ? `<div class="stat big" style="grid-column: span 4;"><div class="stat-label">XIRR could not be determined</div><div style="font-size:13px; color:var(--ink-soft); line-height:1.5;">A unique XIRR could not be determined for these cash flows. Review the amounts and dates.</div></div>` : ''}
   `;
 }
 
@@ -871,16 +1068,14 @@ function runComparison(){
   for(let m=1;m<=state.duration;m++){
     results.push(computeScenario(base, m));
   }
-  // A month is a "cost" or a "gain" based on the one number that actually
-  // settles it: Total Profit/Loss. If you end up paying in more than you
-  // got back (nominal, undiscounted), that's a cost. If you end up ahead,
-  // that's a gain. This works for every month, whether or not XIRR itself
-  // has a real solution -- profit/loss is always computable.
-  const classify = r => r.totalProfit >= 0 ? 'gain' : 'cost';
+  // Original classification: first-half payout months are borrowing costs,
+  // while second-half payout months are investment gains.
+  const midpoint = Math.ceil(state.duration/2);
+  const classify = m => m <= midpoint ? 'cost' : 'gain';
 
   const validXirr = results.filter(r=>!isNaN(r.annualXirr));
-  const gainPool = validXirr.filter(r=> classify(r)==='gain');
-  const costPool = validXirr.filter(r=> classify(r)==='cost');
+  const gainPool = validXirr.filter(r=> classify(r.payoutMonth)==='gain');
+  const costPool = validXirr.filter(r=> classify(r.payoutMonth)==='cost');
   const best = gainPool.length ? gainPool.reduce((a,b)=> b.annualXirr>a.annualXirr?b:a, gainPool[0]) : null;
   const lowestBorrow = costPool.length ? costPool.reduce((a,b)=> b.annualXirr<a.annualXirr?b:a, costPool[0]) : null;
   const closestZero = validXirr.length ? validXirr.reduce((a,b)=> Math.abs(b.annualXirr)<Math.abs(a.annualXirr)?b:a, validXirr[0]) : null;
@@ -890,12 +1085,12 @@ function runComparison(){
     <div class="callout forest">
       <div class="callout-label">Highest investment return</div>
       <div class="callout-main">${best ? `Month ${best.payoutMonth} · ${pct(best.annualXirr)}` : 'n/a'}</div>
-      <div class="callout-sub">Best month where you end up net ahead</div>
+      <div class="callout-sub">Best second-half month to let dividends compound</div>
     </div>
     <div class="callout maroon">
       <div class="callout-label">Lowest borrowing cost</div>
       <div class="callout-main">${lowestBorrow ? `Month ${lowestBorrow.payoutMonth} · ${pct(lowestBorrow.annualXirr)}` : 'n/a'}</div>
-      <div class="callout-sub">Cheapest month among those where you end up net behind</div>
+      <div class="callout-sub">Cheapest first-half month to draw the pool forward</div>
     </div>
     <div class="callout">
       <div class="callout-label">Closest to 0% XIRR</div>
@@ -904,14 +1099,8 @@ function runComparison(){
     </div>
   `;
 
-  // table, ranked -- rank by whichever value is actually on display (real
-  // root if it exists, modified fallback otherwise) so the full list stays
-  // in a sensible order with no gaps in the middle.
-  const ranked = [...results].sort((a,b)=> {
-    const av = isNaN(a.annualXirr) ? -Infinity : a.annualXirr;
-    const bv = isNaN(b.annualXirr) ? -Infinity : b.annualXirr;
-    return bv - av;
-  });
+  // table, ranked
+  const ranked = [...results].sort((a,b)=> b.annualXirr - a.annualXirr);
   const rankOf = {};
   ranked.forEach((r,idx)=> rankOf[r.payoutMonth] = idx+1);
 
@@ -920,7 +1109,7 @@ function runComparison(){
   results.forEach(r=>{
     const rank = rankOf[r.payoutMonth];
     const isCurrent = r.payoutMonth === state.payoutMonth;
-    const costGainTag = classify(r)==='gain'
+    const tag = classify(r.payoutMonth)==='gain'
       ? '<span class="row-tag" style="background:var(--forest);color:#fff;">gain</span>'
       : '<span class="row-tag" style="background:var(--maroon);color:#fff;">cost</span>';
     html += `<tr data-month="${r.payoutMonth}" class="${isCurrent?'payout-row':''}">
@@ -929,7 +1118,7 @@ function runComparison(){
       <td>${inr(r.amountReceived,0)}</td>
       <td>${inr(r.totalDividends,0)}</td>
       <td>${inr(r.totalNet,0)}</td>
-      <td class="${isNaN(r.annualXirr) ? (r.totalProfit>=0?'cf-pos':'cf-neg') : (r.annualXirr>=0?'cf-pos':'cf-neg')}">${isNaN(r.annualXirr)?'n/a':pct(r.annualXirr)} ${costGainTag}</td>
+      <td class="${r.annualXirr>=0?'cf-pos':'cf-neg'}">${isNaN(r.annualXirr)?'n/a':pct(r.annualXirr)}${!isNaN(r.annualXirr)?tag:''}</td>
       <td class="${r.monthlyIrr>=0?'cf-pos':'cf-neg'}">${isNaN(r.monthlyIrr)?'n/a':pct(r.monthlyIrr)}</td>
     </tr>`;
   });
@@ -946,17 +1135,11 @@ function runComparison(){
     });
   });
 
-  // chart -- maroon for cost months (net behind), forest for gain months,
-  // brass gold for whichever month is currently loaded above. Months with
-  // no real XIRR simply have no bar (a genuine gap), rather than a modified
-  // estimate standing in for a value that doesn't exist.
+  // First-half cost months are red; second-half gain months are green.
   const ctx = document.getElementById('xirrChart').getContext('2d');
   const labels = results.map(r=>'M'+r.payoutMonth);
-  const data = results.map(r=> isNaN(r.annualXirr) ? null : r.annualXirr*100);
-  const colors = results.map(r=>{
-    if(r.payoutMonth===state.payoutMonth) return '#a9781f';
-    return classify(r)==='gain' ? '#3f6b4a' : '#a34a4a';
-  });
+  const data = results.map(r=> isNaN(r.annualXirr)?null:r.annualXirr*100);
+  const colors = results.map(r=> r.payoutMonth===state.payoutMonth ? '#1E63FF' : (classify(r.payoutMonth)==='gain' ? '#059669' : '#DC2626'));
   if(xirrChartInstance) xirrChartInstance.destroy();
   xirrChartInstance = new Chart(ctx, {
     type:'bar',
@@ -965,7 +1148,7 @@ function runComparison(){
       responsive:true,
       plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: c=> c.formattedValue + '%' } } },
       scales:{
-        y:{ grid:{ color:'#e2d7bd' }, ticks:{ callback: v=> v+'%' } },
+        y:{ grid:{ color:'#E5E7EB' }, ticks:{ callback: v=> v+'%' } },
         x:{ grid:{ display:false } }
       }
     }
