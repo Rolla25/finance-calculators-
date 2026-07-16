@@ -146,8 +146,8 @@ table.bk tr:hover td{background:#F9FAFB}
 }
 .corpusly-footer-grid{
   display:grid;
-  grid-template-columns:1fr;
-  gap:28px;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:64px;
   padding-bottom:32px;
   border-bottom:1px solid rgba(255,255,255,0.08);
 }
@@ -204,7 +204,10 @@ table.bk tr:hover td{background:#F9FAFB}
 }
 .corpusly-footer-bottom p{margin:0;}
 @media (max-width:768px){
-  .corpusly-footer-grid{gap:28px;}
+  .corpusly-footer-grid{
+    grid-template-columns:1fr;
+    gap:28px;
+  }
 }
 </style>
 
