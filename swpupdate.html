@@ -1,1 +1,1115 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SWP Calculator: Plan Systematic Withdrawals | Corpusly</title>
+  <meta name="description" content="Use Corpusly's free SWP calculator to estimate sustainable monthly withdrawals, investment corpus longevity, returns and inflation adjusted retirement income.">
+  <meta name="application-name" content="Corpusly SWP Calculator">
+  <meta name="author" content="Corpusly">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="theme-color" content="#102649">
+  <link rel="canonical" href="https://corpusly.in/swp.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:site_name" content="Corpusly">
+  <meta property="og:url" content="https://corpusly.in/swp.html">
+  <meta property="og:title" content="SWP Calculator: Plan Systematic Withdrawals | Corpusly">
+  <meta property="og:description" content="Estimate sustainable monthly income, test how long an investment corpus may last and account for inflation.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SWP Calculator: Plan Systematic Withdrawals | Corpusly">
+  <meta name="twitter:description" content="Estimate sustainable monthly withdrawals, corpus longevity and inflation adjusted retirement income.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://corpusly.in/swp.html#calculator",
+        "name": "Corpusly SWP Calculator",
+        "url": "https://corpusly.in/swp.html",
+        "description": "A free systematic withdrawal plan calculator for estimating sustainable monthly withdrawals, corpus longevity and inflation adjusted retirement income.",
+        "applicationCategory": "FinanceApplication",
+        "applicationSubCategory": "Retirement calculator",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "inLanguage": "en-IN",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR"
+        },
+        "featureList": [
+          "Sustainable monthly withdrawal estimation",
+          "Investment corpus longevity projection",
+          "Inflation adjusted withdrawals",
+          "Monthly withdrawal schedule",
+          "Projected corpus chart"
+        ],
+        "publisher": { "@id": "https://corpusly.in/#organization" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://corpusly.in/#organization",
+        "name": "Corpusly",
+        "url": "https://corpusly.in/"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://corpusly.in/#website",
+        "name": "Corpusly",
+        "url": "https://corpusly.in/",
+        "inLanguage": "en-IN",
+        "publisher": { "@id": "https://corpusly.in/#organization" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is an SWP?",
+            "acceptedAnswer": { "@type": "Answer", "text": "A Systematic Withdrawal Plan lets you redeem a set amount from an investment at regular intervals while the remaining amount stays invested." }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between the two calculation modes?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Find monthly income estimates a withdrawal for a chosen time period. Check corpus life estimates how long the corpus could support a monthly amount entered by the user." }
+          },
+          {
+            "@type": "Question",
+            "name": "How does inflation adjustment work?",
+            "acceptedAnswer": { "@type": "Answer", "text": "The calculator increases the monthly withdrawal once each year by the chosen inflation rate. This can help preserve purchasing power but draws down the corpus faster." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the result include taxes and fund expenses?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. The projection uses a constant pre tax return and does not deduct taxes, exit loads, expense ratios or advisory fees." }
+          },
+          {
+            "@type": "Question",
+            "name": "Why can actual results differ?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Actual results can differ because markets do not produce constant returns. Volatility, taxes, fees and sequence of returns risk can change corpus longevity." }
+          },
+          {
+            "@type": "Question",
+            "name": "What is a safe withdrawal rate?",
+            "acceptedAnswer": { "@type": "Answer", "text": "There is no universal safe withdrawal rate. It depends on duration, asset mix, inflation, taxes, flexibility and sequence of returns risk." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --ink: #10233f;
+      --muted: #617087;
+      --blue: #2563eb;
+      --blue-dark: #1746b3;
+      --blue-soft: #edf4ff;
+      --green: #0f9f72;
+      --green-soft: #eafaf4;
+      --amber: #a85d08;
+      --amber-soft: #fff8e8;
+      --red: #c83f49;
+      --line: #dfe7f1;
+      --panel: #ffffff;
+      --page: #f5f8fc;
+      --shadow: 0 16px 44px rgba(28, 51, 84, .09);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--page);
+      font: 15px/1.6 Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; }
+    .container { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(223, 231, 241, .88);
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(14px);
+    }
+    .header-inner { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: flex-start; text-decoration: none; font-size: 22px; font-weight: 850; letter-spacing: -.04em; }
+    .brand span { color: var(--blue); }
+    .brand::after { content: ""; width: 6px; height: 6px; margin: 6px 0 0 4px; border-radius: 50%; background: var(--green); }
+    .nav { display: flex; align-items: center; gap: 28px; }
+    .nav a { text-decoration: none; color: #43536a; font-size: 14px; font-weight: 650; }
+    .nav a:hover, .nav a:focus-visible { color: var(--blue); }
+    .nav .nav-cta { padding: 9px 14px; color: var(--blue); border: 1px solid #bfd2fa; border-radius: 999px; background: var(--blue-soft); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 62px 0 118px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 78% 12%, rgba(83, 207, 175, .28), transparent 28%),
+        linear-gradient(132deg, #0f347a 0%, #1d5bdd 60%, #227cdb 100%);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      bottom: -210px;
+      width: 430px;
+      height: 430px;
+      border: 70px solid rgba(255, 255, 255, .055);
+      border-radius: 50%;
+    }
+    .breadcrumb { margin-bottom: 18px; color: rgba(255,255,255,.72); font-size: 13px; }
+    .breadcrumb a { text-decoration: none; }
+    .breadcrumb span { margin: 0 8px; opacity: .65; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding: 6px 11px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #6ee7b7; box-shadow: 0 0 0 4px rgba(110,231,183,.12); }
+    .hero h1 { max-width: 760px; margin: 0 0 14px; font-size: clamp(35px, 5vw, 54px); line-height: 1.08; letter-spacing: -.045em; }
+    .hero p { max-width: 660px; margin: 0; color: rgba(255,255,255,.82); font-size: clamp(16px, 2vw, 19px); line-height: 1.65; }
+
+    .calculator-shell { position: relative; z-index: 2; margin-top: -72px; }
+    .calculator-grid { display: grid; grid-template-columns: minmax(320px, 430px) minmax(0, 1fr); gap: 22px; align-items: start; }
+    .card { border: 1px solid rgba(214, 224, 237, .9); border-radius: var(--radius-lg); background: var(--panel); box-shadow: var(--shadow); }
+    .input-card { padding: 28px; }
+    .result-card { min-height: 600px; overflow: hidden; }
+    .card-head { margin-bottom: 22px; }
+    .card-kicker { margin: 0 0 4px; color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .card-head h2 { margin: 0; font-size: 23px; line-height: 1.3; letter-spacing: -.025em; }
+    .card-head p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+
+    .segmented { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 24px; padding: 4px; border: 1px solid var(--line); border-radius: 13px; background: #f3f6fa; }
+    .tab { min-height: 44px; padding: 8px 10px; border: 0; border-radius: 10px; background: transparent; color: #66758a; cursor: pointer; font-size: 13px; font-weight: 750; transition: .2s ease; }
+    .tab:hover { color: var(--ink); }
+    .tab.active { color: #fff; background: var(--ink); box-shadow: 0 5px 12px rgba(16,35,63,.18); }
+    .mode-note { margin: -12px 0 22px; color: var(--muted); font-size: 12px; }
+
+    .field { margin-bottom: 19px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field label, .field-label { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 7px; color: #31435b; font-size: 13px; font-weight: 750; }
+    .optional { color: #93a0b1; font-size: 11px; font-weight: 600; }
+    .input-wrap { position: relative; }
+    .prefix, .suffix { position: absolute; top: 50%; transform: translateY(-50%); color: #738197; font-weight: 700; pointer-events: none; }
+    .prefix { left: 14px; }
+    .suffix { right: 14px; font-size: 12px; }
+    input[type="number"] {
+      width: 100%;
+      min-height: 48px;
+      padding: 11px 44px 11px 14px;
+      border: 1px solid #ccd7e5;
+      border-radius: 12px;
+      outline: 0;
+      color: var(--ink);
+      background: #fff;
+      font-size: 15px;
+      font-weight: 650;
+      transition: border-color .18s, box-shadow .18s;
+      -moz-appearance: textfield;
+    }
+    input.has-prefix { padding-left: 34px; }
+    input[type="number"]::-webkit-inner-spin-button { appearance: none; }
+    input[type="number"]:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(37,99,235,.1); }
+    input[aria-invalid="true"] { border-color: var(--red); }
+    .hint { margin-top: 6px; color: #8491a3; font-size: 11.5px; line-height: 1.45; }
+    .error { display: none; margin-top: 6px; color: var(--red); font-size: 11.5px; font-weight: 650; }
+    .error.show { display: block; }
+    .preset-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 9px; }
+    .preset { padding: 5px 9px; border: 1px solid #d8e2ef; border-radius: 999px; background: #fff; color: #53637a; cursor: pointer; font-size: 11px; font-weight: 700; }
+    .preset:hover { color: var(--blue); border-color: #abc4f8; background: var(--blue-soft); }
+
+    .toggle-box { margin: 2px 0 20px; border: 1px solid #cbe8df; border-radius: 14px; background: var(--green-soft); overflow: hidden; }
+    .toggle-row { width: 100%; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 14px; border: 0; background: transparent; cursor: pointer; text-align: left; }
+    .toggle-copy strong { display: block; color: #17624f; font-size: 13px; }
+    .toggle-copy small { display: block; margin-top: 2px; color: #528275; font-size: 11px; }
+    .switch { position: relative; width: 42px; height: 24px; flex: 0 0 auto; border-radius: 999px; background: #b7c9c4; transition: background .2s; }
+    .switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,.2); transition: transform .2s; }
+    .toggle-row[aria-pressed="true"] .switch { background: var(--green); }
+    .toggle-row[aria-pressed="true"] .switch::after { transform: translateX(18px); }
+    .inflation-field { display: none; padding: 0 14px 14px; }
+    .inflation-field.open { display: block; }
+    .inflation-field .field { margin: 0; }
+
+    .calc-btn { width: 100%; min-height: 52px; border: 0; border-radius: 13px; color: #fff; background: linear-gradient(135deg, var(--blue-dark), var(--blue)); cursor: pointer; font-size: 15px; font-weight: 800; box-shadow: 0 9px 20px rgba(37,99,235,.25); transition: transform .18s, box-shadow .18s; }
+    .calc-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 25px rgba(37,99,235,.3); }
+    .privacy-note { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 11px 0 0; color: #8794a5; font-size: 11px; }
+    .privacy-note::before { content: "✓"; color: var(--green); font-weight: 900; }
+
+    .empty-state { min-height: 600px; display: grid; place-items: center; padding: 44px; text-align: center; }
+    .empty-visual { width: 96px; height: 96px; display: grid; place-items: center; margin: 0 auto 20px; border-radius: 28px; color: var(--blue); background: linear-gradient(145deg, var(--blue-soft), #f7fbff); font-size: 38px; font-weight: 300; box-shadow: inset 0 0 0 1px #d9e7ff; }
+    .empty-state h2 { margin: 0 0 8px; font-size: 22px; letter-spacing: -.02em; }
+    .empty-state p { max-width: 390px; margin: 0; color: var(--muted); font-size: 14px; }
+    .empty-points { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .empty-points span { padding: 6px 10px; border-radius: 999px; color: #53637a; background: #f2f5f9; font-size: 11px; font-weight: 700; }
+
+    .results { display: none; }
+    .results.visible { display: block; }
+    .result-top { padding: 26px 28px 24px; color: #fff; background: linear-gradient(130deg, #0e2c5b, #174fae); }
+    .result-label { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; color: #bcd2f5; font-size: 12px; font-weight: 750; text-transform: uppercase; letter-spacing: .07em; }
+    .result-label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #5ee0b1; }
+    .hero-result { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; }
+    .hero-result h2 { margin: 0; color: #fff; font-size: clamp(31px, 5vw, 44px); line-height: 1.12; letter-spacing: -.04em; }
+    .hero-result p { max-width: 250px; margin: 0 0 5px; color: #c6d7ef; font-size: 12px; text-align: right; }
+    .result-body { padding: 24px 28px 28px; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+    .metric { min-width: 0; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: #fbfcfe; }
+    .metric span { display: block; margin-bottom: 4px; color: #758399; font-size: 10px; font-weight: 750; letter-spacing: .045em; text-transform: uppercase; }
+    .metric strong { display: block; overflow: hidden; color: var(--ink); font-size: 17px; line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
+    .metric strong.green { color: var(--green); }
+
+    .chart-card { margin-bottom: 24px; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-md); }
+    .subhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 13px; }
+    .subhead h3 { margin: 0; font-size: 15px; }
+    .subhead p { margin: 2px 0 0; color: var(--muted); font-size: 11px; }
+    .legend { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .legend::before { content: ""; width: 16px; height: 3px; border-radius: 2px; background: var(--blue); }
+    #projectionChart { display: block; width: 100%; height: 190px; }
+    .chart-axis { display: flex; justify-content: space-between; margin-top: 5px; color: #8b98a9; font-size: 10px; }
+
+    .insight { display: flex; gap: 12px; margin-bottom: 24px; padding: 14px 15px; border: 1px solid #cce9df; border-radius: 14px; background: var(--green-soft); }
+    .insight-icon { width: 26px; height: 26px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 8px; color: #fff; background: var(--green); font-size: 13px; font-weight: 900; }
+    .insight strong { display: block; margin-bottom: 2px; color: #17624f; font-size: 12px; }
+    .insight p { margin: 0; color: #49786b; font-size: 11.5px; }
+
+    .schedule-wrap { border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
+    .schedule-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 15px; border-bottom: 1px solid var(--line); background: #f8fafc; }
+    .schedule-head h3 { margin: 0; font-size: 14px; }
+    .schedule-head button { padding: 5px 9px; border: 1px solid #cfdaea; border-radius: 8px; background: #fff; color: var(--blue); cursor: pointer; font-size: 10px; font-weight: 750; }
+    .table-scroll { max-height: 350px; overflow: auto; }
+    table { width: 100%; min-width: 590px; border-collapse: collapse; font-size: 11px; }
+    th { position: sticky; top: 0; z-index: 1; padding: 10px 12px; color: #69788d; background: #f8fafc; font-size: 9px; letter-spacing: .04em; text-align: right; text-transform: uppercase; }
+    th:first-child, td:first-child { text-align: left; }
+    td { padding: 10px 12px; border-top: 1px solid #edf1f6; color: #405168; text-align: right; white-space: nowrap; }
+    tr:hover td { background: #f7faff; }
+    .withdrawal { color: var(--red); }
+    .interest { color: var(--green); }
+
+    .content { padding: 76px 0; }
+    .content-intro { max-width: 680px; margin: 0 auto 38px; text-align: center; }
+    .content-intro .card-kicker { margin-bottom: 9px; }
+    .content-intro h2 { margin: 0 0 10px; font-size: clamp(27px, 4vw, 38px); line-height: 1.2; letter-spacing: -.035em; }
+    .content-intro p { margin: 0; color: var(--muted); }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 56px; }
+    .step { padding: 23px; border: 1px solid var(--line); border-radius: var(--radius-md); background: #fff; }
+    .step-num { width: 30px; height: 30px; display: grid; place-items: center; margin-bottom: 15px; border-radius: 9px; color: var(--blue); background: var(--blue-soft); font-size: 12px; font-weight: 850; }
+    .step h3 { margin: 0 0 6px; font-size: 16px; }
+    .step p { margin: 0; color: var(--muted); font-size: 12.5px; }
+    .faq-layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 48px; align-items: start; }
+    .faq-layout h2 { margin: 0 0 10px; font-size: 30px; line-height: 1.2; letter-spacing: -.03em; }
+    .faq-layout > div > p { margin: 0; color: var(--muted); font-size: 13px; }
+    details { border-bottom: 1px solid var(--line); }
+    summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; cursor: pointer; list-style: none; font-size: 14px; font-weight: 750; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; width: 25px; height: 25px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 50%; color: var(--blue); background: var(--blue-soft); font-size: 17px; }
+    details[open] summary::after { content: "−"; }
+    details p { margin: -3px 38px 18px 0; color: var(--muted); font-size: 12.5px; }
+    .disclaimer { margin-top: 48px; padding: 20px 22px; border: 1px solid #f0dba9; border-radius: var(--radius-md); background: var(--amber-soft); }
+    .disclaimer strong { display: block; margin-bottom: 5px; color: #7a480d; font-size: 13px; }
+    .disclaimer p { margin: 0; color: #8b642d; font-size: 11.5px; }
+
+    footer { padding: 52px 0 24px; color: #c6d0de; background: #0e1d32; }
+    .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 48px; padding-bottom: 34px; border-bottom: 1px solid rgba(255,255,255,.09); }
+    footer .brand { color: #fff; }
+    footer p { max-width: 340px; margin: 12px 0 0; color: #8998ac; font-size: 12px; }
+    footer h3 { margin: 4px 0 13px; color: #eef4fc; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; }
+    .footer-links.single { grid-template-columns: 1fr; }
+    footer a { color: #9dabbc; text-decoration: none; font-size: 12px; }
+    footer a:hover { color: #fff; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 20px; color: #748397; font-size: 11px; }
+
+    @media (max-width: 900px) {
+      .nav a:not(.nav-cta) { display: none; }
+      .calculator-grid { grid-template-columns: 1fr; }
+      .result-card { min-height: auto; }
+      .empty-state { min-height: 400px; }
+      .steps { grid-template-columns: 1fr; }
+      .faq-layout { grid-template-columns: 1fr; gap: 18px; }
+    }
+    @media (max-width: 640px) {
+      .container { width: min(100% - 24px, 1160px); }
+      .header-inner { min-height: 60px; }
+      .nav-cta { display: none; }
+      .hero { padding: 42px 0 100px; }
+      .breadcrumb { display: none; }
+      .input-card, .result-body { padding: 21px 18px; }
+      .result-top { padding: 23px 18px; }
+      .field-row { grid-template-columns: 1fr; gap: 0; }
+      .metrics { grid-template-columns: 1fr 1fr; }
+      .hero-result { display: block; }
+      .hero-result p { margin-top: 8px; text-align: left; }
+      .content { padding: 56px 0; }
+      .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+      .footer-bottom { display: block; }
+      .footer-bottom span { display: block; margin-top: 5px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+
+    /* SIP calculator design system: shared Corpusly presentation */
+    :root {
+      --navy: #102649;
+      --blue: #175dcc;
+      --mint: #13b886;
+      --ink: #14233b;
+      --muted: #68758a;
+      --line: #dce3ed;
+      --wash: #f3f7fb;
+      --cream: #f9faf6;
+      --white: #fff;
+      --danger: #b42318;
+      --green: var(--mint);
+      --green-soft: #edf9f5;
+      --blue-dark: var(--navy);
+      --blue-soft: #eef3f8;
+      --page: #fff;
+      --panel: #fff;
+      --shadow: 0 8px 30px #1432580f;
+      --safe-gutter: 24px;
+    }
+    body { color: var(--ink); background: #fff; font: 16px/1.5 Arial, Helvetica, sans-serif; }
+    .container { width: 100%; max-width: 1064px; margin: auto; padding-left: var(--safe-gutter); padding-right: var(--safe-gutter); }
+    .site-header { position: relative; border: 0; background: #fff; backdrop-filter: none; }
+    .header-inner { min-height: 70px; }
+    .brand { color: var(--navy); font-size: 25px; font-weight: 800; letter-spacing: -1px; }
+    .brand span { color: var(--blue); }
+    .brand::after { width: 7px; height: 7px; margin: 3px 0 0 4px; background: var(--mint); }
+    .nav { gap: 28px; }
+    .nav a { color: #526078; font-size: 13px; font-weight: 400; }
+    .nav .nav-cta { padding: 10px 15px; border: 0; border-radius: 9px; color: #fff; background: var(--navy); font-size: 12px; font-weight: 700; }
+    .menu-button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; color: var(--navy); }
+    .menu-button:focus-visible, .menu-close:focus-visible, .menu-panel a:focus-visible { outline: 3px solid #175dcc38; outline-offset: 2px; }
+    .menu-icon { display: flex; width: 26px; flex-direction: column; gap: 5px; }
+    .menu-icon span { display: block; width: 100%; height: 2px; border-radius: 2px; background: var(--navy); }
+    .menu-overlay { position: fixed; inset: 0; z-index: 50; background: #07162ca3; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+    .menu-overlay.open { opacity: 1; pointer-events: auto; }
+    .menu-panel { position: fixed; z-index: 51; top: 0; right: 0; width: min(410px, 100%); height: 100dvh; padding: 25px 26px 34px; overflow-y: auto; background: #fff; box-shadow: -20px 0 55px #07162c33; transform: translateX(105%); transition: transform .28s ease; }
+    .menu-panel.open { transform: translateX(0); }
+    body.menu-open { overflow: hidden; }
+    .menu-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+    .menu-close { display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 50%; background: #fff; color: var(--navy); font-size: 25px; line-height: 1; }
+    .menu-home { display: block; margin: 18px 0; padding: 13px 14px; border-radius: 10px; background: var(--wash); color: var(--navy); font-size: 14px; font-weight: 700; text-decoration: none; }
+    .menu-group { padding: 5px 0 18px; }
+    .menu-group h3 { margin: 0 0 10px; color: #778399; font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
+    .menu-links { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .menu-links a { padding: 10px 11px; border: 1px solid transparent; border-radius: 9px; color: #425169; font-size: 13px; text-decoration: none; }
+    .menu-links a:hover { border-color: var(--line); background: var(--wash); color: var(--navy); }
+    .menu-links a[aria-current="page"] { border-color: #cbdaf0; background: #edf4ff; color: var(--blue); font-weight: 700; }
+    .menu-start { display: block; padding: 13px 16px; border-radius: 10px; background: var(--navy); color: #fff; text-align: center; font-size: 13px; font-weight: 700; text-decoration: none; }
+
+    .hero { padding: 74px 20px 78px; text-align: center; color: #fff; background: linear-gradient(120deg, #0d2344, #123767 58%, #155aac); }
+    .hero::before, .hero::after { content: ""; position: absolute; width: 520px; height: 520px; border: 1px solid #ffffff17; border-radius: 50%; }
+    .hero::before { left: -320px; bottom: -390px; }
+    .hero::after { right: -330px; top: -390px; }
+    .hero .container { position: relative; z-index: 1; }
+    .breadcrumb { display: none; }
+    .eyebrow { display: block; margin-bottom: 10px; padding: 0; border: 0; color: #a9c8f1; background: none; font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .eyebrow::before { display: none; }
+    .hero h1 { max-width: 800px; margin: 0 auto 16px; font: 500 50px/1.08 Georgia, serif; letter-spacing: -2px; }
+    .hero p { max-width: 670px; margin: auto; color: #d4e1f2; font-size: 17px; line-height: 1.5; }
+    .trust { display: flex; justify-content: center; gap: 24px; margin-top: 25px; color: #c7d6e9; font-size: 12px; }
+
+    .calculator-shell { position: relative; z-index: 1; margin-top: 0; padding: 70px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; margin-bottom: 24px; }
+    .section-head .kicker, .content .card-kicker { display: block; margin: 0 0 10px; color: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .section-head h2, .content h2 { margin: 0; color: var(--navy); font: 500 34px/1.15 Georgia, serif; letter-spacing: -1px; }
+    .reset { border: 0; background: none; color: var(--muted); font-size: 12px; cursor: pointer; }
+    .segmented { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin: 0 0 18px; padding: 5px; border: 0; border-radius: 14px; background: #edf2f8; }
+    .tab { min-height: 60px; display: flex; align-items: center; padding: 12px 16px; border: 1px solid transparent; border-radius: 10px; color: #748096; background: transparent; text-align: left; font-size: 13px; font-weight: 700; box-shadow: none; }
+    .tab::before { width: 31px; height: 31px; display: grid; place-items: center; flex: 0 0 auto; margin-right: 11px; border-radius: 8px; color: var(--blue); background: #dce7f6; font-size: 17px; }
+    .tab:first-child::before { content: "↗"; }
+    .tab:last-child::before { content: "◎"; }
+    .tab.active { border-color: #d8e1ed; color: var(--navy); background: #fff; box-shadow: 0 3px 11px #18375d14; }
+    .calculator-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 18px; align-items: start; }
+    .card { border: 1px solid var(--line); border-radius: 18px; background: #fff; box-shadow: 0 8px 30px #1432580f; }
+    .input-card { padding: 28px; }
+    .card-head { position: relative; margin: 0 0 24px; padding: 0 0 21px 44px; border-bottom: 1px solid #e8edf3; }
+    .card-head::before { content: "01"; position: absolute; top: 0; left: 0; width: 31px; height: 31px; display: grid; place-items: center; border-radius: 8px; color: #fff; background: var(--navy); font-size: 10px; font-weight: 800; }
+    .card-head .card-kicker { display: none; }
+    .card-head h2 { margin: 1px 0 3px; color: var(--navy); font: 700 17px/1.25 Arial, Helvetica, sans-serif; letter-spacing: 0; }
+    .card-head p { margin: 0; color: var(--muted); font-size: 12px; }
+    .mode-note { margin: -8px 0 20px; color: #8a95a6; font-size: 10px; }
+    .field { margin-bottom: 23px; }
+    .field label { margin-bottom: 7px; color: #34445c; font-size: 12px; font-weight: 700; }
+    .input-wrap { height: 46px; display: flex; align-items: center; border: 1px solid #ccd6e3; border-radius: 10px; }
+    .input-wrap:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px #175dcc18; }
+    .prefix, .suffix { position: static; transform: none; padding: 0 12px; color: #65738a; font-size: 12px; }
+    input[type="number"], input[type="number"].has-prefix { min-width: 0; height: 100%; min-height: 0; padding: 0; border: 0; border-radius: 10px; background: transparent; color: var(--navy); font-size: 16px; font-weight: 750; box-shadow: none; }
+    input[type="number"]:focus { border: 0; box-shadow: none; }
+    .hint { margin-top: 6px; color: #8a95a6; font-size: 10px; }
+    .field-row { gap: 20px; }
+    .toggle-box { margin: 0 0 23px; border: 1px solid #dce3ed; border-radius: 10px; background: var(--wash); }
+    .toggle-copy strong { color: var(--navy); font-size: 12px; }
+    .toggle-copy small { color: #8c96a5; font-size: 10px; }
+    .switch { background: #cbd6e3; }
+    .toggle-row[aria-pressed="true"] .switch { background: var(--mint); }
+    .inflation-field { padding-bottom: 14px; }
+    .preset { border-color: #d8e1ed; color: #748096; }
+    .preset:hover { border-color: #b8cbe7; color: var(--blue); background: #eef3f8; }
+    .calc-btn { min-height: 48px; border-radius: 10px; background: var(--navy); box-shadow: none; font-size: 13px; }
+    .calc-btn:hover { box-shadow: 0 7px 16px #1026492b; }
+    .privacy-note::before { color: var(--mint); }
+
+    .result-card { position: sticky; top: 14px; min-height: 445px; padding: 0; overflow: hidden; border: 0; background: linear-gradient(145deg, #10284c, #153b70); color: #fff; }
+    .empty-state { min-height: 445px; padding: 34px; }
+    .empty-visual { width: 72px; height: 72px; margin-bottom: 18px; border-radius: 50%; color: #d3f4e9; background: #38d1a21c; box-shadow: inset 0 0 0 1px #59dab22e; }
+    .empty-state h2 { color: #fff; font: 500 27px/1.15 Georgia, serif; }
+    .empty-state p { color: #bbcee5; font-size: 12px; }
+    .empty-points span { color: #d3f4e9; background: #38d1a21c; }
+    .result-top { padding: 34px 34px 0; background: transparent; }
+    .result-label { color: #94b9e8; font-size: 10px; font-weight: 800; letter-spacing: .13em; }
+    .result-label::before { display: none; }
+    .hero-result { display: block; }
+    .hero-result h2 { margin-top: 9px; color: #fff; font: 500 43px/1 Georgia, serif; letter-spacing: -1px; }
+    .hero-result p { max-width: none; margin: 7px 0 0; color: #bbcee5; font-size: 12px; text-align: left; }
+    .result-body { padding: 25px 34px 34px; }
+    .metrics { grid-template-columns: 1fr 1fr; gap: 0; padding: 15px 0; border-top: 1px solid #ffffff1f; border-bottom: 1px solid #ffffff1f; }
+    .metric { padding: 9px 6px; border: 0; border-radius: 0; background: transparent; }
+    .metric span { color: #aec2da; font-size: 10px; }
+    .metric strong, .metric strong.green { color: #fff; font-size: 14px; }
+    .chart-card { padding: 15px 0 0; border: 0; border-radius: 0; }
+    .subhead h3 { color: #fff; font-size: 13px; }
+    .subhead p, .legend, .chart-axis { color: #a9bfd9; }
+    .legend::before { background: var(--mint); }
+    #projectionChart { height: 150px; }
+    .insight { border-color: #59dab22e; background: #38d1a21c; }
+    .insight-icon { background: var(--mint); }
+    .insight strong, .insight p { color: #d3f4e9; }
+    .schedule-wrap { border-color: #ffffff24; }
+    .schedule-head { border-color: #ffffff24; background: #ffffff0c; }
+    .schedule-head h3 { color: #fff; }
+    .schedule-head button { border-color: #ffffff2b; color: #d9e8fb; background: #ffffff0d; }
+    .table-scroll { max-height: 280px; }
+    th { color: #aec2da; background: #153b70; }
+    td { border-color: #ffffff13; color: #d6e1ef; }
+    tr:hover td { background: #ffffff08; }
+    .interest { color: #78dfbd; }
+    .withdrawal { color: #ffb4b4; }
+
+    .content { padding: 75px 0; }
+    .content-intro { max-width: 720px; margin: 0 0 30px; text-align: left; }
+    .content-intro p { color: var(--muted); line-height: 1.75; }
+    .steps { gap: 18px; margin-bottom: 75px; }
+    .step { padding: 22px; border-color: var(--line); border-radius: 14px; }
+    .step-num { background: var(--wash); color: var(--blue); }
+    .step h3 { color: var(--navy); font-size: 16px; }
+    .step p { color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .faq-layout { grid-template-columns: .7fr 1.3fr; gap: 70px; }
+    .faq-layout h2 { color: var(--navy); font: 500 34px/1.15 Georgia, serif; letter-spacing: -1px; }
+    summary { color: var(--navy); font-size: 14px; font-weight: 700; }
+    summary::after { color: var(--blue); background: #eef3f8; }
+    details p { color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .disclaimer { margin: 60px 0 0; padding: 15px 17px; border-color: #e3d7b6; border-radius: 10px; background: #fffaf0; color: #745f33; }
+    .disclaimer strong, .disclaimer p { color: #745f33; font-size: 11px; }
+
+    footer { padding: 52px 0 20px; background: #0d1d36; color: #a9b8cc; }
+    footer .brand { color: #fff; }
+    footer p { color: #a9b8cc; font-size: 13px; line-height: 1.7; }
+    footer h3 { color: #d9e6f6; font-size: 10px; letter-spacing: .12em; }
+    footer a { color: #a9b8cc; font-size: 12px; }
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr; gap: 55px; padding-bottom: 40px; }
+    .footer-grid > div { display: flex; flex-direction: column; gap: 9px; }
+    .footer-grid p { max-width: 360px; margin: 0; color: #a9b8cc; font-size: 13px; line-height: 1.7; }
+    .footer-grid h4 { margin: 2px 0 5px; color: #d9e6f6; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .footer-grid a:not(.brand) { color: #a9b8cc; font-size: 12px; }
+    .footer-bottom { display: block; width: 100%; padding-top: 18px; border-top: 1px solid #ffffff1a; color: #a9b8cc; font-size: 10px; text-align: center; }
+
+    @media (max-width: 800px) {
+      .calculator-grid { grid-template-columns: 1fr; }
+      .result-card { position: relative; top: 0; }
+      .steps { grid-template-columns: 1fr; }
+      .faq-layout { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      :root { --safe-gutter: 22px; }
+      .site-header { position: sticky; top: 0; z-index: 9; }
+      .header-inner { min-height: 62px; }
+      .brand { font-size: 22px; }
+      .menu-button { width: 40px; height: 40px; }
+      .menu-panel { padding: 20px max(var(--safe-gutter), env(safe-area-inset-right)) 30px max(var(--safe-gutter), env(safe-area-inset-left)); }
+      .menu-links { grid-template-columns: 1fr; }
+      .hero { padding: 55px max(var(--safe-gutter), env(safe-area-inset-right)) 55px max(var(--safe-gutter), env(safe-area-inset-left)); }
+      .hero h1 { font-size: 35px; letter-spacing: -1.2px; }
+      .hero p { font-size: 15px; }
+      .trust { flex-direction: column; align-items: center; gap: 7px; margin-top: 23px; }
+      .calculator-shell { padding: 50px 0; }
+      .section-head { align-items: start; gap: 14px; }
+      .section-head h2, .content h2, .faq-layout h2 { font-size: 29px; }
+      .reset { flex: 0 0 42px; font-size: 0; }
+      .reset::before { content: "↻"; font-size: 19px; }
+      .segmented { grid-template-columns: 1fr; }
+      .tab { min-height: 54px; }
+      .input-card, .result-body { padding: 21px 18px; }
+      .result-top { padding: 28px 18px 0; }
+      .field-row { grid-template-columns: 1fr; gap: 0; }
+      .metrics { grid-template-columns: 1fr 1fr; }
+      .hero-result h2 { font-size: 38px; }
+      .content { padding: 58px 0; }
+      .faq-layout { gap: 26px; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="https://corpusly.in/" aria-label="Visit the Corpusly home page">Corpus<span>ly</span></a>
+      <button class="menu-button" id="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></button>
+    </div>
+  </header>
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="menu-panel" id="site-menu" aria-label="Website menu" aria-hidden="true">
+    <div class="menu-head"><a class="brand" href="https://corpusly.in/">Corpus<span>ly</span></a><button class="menu-close" id="menu-close" type="button" aria-label="Close menu">×</button></div>
+    <a class="menu-home" href="https://corpusly.in/">Home</a>
+    <div class="menu-group"><h3>Calculators</h3><div class="menu-links">
+      <a href="sip.html">SIP Calculator</a><a href="swp.html" aria-current="page">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a>
+    </div></div>
+    <div class="menu-group"><h3>Resources</h3><div class="menu-links"><a href="about.html">About Us</a><a href="methodology.html">Methodology</a><a href="contact.html">Contact Us</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms &amp; Conditions</a><a href="disclaimer.html">Disclaimer</a></div></div>
+    <a class="menu-start" href="#calculator">Start planning</a>
+  </aside>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="container">
+        <div class="eyebrow">● Free retirement planning tool</div>
+        <h1>SWP Calculator for Smarter<br>Withdrawal Planning</h1>
+        <p>Estimate sustainable monthly income, test corpus longevity, and account for inflation without spreadsheets or guesswork.</p>
+        <div class="trust"><span>✓ No sign up</span><span>✓ Runs in your browser</span><span>✓ Built for Indian investors</span></div>
+      </div>
+    </section>
+
+    <section class="calculator-shell" id="calculator" aria-label="SWP calculator">
+      <div class="container">
+        <div class="section-head"><div><span class="kicker">SWP CALCULATOR</span><h2>Build your withdrawal plan</h2></div><button class="reset" id="resetDefaults" type="button">↻ Reset defaults</button></div>
+        <div class="segmented" role="tablist" aria-label="Calculation type">
+          <button class="tab active" id="durationTab" type="button" role="tab" aria-selected="true" aria-controls="durationFields" data-mode="duration">Find monthly income</button>
+          <button class="tab" id="withdrawalTab" type="button" role="tab" aria-selected="false" aria-controls="withdrawalField" data-mode="withdrawal">Check corpus life</button>
+        </div>
+        <div class="calculator-grid">
+        <form class="card input-card" id="calculatorForm" novalidate>
+          <div class="card-head">
+            <p class="card-kicker">Your plan</p>
+            <h2>Set your withdrawal strategy</h2>
+            <p>Use today’s values. You can adjust every assumption.</p>
+          </div>
+
+          <p class="mode-note" id="modeNote">We’ll calculate a monthly withdrawal for the period you choose.</p>
+
+          <div class="field">
+            <label for="corpus">Investment corpus</label>
+            <div class="input-wrap"><span class="prefix">₹</span><input class="has-prefix" id="corpus" type="number" inputmode="decimal" min="1000" step="10000" value="5000000" aria-describedby="corpusHint corpusError"></div>
+            <div class="hint" id="corpusHint">For example, ₹50,00,000 for a ₹50 lakh corpus.</div>
+            <div class="error" id="corpusError">Enter a corpus of at least ₹1,000.</div>
+          </div>
+
+          <div class="field">
+            <label for="annualReturn">Expected annual return <span class="optional">Before tax</span></label>
+            <div class="input-wrap"><input id="annualReturn" type="number" inputmode="decimal" min="0" max="30" step="0.1" value="9"><span class="suffix">% p.a.</span></div>
+            <div class="hint">Use a conservative long term estimate, not the best recent return.</div>
+            <div class="error" id="returnError">Enter an annual return between 0% and 30%.</div>
+          </div>
+
+          <div class="toggle-box">
+            <button class="toggle-row" id="inflationToggle" type="button" aria-pressed="false" aria-controls="inflationField">
+              <span class="toggle-copy"><strong>Adjust income for inflation</strong><small>Increase withdrawal once every year</small></span>
+              <span class="switch" aria-hidden="true"></span>
+            </button>
+            <div class="inflation-field" id="inflationField">
+              <div class="field">
+                <label for="inflationRate">Expected inflation</label>
+                <div class="input-wrap"><input id="inflationRate" type="number" inputmode="decimal" min="0" max="20" step="0.1" value="6"><span class="suffix">% p.a.</span></div>
+                <div class="error" id="inflationError">Enter inflation between 0% and 20%.</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="durationFields" role="tabpanel" aria-labelledby="durationTab">
+            <div class="field-row">
+              <div class="field">
+                <label for="durationYears">Withdrawal period</label>
+                <div class="input-wrap"><input id="durationYears" type="number" inputmode="numeric" min="0" max="100" step="1" value="20"><span class="suffix">years</span></div>
+              </div>
+              <div class="field">
+                <label for="durationMonths"><span class="optional">Extra months</span></label>
+                <div class="input-wrap"><input id="durationMonths" type="number" inputmode="numeric" min="0" max="11" step="1" value="0"><span class="suffix">months</span></div>
+              </div>
+            </div>
+            <div class="error" id="durationError">Choose a period from 1 month to 100 years.</div>
+            <div class="preset-row" aria-label="Duration presets">
+              <button class="preset" type="button" data-years="10">10 years</button>
+              <button class="preset" type="button" data-years="20">20 years</button>
+              <button class="preset" type="button" data-years="30">30 years</button>
+            </div>
+          </div>
+
+          <div id="withdrawalField" role="tabpanel" aria-labelledby="withdrawalTab" hidden>
+            <div class="field">
+              <label for="withdrawalAmount">Monthly withdrawal <span class="optional">Year 1</span></label>
+              <div class="input-wrap"><span class="prefix">₹</span><input class="has-prefix" id="withdrawalAmount" type="number" inputmode="decimal" min="1" step="1000" value="50000"></div>
+              <div class="hint">The starting monthly amount you want from the corpus.</div>
+              <div class="error" id="withdrawalError">Enter a monthly withdrawal above ₹0.</div>
+            </div>
+          </div>
+
+          <button class="calc-btn" type="submit">Calculate my SWP</button>
+          <p class="privacy-note">Runs privately in your browser</p>
+        </form>
+
+        <section class="card result-card" aria-live="polite">
+          <div class="empty-state" id="emptyState">
+            <div>
+              <div class="empty-visual" aria-hidden="true">↗</div>
+              <h2>Your projection will appear here</h2>
+              <p>Enter your assumptions to see an estimated monthly income, corpus longevity, year by year balance, and detailed schedule.</p>
+              <div class="empty-points"><span>Monthly income</span><span>Corpus longevity</span><span>Inflation impact</span></div>
+            </div>
+          </div>
+
+          <div class="results" id="results">
+            <div class="result-top">
+              <div class="result-label" id="resultLabel">Estimated starting monthly income</div>
+              <div class="hero-result">
+                <h2 id="primaryResult">₹0</h2>
+                <p id="primaryContext"></p>
+              </div>
+            </div>
+            <div class="result-body">
+              <div class="metrics" id="metrics"></div>
+
+              <div class="chart-card">
+                <div class="subhead">
+                  <div><h3>Projected corpus</h3><p>Estimated balance over the withdrawal period</p></div>
+                  <div class="legend">Remaining corpus</div>
+                </div>
+                <canvas id="projectionChart" height="190" role="img" aria-label="Line chart of projected investment corpus over time"></canvas>
+                <div class="chart-axis"><span>Start</span><span id="chartEnd">End</span></div>
+              </div>
+
+              <div class="insight">
+                <span class="insight-icon" aria-hidden="true">i</span>
+                <div><strong>How to read this estimate</strong><p id="insightText"></p></div>
+              </div>
+
+              <div class="schedule-wrap">
+                <div class="schedule-head"><h3>Monthly withdrawal schedule</h3><button type="button" id="scheduleToggle">Show all months</button></div>
+                <div class="table-scroll">
+                  <table>
+                    <thead><tr><th>Month</th><th>Opening corpus</th><th>Return</th><th>Withdrawal</th><th>Closing corpus</th></tr></thead>
+                    <tbody id="scheduleBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="content" id="guide">
+      <div class="container">
+        <div class="content-intro">
+          <p class="card-kicker">Plan with perspective</p>
+          <h2>A useful estimate in three simple steps.</h2>
+          <p>An SWP can create regular cash flow while the remaining corpus stays invested. Small changes in return, inflation, or duration can meaningfully change the outcome.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><div class="step-num">01</div><h3>Enter your corpus</h3><p>Start with the amount available for systematic withdrawals, not your total net worth.</p></article>
+          <article class="step"><div class="step-num">02</div><h3>Set realistic assumptions</h3><p>Test a conservative return and enable inflation if the income is meant to fund future living costs.</p></article>
+          <article class="step"><div class="step-num">03</div><h3>Stress test the result</h3><p>Reduce the expected return or increase the duration to see whether the plan still feels comfortable.</p></article>
+        </div>
+
+        <div class="faq-layout" id="faq">
+          <div><p class="card-kicker">Common questions</p><h2>SWP calculator FAQ</h2><p>Plain language answers to the assumptions behind your projection.</p></div>
+          <div>
+            <details><summary>What is an SWP?</summary><p>A Systematic Withdrawal Plan lets you redeem a set amount from an investment at regular intervals. The remaining amount stays invested and may continue to earn returns.</p></details>
+            <details><summary>What is the difference between the two calculation modes?</summary><p>“Find monthly income” estimates a withdrawal for your chosen time period. “Check corpus life” estimates how long the corpus could support a monthly amount you enter.</p></details>
+            <details><summary>How does inflation adjustment work?</summary><p>When enabled, the calculator increases the monthly withdrawal once each year by your chosen inflation rate. That can help preserve purchasing power, but it also draws down the corpus faster.</p></details>
+            <details><summary>Does the result include taxes and fund expenses?</summary><p>No. The projection uses a constant pre tax return and does not deduct taxes, exit loads, expense ratios, or advisory fees. Use a lower expected return if you want a more conservative approximation.</p></details>
+            <details><summary>Why can actual results differ?</summary><p>Markets do not produce the same return every month. Volatility, especially poor returns early in the withdrawal period, can shorten corpus life even when the long term average return looks similar.</p></details>
+            <details><summary>What is a safe withdrawal rate?</summary><p>There is no universal safe rate. It depends on duration, asset mix, inflation, taxes, flexibility, and sequence of returns risk. Treat this result as a scenario to test, not a guarantee.</p></details>
+          </div>
+        </div>
+
+        <aside class="disclaimer">
+          <strong>Important: this is an illustrative estimate, not financial advice.</strong>
+          <p>The calculator assumes a constant return and annual inflation adjustment. Actual investment performance and corpus longevity can differ because of volatility, taxes, fees, changing withdrawals, and sequence of returns risk. Consider consulting a qualified adviser before making an investment or retirement income decision.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="https://corpusly.in/">Corpus<span>ly</span></a><p>Corpusly provides free, browser based financial calculators built on industry standard formulas to help you plan investments, retirement and insurance with confidence.</p></div>
+        <div>
+          <h4>Calculators</h4>
+          <a href="sip.html">SIP Calculator</a>
+          <a href="swp.html">SWP Calculator</a>
+          <a href="cagr.html">CAGR Calculator</a>
+          <a href="xirr.html">XIRR Calculator</a>
+          <a href="epf.html">EPF Calculator</a>
+          <a href="ppf.html">PPF Calculator</a>
+          <a href="retirementplanner.html">Retirement Planner</a>
+          <a href="termcoverage.html">Term Coverage</a>
+          <a href="premiumcomparer.html">Premium Comparer</a>
+          <a href="loanemi.html">Advanced EMI Calculator</a>
+          <a href="taxcalculator.html">Income Tax Calculator</a>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <a href="about.html">About Us</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms &amp; Conditions</a>
+          <a href="disclaimer.html">Disclaimer</a>
+          <a href="methodology.html">Methodology</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Corpusly Financial Calculators</div>
+    </div>
+  </footer>
+
+  <script>
+    const state = { mode: 'duration', inflation: false, rows: [], expanded: false };
+    const $ = (id) => document.getElementById(id);
+    const menuButton = $('menu-button');
+    const menuPanel = $('site-menu');
+    const menuOverlay = $('menu-overlay');
+    const menuClose = $('menu-close');
+
+    function setMenu(open) {
+      menuPanel.classList.toggle('open', open);
+      menuOverlay.classList.toggle('open', open);
+      document.body.classList.toggle('menu-open', open);
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuPanel.setAttribute('aria-hidden', String(!open));
+      if (open) menuClose.focus();
+      else menuButton.focus();
+    }
+
+    menuButton.addEventListener('click', () => setMenu(true));
+    menuClose.addEventListener('click', () => setMenu(false));
+    menuOverlay.addEventListener('click', () => setMenu(false));
+    menuPanel.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && menuPanel.classList.contains('open')) setMenu(false);
+    });
+
+    document.querySelectorAll('.tab').forEach((tab) => {
+      tab.addEventListener('click', () => setMode(tab.dataset.mode));
+      tab.addEventListener('keydown', (event) => {
+        if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+        event.preventDefault();
+        setMode(state.mode === 'duration' ? 'withdrawal' : 'duration');
+        $(state.mode === 'duration' ? 'durationTab' : 'withdrawalTab').focus();
+      });
+    });
+
+    document.querySelectorAll('.preset').forEach((button) => {
+      button.addEventListener('click', () => {
+        $('durationYears').value = button.dataset.years;
+        $('durationMonths').value = 0;
+      });
+    });
+
+    $('inflationToggle').addEventListener('click', () => {
+      state.inflation = !state.inflation;
+      $('inflationToggle').setAttribute('aria-pressed', String(state.inflation));
+      $('inflationField').classList.toggle('open', state.inflation);
+    });
+
+    $('calculatorForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      calculate();
+    });
+
+    ['corpus', 'annualReturn', 'inflationRate', 'durationYears', 'durationMonths', 'withdrawalAmount'].forEach((id) => {
+      $(id).addEventListener('input', clearErrors);
+    });
+
+    $('scheduleToggle').addEventListener('click', () => {
+      state.expanded = !state.expanded;
+      renderSchedule();
+    });
+
+    $('resetDefaults').addEventListener('click', () => {
+      $('corpus').value = 5000000;
+      $('annualReturn').value = 9;
+      $('inflationRate').value = 6;
+      $('durationYears').value = 20;
+      $('durationMonths').value = 0;
+      $('withdrawalAmount').value = 50000;
+      if (state.inflation) $('inflationToggle').click();
+      setMode('duration');
+      state.rows = [];
+      state.expanded = false;
+      $('results').classList.remove('visible');
+      $('emptyState').style.display = '';
+      clearErrors();
+    });
+
+    window.addEventListener('resize', () => {
+      if (state.rows.length) drawChart(state.rows);
+    });
+
+    function setMode(mode) {
+      state.mode = mode;
+      const isDuration = mode === 'duration';
+      $('durationFields').hidden = !isDuration;
+      $('withdrawalField').hidden = isDuration;
+      $('durationTab').classList.toggle('active', isDuration);
+      $('withdrawalTab').classList.toggle('active', !isDuration);
+      $('durationTab').setAttribute('aria-selected', String(isDuration));
+      $('withdrawalTab').setAttribute('aria-selected', String(!isDuration));
+      $('modeNote').textContent = isDuration
+        ? 'We’ll calculate a monthly withdrawal for the period you choose.'
+        : 'We’ll estimate how long your corpus can fund the income you want.';
+      clearErrors();
+    }
+
+    function value(id) { return Number($(id).value); }
+
+    function clearErrors() {
+      document.querySelectorAll('.error').forEach((el) => el.classList.remove('show'));
+      document.querySelectorAll('input').forEach((el) => el.removeAttribute('aria-invalid'));
+    }
+
+    function markError(inputId, errorId) {
+      $(inputId).setAttribute('aria-invalid', 'true');
+      $(errorId).classList.add('show');
+    }
+
+    function validate() {
+      clearErrors();
+      let valid = true;
+      if (!Number.isFinite(value('corpus')) || value('corpus') < 1000) { markError('corpus', 'corpusError'); valid = false; }
+      if (!Number.isFinite(value('annualReturn')) || value('annualReturn') < 0 || value('annualReturn') > 30) { markError('annualReturn', 'returnError'); valid = false; }
+      if (state.inflation && (!Number.isFinite(value('inflationRate')) || value('inflationRate') < 0 || value('inflationRate') > 20)) { markError('inflationRate', 'inflationError'); valid = false; }
+      if (state.mode === 'duration') {
+        const years = value('durationYears');
+        const months = value('durationMonths');
+        if (!Number.isInteger(years) || !Number.isInteger(months) || years < 0 || years > 100 || months < 0 || months > 11 || years * 12 + months < 1) {
+          $('durationError').classList.add('show');
+          valid = false;
+        }
+      } else if (!Number.isFinite(value('withdrawalAmount')) || value('withdrawalAmount') <= 0) {
+        markError('withdrawalAmount', 'withdrawalError');
+        valid = false;
+      }
+      return valid;
+    }
+
+    function monthlyRate(annualPercent) {
+      return Math.pow(1 + annualPercent / 100, 1 / 12) - 1;
+    }
+
+    function simulate(corpus, rate, startingWithdrawal, maxMonths, inflationPercent) {
+      const rows = [];
+      let balance = corpus;
+      for (let month = 1; month <= maxMonths && balance > .01; month += 1) {
+        const yearIndex = Math.floor((month - 1) / 12);
+        const plannedWithdrawal = startingWithdrawal * Math.pow(1 + inflationPercent / 100, yearIndex);
+        const opening = balance;
+        const interest = opening * rate;
+        const withdrawal = Math.min(plannedWithdrawal, opening + interest);
+        balance = Math.max(0, opening + interest - withdrawal);
+        rows.push({ month, opening, interest, withdrawal, closing: balance });
+      }
+      return rows;
+    }
+
+    function endingBalance(corpus, rate, withdrawal, months, inflationPercent) {
+      const rows = simulate(corpus, rate, withdrawal, months, inflationPercent);
+      return rows.length === months ? rows[rows.length - 1].closing : 0;
+    }
+
+    function sustainableWithdrawal(corpus, rate, months, inflationPercent) {
+      if (!inflationPercent) {
+        return rate === 0 ? corpus / months : corpus * rate / (1 - Math.pow(1 + rate, -months));
+      }
+      let low = 0;
+      let high = corpus;
+      for (let iteration = 0; iteration < 80; iteration += 1) {
+        const midpoint = (low + high) / 2;
+        if (endingBalance(corpus, rate, midpoint, months, inflationPercent) > .01) low = midpoint;
+        else high = midpoint;
+      }
+      return (low + high) / 2;
+    }
+
+    function calculate() {
+      if (!validate()) {
+        const firstInvalid = document.querySelector('[aria-invalid="true"]') || document.querySelector('.error.show');
+        firstInvalid?.focus?.();
+        return;
+      }
+
+      const corpus = value('corpus');
+      const annualReturn = value('annualReturn');
+      const rate = monthlyRate(annualReturn);
+      const inflation = state.inflation ? value('inflationRate') : 0;
+      let startingWithdrawal;
+      let months;
+      let capped = false;
+
+      if (state.mode === 'duration') {
+        months = value('durationYears') * 12 + value('durationMonths');
+        startingWithdrawal = sustainableWithdrawal(corpus, rate, months, inflation);
+      } else {
+        startingWithdrawal = value('withdrawalAmount');
+        state.rows = simulate(corpus, rate, startingWithdrawal, 1200, inflation);
+        months = state.rows.length;
+        capped = months === 1200 && state.rows[state.rows.length - 1].closing > .01;
+      }
+
+      if (state.mode === 'duration') state.rows = simulate(corpus, rate, startingWithdrawal, months, inflation);
+      state.expanded = false;
+      const totalWithdrawn = state.rows.reduce((sum, row) => sum + row.withdrawal, 0);
+      const totalInterest = state.rows.reduce((sum, row) => sum + row.interest, 0);
+      const ending = state.rows[state.rows.length - 1]?.closing || 0;
+      const annualWithdrawalRate = startingWithdrawal * 12 / corpus * 100;
+
+      if (state.mode === 'duration') {
+        $('resultLabel').textContent = 'Estimated starting monthly income';
+        $('primaryResult').textContent = formatINR(startingWithdrawal);
+        $('primaryContext').textContent = state.inflation ? `Increases by ${formatPercent(inflation)} each year for ${formatDuration(months)}.` : `Estimated for ${formatDuration(months)} at ${formatPercent(annualReturn)} return.`;
+      } else {
+        $('resultLabel').textContent = 'Estimated corpus longevity';
+        $('primaryResult').textContent = capped ? '100+ years' : formatDuration(months);
+        $('primaryContext').textContent = capped ? 'The corpus still has a positive projected balance at the 100-year calculation limit.' : `At a starting withdrawal of ${formatINR(startingWithdrawal)} per month.`;
+      }
+
+      $('metrics').innerHTML = [
+        metric('Total withdrawn', formatINR(totalWithdrawn)),
+        metric('Returns earned', formatINR(totalInterest), 'green'),
+        metric('Ending corpus', formatINR(ending)),
+        metric('Starting withdrawal rate', formatPercent(annualWithdrawalRate)),
+        metric('Expected return', `${formatPercent(annualReturn)} p.a.`),
+        metric('Inflation adjustment', state.inflation ? `${formatPercent(inflation)} p.a.` : 'Not included')
+      ].join('');
+
+      $('insightText').textContent = state.inflation
+        ? `Your first year withdrawal is ${formatINR(startingWithdrawal)} a month and rises annually with inflation. Test a lower return to understand how a less favourable market scenario changes this estimate.`
+        : `This projection keeps the monthly withdrawal flat. Its purchasing power may fall over time, so compare it with an inflation adjusted scenario before planning long term income.`;
+      $('chartEnd').textContent = capped ? '100 years' : formatDuration(months);
+      $('emptyState').style.display = 'none';
+      $('results').classList.add('visible');
+      renderSchedule();
+      requestAnimationFrame(() => drawChart(state.rows));
+      if (window.innerWidth < 901) $('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function metric(label, result, className = '') {
+      return `<div class="metric"><span>${label}</span><strong class="${className}">${result}</strong></div>`;
+    }
+
+    function renderSchedule() {
+      const visibleRows = state.expanded ? state.rows : state.rows.slice(0, 24);
+      $('scheduleBody').innerHTML = visibleRows.map((row) => `
+        <tr><td>Month ${row.month}</td><td>${formatINR(row.opening)}</td><td class="interest">+${formatINR(row.interest)}</td><td class="withdrawal">−${formatINR(row.withdrawal)}</td><td>${formatINR(row.closing)}</td></tr>
+      `).join('');
+      const toggle = $('scheduleToggle');
+      toggle.hidden = state.rows.length <= 24;
+      toggle.textContent = state.expanded ? 'Show first 24 months' : `Show all ${formatIndianNumber(state.rows.length)} months`;
+    }
+
+    function drawChart(rows) {
+      const canvas = $('projectionChart');
+      const width = canvas.clientWidth;
+      const height = 190;
+      const ratio = window.devicePixelRatio || 1;
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      const context = canvas.getContext('2d');
+      context.scale(ratio, ratio);
+      context.clearRect(0, 0, width, height);
+
+      const padding = { top: 12, right: 8, bottom: 10, left: 8 };
+      const chartWidth = width - padding.left - padding.right;
+      const chartHeight = height - padding.top - padding.bottom;
+      const points = [{ closing: rows[0]?.opening || 0 }, ...rows];
+      const max = Math.max(...points.map((point) => point.closing), 1) * 1.08;
+
+      context.strokeStyle = '#e5ebf3';
+      context.lineWidth = 1;
+      for (let i = 0; i <= 3; i += 1) {
+        const y = padding.top + chartHeight * i / 3;
+        context.beginPath(); context.moveTo(padding.left, y); context.lineTo(width - padding.right, y); context.stroke();
+      }
+
+      const coords = points.map((point, index) => ({
+        x: padding.left + chartWidth * index / Math.max(points.length - 1, 1),
+        y: padding.top + chartHeight * (1 - point.closing / max)
+      }));
+      const gradient = context.createLinearGradient(0, padding.top, 0, height);
+      gradient.addColorStop(0, 'rgba(37, 99, 235, .24)');
+      gradient.addColorStop(1, 'rgba(37, 99, 235, .015)');
+      context.beginPath();
+      context.moveTo(coords[0].x, padding.top + chartHeight);
+      coords.forEach((point) => context.lineTo(point.x, point.y));
+      context.lineTo(coords[coords.length - 1].x, padding.top + chartHeight);
+      context.closePath();
+      context.fillStyle = gradient;
+      context.fill();
+
+      context.beginPath();
+      coords.forEach((point, index) => index ? context.lineTo(point.x, point.y) : context.moveTo(point.x, point.y));
+      context.strokeStyle = '#2563eb';
+      context.lineWidth = 2.5;
+      context.lineJoin = 'round';
+      context.lineCap = 'round';
+      context.stroke();
+    }
+
+    function formatIndianNumber(number) {
+      return new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(number);
+    }
+
+    function formatINR(number) {
+      if (!Number.isFinite(number)) return '₹0';
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.round(number));
+    }
+
+    function formatPercent(number) {
+      return `${new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(number)}%`;
+    }
+
+    function formatDuration(months) {
+      const years = Math.floor(months / 12);
+      const extraMonths = months % 12;
+      if (years && extraMonths) return `${formatIndianNumber(years)} ${years === 1 ? 'year' : 'years'} ${extraMonths} ${extraMonths === 1 ? 'month' : 'months'}`;
+      if (years) return `${formatIndianNumber(years)} ${years === 1 ? 'year' : 'years'}`;
+      return `${extraMonths} ${extraMonths === 1 ? 'month' : 'months'}`;
+    }
+  </script>
+</body>
+</html>
 
