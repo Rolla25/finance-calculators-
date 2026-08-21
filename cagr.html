@@ -1,42 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CAGR Calculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>CAGR Calculator: Calculate Annual Growth Rate | Corpusly</title>
+<meta name="description" content="Calculate CAGR and project the future value of an investment with Corpusly's free browser based CAGR calculator.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="theme-color" content="#102649">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6944131887125712" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#F3F4F8;color:#1E293B;font-size:15px;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#F8FAFC;color:#111827;font-size:15px;line-height:1.6;margin:0;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
 
-.hero{background:linear-gradient(90deg,#0B4DCC,#1E63FF,#1BA7E1);padding:40px 24px 36px;text-align:center}
-.hero h1{font-size:28px;font-weight:700;color:#fff;letter-spacing:-0.4px;margin-bottom:10px}
-.hero p{font-size:14px;color:rgba(255,255,255,0.85);max-width:600px;margin:0 auto;line-height:1.65}
+/* Corpusly site navigation */
+.site-navbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid #E5E7EB;transition:box-shadow .25s}
+.site-navbar.scrolled{box-shadow:0 4px 16px rgba(15,23,42,.06)}
+.site-navbar-inner{max-width:1200px;height:68px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.site-logo{font-size:1.4rem;font-weight:800;color:#111827;letter-spacing:-.02em;display:inline-flex;align-items:flex-start}
+.site-logo .accent{color:#2563EB}.site-logo .dot{width:6px;height:6px;border-radius:50%;background:#10B981;margin-left:4px;margin-top:4px;flex-shrink:0}
+.site-nav-links{display:flex;align-items:center;gap:30px}
+.site-nav-links>a:not(.nav-cta){position:relative;color:#6B7280;font-weight:600;font-size:.95rem;padding:6px 0;transition:color .2s}
+.site-nav-links>a:not(.nav-cta)::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:#2563EB;transition:right .25s;border-radius:2px}
+.site-nav-links>a:not(.nav-cta):hover,.site-nav-links>a[aria-current=page]{color:#111827}
+.site-nav-links>a:not(.nav-cta):hover::after,.site-nav-links>a[aria-current=page]::after{right:0}
+.nav-cta{display:inline-flex;align-items:center;justify-content:center;padding:9px 20px;border-radius:999px;background:#2563EB;color:#fff;font-weight:700;font-size:.875rem;transition:background .2s,transform .2s}
+.nav-cta:hover{background:#1D4ED8;transform:translateY(-1px)}
+.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:6px}
+.menu-toggle span{width:22px;height:2px;background:#111827;border-radius:2px;transition:transform .2s,opacity .2s}
+.menu-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-toggle.open span:nth-child(2){opacity:0}
+.menu-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-.tab-bar{background:#fff;border-bottom:1px solid #E5E7EB;padding:0 28px}
-.tab-bar-inner{max-width:1520px;margin:0 auto;display:flex;gap:8px;padding:10px 0}
-.tab-btn{padding:9px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid #E5E7EB;background:#fff;color:#64748B;transition:all 0.18s}
-.tab-btn.active{background:linear-gradient(90deg,#0B4DCC,#1E63FF,#1BA7E1);color:#fff;border-color:transparent}
+.hero{background:linear-gradient(135deg,#0B4DCC,#1E63FF,#1BA7E1);padding:32px 24px;text-align:center}
+.hero h1{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.3px;margin-bottom:8px}
+.hero p{font-size:13px;color:rgba(255,255,255,.9);max-width:600px;margin:0 auto;line-height:1.6}
+
+.tab-bar{padding:20px 20px 0}
+.tab-bar-inner{max-width:1200px;margin:0 auto;display:flex;gap:4px;padding:4px;background:#fff;border:1px solid #E5E7EB;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.tab-btn{flex:1;padding:10px 12px;border-radius:9px;font-size:13px;font-weight:500;cursor:pointer;border:0;background:transparent;color:#6B7280;transition:all .18s;font-family:inherit}
+.tab-btn.active{background:linear-gradient(135deg,#0B4DCC,#1E63FF,#1BA7E1);color:#fff;box-shadow:0 2px 8px rgba(30,99,255,.25)}
 .tab-btn:hover:not(.active){background:#F1F5F9;color:#1E4ED8}
 
-.main{max-width:1520px;margin:0 auto;padding:32px 28px}
+.main{max-width:1200px;margin:0 auto;padding:20px}
 
-.card{background:#fff;border-radius:16px;border:1px solid #E5E7EB;box-shadow:0 1px 6px rgba(0,0,0,0.06);overflow:hidden;margin-bottom:24px}
+.card{background:#fff;border-radius:16px;border:1px solid #E5E7EB;box-shadow:0 1px 6px rgba(0,0,0,.05);overflow:hidden;margin-bottom:16px}
 .card:last-child{margin-bottom:0}
-.card-head{padding:20px 24px 16px;border-bottom:1px solid #F1F5F9}
-.card-body{padding:24px}
+.card-head{padding:18px 20px 14px;border-bottom:1px solid #F1F5F9}
+.card-body{padding:20px}
 
 .sec-title{display:flex;align-items:center;gap:10px;margin-bottom:0}
 .sec-title::before{content:'';width:4px;height:20px;background:linear-gradient(180deg,#0B4DCC,#1BA7E1);border-radius:4px;flex-shrink:0}
 .sec-title span{font-size:11px;font-weight:700;color:#1E4ED8;text-transform:uppercase;letter-spacing:0.8px}
 
 /* INPUTS — horizontal layout */
-.inputs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.field label{display:block;font-size:12px;font-weight:600;color:#475569;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px}
+.inputs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.field label{display:block;font-size:11px;font-weight:600;color:#6B7280;margin-bottom:6px;letter-spacing:.02em}
 .input-wrap{position:relative;display:flex;align-items:center}
 .input-prefix{position:absolute;left:11px;font-size:14px;font-weight:500;color:#94A3B8;pointer-events:none}
 .input-suffix{position:absolute;right:11px;font-size:14px;font-weight:500;color:#94A3B8;pointer-events:none}
-input[type=text],input[type=date]{width:100%;max-width:100%;padding:10px 12px;font-size:14px;border:1.5px solid #E5E7EB;border-radius:9px;color:#1E293B;background:#fff;transition:border-color 0.15s,box-shadow 0.15s;outline:none;font-family:inherit;height:42px;box-sizing:border-box}
+input[type=text],input[type=date]{width:100%;max-width:100%;padding:10px 12px;font-size:14px;border:1.5px solid #D1D5DB;border-radius:10px;color:#111827;background:#fff;transition:border-color .15s,box-shadow .15s;outline:none;font-family:inherit;height:42px;box-sizing:border-box}
 input[type=text]:focus,input[type=date]:focus{border-color:#1E63FF;box-shadow:0 0 0 3px rgba(30,99,255,0.1)}
 input.has-prefix{padding-left:28px}
 input.has-suffix{padding-right:32px}
@@ -44,20 +69,20 @@ input.error-input{border-color:#EF4444!important}
 .err{font-size:11px;color:#EF4444;margin-top:4px;display:none}
 .err.show{display:block}
 .btn{padding:10px 20px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;display:inline-flex;align-items:center;gap:6px}
-.btn-secondary{background:#F1F5F9;color:#475569;border:1.5px solid #E5E7EB}
-.btn-secondary:hover{background:#E2E8F0}
+.btn-secondary{background:#fff;color:#6B7280;border:1.5px solid #D1D5DB}
+.btn-secondary:hover{border-color:#1E63FF;color:#1E63FF;background:#fff}
 
 /* RESULTS HERO */
-.result-hero{background:linear-gradient(90deg,#0B4DCC,#1E63FF,#1BA7E1);border-radius:14px;padding:32px 24px;margin-bottom:24px;text-align:center;color:#fff}
+.result-hero{background:linear-gradient(135deg,#0B4DCC,#1E63FF,#1BA7E1);border-radius:14px;padding:24px;margin-bottom:16px;text-align:center;color:#fff}
 .result-hero .rh-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.75);margin-bottom:10px}
-.result-hero .rh-value{font-size:clamp(22px,5vw,52px);font-weight:700;letter-spacing:-1px;line-height:1.15;word-break:break-word;overflow-wrap:anywhere;max-width:100%}
+.result-hero .rh-value{font-size:clamp(26px,4vw,40px);font-weight:700;letter-spacing:-.7px;line-height:1.15;word-break:break-word;overflow-wrap:anywhere;max-width:100%}
 .result-hero .rh-sub{font-size:13px;color:rgba(255,255,255,0.75);margin-top:10px}
 
 /* METRICS */
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
-.metric{border-radius:12px;padding:18px 20px;border:1px solid transparent}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.metric{border-radius:12px;padding:16px;border:1px solid transparent}
 .metric .m-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
-.metric .m-value{font-size:22px;font-weight:700;line-height:1.1}
+.metric .m-value{font-size:18px;font-weight:700;line-height:1.2}
 .metric .m-sub{font-size:11px;margin-top:4px;opacity:0.75}
 .metric.green{background:#F0FDF4;border-color:#BBF7D0}.metric.green .m-label{color:#166534}.metric.green .m-value{color:#15803D}
 .metric.blue{background:#EFF6FF;border-color:#BFDBFE}.metric.blue .m-label{color:#1E40AF}.metric.blue .m-value{color:#1D4ED8}
@@ -65,7 +90,7 @@ input.error-input{border-color:#EF4444!important}
 .metric.gray{background:#F8FAFC;border-color:#E2E8F0}.metric.gray .m-label{color:#475569}.metric.gray .m-value{color:#0F172A}
 
 /* JOURNEY */
-.journey{background:#F8FAFC;border-radius:12px;padding:18px 24px;margin-bottom:24px;border:1px solid #E5E7EB}
+.journey{background:#F8FAFC;border-radius:12px;padding:18px 20px;margin-bottom:16px;border:1px solid #E5E7EB}
 .journey-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .journey-val .jv-label{font-size:11px;color:#64748B;font-weight:500}
 .journey-val .jv-num{font-size:18px;font-weight:700;color:#0F172A;margin-top:3px}
@@ -73,7 +98,7 @@ input.error-input{border-color:#EF4444!important}
 .journey-arrow{color:#CBD5E1;font-size:20px;flex-shrink:0}
 
 /* CHART */
-.chart-wrap{background:#fff;border-radius:14px;border:1px solid #E5E7EB;padding:24px;margin-bottom:24px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.chart-wrap{background:#fff;border-radius:14px;border:1px solid #E5E7EB;padding:20px;margin-bottom:16px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
 .chart-sec-title{display:flex;align-items:center;gap:10px;margin-bottom:18px}
 .chart-sec-title::before{content:'';width:4px;height:20px;background:linear-gradient(180deg,#0B4DCC,#1BA7E1);border-radius:4px;flex-shrink:0}
 .chart-sec-title span{font-size:11px;font-weight:700;color:#1E4ED8;text-transform:uppercase;letter-spacing:0.8px}
@@ -117,10 +142,14 @@ input.error-input{border-color:#EF4444!important}
 .results-empty p{font-size:13px}
 
 .hidden{display:none}
-.sec-gap{margin-top:32px}
+.sec-gap{margin-top:24px}
 
 @media(max-width:1100px){.inputs-grid{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){.inputs-grid{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.hero h1{font-size:22px}.main{padding:20px 16px}.tab-btn{padding:8px 14px;font-size:12px}}
+@media(max-width:768px){
+  .site-nav-links{position:absolute;top:68px;left:0;right:0;background:#fff;flex-direction:column;align-items:flex-start;padding:18px 20px;gap:16px;box-shadow:0 8px 16px rgba(15,23,42,.08);display:none}
+  .site-nav-links.open{display:flex}.site-nav-links .nav-cta{width:100%}.site-nav-links>a:not(.nav-cta)::after{display:none}.menu-toggle{display:flex}
+}
+@media(max-width:640px){.inputs-grid{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.hero{padding:24px 18px}.hero h1{font-size:18px}.hero p{font-size:12px}.main{padding:20px 16px}.tab-bar{padding:16px 16px 0}.tab-btn{padding:10px 8px;font-size:12px}.card-body{padding:16px}.card-head{padding:16px}.journey{padding:16px}.journey-badge{padding:5px 10px;font-size:11px}.jv-num{font-size:15px!important}}
 @media(max-width:400px){.metrics{grid-template-columns:1fr}}
 
 /* ===== Corpusly Footer — self-contained ===== */
@@ -135,6 +164,7 @@ input.error-input{border-color:#EF4444!important}
   padding-top:48px;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   line-height:1.6;
+  margin-top:24px;
 }
 .corpusly-footer .container{
   max-width:1200px;
@@ -144,7 +174,7 @@ input.error-input{border-color:#EF4444!important}
 .corpusly-footer-grid{
   display:grid;
   grid-template-columns:1.4fr 1fr 1fr;
-  gap:32px;
+  gap:64px;
   padding-bottom:32px;
   border-bottom:1px solid rgba(255,255,255,0.08);
 }
@@ -204,61 +234,160 @@ input.error-input{border-color:#EF4444!important}
   .corpusly-footer-grid{grid-template-columns:1fr;gap:28px;}
 }
 
+/* ===== Shared Improved SIP / Improved SWP design system ===== */
+:root{--navy:#102649;--blue:#175dcc;--mint:#13b886;--ink:#14233b;--muted:#68758a;--line:#dce3ed;--wash:#f3f7fb;--cream:#f9faf6;--white:#fff;--danger:#b42318;--safe-gutter:24px}
+body{color:var(--ink);background:#fff;font:16px/1.5 Arial,Helvetica,sans-serif}
+button,input{font:inherit}.wrap{width:100%;max-width:1064px;margin:auto;padding-left:var(--safe-gutter);padding-right:var(--safe-gutter)}
+
+.corpusly-header{height:70px;display:flex;align-items:center;justify-content:space-between;background:#fff}
+.brand{display:inline-flex;align-items:flex-start;color:var(--navy);font-size:25px;font-weight:800;letter-spacing:-1px}.brand b{color:var(--blue)}.brand i{width:7px;height:7px;border-radius:50%;background:var(--mint);margin:3px 0 0 4px}
+.menu-button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;background:transparent;color:var(--navy)}
+.menu-button:focus-visible,.menu-close:focus-visible,.menu-panel a:focus-visible{outline:3px solid #175dcc38;outline-offset:2px}
+.menu-icon{display:flex;width:26px;flex-direction:column;gap:5px}.menu-icon span{display:block;width:100%;height:2px;border-radius:2px;background:var(--navy)}
+.menu-overlay{position:fixed;inset:0;z-index:50;background:#07162ca3;opacity:0;pointer-events:none;transition:opacity .25s ease}.menu-overlay.open{opacity:1;pointer-events:auto}
+.menu-panel{position:fixed;z-index:51;top:0;right:0;width:min(410px,100%);height:100dvh;padding:25px 26px 34px;overflow-y:auto;background:#fff;box-shadow:-20px 0 55px #07162c33;transform:translateX(105%);transition:transform .28s ease}.menu-panel.open{transform:translateX(0)}body.menu-open{overflow:hidden}
+.menu-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid var(--line)}.menu-close{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:25px;line-height:1}
+.menu-home{display:block;margin:18px 0;padding:13px 14px;border-radius:10px;background:var(--wash);color:var(--navy);font-size:14px;font-weight:700}.menu-group{padding:5px 0 18px}.menu-group h3{margin:0 0 10px;color:#778399;font-size:10px;letter-spacing:.13em;text-transform:uppercase}.menu-links{display:grid;grid-template-columns:1fr 1fr;gap:7px}.menu-links a{padding:10px 11px;border:1px solid transparent;border-radius:9px;color:#425169;font-size:13px}.menu-links a:hover{border-color:var(--line);background:var(--wash);color:var(--navy)}.menu-links a[aria-current=page]{border-color:#cbdaf0;background:#edf4ff;color:var(--blue);font-weight:700}.menu-start{display:block;padding:13px 16px;border-radius:10px;background:var(--navy);color:#fff;text-align:center;font-size:13px;font-weight:700}
+
+.hero{position:relative;overflow:hidden;padding:74px 20px 78px;text-align:center;color:#fff;background:linear-gradient(120deg,#0d2344,#123767 58%,#155aac)}
+.hero:before,.hero:after{content:"";position:absolute;width:520px;height:520px;border:1px solid #ffffff17;border-radius:50%}.hero:before{left:-320px;bottom:-390px}.hero:after{right:-330px;top:-390px}.eyebrow,.kicker{display:block;margin-bottom:10px;color:#a9c8f1;font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.hero h1{max-width:800px;margin:0 auto 16px;font:500 50px/1.08 Georgia,serif;letter-spacing:-2px}.hero p{max-width:670px;margin:auto;color:#d4e1f2;font-size:17px;line-height:1.5}.trust{display:flex;justify-content:center;gap:24px;margin-top:25px;color:#c7d6e9;font-size:12px}
+
+.main{max-width:1064px;padding:70px var(--safe-gutter)}.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:24px}.section-head .kicker{color:var(--blue)}.section-head h2{margin:0;color:var(--navy);font:500 34px/1.15 Georgia,serif;letter-spacing:-1px}
+.tab-bar{padding:0}.tab-bar-inner{max-width:none;margin:0 0 18px;display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;border:0;border-radius:14px;background:#edf2f8;box-shadow:none}.tab-btn{min-height:60px;display:flex;gap:11px;align-items:center;padding:12px 16px;border:1px solid transparent;border-radius:10px;background:transparent;color:#748096;text-align:left;font-size:13px;font-weight:700;box-shadow:none}.tab-btn.active{border-color:#d8e1ed;background:#fff;color:var(--navy);box-shadow:0 3px 11px #18375d14}.tab-btn:hover:not(.active){background:#e6edf6;color:var(--navy)}.mode-icon{display:grid;place-items:center;width:31px;height:31px;flex:0 0 auto;border-radius:8px;background:#dce7f6;color:var(--blue);font-size:17px}.tab-btn b,.tab-btn small{display:block}.tab-btn small{color:#8792a3;font-size:11px;font-weight:400}
+
+#tab-cagr:not(.hidden),#tab-fv:not(.hidden){display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
+#tab-cagr>.card,#tab-fv>.card{margin:0;padding:28px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 8px 30px #1432580f;overflow:hidden}
+#tab-cagr>.card .card-head,#tab-fv>.card .card-head{position:relative;margin:0 0 24px;padding:0 0 21px 44px;border-bottom:1px solid #e8edf3}
+#tab-cagr>.card .card-head:before,#tab-fv>.card .card-head:before{content:"01";position:absolute;top:0;left:0;width:31px;height:31px;display:grid;place-items:center;border-radius:8px;color:#fff;background:var(--navy);font-size:10px;font-weight:800}
+#tab-cagr>.card .sec-title,#tab-fv>.card .sec-title{display:block;margin:0}.sec-title:before{display:none!important}
+#tab-cagr>.card .sec-title span,#tab-fv>.card .sec-title span{color:var(--navy);font-size:17px;font-weight:700;letter-spacing:0;text-transform:none}
+#tab-cagr>.card .card-head p,#tab-fv>.card .card-head p{margin:3px 0 0;color:var(--muted);font-size:12px}
+#tab-cagr>.card .card-body,#tab-fv>.card .card-body{padding:0}
+.inputs-grid{grid-template-columns:1fr 1fr;gap:23px 20px}.field label{margin-bottom:7px;color:#34445c;font-size:12px;font-weight:700;letter-spacing:0;text-transform:none}
+.input-wrap{height:46px;border:1px solid #ccd6e3;border-radius:10px}.input-wrap:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px #175dcc18}.input-prefix,.input-suffix{position:static;padding:0 12px;color:#65738a;font-size:12px;transform:none}
+input[type=text],input[type=date]{height:46px;padding:0 12px;border:1px solid #ccd6e3;border-radius:10px;background:#fff;color:var(--navy);font-size:15px;font-weight:700;box-shadow:none}input[type=text]:focus,input[type=date]:focus{border-color:var(--blue);box-shadow:0 0 0 3px #175dcc18}.input-wrap input[type=text]{height:100%;padding:0;border:0;background:transparent;box-shadow:none}.input-wrap input.has-prefix,.input-wrap input.has-suffix{padding:0}.err{color:var(--danger);font-size:10px}
+.btn-secondary{min-height:42px;padding:9px 14px;border:1px solid var(--line);border-radius:10px;background:var(--wash);color:var(--muted);font-size:12px}.btn-secondary:hover{border-color:#b8cbe7;background:#eef3f8;color:var(--blue)}
+.action-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid #e8edf3}.action-row .btn{min-width:132px;min-height:44px;justify-content:center;border-radius:10px;font-size:13px;font-weight:700}.action-row .btn-calculate{grid-column:2;grid-row:1;border:1px solid var(--navy);background:var(--navy);color:#fff}.btn-calculate:hover{background:#17355f;box-shadow:0 7px 16px #1026492b}.action-row .btn-secondary{grid-column:1;grid-row:1;justify-self:end;margin-right:12px;background:#fff}
+
+#cagr-results,#fv-results{position:relative;top:0;min-height:445px;padding:34px;overflow:hidden;border-radius:18px;background:linear-gradient(145deg,#10284c,#153b70);color:#fff;box-shadow:0 8px 30px #1432580f}
+#cagr-results .results-empty,#fv-results .results-empty{min-height:377px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;margin:0;padding:0;border:0;background:transparent;color:#bbcee5;text-align:left;box-shadow:none}#cagr-results .empty-icon,#fv-results .empty-icon{width:72px;height:72px;display:grid;place-items:center;margin-bottom:18px;border-radius:50%;background:#38d1a21c;box-shadow:inset 0 0 0 1px #59dab22e;font-size:28px}#cagr-results .results-empty p,#fv-results .results-empty p{max-width:250px;color:#bbcee5;font-size:12px;line-height:1.7}
+#cagr-results .result-hero,#fv-results .result-hero{margin:0;padding:0 0 24px;border-radius:0;background:transparent;color:#fff;text-align:left}.result-hero .rh-label{color:#94b9e8!important;font-size:10px!important;letter-spacing:.13em!important}.result-hero .rh-value{margin-top:9px;color:#fff;font:500 43px/1 Georgia,serif;letter-spacing:-1px}.result-hero .rh-sub{margin-top:7px;color:#bbcee5;font-size:12px}
+#cagr-results .metrics,#fv-results .metrics{grid-template-columns:1fr 1fr;gap:0;margin:0;padding:15px 0;border-top:1px solid #ffffff1f;border-bottom:1px solid #ffffff1f}.metrics .metric,.metrics .metric.green,.metrics .metric.blue,.metrics .metric.orange,.metrics .metric.gray{padding:9px 6px;border:0;border-radius:0;background:transparent}.metrics .metric .m-label,.metrics .metric.green .m-label,.metrics .metric.blue .m-label,.metrics .metric.orange .m-label,.metrics .metric.gray .m-label{color:#aec2da;font-size:10px}.metrics .metric .m-value,.metrics .metric.green .m-value,.metrics .metric.blue .m-value,.metrics .metric.orange .m-value,.metrics .metric.gray .m-value{color:#fff;font-size:14px}.metrics .metric .m-sub{color:#a9bfd9;font-size:10px}
+#cagr-results .journey,#fv-results .journey{margin:19px 0 0;padding:13px;border:1px solid #59dab22e;border-radius:11px;background:#38d1a21c}.journey-val .jv-label{color:#a9bfd9}.journey-val .jv-num{color:#fff;font-size:14px}.journey-badge{padding:5px 9px;border-radius:7px;background:var(--mint);font-size:10px}.journey-arrow{color:#78dfbd}
+#cagr-results .chart-wrap,#fv-results .chart-wrap{margin:20px 0 0;padding:18px 0 0;border:0;border-top:1px solid #ffffff1f;border-radius:0;background:transparent;box-shadow:none}.chart-sec-title:before{display:none}.chart-sec-title span{color:#fff;font-size:11px}.chart-wrap>div{min-height:180px!important;max-height:180px}
+#cagr-results>.card,#fv-results>.card{margin:18px 0 0;border-color:#ffffff24;border-radius:10px;background:transparent;box-shadow:none}#cagr-results>.card .card-head,#fv-results>.card .card-head{padding:12px 14px;border-color:#ffffff24;background:#ffffff0c}.ytable{min-width:520px}.ytable th{padding:9px 10px;border-color:#ffffff13;background:#153b70;color:#aec2da;font-size:9px}.ytable td{padding:9px 10px;border-color:#ffffff13;color:#d6e1ef;font-size:10px}.ytable td:first-child{color:#fff}.ytable tr:last-child td,.ytable tr:hover td{background:#ffffff08;color:#d6e1ef}
+
+.main>.card{margin-top:75px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:none}.main>.card .card-head{padding:22px;border-bottom:1px solid var(--line)}.main>.card .sec-title span{color:var(--navy);font:500 27px/1.15 Georgia,serif;letter-spacing:-.5px;text-transform:none}.main>.card .card-body{padding:22px}.education-copy{margin:0 0 8px;color:var(--muted);font-size:13px;line-height:1.7}.education-subtitle{margin:14px 0 8px;color:var(--navy);font-size:13px;font-weight:700}.formula-box{border:1px solid var(--line);border-left:4px solid var(--blue);background:var(--wash);color:var(--navy)}.why-list li{color:var(--muted)}.why-list li:before{background:var(--mint)}.faq-item{border-color:var(--line)}.faq-q{color:var(--navy);font-size:14px}.faq-icon{color:var(--blue)}.faq-a-inner{color:var(--muted);font-size:13px}.disclaimer{margin-top:18px;margin-bottom:0;border-color:#e3d7b6;background:#fffaf0}.disclaimer p{color:#745f33;font-size:11px}.disclaimer>span{font-weight:800}
+.guide-section{padding:75px 0 0}.guide-intro{max-width:720px}.guide-intro .kicker{color:var(--blue)}.guide-intro h2{margin:0;color:var(--navy);font:500 34px/1.15 Georgia,serif;letter-spacing:-1px}.guide-intro p{margin:14px 0 0;color:var(--muted);line-height:1.75}.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.guide-grid article,.guide-formula{padding:22px;border:1px solid var(--line);border-radius:14px}.guide-grid h3,.guide-formula h3{margin:0 0 8px;color:var(--navy);font-size:16px}.guide-grid p,.guide-formula p{margin:0;color:var(--muted);font-size:13px;line-height:1.7}.guide-formula{margin-top:18px;background:var(--wash)}.guide-formula code{display:block;margin-top:10px;color:var(--navy);font:700 12px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}
+
+/* Exact Improved SIP / SWP FAQ accordion */
+.main>.faq-card{overflow:visible;border:0;background:transparent}
+.main>.faq-card>.card-head{padding:0 0 32px;border:0}
+.main>.faq-card>.card-head .sec-title span{font-size:34px;letter-spacing:-1px}
+.faq-card>[itemscope]{padding:0 20px;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#fff}
+.faq-card .faq-item{border-bottom:1px solid var(--line)}.faq-card .faq-item:last-child{border-bottom:0}
+.faq-card .faq-q{min-height:64px;padding:19px 0;color:var(--navy);background:none;font-size:14px;font-weight:700;line-height:1.45}
+.faq-card .faq-q:hover{background:none}
+.faq-card .faq-icon{width:25px;height:25px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;background:#eef3f8;color:transparent;font-size:0;font-weight:400;line-height:1;transform:none;transition:none}
+.faq-card .faq-icon:before{content:"+";color:var(--blue);font-size:17px;line-height:1}
+.faq-card .faq-item.open .faq-icon{transform:none}.faq-card .faq-item.open .faq-icon:before{content:"−"}
+.faq-card .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease}.faq-card .faq-item.open .faq-a{max-height:360px}
+.faq-card .faq-a-inner{padding:0 38px 18px 0;color:var(--muted);font-size:13px;line-height:1.7}
+
+.corpusly-footer{margin-top:60px;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}.corpusly-footer .container{max-width:1064px;padding:0 var(--safe-gutter)}.corpusly-footer-grid{grid-template-columns:2fr 1fr 1fr;gap:55px;padding-bottom:40px}.corpusly-footer-logo{color:#fff;font-size:25px}.corpusly-footer-logo .accent{color:var(--blue)!important}.corpusly-footer-col p{max-width:360px;color:#a9b8cc!important;font-size:13px;line-height:1.7}.corpusly-footer-col h4{margin:2px 0 5px;color:#d9e6f6!important;font-size:10px;letter-spacing:.12em}.corpusly-footer-col ul{gap:9px}.corpusly-footer a{color:#a9b8cc!important;font-size:12px}.corpusly-footer-bottom{padding-top:18px;border-top:1px solid #ffffff1a;color:#a9b8cc;font-size:10px}
+
+/* Exact footer shared by Improved SIP and Improved SWP */
+footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:55px;padding-bottom:40px}
+.footer-grid>div{display:flex;flex-direction:column;gap:9px}
+.brand.light{color:#fff}
+.footer-grid p{max-width:360px;margin:0;color:#a9b8cc;font-size:13px;line-height:1.7}
+.footer-grid h4{margin:2px 0 5px;color:#d9e6f6;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.footer-grid a:not(.brand){color:#a9b8cc;font-size:12px}
+.copyright{display:flex;justify-content:center;padding-top:18px;border-top:1px solid #ffffff1a;color:#a9b8cc;text-align:center;font-size:10px}
+
+@media(max-width:800px){#tab-cagr:not(.hidden),#tab-fv:not(.hidden){grid-template-columns:1fr}#cagr-results,#fv-results{position:relative;top:0}.guide-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1.4fr 1fr 1fr}}
+@media(max-width:560px){:root{--safe-gutter:22px}body{overflow-x:hidden}.corpusly-header{position:sticky;top:0;z-index:9;height:62px;background:#fff;padding-left:max(var(--safe-gutter),env(safe-area-inset-left));padding-right:max(var(--safe-gutter),env(safe-area-inset-right))}.brand{font-size:22px}.menu-button{width:40px;height:40px}.menu-panel{padding:20px max(var(--safe-gutter),env(safe-area-inset-right)) 30px max(var(--safe-gutter),env(safe-area-inset-left))}.menu-links{grid-template-columns:1fr}.hero{padding:55px max(var(--safe-gutter),env(safe-area-inset-right))}.hero h1{font-size:35px;letter-spacing:-1.2px}.hero h1 br{display:none}.hero p{font-size:15px}.trust{flex-direction:column;align-items:center;gap:7px;margin-top:23px}.main{padding:50px max(var(--safe-gutter),env(safe-area-inset-right)) 50px max(var(--safe-gutter),env(safe-area-inset-left))}.section-head h2,.guide-intro h2{font-size:29px}.tab-bar-inner{grid-template-columns:1fr}.tab-btn{min-height:54px}#tab-cagr>.card,#tab-fv>.card,#cagr-results,#fv-results{padding:21px 18px}.inputs-grid{grid-template-columns:1fr}.input-wrap,input[type=text],input[type=date]{height:50px}.action-row{grid-template-columns:1fr;gap:10px}.action-row .btn{width:100%;min-width:0}.action-row .btn-calculate{grid-column:1;grid-row:1}.action-row .btn-secondary{grid-column:1;grid-row:2;justify-self:stretch;margin-right:0}.result-hero .rh-value{font-size:38px}.guide-section{padding-top:58px}.main>.card{margin-top:58px}.main>.card .sec-title span{font-size:25px}.main>.faq-card>.card-head .sec-title span{font-size:29px}.faq-card>[itemscope]{padding:0 16px}.faq-card .faq-q{min-height:62px}.faq-card .faq-a-inner{padding-right:22px}.footer-grid{grid-template-columns:1fr}.footer-grid a:not(.brand){min-height:32px}.copyright{display:block}.copyright span{display:block;margin-top:5px}}
+
+/* Current SIP calculator logo sizing on desktop and mobile */
+.brand{color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:1.68rem;font-weight:800;letter-spacing:-.02em}
+.brand i{width:7.2px;height:7.2px;flex-shrink:0;margin:4.8px 0 0 4.8px}
+.corpusly-header{height:70px}
+@media(max-width:560px){.corpusly-header{height:70px}.brand{font-size:1.68rem}}
+
 </style>
 </head>
 <body>
 
+<header class="corpusly-header wrap">
+  <a class="brand" href="https://corpusly.in/" aria-label="Visit the Corpusly home page">Corpus<b>ly</b><i></i></a>
+  <button class="menu-button" id="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></button>
+</header>
+<div class="menu-overlay" id="menu-overlay"></div>
+<aside class="menu-panel" id="site-menu" aria-label="Website menu" aria-hidden="true">
+  <div class="menu-head"><a class="brand" href="https://corpusly.in/">Corpus<b>ly</b><i></i></a><button class="menu-close" id="menu-close" type="button" aria-label="Close menu">×</button></div>
+  <a class="menu-home" href="https://corpusly.in/">Home</a>
+  <div class="menu-group"><h3>Calculators</h3><div class="menu-links">
+    <a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html" aria-current="page">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a>
+  </div></div>
+  <div class="menu-group"><h3>Resources</h3><div class="menu-links"><a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a></div></div>
+  <a class="menu-start" href="#calculator">Start planning</a>
+</aside>
+
 <div class="hero">
-  <h1>CAGR Calculator</h1>
-  <p>Calculate CAGR, fixed deposit (FD) returns, compound interest growth and future investment value. Ideal for comparing investments, FDs and long-term wealth creation strategies.</p>
+  <span class="eyebrow">● Free investment planning tool</span>
+  <h1>CAGR Calculator for Smarter<br>Investment Comparisons</h1>
+  <p>Measure annualised growth, compare investment performance and project future value with clear, year by year results.</p>
+  <div class="trust"><span>✓ No sign up</span><span>✓ Runs in your browser</span><span>✓ Built for Indian investors</span></div>
 </div>
 
+<div class="main wrap" id="calculator">
+<div class="section-head"><div><span class="kicker">PLAN WITH CLARITY</span><h2>Calculate your annual growth</h2></div></div>
 <div class="tab-bar">
-  <div class="tab-bar-inner">
-    <button class="tab-btn active" onclick="switchTab('cagr',this)">Calculate CAGR</button>
-    <button class="tab-btn" onclick="switchTab('fv',this)">Future Value</button>
+  <div class="tab-bar-inner" role="tablist" aria-label="Calculator mode">
+    <button class="tab-btn active" id="cagr-tab" role="tab" aria-selected="true" aria-controls="tab-cagr" onclick="switchTab('cagr',this)"><span class="mode-icon">↗</span><span><b>Calculate CAGR</b><small>What annual rate did I earn?</small></span></button>
+    <button class="tab-btn" id="fv-tab" role="tab" aria-selected="false" aria-controls="tab-fv" tabindex="-1" onclick="switchTab('fv',this)"><span class="mode-icon">◎</span><span><b>Future value</b><small>What could my investment grow to?</small></span></button>
   </div>
 </div>
 
-<div class="main">
-
 <!-- TAB: CAGR -->
-<div id="tab-cagr">
+<div id="tab-cagr" role="tabpanel" aria-labelledby="cagr-tab">
 
   <!-- 1. INVESTMENT DETAILS — full width -->
   <div class="card">
-    <div class="card-head"><div class="sec-title"><span>Investment Details</span></div></div>
+    <div class="card-head"><div class="sec-title"><span>Investment details</span></div><p>Enter the beginning and ending values for your investment period.</p></div>
     <div class="card-body">
       <div class="inputs-grid">
         <div class="field">
           <label>Starting Value</label>
           <div class="input-wrap">
             <span class="input-prefix">₹</span>
-            <input type="text" id="c-start" class="has-prefix" placeholder="1,00,000" oninput="fmtInput(this);calcCAGR()" onblur="calcCAGR()">
+            <input type="text" id="c-start" class="has-prefix" placeholder="1,00,000" oninput="fmtInput(this)">
           </div>
           <div class="err" id="c-start-err">Must be greater than ₹0</div>
         </div>
         <div class="field">
           <label>Start Date</label>
-          <input type="date" id="c-sdate" onchange="calcCAGR()">
+          <input type="date" id="c-sdate">
           <div class="err" id="c-sdate-err">Start date is required</div>
         </div>
         <div class="field">
           <label>Ending Value</label>
           <div class="input-wrap">
             <span class="input-prefix">₹</span>
-            <input type="text" id="c-end" class="has-prefix" placeholder="2,00,000" oninput="fmtInput(this);calcCAGR()" onblur="calcCAGR()">
+            <input type="text" id="c-end" class="has-prefix" placeholder="2,00,000" oninput="fmtInput(this)">
           </div>
           <div class="err" id="c-end-err">Must be greater than ₹0</div>
         </div>
         <div class="field">
           <label>End Date</label>
-          <input type="date" id="c-edate" onchange="calcCAGR()">
+          <input type="date" id="c-edate">
           <div class="err" id="c-edate-err">Must be after start date</div>
         </div>
       </div>
-      <div style="margin-top:20px">
-        <button class="btn btn-secondary" onclick="resetCAGR()">↺ Reset</button>
+      <div class="action-row">
+        <button class="btn btn-calculate" type="button" onclick="calcCAGR()">Calculate CAGR</button>
+        <button class="btn btn-secondary" type="button" onclick="resetCAGR()">Reset</button>
       </div>
     </div>
   </div>
@@ -274,42 +403,43 @@ input.error-input{border-color:#EF4444!important}
 </div>
 
 <!-- TAB: FUTURE VALUE -->
-<div id="tab-fv" class="hidden">
+<div id="tab-fv" class="hidden" role="tabpanel" aria-labelledby="fv-tab">
 
   <!-- 1. INPUTS — full width -->
   <div class="card">
-    <div class="card-head"><div class="sec-title"><span>Projection Inputs</span></div></div>
+    <div class="card-head"><div class="sec-title"><span>Projection inputs</span></div><p>Choose a starting value, expected CAGR and investment period.</p></div>
     <div class="card-body">
       <div class="inputs-grid">
         <div class="field">
           <label>Starting Value</label>
           <div class="input-wrap">
             <span class="input-prefix">₹</span>
-            <input type="text" id="fv-start" class="has-prefix" placeholder="5,00,000" oninput="fmtInput(this);calcFV()" onblur="calcFV()">
+            <input type="text" id="fv-start" class="has-prefix" placeholder="5,00,000" oninput="fmtInput(this)">
           </div>
           <div class="err" id="fv-start-err">Must be greater than ₹0</div>
         </div>
         <div class="field">
           <label>Start Date</label>
-          <input type="date" id="fv-sdate" onchange="calcFV()">
+          <input type="date" id="fv-sdate">
           <div class="err" id="fv-sdate-err">Start date is required</div>
         </div>
         <div class="field">
           <label>CAGR (%)</label>
           <div class="input-wrap">
-            <input type="text" id="fv-cagr" class="has-suffix" placeholder="12.00" oninput="fmtPct(this);calcFV()" onblur="calcFV()">
+            <input type="text" id="fv-cagr" class="has-suffix" placeholder="12.00" oninput="fmtPct(this)">
             <span class="input-suffix">%</span>
           </div>
-          <div class="err" id="fv-cagr-err">Must be between -99.99% and 1000%</div>
+          <div class="err" id="fv-cagr-err">Must be between negative 99.99% and 1000%</div>
         </div>
         <div class="field">
           <label>End Date</label>
-          <input type="date" id="fv-edate" onchange="calcFV()">
+          <input type="date" id="fv-edate">
           <div class="err" id="fv-edate-err">Must be after start date</div>
         </div>
       </div>
-      <div style="margin-top:20px">
-        <button class="btn btn-secondary" onclick="resetFV()">↺ Reset</button>
+      <div class="action-row">
+        <button class="btn btn-calculate" type="button" onclick="calcFV()">Calculate Future Value</button>
+        <button class="btn btn-secondary" type="button" onclick="resetFV()">Reset</button>
       </div>
     </div>
   </div>
@@ -325,72 +455,70 @@ input.error-input{border-color:#EF4444!important}
 </div>
 
 <!-- EDUCATIONAL -->
-<div class="card sec-gap">
-  <div class="card-head"><div class="sec-title"><span>Understanding CAGR</span></div></div>
-  <div class="card-body">
-    <p style="font-size:13px;color:#475569;line-height:1.7;margin-bottom:8px">Compound Annual Growth Rate (CAGR) is the annualized rate of return that shows how an investment would have grown if it had compounded at a steady rate over time — smoothing out volatility to give a single, comparable growth figure.</p>
-    <div class="formula-box">CAGR = ( (Ending Value ÷ Starting Value) ^ (1 ÷ Years) − 1 ) × 100</div>
-    <p style="font-size:13px;font-weight:600;color:#0F172A;margin:14px 0 8px">Why CAGR matters</p>
-    <ul class="why-list">
-      <li>Removes year-to-year volatility distortions for a cleaner long-term picture</li>
-      <li>Enables fair comparison across mutual funds, stocks, and portfolios</li>
-      <li>Widely used by investors, analysts, and wealth managers</li>
-      <li>Provides an annualized growth rate regardless of investment duration</li>
-      <li>Applicable to business revenues, portfolio values, and economic indicators</li>
-    </ul>
+<section class="guide-section">
+  <div class="guide-intro">
+    <span class="kicker">CAGR, EXPLAINED</span>
+    <h2>Understand the number behind the growth</h2>
+    <p>CAGR turns the change between two values into one annualised rate, making investment performance easier to compare across different holding periods.</p>
   </div>
-</div>
+  <div class="guide-grid">
+    <article><h3>Compare on a common basis</h3><p>Annualising returns lets you compare investments with different start dates and holding periods more consistently.</p></article>
+    <article><h3>Look beyond the smooth rate</h3><p>CAGR hides volatility and drawdowns. Use it alongside risk, fees and benchmark performance, not as a complete scorecard.</p></article>
+    <article><h3>Choose the right return measure</h3><p>CAGR suits one starting value and one ending value. For SIPs or irregular cash flows, XIRR is generally more appropriate.</p></article>
+  </div>
+  <div class="guide-formula"><h3>How the calculation works</h3><p>The calculator annualises the change over the exact date range you select.</p><code>CAGR = ((Ending Value ÷ Starting Value) ^ (1 ÷ Years) − 1) × 100</code></div>
+</section>
 
 <!-- FAQ -->
-<div class="card">
-  <div class="card-head"><div class="sec-title"><span>Frequently Asked Questions</span></div></div>
+<div class="card faq-card">
+  <div class="card-head"><div class="sec-title"><span>CAGR questions, answered clearly</span></div></div>
   <div itemscope itemtype="https://schema.org/FAQPage">
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">What is CAGR?</span><span class="faq-icon">⌄</span></div>
-      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">CAGR (Compound Annual Growth Rate) represents the annualized rate at which an investment would have grown if it had compounded at a constant rate over a specific period. It provides a standardized way to measure investment performance over time.</div></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">What does CAGR actually tell me about an investment?</span><span class="faq-icon">⌄</span></div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">CAGR converts the change between a starting value and an ending value into one annualised growth rate. Think of it as the steady yearly return that would have produced the same final value if growth had compounded smoothly. It makes long term performance easier to understand, but it does not show what happened in each individual year.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Why is CAGR different from average annual return?</span><span class="faq-icon">⌄</span></div>
-      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Average annual return simply averages yearly returns and does not account for compounding. CAGR incorporates the effect of compounding and therefore provides a more accurate measure of long-term investment growth.</div></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">How is CAGR different from absolute return or average annual return?</span><span class="faq-icon">⌄</span></div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Absolute return measures the total percentage change without considering how long the investment was held. A simple average of yearly returns ignores the effect of compounding. CAGR accounts for both time and compounding, so it is usually the more useful figure when comparing investments held for several years.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Can CAGR be negative?</span><span class="faq-icon">⌄</span></div>
-      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Yes. If the ending value of an investment is lower than its starting value, the CAGR will be negative, indicating an overall decline in value during the investment period.</div></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Can CAGR be negative, and how should I interpret it?</span><span class="faq-icon">⌄</span></div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Yes. A negative CAGR means the investment finished below its starting value. For example, a negative CAGR of 4% means the value declined at an annualised rate of roughly 4% over the selected period. The actual year to year path may still have included both gains and losses.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Is a higher CAGR always better?</span><span class="faq-icon">⌄</span></div>
-      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Generally, a higher CAGR indicates stronger growth. However, investors should also consider risk, volatility, investment duration, and whether the returns are sustainable before making investment decisions.</div></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Is the investment with the highest CAGR automatically the best?</span><span class="faq-icon">⌄</span></div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Not necessarily. A higher CAGR describes stronger historical growth, not the risk taken to achieve it. Compare volatility, drawdowns, fees, taxes, liquidity, investment horizon and the consistency of returns before deciding whether one investment is genuinely better suited to your goal.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Can CAGR be used to compare different investments?</span><span class="faq-icon">⌄</span></div>
-      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Yes. CAGR is commonly used to compare the performance of mutual funds, stocks, portfolios, business revenues, and other investments across different time periods.</div></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">How can I compare investments using CAGR fairly?</span><span class="faq-icon">⌄</span></div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Use comparable start and end dates, the same treatment of dividends or distributions, and values measured after similar fees and taxes. Also compare each investment with a relevant benchmark and asset class. A five year equity CAGR and a two year fixed income CAGR are not directly comparable without considering their different risks and market conditions.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Does CAGR account for volatility?</span><span class="faq-icon">⌄</span></div>
-      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">No. CAGR smooths out year-to-year fluctuations and shows a constant annual growth rate. Two investments can have the same CAGR while experiencing very different levels of volatility.</div></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">What important information does CAGR leave out?</span><span class="faq-icon">⌄</span></div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">CAGR does not reveal volatility, drawdowns, the sequence of returns or how consistently an investment grew. Two investments can produce the same CAGR even if one rose steadily and the other experienced severe swings. It also does not automatically include cash flows, dividends, fees or taxes unless those are reflected in the values you enter.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">What inputs are required to calculate CAGR?</span><span class="faq-icon">⌄</span></div>
-      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">To calculate CAGR, you need three inputs: the starting value, the ending value, and the investment duration in years.</div></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Why does this calculator use exact dates instead of rounded years?</span><span class="faq-icon">⌄</span></div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Exact dates produce a more precise investment duration, especially when the holding period includes partial years. The calculator converts the number of days between your dates into years before annualising the return, avoiding the distortion that can come from rounding a period up or down.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Can CAGR be used for SIP investments?</span><span class="faq-icon">⌄</span></div>
-      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Not accurately. CAGR works best when there is a single initial investment and a single ending value. For SIPs and other investments involving multiple cash flows, XIRR is generally a more appropriate measure.</div></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Should I use CAGR to measure SIP or irregular investments?</span><span class="faq-icon">⌄</span></div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Usually not. CAGR assumes one starting value and one ending value, so it cannot properly account for money added or withdrawn along the way. For SIPs, redemptions and other investments with multiple dated cash flows, XIRR is generally the more appropriate performance measure.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">What is a good CAGR for long-term investing?</span><span class="faq-icon">⌄</span></div>
-      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">There is no universal benchmark. A good CAGR depends on the asset class, investment horizon, and market conditions. Investors typically compare CAGR against relevant market indices and investment alternatives.</div></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">What should I consider a “good” CAGR?</span><span class="faq-icon">⌄</span></div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">There is no universal good rate. A meaningful benchmark depends on the asset class, risk level, holding period, inflation and prevailing market conditions. Compare the result with an appropriate index or alternative investment over the same period, then judge whether the extra return adequately compensated you for the extra risk.</div></div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Does CAGR predict future returns?</span><span class="faq-icon">⌄</span></div>
-      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">No. CAGR measures historical growth and should not be used as a guarantee of future performance. Actual future returns may be higher or lower depending on market conditions and investment risks.</div></div>
+      <div class="faq-q" onclick="toggleFAQ(this)"><span itemprop="name">Can I use historical CAGR to estimate future value?</span><span class="faq-icon">⌄</span></div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">You can use it as a scenario, but not as a forecast or promise. Historical CAGR reflects one completed period and future returns may differ materially. When projecting future value, test a conservative base case alongside lower and higher return assumptions rather than relying on a single historical rate.</div></div>
     </div>
   </div>
 </div>
 
 <!-- DISCLAIMER -->
 <div class="disclaimer">
-  <span style="font-size:18px;flex-shrink:0">⚠️</span>
+  <span>!</span>
   <p>This calculator provides estimates for educational purposes only. CAGR is a historical or projected annualized growth metric and does not guarantee future investment returns. Actual investment performance may differ due to market conditions, taxes, fees, and other factors. Please consult a qualified financial advisor before making investment decisions.</p>
 </div>
 
@@ -400,8 +528,14 @@ input.error-input{border-color:#EF4444!important}
 let cagrChart=null,fvChart=null;
 
 function switchTab(tab,btn){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>{
+    b.classList.remove('active');
+    b.setAttribute('aria-selected','false');
+    b.setAttribute('tabindex','-1');
+  });
   btn.classList.add('active');
+  btn.setAttribute('aria-selected','true');
+  btn.removeAttribute('tabindex');
   document.getElementById('tab-cagr').classList.toggle('hidden',tab!=='cagr');
   document.getElementById('tab-fv').classList.toggle('hidden',tab!=='fv');
 }
@@ -409,18 +543,26 @@ function switchTab(tab,btn){
 function toggleFAQ(el){el.parentElement.classList.toggle('open')}
 
 function fmtInput(el){
-  el.value=el.value.replace(/[^0-9.]/g,'');
+  const cleaned=el.value.replace(/[^0-9.]/g,'');
+  const parts=cleaned.split('.');
+  el.value=parts.shift()+(parts.length?'.'+parts.join(''):'');
 }
 
-function fmtPct(el){el.value=el.value.replace(/[^0-9.\-]/g,'')}
+function fmtPct(el){
+  const negative=el.value.trim().startsWith('-');
+  const cleaned=el.value.replace(/[^0-9.]/g,'');
+  const parts=cleaned.split('.');
+  el.value=(negative?'-':'')+parts.shift()+(parts.length?'.'+parts.join(''):'');
+}
 
 function parseAmt(str){
   if(!str) return NaN;
-  return parseFloat(str.replace(/,/g,''));
+  const value=Number(str.replace(/,/g,''));
+  return Number.isFinite(value)?value:NaN;
 }
 
 function fmtINR(n){
-  if(isNaN(n)) return '—';
+  if(!Number.isFinite(n)) return 'Not available';
   n=Math.round(n*100)/100;
   let neg=n<0; n=Math.abs(n);
   let [int,dec]=n.toFixed(2).split('.');
@@ -431,16 +573,52 @@ function fmtINR(n){
   return (neg?'-':'')+'₹'+formatted;
 }
 
-function daysBetween(d1,d2){return(new Date(d2)-new Date(d1))/86400000}
+function utcDate(value){
+  const [year,month,day]=value.split('-').map(Number);
+  return new Date(Date.UTC(year,month-1,day));
+}
 
-function durStr(days){
-  let yrs=Math.floor(days/365.25),rem=days-yrs*365.25;
-  let mos=Math.floor(rem/30.4375),ds=Math.round(rem-mos*30.4375);
-  let p=[];
-  if(yrs>0) p.push(yrs+(yrs===1?' Year':' Years'));
-  if(mos>0) p.push(mos+(mos===1?' Month':' Months'));
-  if(ds>0) p.push(ds+(ds===1?' Day':' Days'));
-  return p.join(' ')||'0 Days';
+function daysBetween(d1,d2){return(utcDate(d2)-utcDate(d1))/86400000}
+
+function addYearsClamped(date,years){
+  const year=date.getUTCFullYear()+years;
+  const month=date.getUTCMonth();
+  const lastDay=new Date(Date.UTC(year,month+1,0)).getUTCDate();
+  return new Date(Date.UTC(year,month,Math.min(date.getUTCDate(),lastDay)));
+}
+
+function addMonthsClamped(date,months){
+  const monthIndex=date.getUTCMonth()+months;
+  const year=date.getUTCFullYear()+Math.floor(monthIndex/12);
+  const month=((monthIndex%12)+12)%12;
+  const lastDay=new Date(Date.UTC(year,month+1,0)).getUTCDate();
+  return new Date(Date.UTC(year,month,Math.min(date.getUTCDate(),lastDay)));
+}
+
+function yearsBetween(startDate,endDate){
+  const start=utcDate(startDate),end=utcDate(endDate);
+  let whole=end.getUTCFullYear()-start.getUTCFullYear();
+  let anniversary=addYearsClamped(start,whole);
+  if(anniversary>end){whole--;anniversary=addYearsClamped(start,whole)}
+  if(+anniversary===+end) return whole;
+  const nextAnniversary=addYearsClamped(start,whole+1);
+  return whole+(end-anniversary)/(nextAnniversary-anniversary);
+}
+
+function durationText(startDate,endDate){
+  const start=utcDate(startDate),end=utcDate(endDate);
+  let years=end.getUTCFullYear()-start.getUTCFullYear();
+  let cursor=addYearsClamped(start,years);
+  if(cursor>end){years--;cursor=addYearsClamped(start,years)}
+  const yearAnchor=cursor;
+  let months=0,next=addMonthsClamped(yearAnchor,1);
+  while(months<11&&next<=end){months++;cursor=next;next=addMonthsClamped(yearAnchor,months+1)}
+  const days=Math.round((end-cursor)/86400000);
+  const parts=[];
+  if(years) parts.push(`${years} ${years===1?'Year':'Years'}`);
+  if(months) parts.push(`${months} ${months===1?'Month':'Months'}`);
+  if(days) parts.push(`${days} ${days===1?'Day':'Days'}`);
+  return parts.join(' ')||'0 Days';
 }
 
 function showErr(id,show){let el=document.getElementById(id);if(el)el.classList.toggle('show',show)}
@@ -458,19 +636,20 @@ function calcCAGR(){
   showErr('c-edate-err',dateErr); markInput('c-edate',dateErr);
   if(!sv||sv<=0||!ev||ev<=0||!sd||dateErr) return;
   let days=daysBetween(sd,ed);
-  let years=days/365.25;
+  let years=yearsBetween(sd,ed);
   let cagr=(Math.pow(ev/sv,1/years)-1)*100;
-  renderCAGRResults(sv,ev,sd,days,years,cagr,(ev-sv),((ev-sv)/sv)*100,ev/sv);
+  renderCAGRResults(sv,ev,sd,ed,days,years,cagr,(ev-sv),((ev-sv)/sv)*100,ev/sv);
 }
 
-function renderCAGRResults(sv,ev,sd,days,years,cagr,absGain,pctReturn,multiple){
+function renderCAGRResults(sv,ev,sd,ed,days,years,cagr,absGain,pctReturn,multiple){
   let neg=absGain<0;
-  let t=buildYearTable(sv,cagr/100,years,sd);
+  let duration=durationText(sd,ed);
+  let t=buildYearTable(sv,cagr/100,years,sd,ed);
   document.getElementById('cagr-results').innerHTML=`
   <div class="result-hero">
     <div class="rh-label">Compound Annual Growth Rate</div>
     <div class="rh-value">${cagr.toFixed(2)}%</div>
-    <div class="rh-sub">Over ${durStr(Math.round(days))}</div>
+    <div class="rh-sub">Over ${duration}</div>
   </div>
   <div class="metrics">
     <div class="metric ${neg?'orange':'green'}">
@@ -490,7 +669,7 @@ function renderCAGRResults(sv,ev,sd,days,years,cagr,absGain,pctReturn,multiple){
     </div>
     <div class="metric gray">
       <div class="m-label">Duration</div>
-      <div class="m-value" style="font-size:16px">${durStr(Math.round(days))}</div>
+      <div class="m-value" style="font-size:14px">${duration}</div>
       <div class="m-sub">${Math.round(days)} total days</div>
     </div>
   </div>
@@ -506,18 +685,18 @@ function renderCAGRResults(sv,ev,sd,days,years,cagr,absGain,pctReturn,multiple){
       </div>
       <div class="journey-val" style="text-align:right">
         <div class="jv-label">Final Value</div>
-        <div class="jv-num" style="color:#15803D">${fmtINR(ev)}</div>
+        <div class="jv-num">${fmtINR(ev)}</div>
       </div>
     </div>
   </div>
   <div class="chart-wrap">
     <div class="chart-sec-title"><span>Growth Trajectory</span></div>
-    <div style="position:relative;min-height:450px"><canvas id="cagrChartCanvas"></canvas></div>
+    <div style="position:relative;min-height:280px"><canvas id="cagrChartCanvas"></canvas></div>
   </div>
   <div class="card" style="margin-bottom:0">
-    <div class="card-head"><div class="sec-title"><span>Year-by-Year Breakdown</span></div></div>
+    <div class="card-head"><div class="sec-title"><span>Year by Year Breakdown</span></div></div>
     <div style="padding:0">
-      <div class="table-outer" style="border-radius:0 0 16px 16px;border:none;border-top:1px solid #E5E7EB">
+      <div class="table-outer" style="border-radius:0 0 10px 10px;border:none;border-top:1px solid #ffffff24">
         <table class="ytable">
           <thead><tr><th>Year</th><th>Beginning Value</th><th>Growth Earned</th><th>Ending Value</th></tr></thead>
           <tbody>${t.rows}</tbody>
@@ -529,7 +708,7 @@ function renderCAGRResults(sv,ev,sd,days,years,cagr,absGain,pctReturn,multiple){
     if(cagrChart){cagrChart.destroy();cagrChart=null;}
     let canvas=document.getElementById('cagrChartCanvas');
     if(!canvas) return;
-    cagrChart=new Chart(canvas,{type:'line',data:{labels:t.chartData.map(d=>d.label),datasets:[{label:'Portfolio Value',data:t.chartData.map(d=>d.val),borderColor:'#1E63FF',backgroundColor:'rgba(30,99,255,0.08)',borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#1E63FF',fill:true,tension:0.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#94A3B8'}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:11},color:'#94A3B8',callback:v=>'₹'+(v>=10000000?(v/10000000).toFixed(1)+'Cr':v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000).toFixed(0)+'K':v)}}}}});
+    cagrChart=new Chart(canvas,{type:'line',data:{labels:t.chartData.map(d=>d.label),datasets:[{label:'Portfolio Value',data:t.chartData.map(d=>d.val),borderColor:'#13B886',backgroundColor:'rgba(19,184,134,0.12)',borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#13B886',fill:true,tension:0.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#A9BFD9'}},y:{grid:{color:'rgba(255,255,255,0.08)'},ticks:{font:{size:11},color:'#A9BFD9',callback:v=>'₹'+(v>=10000000?(v/10000000).toFixed(1)+'Cr':v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000).toFixed(0)+'K':v)}}}}});
   },50);
 }
 
@@ -545,24 +724,26 @@ function calcFV(){
   showErr('fv-edate-err',dateErr); markInput('fv-edate',dateErr);
   if(!sv||sv<=0||isNaN(cagrVal)||cagrVal<-99.99||cagrVal>1000||!sd||dateErr) return;
   let days=daysBetween(sd,ed);
-  let years=days/365.25;
+  let years=yearsBetween(sd,ed);
   let fv=sv*Math.pow(1+cagrVal/100,years);
-  renderFVResults(sv,fv,fv-sv,fv/sv,((fv-sv)/sv)*100,cagrVal,days,years,sd);
+  renderFVResults(sv,fv,fv-sv,fv/sv,((fv-sv)/sv)*100,cagrVal,days,years,sd,ed);
 }
 
-function renderFVResults(sv,fv,gain,multiple,effGrowth,cagr,days,years,sd){
-  let t=buildYearTable(sv,cagr/100,years,sd);
+function renderFVResults(sv,fv,gain,multiple,effGrowth,cagr,days,years,sd,ed){
+  let neg=gain<0;
+  let duration=durationText(sd,ed);
+  let t=buildYearTable(sv,cagr/100,years,sd,ed);
   document.getElementById('fv-results').innerHTML=`
   <div class="result-hero">
     <div class="rh-label">Projected Future Value</div>
     <div class="rh-value">${fmtINR(fv)}</div>
-    <div class="rh-sub">At ${cagr.toFixed(2)}% CAGR over ${durStr(Math.round(days))}</div>
+    <div class="rh-sub">At ${cagr.toFixed(2)}% CAGR over ${duration}</div>
   </div>
   <div class="metrics">
-    <div class="metric green">
-      <div class="m-label">Total Gain</div>
+    <div class="metric ${neg?'orange':'green'}">
+      <div class="m-label">${neg?'Projected Loss':'Total Gain'}</div>
       <div class="m-value">${fmtINR(gain)}</div>
-      <div class="m-sub">Growth on investment</div>
+      <div class="m-sub">${neg?'Decline in value':'Growth on investment'}</div>
     </div>
     <div class="metric blue">
       <div class="m-label">Wealth Multiple</div>
@@ -576,18 +757,18 @@ function renderFVResults(sv,fv,gain,multiple,effGrowth,cagr,days,years,sd){
     </div>
     <div class="metric gray">
       <div class="m-label">Duration</div>
-      <div class="m-value" style="font-size:16px">${durStr(Math.round(days))}</div>
+      <div class="m-value" style="font-size:14px">${duration}</div>
       <div class="m-sub">${Math.round(days)} total days</div>
     </div>
   </div>
   <div class="chart-wrap">
     <div class="chart-sec-title"><span>Growth Trajectory</span></div>
-    <div style="position:relative;min-height:450px"><canvas id="fvChartCanvas"></canvas></div>
+    <div style="position:relative;min-height:280px"><canvas id="fvChartCanvas"></canvas></div>
   </div>
   <div class="card" style="margin-bottom:0">
-    <div class="card-head"><div class="sec-title"><span>Year-by-Year Projection</span></div></div>
+    <div class="card-head"><div class="sec-title"><span>Year by Year Projection</span></div></div>
     <div style="padding:0">
-      <div class="table-outer" style="border-radius:0 0 16px 16px;border:none;border-top:1px solid #E5E7EB">
+      <div class="table-outer" style="border-radius:0 0 10px 10px;border:none;border-top:1px solid #ffffff24">
         <table class="ytable">
           <thead><tr><th>Year</th><th>Opening Value</th><th>Growth Earned</th><th>Closing Value</th></tr></thead>
           <tbody>${t.rows}</tbody>
@@ -599,29 +780,32 @@ function renderFVResults(sv,fv,gain,multiple,effGrowth,cagr,days,years,sd){
     if(fvChart){fvChart.destroy();fvChart=null;}
     let canvas=document.getElementById('fvChartCanvas');
     if(!canvas) return;
-    fvChart=new Chart(canvas,{type:'line',data:{labels:t.chartData.map(d=>d.label),datasets:[{label:'Projected Value',data:t.chartData.map(d=>d.val),borderColor:'#1BA7E1',backgroundColor:'rgba(27,167,225,0.08)',borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#1BA7E1',fill:true,tension:0.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#94A3B8'}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:11},color:'#94A3B8',callback:v=>'₹'+(v>=10000000?(v/10000000).toFixed(1)+'Cr':v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000).toFixed(0)+'K':v)}}}}});
+    fvChart=new Chart(canvas,{type:'line',data:{labels:t.chartData.map(d=>d.label),datasets:[{label:'Projected Value',data:t.chartData.map(d=>d.val),borderColor:'#13B886',backgroundColor:'rgba(19,184,134,0.12)',borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#13B886',fill:true,tension:0.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#A9BFD9'}},y:{grid:{color:'rgba(255,255,255,0.08)'},ticks:{font:{size:11},color:'#A9BFD9',callback:v=>'₹'+(v>=10000000?(v/10000000).toFixed(1)+'Cr':v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000).toFixed(0)+'K':v)}}}}});
   },50);
 }
 
-function buildYearTable(sv,cagrDec,totalYears,startDate){
-  let rows='',data=[],chartData=[];
+function buildYearTable(sv,cagrDec,totalYears,startDate,endDate){
+  let rows='',chartData=[];
   let fullYears=Math.floor(totalYears),partial=totalYears-fullYears;
-  let sd=new Date(startDate);
+  let sd=utcDate(startDate);
   chartData.push({label:'Start',val:Math.round(sv*100)/100});
   for(let y=1;y<=fullYears;y++){
     let bv=sv*Math.pow(1+cagrDec,y-1);
     let ev=sv*Math.pow(1+cagrDec,y);
     let growth=ev-bv;
-    let yr=new Date(sd.getFullYear()+y,sd.getMonth(),sd.getDate()).getFullYear();
-    rows+=`<tr><td>Year ${y} (${yr})</td><td>${fmtINR(bv)}</td><td style="color:#15803D">+${fmtINR(growth)}</td><td>${fmtINR(ev)}</td></tr>`;
+    let yr=addYearsClamped(sd,y).getUTCFullYear();
+    let growthText=(growth>=0?'+':'')+fmtINR(growth);
+    rows+=`<tr><td>Year ${y} (${yr})</td><td>${fmtINR(bv)}</td><td style="color:${growth>=0?'#78DFBD':'#FFB4B4'}">${growthText}</td><td>${fmtINR(ev)}</td></tr>`;
     chartData.push({label:'Y'+y,val:Math.round(ev*100)/100});
   }
-  if(partial>0.005){
+  if(partial>0.000001){
     let bv=sv*Math.pow(1+cagrDec,fullYears);
     let ev=sv*Math.pow(1+cagrDec,totalYears);
     let growth=ev-bv;
-    let pm=Math.round(partial*12);
-    rows+=`<tr class="partial-row"><td>Partial (${pm} mo.)</td><td>${fmtINR(bv)}</td><td style="color:#64748B">+${fmtINR(growth)}</td><td>${fmtINR(ev)}</td></tr>`;
+    let partialStart=addYearsClamped(sd,fullYears);
+    let partialLabel=durationText(partialStart.toISOString().slice(0,10),endDate);
+    let growthText=(growth>=0?'+':'')+fmtINR(growth);
+    rows+=`<tr class="partial-row"><td>Partial (${partialLabel})</td><td>${fmtINR(bv)}</td><td style="color:${growth>=0?'#78DFBD':'#FFB4B4'}">${growthText}</td><td>${fmtINR(ev)}</td></tr>`;
     chartData.push({label:'End',val:Math.round(ev*100)/100});
   }
   return{rows,chartData};
@@ -655,46 +839,43 @@ function resetFV(){
   document.getElementById('fv-sdate').value=fmt(today);
   document.getElementById('fv-edate').value=fmt(tyo);
 })();
+
+const menuButton=document.getElementById('menu-button');
+const menuPanel=document.getElementById('site-menu');
+const menuOverlay=document.getElementById('menu-overlay');
+const menuClose=document.getElementById('menu-close');
+function setMenu(open){
+  document.body.classList.toggle('menu-open',open);
+  menuPanel.classList.toggle('open',open);
+  menuOverlay.classList.toggle('open',open);
+  menuPanel.setAttribute('aria-hidden',String(!open));
+  menuButton.setAttribute('aria-expanded',String(open));
+  if(open) menuClose.focus();
+}
+menuButton.addEventListener('click',()=>setMenu(true));
+menuClose.addEventListener('click',()=>setMenu(false));
+menuOverlay.addEventListener('click',()=>setMenu(false));
+menuPanel.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>setMenu(false)));
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menuPanel.classList.contains('open'))setMenu(false)});
 </script>
 
-<footer class="corpusly-footer">
-  <div class="container">
-    <div class="corpusly-footer-grid">
-      <div class="corpusly-footer-col">
-        <div class="corpusly-footer-logo">Corpus<span class="accent">ly</span><span class="dot"></span></div>
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand light" href="https://corpusly.in/" aria-label="Visit the Corpusly home page">Corpus<b>ly</b><i></i></a>
         <p>Corpusly provides free, browser based financial calculators built on industry standard formulas to help you plan investments, retirement and insurance with confidence.</p>
       </div>
-      <div class="corpusly-footer-col">
+      <div>
         <h4>Calculators</h4>
-        <ul>
-          <li><a href="sip.html">SIP Calculator</a></li>
-          <li><a href="swp.html">SWP Calculator</a></li>
-          <li><a href="cagr.html">CAGR Calculator</a></li>
-          <li><a href="xirr.html">XIRR Calculator</a></li>
-          <li><a href="epf.html">EPF Calculator</a></li>
-          <li><a href="ppf.html">PPF Calculator</a></li>
-          <li><a href="retirementplanner.html">Retirement Planner</a></li>
-          <li><a href="termcoverage.html">Term Coverage</a></li>
-          <li><a href="premiumcomparer.html">Premium Comparer</a></li>
-          <li><a href="loanemi.html">Advanced EMI Calculator</a></li>
-          <li><a href="taxcalculator.html">Income Tax Calculator</a></li>
-        </ul>
+        <a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a>
       </div>
-      <div class="corpusly-footer-col">
+      <div>
         <h4>Resources</h4>
-        <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms &amp; Conditions</a></li>
-          <li><a href="disclaimer.html">Disclaimer</a></li>
-          <li><a href="methodology.html">Methodology</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
+        <a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a>
       </div>
     </div>
-    <div class="corpusly-footer-bottom">
-      <p>&copy; 2026 Corpusly Financial Calculators</p>
-    </div>
+    <div class="copyright"><span>© 2026 Corpusly Financial Calculators</span></div>
   </div>
 </footer>
 </body>
