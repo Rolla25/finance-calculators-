@@ -41,9 +41,9 @@ button{cursor:pointer}
 .tab-bar-inner{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:18px;padding:5px;border-radius:14px;background:#edf2f8}.tab-btn{min-height:60px;display:flex;gap:11px;align-items:center;padding:12px 16px;border:1px solid transparent;border-radius:10px;background:transparent;color:#748096;text-align:left;font-size:13px;font-weight:700}.tab-btn.active{border-color:#d8e1ed;background:#fff;color:var(--navy);box-shadow:0 3px 11px #18375d14}.tab-btn:hover:not(.active){background:#e6edf6;color:var(--navy)}.mode-icon{display:grid;place-items:center;width:31px;height:31px;flex:0 0 auto;border-radius:8px;background:#dce7f6;color:var(--blue);font-size:17px}.tab-btn b,.tab-btn small{display:block}.tab-btn small{color:#8792a3;font-size:11px;font-weight:400}
 .tab-panel{display:none}.tab-panel.active{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
 .input-card{padding:28px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 8px 30px #1432580f;overflow:hidden}.card-head{position:relative;margin-bottom:24px;padding:0 0 21px 44px;border-bottom:1px solid #e8edf3}.card-head:before{content:"01";position:absolute;top:0;left:0;width:31px;height:31px;display:grid;place-items:center;border-radius:8px;color:#fff;background:var(--navy);font-size:10px;font-weight:800}.card-head h3{color:var(--navy);font-size:17px;line-height:1.35}.card-head p{margin-top:3px;color:var(--muted);font-size:12px}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:20px}.field.full{grid-column:1/-1}.field label{display:block;margin-bottom:7px;color:#34445c;font-size:12px;font-weight:700}.field-hint{margin-top:5px;color:#8a96a8;font-size:10px;line-height:1.45}
+.fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}.field{min-width:0}.field.full{grid-column:1/-1}.field label{display:block;margin-bottom:7px;color:#34445c;font-size:12px;font-weight:700}.field-hint{margin-top:5px;color:#8a96a8;font-size:10px;line-height:1.45}
 .input-wrap{height:46px;display:flex;align-items:center;overflow:hidden;border:1px solid #ccd6e3;border-radius:10px;background:#fff}.input-wrap:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px #175dcc18}.input-prefix,.input-suffix{padding:0 12px;color:#65738a;font-size:12px;flex:0 0 auto}.input-wrap input{min-width:0;height:100%;flex:1 1 auto;border:0!important;border-radius:0;background:transparent;box-shadow:none!important;padding:0!important}
-input[type=text],input[type=number],input[type=date],select{width:100%;height:46px;padding:0 12px;border:1px solid #ccd6e3;border-radius:10px;background:#fff;color:var(--navy);font-size:15px;font-weight:700;outline:none}input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #175dcc18}input.invalid,select.invalid{border-color:var(--danger)}
+input[type=text],input[type=number],input[type=date],select{width:100%;min-width:0;max-width:100%;height:46px;padding:0 12px;border:1px solid #ccd6e3;border-radius:10px;background:#fff;color:var(--navy);font-size:15px;font-weight:700;outline:none}input[type=date]{display:block}input[type=date]::-webkit-date-and-time-value{min-width:0;text-align:left}input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #175dcc18}input.invalid,select.invalid{border-color:var(--danger)}
 select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#64748b 50%),linear-gradient(135deg,#64748b 50%,transparent 50%);background-position:calc(100% - 17px) 20px,calc(100% - 12px) 20px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:34px}
 .end-toggle{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:4px;border-radius:10px;background:var(--wash)}.end-toggle button{min-height:38px;padding:7px;border:1px solid transparent;border-radius:8px;background:transparent;color:#788599;font-size:11px;font-weight:700}.end-toggle button.active{border-color:#d7e0ec;background:#fff;color:var(--blue);box-shadow:0 2px 7px #18375d12}
 .actions{display:grid;grid-template-columns:1fr minmax(240px,360px) 1fr;align-items:center;gap:10px;margin-top:23px}.btn{min-height:44px;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:700}.actions .btn-primary{grid-column:2;grid-row:1;width:100%;border:1px solid var(--navy);background:var(--navy);color:#fff}.btn-primary:hover{background:#163661}.actions .btn-secondary{grid-column:1;grid-row:1;justify-self:end;border:1px solid var(--line);background:var(--wash);color:var(--muted)}.btn-secondary:hover{border-color:#b8cbe7;color:var(--blue)}.btn-small{min-height:36px;padding:7px 11px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--blue);font-size:11px;font-weight:700}.btn-small:hover{background:var(--wash)}
@@ -57,7 +57,7 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#6
 
 /* Manual cash-flow editor */
 .sign-help{display:flex;gap:8px;margin-bottom:16px}.sign-pill{padding:5px 8px;border-radius:7px;font-size:10px;font-weight:700}.sign-pill.out{background:#fff0ee;color:#a93b30}.sign-pill.in{background:#eafaf4;color:#087c5a}
-.cashflow-head,.cashflow-row{display:grid;grid-template-columns:30px 1fr 1fr 34px;gap:8px;align-items:center}.cashflow-head{padding:0 4px 7px;color:#7b8798;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.cashflow-row{margin-bottom:8px}.cashflow-row .row-number{text-align:center;color:#98a3b3;font-size:10px}.cashflow-row input{height:40px;font-size:12px}.remove-row{width:34px;height:34px;border:0;border-radius:8px;background:transparent;color:#99a4b3}.remove-row:hover{background:#fff0ee;color:var(--danger)}.cashflow-tools{display:flex;gap:7px;margin-top:11px}
+.cashflow-head,.cashflow-row{display:grid;grid-template-columns:30px minmax(0,1fr) minmax(0,1fr) 34px;gap:8px;align-items:center;min-width:0}.cashflow-head{padding:0 4px 7px;color:#7b8798;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.cashflow-row{width:100%;margin-bottom:8px}.cashflow-row .row-number{text-align:center;color:#98a3b3;font-size:10px}.cashflow-row input{min-width:0;max-width:100%;height:40px;font-size:12px}.remove-row{width:34px;height:34px;border:0;border-radius:8px;background:transparent;color:#99a4b3}.remove-row:hover{background:#fff0ee;color:var(--danger)}.cashflow-tools{display:flex;gap:7px;margin-top:11px}
 
 /* Education and FAQ */
 .guide-section{padding-top:75px}.guide-intro{max-width:720px}.guide-intro p{margin-top:14px;color:var(--muted);line-height:1.75}.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.guide-grid article,.guide-formula{padding:22px;border:1px solid var(--line);border-radius:14px}.guide-grid h3,.guide-formula h3{margin-bottom:8px;color:var(--navy);font-size:16px}.guide-grid p,.guide-formula p{color:var(--muted);font-size:13px;line-height:1.7}.guide-formula{margin-top:18px;background:var(--wash)}.guide-formula code{display:block;margin-top:10px;color:var(--navy);font:700 12px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:normal}
@@ -68,7 +68,7 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#6
 footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:55px;padding-bottom:40px}.footer-grid>div{display:flex;flex-direction:column;gap:9px}.brand.light{color:#fff}.footer-grid p{max-width:360px;color:#a9b8cc;font-size:13px;line-height:1.7}.footer-grid h4{margin:2px 0 5px;color:#d9e6f6;font-size:10px;letter-spacing:.12em;text-transform:uppercase}.footer-grid a:not(.brand){color:#a9b8cc;font-size:12px}.copyright{display:flex;justify-content:center;padding-top:18px;border-top:1px solid #ffffff1a;color:#a9b8cc;text-align:center;font-size:10px}
 
 @media(max-width:800px){.metrics{grid-template-columns:1fr 1fr}.metric{padding:9px 8px}.guide-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1.4fr 1fr 1fr}}
-@media(max-width:560px){:root{--safe-gutter:22px}.corpusly-header{position:sticky;top:0;z-index:9;height:70px;background:#fff}.menu-button{width:40px;height:40px}.menu-panel{padding:20px max(var(--safe-gutter),env(safe-area-inset-right)) 30px max(var(--safe-gutter),env(safe-area-inset-left))}.menu-links{grid-template-columns:1fr}.hero{padding:55px max(var(--safe-gutter),env(safe-area-inset-right))}.hero h1{font-size:35px;letter-spacing:-1.2px}.hero h1 br{display:none}.hero p{font-size:15px}.trust{flex-direction:column;align-items:center;gap:7px;margin-top:23px}.main{padding:50px max(var(--safe-gutter),env(safe-area-inset-right))}.section-head h2,.guide-intro h2,.faq-card>h2{font-size:29px}.tab-bar-inner{grid-template-columns:1fr}.tab-btn{min-height:54px}.input-card,.results-panel{padding:21px 18px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}input[type=text],input[type=number],input[type=date],select,.input-wrap{height:50px}.actions{display:flex;flex-direction:column;align-items:stretch}.actions .btn-primary{order:1;width:100%}.actions .btn-secondary{order:2;width:100%}.rh-value{font-size:38px}.guide-section,.faq-card{padding-top:58px;margin-top:0}.faq-list{padding:0 16px}.faq-a-inner{padding-right:22px}.cashflow-head{display:none}.cashflow-row{grid-template-columns:28px 1fr 34px;padding:10px 8px;border:1px solid var(--line);border-radius:11px}.cashflow-row input:nth-of-type(1),.cashflow-row input:nth-of-type(2){grid-column:2}.cashflow-row .row-number{grid-row:1/3}.cashflow-row .remove-row{grid-column:3;grid-row:1/3}.footer-grid{grid-template-columns:1fr}.footer-grid a:not(.brand){min-height:32px}.copyright{display:block}.copyright span{display:block;margin-top:5px}}
+@media(max-width:560px){:root{--safe-gutter:22px}.corpusly-header{position:sticky;top:0;z-index:9;height:70px;background:#fff}.menu-button{width:40px;height:40px}.menu-panel{padding:20px max(var(--safe-gutter),env(safe-area-inset-right)) 30px max(var(--safe-gutter),env(safe-area-inset-left))}.menu-links{grid-template-columns:1fr}.hero{padding:55px max(var(--safe-gutter),env(safe-area-inset-right))}.hero h1{font-size:35px;letter-spacing:-1.2px}.hero h1 br{display:none}.hero p{font-size:15px}.trust{flex-direction:column;align-items:center;gap:7px;margin-top:23px}.main{padding:50px max(var(--safe-gutter),env(safe-area-inset-right))}.section-head h2,.guide-intro h2,.faq-card>h2{font-size:29px}.tab-bar-inner{grid-template-columns:1fr}.tab-btn{min-height:54px}.input-card,.results-panel{padding:21px 18px}.fields{grid-template-columns:minmax(0,1fr)}.field.full{grid-column:auto}input[type=text],input[type=number],input[type=date],select,.input-wrap{height:50px}.actions{display:flex;flex-direction:column;align-items:stretch}.actions .btn-primary{order:1;width:100%}.actions .btn-secondary{order:2;width:100%}.rh-value{font-size:38px}.guide-section,.faq-card{padding-top:58px;margin-top:0}.faq-list{padding:0 16px}.faq-a-inner{padding-right:22px}.cashflow-head{display:none}.cashflow-row{grid-template-columns:28px minmax(0,1fr) 34px;padding:10px 8px;border:1px solid var(--line);border-radius:11px}.cashflow-row input:nth-of-type(1),.cashflow-row input:nth-of-type(2){grid-column:2}.cashflow-row .row-number{grid-row:1/3}.cashflow-row .remove-row{grid-column:3;grid-row:1/3}.footer-grid{grid-template-columns:1fr}.footer-grid a:not(.brand){min-height:32px}.copyright{display:block}.copyright span{display:block;margin-top:5px}}
 @media(max-width:520px){.corpusly-header.wrap{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}}
 </style>
 </head>
@@ -157,7 +157,7 @@ footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}.footer-gri
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Which cash flows should be negative or positive?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Use negative values for money leaving you, such as purchases or SIP installments. Use positive values for money received, such as dividends, withdrawals, redemptions, maturity proceeds or the current value of an investment you still own.</div></div></div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Why must there be both a positive and a negative cash flow?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">A return can only be inferred when the series includes money invested and money received or valued. With cash flows of only one sign, there is no rate that can make their net present value equal zero.</div></div></div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">How do I calculate XIRR for an investment I still hold?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Add the investment's current market value as the final positive cash flow and use the valuation date, commonly today. Include any earlier dividends or withdrawals as separate positive cash flows.</div></div></div>
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Does this match Excel's XIRR method?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">The calculator uses the same core equation as Excel XIRR: exact date differences with a 365 day year. For cash flow patterns with more than one mathematical solution, results can depend on the starting guess; this calculator selects the valid solution closest to Excel's default 10% guess.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Does this match Excel's XIRR method?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">The calculator uses the same core equation as Excel XIRR: exact date differences with a 365 day year. For cash flow patterns with more than one mathematical solution, it uses an iterative calculation beginning with Excel's default 10% guess.</div></div></div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Why can XIRR be negative or unusually high?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">A negative XIRR indicates an annualised loss. A very high XIRR can occur when a gain is earned over a short period, because the return is annualised. Check every sign, amount and date before relying on an extreme result.</div></div></div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Can a cash flow series have more than one XIRR?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Yes. When cash flows switch between positive and negative more than once, the XIRR equation can have multiple valid solutions. The calculator warns when it detects this, and the economic meaning should be reviewed carefully.</div></div></div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Do taxes, fees and inflation appear automatically?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">No. XIRR reflects only the cash flows you enter. Include fees, taxes or other charges in those flows if you want a return after those costs. Inflation is separate and can be used to assess the return in real purchasing power terms.</div></div></div>
@@ -238,6 +238,33 @@ function npvAtLogRate(logRate,entries){
   }
   return value;
 }
+function iterateXirrFromGuess(entries,guess,scale){
+  let rate=Math.max(guess,-.9999999);
+  for(let iteration=0;iteration<100;iteration++){
+    const base=1+rate;
+    if(!(base>0)||!Number.isFinite(base))return null;
+    const first=entries[0].date;
+    let value=0,derivative=0;
+    for(const entry of entries){
+      const years=daysBetween(first,entry.date)/365;
+      const factor=Math.pow(base,-years);
+      value+=entry.amount*factor;
+      derivative-=years*entry.amount*factor/base;
+    }
+    if(!Number.isFinite(value)||!Number.isFinite(derivative))return null;
+    if(Math.abs(value)<=1e-11*scale)return rate;
+    if(Math.abs(derivative)<=Number.EPSILON*scale)return null;
+    let next=rate-value/derivative;
+    if(!Number.isFinite(next))return null;
+    if(next<=-.9999999)next=(rate-.9999999)/2;
+    if(Math.abs(next-rate)<=1e-12*Math.max(1,Math.abs(rate))){
+      const residual=Math.abs(npvAtLogRate(Math.log1p(next),entries));
+      return residual<=1e-9*scale?next:null;
+    }
+    rate=next;
+  }
+  return Math.abs(npvAtLogRate(Math.log1p(rate),entries))<=1e-9*scale?rate:null;
+}
 function refineBracket(left,right,entries,scale){
   let fLeft=npvAtLogRate(left,entries);
   for(let iteration=0;iteration<180;iteration++){
@@ -254,6 +281,7 @@ function calculateXirr(rawEntries,guess=DEFAULT_GUESS){
   if(!entries.some(entry=>entry.amount<0)||!entries.some(entry=>entry.amount>0))throw new Error('Include at least one negative investment and one positive receipt.');
   if(entries[0].date===entries[entries.length-1].date)throw new Error('Cash flows must occur on at least two different dates.');
   const scale=entries.reduce((sum,entry)=>sum+Math.abs(entry.amount),0);
+  const iteratedRate=iterateXirrFromGuess(entries,guess,scale);
   const minLog=Math.log(1e-7),maxLog=Math.log(1+1e10),steps=1800;
   const roots=[];
   let previousLog=minLog,previousValue=npvAtLogRate(previousLog,entries);
@@ -266,11 +294,11 @@ function calculateXirr(rawEntries,guess=DEFAULT_GUESS){
     }
     previousLog=currentLog;previousValue=currentValue;
   }
+  if(iteratedRate!==null)roots.push(Math.log1p(iteratedRate));
   const uniqueRoots=roots.sort((a,b)=>a-b).filter((root,index,list)=>index===0||Math.abs(root-list[index-1])>1e-7);
   if(!uniqueRoots.length)throw new Error('No valid XIRR solution was found for these cash flows. Check the amounts, signs and dates.');
-  const guessLog=Math.log1p(Math.max(guess,-.9999999));
-  uniqueRoots.sort((a,b)=>Math.abs(a-guessLog)-Math.abs(b-guessLog));
-  const rate=Math.expm1(uniqueRoots[0]);
+  const selectedLog=iteratedRate!==null?Math.log1p(iteratedRate):uniqueRoots.reduce((best,root)=>Math.abs(root-Math.log1p(Math.max(guess,-.9999999)))<Math.abs(best-Math.log1p(Math.max(guess,-.9999999)))?root:best);
+  const rate=Math.expm1(selectedLog);
   if(!Number.isFinite(rate)||rate<=-1)throw new Error('The calculated return is outside the valid XIRR range.');
   return {rate,rootCount:uniqueRoots.length,entries};
 }
@@ -285,7 +313,7 @@ function renderResults(elementId,result){
   const duration=daysBetween(entries[0].date,entries[entries.length-1].date);
   let running=0;
   const rows=entries.map((entry,index)=>{running+=entry.amount;return '<tr><td>'+(index+1)+'</td><td>'+formatDate(entry.date)+'</td><td class="'+(entry.amount<0?'negative':'positive')+'">'+formatSignedINR(entry.amount)+'</td><td class="'+(running<0?'negative':'positive')+'">'+formatSignedINR(running)+'</td></tr>'}).join('');
-  const note=result.rootCount>1?'This cash flow pattern has multiple valid XIRR solutions. The result shown is closest to Excel’s default 10% starting guess.':'';
+  const note=result.rootCount>1?'This cash flow pattern has multiple valid XIRR solutions. The result shown follows an iterative calculation starting from Excel’s default 10% guess.':'';
   document.getElementById(elementId).innerHTML=
     '<div class="result-content"><div class="result-hero"><div class="rh-label">Annualised XIRR</div><div class="rh-value">'+formatRate(result.rate)+'</div><div class="rh-sub">Based on '+entries.length+' dated cash flows over '+(duration/365).toFixed(2)+' years</div></div>'+
     '<div class="metrics"><div class="metric"><div class="m-label">Total invested</div><div class="m-value">'+formatINR(invested)+'</div><div class="m-sub">All negative cash flows</div></div><div class="metric"><div class="m-label">Positive cash flows</div><div class="m-value">'+formatINR(received)+'</div><div class="m-sub">Receipts and final value</div></div><div class="metric"><div class="m-label">Net '+(net>=0?'profit':'loss')+'</div><div class="m-value">'+formatSignedINR(net)+'</div><div class="m-sub">Not annualised</div></div><div class="metric"><div class="m-label">Duration</div><div class="m-value">'+(duration/365).toFixed(2)+' years</div><div class="m-sub">Actual days ÷ 365</div></div></div>'+
@@ -330,14 +358,16 @@ function regularCashflows(){
       const end=parseISODate(document.getElementById('end-date').value);
       if(end===null)throw new Error('Enter a valid investment end date.');
       if(end<start)throw new Error('The investment end date cannot be before the first investment date.');
-      for(let date=start;date<=end;date=addMonthsClamped(date,step)){
+      for(let index=0;;index++){
+        const date=addMonthsClamped(start,index*step);
+        if(date>end)break;
         dates.push(date);
         if(dates.length>1200)throw new Error('Limit the schedule to 1,200 installments.');
       }
     }else{
       const count=Number(document.getElementById('installment-count').value);
       if(!Number.isInteger(count)||count<1||count>1200)throw new Error('Enter a whole number from 1 to 1,200 for installments.');
-      for(let index=0,date=start;index<count;index++,date=addMonthsClamped(date,step))dates.push(date);
+      for(let index=0;index<count;index++)dates.push(addMonthsClamped(start,index*step));
     }
   }
   if(maturityDate<=dates[dates.length-1])throw new Error('The valuation or maturity date must be after the final investment date.');
