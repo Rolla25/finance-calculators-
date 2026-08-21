@@ -319,8 +319,10 @@ footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}
 
 /* Keep native date controls contained and aligned on iPhone Safari */
 .inputs-grid,.field{min-width:0}
-input[type=date]{display:block;width:100%;min-width:0;min-inline-size:0;text-align:left}
-input[type=date]::-webkit-date-and-time-value{min-width:0;text-align:left}
+.date-wrap{width:100%;min-width:0;overflow:hidden}
+.date-wrap input[type=date]{display:block;width:100%;min-width:0;min-inline-size:0;height:100%;padding:0 12px;border:0;border-radius:0;background:transparent;box-shadow:none;text-align:left}
+.date-wrap input[type=date]:focus{border:0;box-shadow:none}
+.date-wrap input[type=date]::-webkit-date-and-time-value{min-width:0;text-align:left}
 
 </style>
 </head>
@@ -375,7 +377,7 @@ input[type=date]::-webkit-date-and-time-value{min-width:0;text-align:left}
         </div>
         <div class="field">
           <label>Start Date</label>
-          <input type="date" id="c-sdate">
+          <div class="input-wrap date-wrap"><input type="date" id="c-sdate"></div>
           <div class="err" id="c-sdate-err">Start date is required</div>
         </div>
         <div class="field">
@@ -388,7 +390,7 @@ input[type=date]::-webkit-date-and-time-value{min-width:0;text-align:left}
         </div>
         <div class="field">
           <label>End Date</label>
-          <input type="date" id="c-edate">
+          <div class="input-wrap date-wrap"><input type="date" id="c-edate"></div>
           <div class="err" id="c-edate-err">Must be after start date</div>
         </div>
       </div>
@@ -427,7 +429,7 @@ input[type=date]::-webkit-date-and-time-value{min-width:0;text-align:left}
         </div>
         <div class="field">
           <label>Start Date</label>
-          <input type="date" id="fv-sdate">
+          <div class="input-wrap date-wrap"><input type="date" id="fv-sdate"></div>
           <div class="err" id="fv-sdate-err">Start date is required</div>
         </div>
         <div class="field">
@@ -440,7 +442,7 @@ input[type=date]::-webkit-date-and-time-value{min-width:0;text-align:left}
         </div>
         <div class="field">
           <label>End Date</label>
-          <input type="date" id="fv-edate">
+          <div class="input-wrap date-wrap"><input type="date" id="fv-edate"></div>
           <div class="err" id="fv-edate-err">Must be after start date</div>
         </div>
       </div>
