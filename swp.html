@@ -1,7 +1,20 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SWP Calculator</title>
+<!doctype html><html lang="en-IN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>SWP Calculator: Plan Systematic Withdrawals | Corpusly</title>
+<meta name="description" content="Free SWP calculator to estimate sustainable monthly withdrawals, corpus longevity, inflation adjusted income and a detailed withdrawal schedule in Indian rupees.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="author" content="Corpusly"><meta name="application-name" content="Corpusly"><meta name="theme-color" content="#102649">
+<link rel="canonical" href="https://www.corpusly.in/swp.html"><link rel="alternate" hreflang="en-IN" href="https://www.corpusly.in/swp.html">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314233B'/%3E%3Cpath d='M18 19h28v7H26v6h17v7H26v6h20v7H18z' fill='white'/%3E%3Ccircle cx='49' cy='15' r='5' fill='%2313B886'/%3E%3C/svg%3E">
+<meta property="og:type" content="website"><meta property="og:locale" content="en_IN"><meta property="og:site_name" content="Corpusly"><meta property="og:title" content="SWP Calculator: Plan Systematic Withdrawals | Corpusly"><meta property="og:description" content="Estimate sustainable monthly withdrawals, corpus longevity and inflation adjusted retirement income with a detailed monthly schedule."><meta property="og:url" content="https://www.corpusly.in/swp.html">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="SWP Calculator: Plan Systematic Withdrawals | Corpusly"><meta name="twitter:description" content="Plan systematic withdrawals and estimate how long your investment corpus may last.">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f7fb;color:#111827;font-size:15px;line-height:1.6;margin:0}
+.corpusly-header{position:sticky;top:0;z-index:100;width:100%;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid #E5E7EB}
+.corpusly-header-inner{max-width:1120px;height:70px;display:flex;align-items:center;margin:0 auto;padding:0 24px}
+.corpusly-header-logo{display:inline-flex;align-items:flex-start;color:#14233B;font-size:1.68rem;font-weight:800;letter-spacing:-.02em;text-decoration:none}
+.corpusly-header-logo .accent{color:#175DCC}
+.corpusly-header-logo .dot{width:7.2px;height:7.2px;flex-shrink:0;margin-left:4.8px;margin-top:4.8px;border-radius:50%;background:#13B886}
 .hero{background:linear-gradient(135deg,#1d4ed8 0%,#2563eb 50%,#38bdf8 100%);padding:44px 24px 48px;text-align:center;color:#fff}
 .hero h1{font-size:28px;font-weight:700;margin-bottom:10px;letter-spacing:-.3px}
 .hero p{font-size:15px;opacity:.88;max-width:580px;margin:0 auto;line-height:1.7}
@@ -71,8 +84,9 @@ tbody tr:last-child td{border-bottom:none}
 .faq-item.open .chevron{transform:rotate(180deg)}
 .results-section{display:none}
 @media(max-width:600px){.row2{grid-template-columns:1fr}.summary-grid{grid-template-columns:1fr 1fr}.hero h1{font-size:22px}}
+@media(max-width:520px){.corpusly-header-inner{padding-left:18px;padding-right:18px}}
 
-/* ===== Corpusly Footer — self-contained ===== */
+/* Corpusly footer */
 .corpusly-footer,
 .corpusly-footer *{
   box-sizing:border-box;
@@ -152,64 +166,101 @@ tbody tr:last-child td{border-bottom:none}
 @media (max-width:768px){
   .corpusly-footer-grid{grid-template-columns:1fr;gap:28px;}
 }
+
+/* Shared Corpusly calculator design system */
+:root{--navy:#102649;--blue:#175dcc;--mint:#13b886;--ink:#14233b;--muted:#68758a;--line:#dce3ed;--wash:#f3f7fb;--cream:#f9faf6;--white:#fff;--danger:#b42318;--safe-gutter:24px}
+html{scroll-behavior:smooth}body{background:#fff;color:var(--ink);font:16px/1.5 Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}button,input{font:inherit}
+.corpusly-header{height:70px;background:rgba(255,255,255,.96)}.corpusly-header-inner{width:100%;max-width:1120px;height:70px;justify-content:space-between}.corpusly-header-logo,.brand{display:inline-flex;align-items:flex-start;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:1.68rem;font-weight:800;letter-spacing:-.02em}.brand b{color:var(--blue)}.brand i{width:7.2px;height:7.2px;flex-shrink:0;margin:4.8px 0 0 4.8px;border-radius:50%;background:var(--mint)}
+.menu-button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;background:transparent;color:var(--navy)}.menu-button:focus-visible,.menu-close:focus-visible,.menu-panel a:focus-visible,.tab:focus-visible,.btn-calc:focus-visible,.btn-reset:focus-visible,.faq-q:focus-visible{outline:3px solid #175dcc38;outline-offset:2px}.menu-icon{display:flex;width:26px;flex-direction:column;gap:5px}.menu-icon span{display:block;width:100%;height:2px;border-radius:2px;background:var(--navy)}.menu-overlay{position:fixed;inset:0;z-index:150;background:#07162ca3;opacity:0;pointer-events:none;transition:opacity .25s ease}.menu-overlay.open{opacity:1;pointer-events:auto}.menu-panel{position:fixed;z-index:151;top:0;right:0;width:min(410px,100%);height:100dvh;padding:25px 26px 34px;overflow-y:auto;background:#fff;box-shadow:-20px 0 55px #07162c33;transform:translateX(105%);transition:transform .28s ease}.menu-panel.open{transform:translateX(0)}body.menu-open{overflow:hidden}.menu-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid var(--line)}.menu-close{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:25px;line-height:1}.menu-home{display:block;margin:18px 0;padding:13px 14px;border-radius:10px;background:var(--wash);color:var(--navy);font-size:14px;font-weight:700}.menu-group{padding:5px 0 18px}.menu-group h3{margin:0 0 10px;color:#778399;font-size:10px;letter-spacing:.13em;text-transform:uppercase}.menu-links{display:grid;grid-template-columns:1fr 1fr;gap:7px}.menu-links a{padding:10px 11px;border:1px solid transparent;border-radius:9px;color:#425169;font-size:13px}.menu-links a:hover{border-color:var(--line);background:var(--wash);color:var(--navy)}.menu-links a[aria-current="page"]{border-color:#cbdaf0;background:#edf4ff;color:var(--blue);font-weight:700}.menu-start{display:block;padding:13px 16px;border-radius:10px;background:var(--navy);color:#fff;text-align:center;font-size:13px;font-weight:700}
+.hero{position:relative;overflow:hidden;padding:74px 20px 78px;background:linear-gradient(120deg,#0d2344,#123767 58%,#155aac)}.hero:before,.hero:after{content:"";position:absolute;width:520px;height:520px;border:1px solid #ffffff17;border-radius:50%}.hero:before{left:-320px;bottom:-390px}.hero:after{right:-330px;top:-390px}.eyebrow,.kicker{position:relative;display:block;margin-bottom:10px;color:#a9c8f1;font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.hero h1{position:relative;max-width:800px;margin:0 auto 16px;font:500 50px/1.08 Georgia,serif;letter-spacing:-2px}.hero p{position:relative;max-width:670px;margin:auto;color:#d4e1f2;font-size:17px;line-height:1.5}.trust{position:relative;display:flex;justify-content:center;gap:24px;margin-top:25px;color:#c7d6e9;font-size:12px}
+.wrap{max-width:1064px;padding:70px var(--safe-gutter)}.section-intro{margin-bottom:24px}.section-intro .kicker,.guide-intro .kicker,.faq-heading .kicker{color:var(--blue)}.section-intro h2,.guide-intro h2,.faq-heading h2{margin:0;color:var(--navy);font:500 34px/1.15 Georgia,serif;letter-spacing:-1px}.section-intro p,.guide-intro p,.faq-heading p{max-width:680px;margin:10px 0 0;color:var(--muted);font-size:13px;line-height:1.7}
+.tab-wrap{gap:5px;margin-bottom:18px;padding:5px;border-radius:14px;background:#edf2f8;box-shadow:none}.tab{min-height:58px;padding:12px 16px;border:1px solid transparent;border-radius:10px;color:#748096;text-align:center}.tab.active{border-color:#d8e1ed;background:#fff;color:var(--navy);box-shadow:0 3px 11px #18375d14}.card{margin-bottom:18px;padding:28px;border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 30px #1432580f}.section-label{padding-bottom:20px;border-bottom:1px solid #e8edf3}.section-label .bar{width:31px;height:31px;display:grid;place-items:center;border-radius:8px;background:var(--navy)}.section-label span{color:var(--navy);font-size:12px;letter-spacing:.09em}.field{margin-bottom:22px}.field label{margin-bottom:7px;color:#34445c;font-size:12px}.field input[type=number]{height:48px;padding:0 14px;border:1px solid #ccd6e3;border-radius:10px;color:var(--navy);font-size:16px;font-weight:700}.field input[type=number]:focus{border-color:var(--blue);box-shadow:0 0 0 3px #175dcc18}.field .hint{color:#8a95a6;font-size:10px}.row2{gap:20px}.toggle-row{border-color:#dbe6f3;background:var(--wash)}.toggle-row span{color:var(--navy);font-size:12px}.infl-card{border-color:#cfe7df;background:#f3fbf8}.infl-note{color:#437365}
+.action-row{display:grid;grid-template-columns:1fr minmax(240px,360px) 1fr;align-items:center;gap:10px;margin-top:24px;padding-top:20px;border-top:1px solid #e8edf3}.btn-calc,.btn-reset{min-height:44px;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:700}.btn-calc{grid-column:2;grid-row:1;width:100%;margin:0;border:1px solid var(--navy);background:var(--navy);box-shadow:none}.btn-calc:hover{background:#163661;opacity:1}.btn-reset{grid-column:1;grid-row:1;justify-self:end;border:1px solid var(--line);background:var(--wash);color:var(--muted)}.btn-reset:hover{border-color:#b8cbe7;color:var(--blue)}
+.results-section>.card:first-child{overflow:hidden;border:0;background:linear-gradient(145deg,#10284c,#153b70);color:#fff}.results-section>.card:first-child .section-label{border-color:#ffffff1f}.results-section>.card:first-child .section-label .bar{background:#ffffff1a}.results-section>.card:first-child .section-label span{color:#a9c8f1}.summary-grid{gap:0}.metric{border:0;border-right:1px solid #ffffff1f;border-radius:0;background:transparent}.metric:hover{box-shadow:none}.metric .lbl{color:#aec2da;font-size:10px}.metric .val,.metric .val.blue,.metric .val.green,.metric .val.amber,.metric .val.red{color:#fff;font-size:17px}.tbl-outer{border-color:var(--line)}thead th{background:#f5f8fb;color:#67758a;font-size:10px}.badge-yes{border-color:#bce7da;background:#eaf8f3;color:#16745a}.badge-no{color:#8a95a6}.tbl-count{color:#8a95a6}
+.guide-section{margin:58px 0}.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.guide-grid article{padding:22px;border:1px solid var(--line);border-radius:14px}.guide-grid h3{margin:0 0 8px;color:var(--navy);font-size:16px}.guide-grid p{margin:0;color:var(--muted);font-size:13px;line-height:1.7}.disclaimer{display:flex;gap:10px;margin:58px 0;padding:15px 17px;border:1px solid #e3d7b6;border-radius:10px;background:#fffaf0;color:#745f33}.disclaimer-head{flex:0 0 auto;margin:0}.disclaimer-head .icon{font-size:13px}.disclaimer-head h3{display:none}.disclaimer p{color:#745f33;font-size:11px;line-height:1.65}.faq-card{padding:0;border:0;box-shadow:none}.faq-heading{margin-bottom:28px}.faq-card .section-label{display:none}.faq-list{padding:0 20px;border:1px solid var(--line);border-radius:14px;background:#fff}.faq-item{margin:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none}.faq-item:last-child{border-bottom:0}.faq-q{min-height:62px;padding:18px 0;color:var(--navy)}.faq-q .chevron{width:25px;height:25px;display:grid;place-items:center;border-radius:50%;background:#eef3f8;color:var(--blue);font-size:0}.faq-q .chevron:after{content:"+";font-size:17px}.faq-a{color:var(--muted)}.faq-item.open .faq-a{max-height:500px;padding:0 38px 18px 0}.faq-item.open .chevron{transform:none}.faq-item.open .chevron:after{content:"−"}
+.corpusly-footer{margin-top:60px;padding:52px 0 20px;background:#0d1d36}.corpusly-footer .container{max-width:1064px;padding:0 var(--safe-gutter)}.corpusly-footer-grid{grid-template-columns:2fr 1fr 1fr;gap:55px;padding-bottom:40px}.corpusly-footer-logo{color:#fff;font-size:25px}.corpusly-footer-logo .accent{color:var(--blue)}.corpusly-footer-col p{max-width:360px;color:#a9b8cc;font-size:13px;line-height:1.7}.corpusly-footer-col h4{margin:2px 0 5px;color:#d9e6f6;font-size:10px;letter-spacing:.12em}.corpusly-footer-col ul{gap:9px}.corpusly-footer a{color:#a9b8cc;font-size:12px}.corpusly-footer-bottom{padding-top:18px;border-top:1px solid #ffffff1a;color:#a9b8cc;font-size:10px}
+@media(max-width:800px){.guide-grid{grid-template-columns:1fr}.corpusly-footer-grid{grid-template-columns:1.4fr 1fr 1fr}}
+@media(max-width:560px){:root{--safe-gutter:22px}.corpusly-header-inner{height:62px;padding-left:max(var(--safe-gutter),env(safe-area-inset-left));padding-right:max(var(--safe-gutter),env(safe-area-inset-right))}.corpusly-header{height:62px}.corpusly-header-logo,.brand{font-size:22px}.menu-button{width:40px;height:40px}.menu-panel{padding:20px max(var(--safe-gutter),env(safe-area-inset-right)) 30px max(var(--safe-gutter),env(safe-area-inset-left))}.menu-links{grid-template-columns:1fr}.hero{padding:55px max(var(--safe-gutter),env(safe-area-inset-right))}.hero h1{font-size:35px;letter-spacing:-1.2px}.hero p{font-size:15px}.trust{flex-direction:column;gap:7px;margin-top:23px}.wrap{padding:50px max(var(--safe-gutter),env(safe-area-inset-right))}.section-intro h2,.guide-intro h2,.faq-heading h2{font-size:29px}.tab-wrap,.row2{grid-template-columns:1fr}.tab-wrap{display:grid}.card{padding:21px 18px}.field input[type=number]{height:50px}.action-row{grid-template-columns:1fr;gap:10px}.action-row .btn-calc{grid-column:1;grid-row:1;width:100%}.action-row .btn-reset{grid-column:1;grid-row:2;width:100%;justify-self:stretch}.summary-grid{grid-template-columns:1fr 1fr}.metric:nth-child(even){border-right:0}.guide-section{margin-top:58px}.faq-list{padding:0 16px}.faq-q{line-height:1.4}.faq-item.open .faq-a{padding-right:22px}.corpusly-footer-grid{grid-template-columns:1fr}.corpusly-footer a{min-height:32px}}
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <h1>SWP Calculator</h1>
-  <p>Plan systematic withdrawals from your investment corpus, estimate retirement income, adjust for inflation, and analyse portfolio sustainability.</p>
-</div>
+<header class="corpusly-header">
+  <div class="corpusly-header-inner">
+    <a href="https://corpusly.in/" class="corpusly-header-logo" aria-label="Visit the Corpusly home page">Corpus<span class="accent">ly</span><span class="dot" aria-hidden="true"></span></a>
+    <button class="menu-button" id="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></button>
+  </div>
+</header>
 
-<div class="wrap">
+<div class="menu-overlay" id="menu-overlay"></div>
+<aside class="menu-panel" id="site-menu" aria-label="Website menu" aria-hidden="true">
+  <div class="menu-head"><a class="brand" href="https://corpusly.in/">Corpus<b>ly</b><i></i></a><button class="menu-close" id="menu-close" type="button" aria-label="Close menu">×</button></div>
+  <a class="menu-home" href="https://corpusly.in/">Home</a>
+  <div class="menu-group"><h3>Calculators</h3><div class="menu-links">
+    <a href="sip.html">SIP Calculator</a><a href="swp.html" aria-current="page">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a>
+  </div></div>
+  <div class="menu-group"><h3>Resources</h3><div class="menu-links"><a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a></div></div>
+  <a class="menu-start" href="#calculator">Start planning</a>
+</aside>
+
+<section class="hero" id="top">
+  <span class="eyebrow">● Free retirement planning tool</span>
+  <h1>SWP Calculator for Smarter<br>Retirement Income Planning</h1>
+  <p>Estimate sustainable monthly withdrawals, test inflation adjustments and see how long your investment corpus may last.</p>
+  <div class="trust"><span>✓ No sign up</span><span>✓ Runs in your browser</span><span>✓ Built for Indian investors</span></div>
+</section>
+
+<main class="wrap" id="calculator">
+
+  <div class="section-intro"><span class="kicker">PLAN WITH CLARITY</span><h2>Set your withdrawal strategy</h2><p>Choose whether to solve for a sustainable monthly income over a fixed period or estimate how long a chosen withdrawal could last.</p></div>
 
   <div class="tab-wrap">
-    <button class="tab active" onclick="switchMode('duration')">Fixed Duration</button>
-    <button class="tab" onclick="switchMode('withdrawal')">Fixed Withdrawal</button>
+    <button class="tab active" type="button" onclick="switchMode('duration')">Fixed duration</button>
+    <button class="tab" type="button" onclick="switchMode('withdrawal')">Fixed withdrawal</button>
   </div>
 
   <div class="card">
-    <div class="section-label"><div class="bar"></div><span>SWP Inputs</span></div>
+    <div class="section-label"><span>SWP Inputs</span></div>
 
     <div class="field">
-      <label>Initial Corpus / Investment (₹)</label>
-      <input type="number" id="corpus" placeholder="e.g. 5000000" min="1000" step="1000" oninput="clrE('e-corpus')">
+      <label for="corpus">Initial corpus or investment (₹)</label>
+      <input type="number" id="corpus" value="0" placeholder="Enter amount" min="0" step="1000" inputmode="decimal" oninput="clrE('e-corpus')">
       <div class="hint">Total investment or retirement corpus available for withdrawals.</div>
       <div class="err" id="e-corpus">Please enter a valid corpus of at least ₹1,000.</div>
     </div>
 
     <div class="field">
-      <label>Expected Annual Return (%)</label>
-      <input type="number" id="annReturn" placeholder="e.g. 12.00" min="0" max="30" step="0.01" oninput="clrE('e-return')">
-      <div class="hint">Enter expected annual return before withdrawals. Decimal values allowed (e.g. 7.5, 10.25).</div>
+      <label for="annReturn">Expected annual return (%)</label>
+      <input type="number" id="annReturn" value="0" placeholder="Enter return" min="0" max="30" step="0.01" inputmode="decimal" oninput="clrE('e-return')">
+      <div class="hint">Enter the expected annual return before withdrawals. Decimal values are allowed.</div>
       <div class="err" id="e-return">Return must be between 0% and 30%.</div>
     </div>
 
     <label class="toggle-row" for="inflToggle">
       <input type="checkbox" id="inflToggle" onchange="toggleInflation()">
-      <span>Enable Inflation-Adjusted SWP</span>
+      <span>Enable inflation adjusted SWP</span>
     </label>
 
     <div id="inflBlock" style="display:none">
       <div class="infl-card">
         <div class="field">
-          <label>Expected Inflation Rate (%)</label>
-          <input type="number" id="inflRate" placeholder="e.g. 6.00" min="0" max="30" step="0.01" value="6" oninput="clrE('e-infl')">
+          <label for="inflRate">Expected inflation rate (%)</label>
+          <input type="number" id="inflRate" placeholder="Enter inflation" min="0" max="30" step="0.01" value="0" inputmode="decimal" oninput="clrE('e-infl')">
           <div class="err" id="e-infl">Inflation rate must be between 0% and 30%.</div>
         </div>
-        <p class="infl-note">Inflation-adjusted SWP increases your withdrawals every year to help maintain purchasing power. Higher inflation rates generally reduce the sustainable withdrawal amount or shorten corpus longevity.</p>
+        <p class="infl-note">An inflation adjusted SWP increases withdrawals every year to help maintain purchasing power. A higher inflation rate generally reduces sustainable income or shortens corpus longevity.</p>
       </div>
     </div>
 
     <div id="durFields">
       <div class="row2">
         <div class="field">
-          <label>Duration — Years</label>
-          <input type="number" id="durYears" min="0" max="100" step="1" value="20" placeholder="0–100" oninput="clrE('e-dur')">
+          <label for="durYears">Duration in years</label>
+          <input type="number" id="durYears" min="0" max="100" step="1" value="0" placeholder="0 to 100" inputmode="numeric" oninput="clrE('e-dur')">
         </div>
         <div class="field">
-          <label>Duration — Months</label>
-          <input type="number" id="durMonths" min="0" max="11" step="1" value="0" placeholder="0–11" oninput="clrE('e-dur')">
+          <label for="durMonths">Additional months</label>
+          <input type="number" id="durMonths" min="0" max="11" step="1" value="0" placeholder="0 to 11" inputmode="numeric" oninput="clrE('e-dur')">
         </div>
       </div>
       <div class="err" id="e-dur">Duration must be between 1 month and 1,200 months.</div>
@@ -217,14 +268,14 @@ tbody tr:last-child td{border-bottom:none}
 
     <div id="swpField" style="display:none">
       <div class="field">
-        <label>Monthly SWP Amount (₹) <span style="font-size:12px;color:#9CA3AF;font-weight:400">(Year 1 amount if inflation-adjusted)</span></label>
-        <input type="number" id="swpAmount" placeholder="e.g. 50000" min="1" step="100" oninput="clrE('e-swp')">
+        <label for="swpAmount">Monthly SWP amount (₹) <span style="font-size:10px;color:#8a95a6;font-weight:400">Year 1 amount when inflation is enabled</span></label>
+        <input type="number" id="swpAmount" value="0" placeholder="Enter withdrawal" min="0" step="100" inputmode="decimal" oninput="clrE('e-swp')">
         <div class="hint">Monthly amount you wish to withdraw from your corpus.</div>
         <div class="err" id="e-swp">Please enter a valid monthly withdrawal amount greater than ₹0.</div>
       </div>
     </div>
 
-    <button class="btn-calc" onclick="calculate()">Calculate SWP</button>
+    <div class="action-row"><button class="btn-calc" type="button" onclick="calculate()">Calculate SWP</button><button class="btn-reset" type="button" onclick="resetCalculator()">↻ Reset</button></div>
   </div>
 
   <div class="results-section" id="results">
@@ -256,20 +307,23 @@ tbody tr:last-child td{border-bottom:none}
     </div>
   </div>
 
+  <section class="guide-section" aria-labelledby="guide-title"><div class="guide-intro"><span class="kicker">SWP PLANNING, EXPLAINED</span><h2 id="guide-title">How to use this SWP calculator</h2><p>Enter your corpus, expected return and preferred withdrawal approach. The calculator applies monthly compounding and shows each withdrawal so you can review the complete projection.</p></div><div class="guide-grid"><article><h3>Plan monthly income</h3><p>Use fixed duration mode to estimate a starting monthly withdrawal designed to use the corpus over your selected period.</p></article><article><h3>Test corpus longevity</h3><p>Use fixed withdrawal mode to estimate how long the corpus could support the monthly income you choose.</p></article><article><h3>Account for inflation</h3><p>Increase withdrawals once each year to model income that aims to maintain purchasing power over time.</p></article></div></section>
+
   <div class="disclaimer">
     <div class="disclaimer-head"><span class="icon">⚠️</span><h3>Important Disclaimer</h3></div>
     <p>This calculator is intended for educational and illustrative purposes only and assumes a constant rate of return throughout the withdrawal period. Actual investment returns are unlikely to be consistent and may vary significantly over time.</p>
-    <p>For market-linked investments such as mutual funds, stocks, ETFs, and other securities, portfolio values can fluctuate due to market conditions. During periods of weak or negative returns, withdrawals may reduce the principal investment faster than projected, causing the corpus to deplete sooner than estimated.</p>
+    <p>For market linked investments such as mutual funds, stocks, ETFs, and other securities, portfolio values can fluctuate due to market conditions. During periods of weak or negative returns, withdrawals may reduce the principal investment faster than projected, causing the corpus to deplete sooner than estimated.</p>
     <p>The calculations provided are estimates only and should not be interpreted as a guarantee of future performance, returns, or corpus longevity. Actual outcomes may differ due to market volatility, sequence of returns risk, taxes, expenses, inflation, and changes in withdrawal patterns.</p>
     <p>Users should use the results as indicative projections and not as financial advice or a prediction of future investment performance.</p>
   </div>
 
-  <div class="card">
+  <section class="card faq-card" id="faq">
+    <div class="faq-heading"><span class="kicker">SWP CALCULATOR FAQ</span><h2>Questions and answers</h2><p>Clear answers to common questions about systematic withdrawals, inflation and corpus sustainability.</p></div>
     <div class="section-label"><div class="bar"></div><span>Frequently Asked Questions</span></div>
-    <div id="faqList"></div>
-  </div>
+    <div class="faq-list" id="faqList"></div>
+  </section>
 
-</div>
+</main>
 
 <footer class="corpusly-footer">
   <div class="container">
@@ -297,12 +351,12 @@ tbody tr:last-child td{border-bottom:none}
       <div class="corpusly-footer-col">
         <h4>Resources</h4>
         <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms &amp; Conditions</a></li>
-          <li><a href="disclaimer.html">Disclaimer</a></li>
-          <li><a href="methodology.html">Methodology</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="https://www.corpusly.in/about.html">About Us</a></li>
+          <li><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a></li>
+          <li><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a></li>
+          <li><a href="https://www.corpusly.in/methodology.html">Methodology</a></li>
+          <li><a href="https://www.corpusly.in/contact.html">Contact Us</a></li>
         </ul>
       </div>
     </div>
@@ -318,7 +372,7 @@ let mode='duration', scheduleData=[];
 const FAQS=[
   {q:"How does this SWP calculator work?",a:"This calculator estimates how long your investment corpus may last based on your initial investment, withdrawal amount, expected rate of return, and inflation assumptions. It projects the corpus value month by month throughout the withdrawal period."},
   {q:"What is the difference between Fixed Duration and Fixed Withdrawal modes?",a:"In Fixed Duration mode, the calculator determines the maximum sustainable withdrawal amount for your chosen time horizon. In Fixed Withdrawal mode, the calculator estimates how long your corpus can support a specified monthly withdrawal amount."},
-  {q:"What does Inflation Adjusted SWP mean?",a:"An inflation-adjusted SWP increases your withdrawal amount periodically to help maintain purchasing power over time. Without inflation adjustments, the real value of your withdrawals may decline as living costs rise."},
+  {q:"What does Inflation Adjusted SWP mean?",a:"An inflation adjusted SWP increases your withdrawal amount periodically to help maintain purchasing power over time. Without inflation adjustments, the real value of your withdrawals may decline as living costs rise."},
   {q:"Why does the withdrawal amount increase when inflation adjustment is enabled?",a:"The calculator increases withdrawals based on the inflation rate entered by the user. This simulates a retiree increasing income over time to maintain a similar standard of living despite rising prices."},
   {q:'What does "Corpus Lasts For" mean?',a:"This metric indicates the estimated duration for which your investment corpus can continue supporting withdrawals before being fully depleted, based on the assumptions entered."},
   {q:"Why does my corpus continue growing even after withdrawals begin?",a:"If investment returns exceed the amount being withdrawn, the remaining corpus may continue to grow despite regular withdrawals. This is common when withdrawal rates are conservative relative to expected returns."},
@@ -328,7 +382,7 @@ const FAQS=[
   {q:"Does this calculator guarantee my corpus will last as projected?",a:"No. The calculator assumes a constant rate of return and does not account for market volatility, sequence of returns risk, taxes, or changing withdrawal needs. Actual results may differ significantly from projections."},
   {q:"Why are actual investment returns likely to differ from the calculator's projections?",a:"Real world investments rarely generate the same return every year. Markets experience periods of growth, decline, and volatility, which can impact how long a withdrawal strategy remains sustainable."},
   {q:"Can I use this calculator for retirement planning?",a:"Yes. The calculator is particularly useful for estimating sustainable retirement income, testing different withdrawal strategies, and understanding the long term impact of inflation and investment returns but we advise you to consult a financial planner before investing."},
-  {q:"Does the calculator account for taxes?",a:"No. The calculations are based on pre-tax assumptions. Actual withdrawals and corpus growth may be affected by taxation depending on the investment type and applicable tax laws."},
+  {q:"Does the calculator account for taxes?",a:"No. The calculations are based on assumptions before tax. Actual withdrawals and corpus growth may be affected by taxation depending on the investment type and applicable tax laws."},
   {q:"What is sequence of returns risk?",a:"Sequence of returns risk refers to the danger of experiencing poor investment returns early in retirement while making withdrawals. Early losses combined with withdrawals can reduce portfolio longevity even if long term average returns remain unchanged."},
   {q:"Why does the withdrawal schedule show month by month projections?",a:"The withdrawal schedule provides transparency into how the corpus evolves over time, including investment growth, withdrawals, inflation adjustments, and remaining corpus values at each stage."},
 ];
@@ -337,13 +391,28 @@ const FAQS=[
   const el=document.getElementById('faqList');
   FAQS.forEach((f,i)=>{
     el.innerHTML+=`<div class="faq-item" id="faq${i}">
-      <button class="faq-q" onclick="toggleFAQ(${i})"><span>${f.q}</span><span class="chevron">⌄</span></button>
-      <div class="faq-a">${f.a}</div>
+      <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-answer-${i}" onclick="toggleFAQ(${i})"><span>${f.q}</span><span class="chevron" aria-hidden="true"></span></button>
+      <div class="faq-a" id="faq-answer-${i}">${f.a}</div>
     </div>`;
   });
 })();
 
-function toggleFAQ(i){document.getElementById('faq'+i).classList.toggle('open');}
+function toggleFAQ(i){
+  const item=document.getElementById('faq'+i),button=item.querySelector('.faq-q');
+  const open=item.classList.toggle('open');
+  button.setAttribute('aria-expanded',String(open));
+}
+
+(function setupMenu(){
+  const button=document.getElementById('menu-button'),panel=document.getElementById('site-menu'),overlay=document.getElementById('menu-overlay'),close=document.getElementById('menu-close');
+  function setMenu(open){panel.classList.toggle('open',open);overlay.classList.toggle('open',open);document.body.classList.toggle('menu-open',open);button.setAttribute('aria-expanded',String(open));panel.setAttribute('aria-hidden',String(!open));if(open)close.focus();else button.focus();}
+  button.addEventListener('click',()=>setMenu(true));close.addEventListener('click',()=>setMenu(false));overlay.addEventListener('click',()=>setMenu(false));panel.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('open'))setMenu(false);});
+})();
+
+(function addStructuredData(){
+  const data={"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.corpusly.in/#organization","name":"Corpusly","url":"https://www.corpusly.in/"},{"@type":"WebSite","@id":"https://www.corpusly.in/#website","url":"https://www.corpusly.in/","name":"Corpusly","publisher":{"@id":"https://www.corpusly.in/#organization"}},{"@type":"WebPage","@id":"https://www.corpusly.in/swp.html#webpage","url":"https://www.corpusly.in/swp.html","name":"SWP Calculator: Plan Systematic Withdrawals | Corpusly","description":"Estimate sustainable monthly withdrawals, corpus longevity and inflation adjusted income.","isPartOf":{"@id":"https://www.corpusly.in/#website"}},{"@type":"WebApplication","name":"Corpusly SWP Calculator","url":"https://www.corpusly.in/swp.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.corpusly.in/"},{"@type":"ListItem","position":2,"name":"SWP Calculator","item":"https://www.corpusly.in/swp.html"}]},{"@type":"FAQPage","mainEntity":FAQS.map(f=>({"@type":"Question","name":f.q,"acceptedAnswer":{"@type":"Answer","text":f.a}}))}]};
+  const script=document.createElement('script');script.type='application/ld+json';script.textContent=JSON.stringify(data);document.head.appendChild(script);
+})();
 
 function switchMode(m){
   mode=m;
@@ -359,6 +428,18 @@ function toggleInflation(){
 
 function clrE(id){document.getElementById(id).style.display='none';}
 function showE(id){document.getElementById(id).style.display='block';}
+
+function resetCalculator(){
+  ['corpus','annReturn','inflRate','durYears','durMonths','swpAmount'].forEach(id=>document.getElementById(id).value='0');
+  document.getElementById('inflToggle').checked=false;
+  document.getElementById('inflBlock').style.display='none';
+  document.querySelectorAll('.err').forEach(el=>el.style.display='none');
+  scheduleData=[];
+  document.getElementById('summaryGrid').innerHTML='';
+  document.getElementById('tableBody').innerHTML='';
+  document.getElementById('rowCount').textContent='';
+  switchMode('duration');
+}
 
 function fmtINR(n){
   if(isNaN(n)||!isFinite(n)) return '₹0';
@@ -486,7 +567,7 @@ function renderTable(data){
       <td>${fmtINR(r.open)}</td>
       <td style="color:#059669">${fmtINR(r.interest)}</td>
       <td style="color:#dc2626">${fmtINR(r.withdrawal)}</td>
-      <td>${r.inflApplied?'<span class="badge-yes">Yes ↑</span>':'<span class="badge-no">—</span>'}</td>
+      <td>${r.inflApplied?'<span class="badge-yes">Yes ↑</span>':'<span class="badge-no">No</span>'}</td>
       <td style="${r.close<1000?'color:#dc2626;font-weight:700':''}">${fmtINR(r.close)}</td>
     </tr>`).join('');
   document.getElementById('rowCount').textContent=`${data.length} months in projection`;
