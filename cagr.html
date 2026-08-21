@@ -317,6 +317,11 @@ footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}
 @media(max-width:560px){.corpusly-header{height:70px}.brand{font-size:1.68rem}}
 @media(max-width:520px){.corpusly-header.wrap{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}}
 
+/* Keep native date controls contained and aligned on iPhone Safari */
+.inputs-grid,.field{min-width:0}
+input[type=date]{display:block;width:100%;min-width:0;min-inline-size:0;text-align:left}
+input[type=date]::-webkit-date-and-time-value{min-width:0;text-align:left}
+
 </style>
 </head>
 <body>
