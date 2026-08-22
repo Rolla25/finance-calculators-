@@ -1,238 +1,218 @@
-<section id="contact-us" class="contact-section">
-    <style>
-        .contact-section {
-            background: #f8fbff;
-            padding: 80px 20px;
-            font-family: Arial, sans-serif;
-            color: #1f2937;
-        }
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+  <meta name="theme-color" content="#102649">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <title>Contact Us | Corpusly Financial Calculators</title>
+  <meta name="description" content="Contact Corpusly with calculator feedback, bug reports, feature suggestions, new calculator requests, website questions and business inquiries.">
+  <link rel="canonical" href="https://www.corpusly.in/contact.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:site_name" content="Corpusly">
+  <meta property="og:title" content="Contact Us | Corpusly">
+  <meta property="og:description" content="Send feedback, questions and suggestions to the team behind Corpusly Financial Calculators.">
+  <meta property="og:url" content="https://www.corpusly.in/contact.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Contact Us | Corpusly">
+  <meta name="twitter:description" content="Send feedback, questions and suggestions to the team behind Corpusly Financial Calculators.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23175DCC'/%3E%3Ctext x='50' y='68' font-size='58' fill='white' text-anchor='middle' font-family='Arial' font-weight='bold'%3EC%3C/text%3E%3C/svg%3E">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"ContactPage","name":"Contact Corpusly","url":"https://www.corpusly.in/contact.html","description":"Contact page for Corpusly Financial Calculators.","inLanguage":"en-IN","isPartOf":{"@type":"WebSite","name":"Corpusly","url":"https://www.corpusly.in/"},"about":{"@type":"Organization","name":"Corpusly","email":"info.corpusly@gmail.com","url":"https://www.corpusly.in/"}}
+  </script>
+  <style>
+    :root{--navy:#102649;--blue:#175dcc;--mint:#13b886;--ink:#14233b;--muted:#68758a;--line:#dce3ed;--wash:#f3f7fb;--blue-wash:#edf4ff;--cream:#fffaf0;--white:#fff;--footer:#0d1d36;--shadow:0 8px 30px rgba(20,50,88,.06);--shadow-hover:0 16px 40px rgba(15,23,42,.12);--safe-gutter:24px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;scroll-padding-top:92px}
+    body{overflow-x:hidden;background:#fff;color:var(--ink);font:16px/1.6 Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+    body.menu-open{overflow:hidden}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .wrap{width:100%;max-width:1064px;margin:0 auto;padding-left:var(--safe-gutter);padding-right:var(--safe-gutter)}
+    .skip-link{position:fixed;top:12px;left:16px;z-index:300;padding:10px 16px;border-radius:8px;background:#fff;color:var(--navy);font-weight:800;box-shadow:var(--shadow);transform:translateY(-160%);transition:transform .2s}
+    .skip-link:focus{transform:translateY(0)}
+    :focus-visible{outline:3px solid rgba(23,93,204,.28);outline-offset:3px}
 
-        .contact-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 50px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
+    .corpusly-header{position:sticky;top:0;z-index:100;height:70px;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid #e5e7eb}
+    .corpusly-header-inner{height:70px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:inline-flex;align-items:flex-start;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:1.68rem;font-weight:800;letter-spacing:-.02em}
+    .brand b{color:var(--blue)}.brand i{width:7.2px;height:7.2px;flex-shrink:0;margin:4.8px 0 0 4.8px;border-radius:50%;background:var(--mint)}
+    .menu-button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;background:transparent;color:var(--navy);cursor:pointer}
+    .menu-icon{display:flex;width:26px;flex-direction:column;gap:5px}.menu-icon span{display:block;width:100%;height:2px;border-radius:2px;background:var(--navy)}
+    .menu-overlay{position:fixed;inset:0;z-index:150;background:rgba(7,22,44,.64);opacity:0;pointer-events:none;transition:opacity .25s}.menu-overlay.open{opacity:1;pointer-events:auto}
+    .menu-panel{position:fixed;z-index:151;top:0;right:0;width:min(410px,100%);height:100dvh;padding:25px 26px 34px;overflow-y:auto;background:#fff;box-shadow:-20px 0 55px rgba(7,22,44,.2);transform:translateX(105%);transition:transform .28s}.menu-panel.open{transform:translateX(0)}
+    .menu-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid var(--line)}
+    .menu-close{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:25px;line-height:1;cursor:pointer}
+    .menu-home{display:block;margin:18px 0;padding:13px 14px;border-radius:10px;background:var(--wash);color:var(--navy);font-size:14px;font-weight:700}
+    .menu-group{padding:5px 0 18px}.menu-group h2{margin:0 0 10px;color:#778399;font:800 10px/1.5 Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase}
+    .menu-links{display:grid;grid-template-columns:1fr 1fr;gap:7px}.menu-links a{padding:10px 11px;border:1px solid transparent;border-radius:9px;color:#425169;font-size:13px}.menu-links a:hover{border-color:var(--line);background:var(--wash);color:var(--navy)}.menu-links a[aria-current="page"]{border-color:#cbdaf0;background:var(--blue-wash);color:var(--blue);font-weight:700}
+    .menu-start{display:block;padding:13px 16px;border-radius:10px;background:var(--navy);color:#fff;text-align:center;font-size:13px;font-weight:700}
 
-        .contact-section h1 {
-            color: #0f4c81;
-            text-align: center;
-            font-size: 42px;
-            margin-bottom: 15px;
-        }
+    .hero{position:relative;overflow:hidden;padding:74px 20px 78px;background:linear-gradient(120deg,#0d2344,#123767 58%,#155aac);color:#fff;text-align:center}
+    .hero::before,.hero::after{content:"";position:absolute;width:520px;height:520px;border:1px solid rgba(255,255,255,.09);border-radius:50%;pointer-events:none}.hero::before{left:-320px;bottom:-390px}.hero::after{right:-330px;top:-390px}
+    .eyebrow{position:relative;display:block;margin-bottom:10px;color:#a9c8f1;font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+    .hero h1{position:relative;max-width:820px;margin:0 auto 16px;color:#fff;font:500 clamp(38px,5.5vw,50px)/1.08 Georgia,serif;letter-spacing:-2px}
+    .hero p{position:relative;max-width:650px;margin:0 auto;color:#d4e1f2;font-size:17px;line-height:1.6}
+    .hero-action{position:relative;display:inline-flex;align-items:center;gap:9px;margin-top:25px;padding:12px 22px;border-radius:10px;background:#fff;color:var(--navy);font-size:13px;font-weight:800;box-shadow:0 10px 28px rgba(5,16,34,.2);transition:transform .2s,background .2s}.hero-action:hover{transform:translateY(-2px);background:var(--blue-wash)}
 
-        .contact-subtitle {
-            text-align: center;
-            color: #2563eb;
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 40px;
-        }
+    .contact-main{padding-top:68px;padding-bottom:76px}
+    .kicker{display:block;margin-bottom:9px;color:var(--blue);font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+    .contact-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(310px,.65fr);gap:20px;align-items:start}
+    .inquiry-panel{padding:34px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:var(--shadow)}
+    .inquiry-panel h2{max-width:620px;margin-bottom:11px;color:var(--navy);font:500 clamp(29px,4vw,37px)/1.14 Georgia,serif;letter-spacing:-1px}.inquiry-lead{max-width:650px;color:var(--muted);font-size:13px;line-height:1.75}
+    .inquiry-list{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;margin-top:28px;border-top:1px solid var(--line)}
+    .inquiry-item{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:20px 0;border-bottom:1px solid var(--line)}.inquiry-item:nth-last-child(-n+2){border-bottom:0}
+    .inquiry-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:var(--blue-wash);color:var(--blue);font-size:10px;font-weight:800}.inquiry-item h3{margin:1px 0 4px;color:var(--navy);font-size:14px}.inquiry-item p{color:var(--muted);font-size:11px;line-height:1.6}
+    .detail-tip{display:flex;gap:12px;align-items:flex-start;margin-top:24px;padding:16px;border-radius:12px;background:var(--wash)}.tip-icon{display:grid;place-items:center;width:25px;height:25px;flex:0 0 auto;border-radius:50%;background:#fff;color:var(--blue);font-size:12px;font-weight:800}.detail-tip strong{display:block;margin-bottom:3px;color:var(--navy);font-size:12px}.detail-tip p{color:var(--muted);font-size:11px;line-height:1.65}
 
-        .contact-section h2 {
-            color: #0f4c81;
-            margin-top: 40px;
-            margin-bottom: 15px;
-            font-size: 28px;
-            border-left: 5px solid #2563eb;
-            padding-left: 15px;
-        }
+    .contact-card{position:sticky;top:90px;overflow:hidden;border-radius:20px;background:linear-gradient(145deg,#0d2344,#123767 62%,#155aac);color:#fff;box-shadow:0 18px 45px rgba(13,35,68,.2)}.contact-card::after{content:"";position:absolute;right:-105px;bottom:-125px;width:260px;height:260px;border:1px solid rgba(255,255,255,.1);border-radius:50%}
+    .contact-card-main{position:relative;padding:30px}.email-icon{display:grid;place-items:center;width:46px;height:46px;margin-bottom:45px;border-radius:12px;background:rgba(255,255,255,.13)}.email-icon svg{width:22px;height:22px}.contact-label{display:block;margin-bottom:8px;color:#a9c8f1;font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.contact-card h2{margin-bottom:8px;font:500 27px/1.2 Georgia,serif}.contact-card-main>p{color:#d4e1f2;font-size:12px;line-height:1.65}
+    .email-link{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px;padding:13px 14px;border-radius:10px;background:#fff;color:var(--navy);font-size:12px;font-weight:800;transition:transform .2s,background .2s}.email-link:hover{transform:translateY(-2px);background:var(--blue-wash)}.email-link span:first-child{overflow-wrap:anywhere}.email-arrow{flex:0 0 auto;font-size:18px}
+    .response-note{position:relative;z-index:1;padding:19px 30px;border-top:1px solid rgba(255,255,255,.13);background:rgba(3,16,36,.15)}.response-note strong{display:block;margin-bottom:4px;color:#fff;font-size:11px}.response-note p{color:#b9cce4;font-size:10px;line-height:1.6}
 
-        .contact-section p {
-            line-height: 1.8;
-            margin-bottom: 18px;
-            font-size: 16px;
-        }
+    .advice-panel{display:grid;grid-template-columns:minmax(220px,.75fr) minmax(0,1.25fr);gap:36px;align-items:center;margin-top:22px;padding:30px 34px;border:1px solid #e3d7b6;border-radius:18px;background:var(--cream)}.advice-copy h2{margin-bottom:8px;color:#5f4c24;font:500 25px/1.18 Georgia,serif}.advice-copy p{color:#745f33;font-size:11px;line-height:1.7}
+    .advice-list{display:grid;gap:9px;list-style:none}.advice-list li{display:flex;gap:10px;align-items:flex-start;color:#68552d;font-size:11px;line-height:1.6}.advice-list li::before{content:"i";display:grid;place-items:center;width:21px;height:21px;flex:0 0 auto;border:1px solid #d9c894;border-radius:50%;font-size:10px;font-weight:800}
+    .about-strip{display:flex;align-items:center;justify-content:space-between;gap:28px;margin-top:22px;padding:24px 28px;border:1px solid var(--line);border-radius:16px;background:var(--wash)}.about-strip h2{margin-bottom:5px;color:var(--navy);font:500 21px/1.2 Georgia,serif}.about-strip p{max-width:670px;color:var(--muted);font-size:11px;line-height:1.65}.about-link{flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:800}.about-link:hover{text-decoration:underline}
 
-        .contact-section ul {
-            margin: 15px 0 25px 25px;
-            padding: 0;
-        }
+    footer{padding:52px 0 20px;background:var(--footer);color:#a9b8cc}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:55px;padding-bottom:40px}.footer-grid>div{display:flex;flex-direction:column;gap:9px}.brand.light{color:#fff}.footer-grid p{max-width:360px;font-size:13px;line-height:1.7}.footer-grid h2{margin:2px 0 5px;color:#d9e6f6;font:800 10px/1.5 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}.footer-grid a:not(.brand){font-size:12px}.copyright{display:flex;justify-content:center;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:10px}
 
-        .contact-section li {
-            margin-bottom: 10px;
-            line-height: 1.7;
-        }
+    @media(max-width:860px){.contact-layout{grid-template-columns:1fr}.contact-card{position:relative;top:auto}.email-icon{margin-bottom:34px}.advice-panel{grid-template-columns:1fr;gap:20px}.footer-grid{grid-template-columns:1.4fr 1fr 1fr}}
+    @media(max-width:560px){:root{--safe-gutter:22px}.corpusly-header-inner{padding-left:max(var(--safe-gutter),env(safe-area-inset-left));padding-right:max(var(--safe-gutter),env(safe-area-inset-right))}.menu-button{width:40px;height:40px}.menu-panel{padding:20px max(var(--safe-gutter),env(safe-area-inset-right)) 30px max(var(--safe-gutter),env(safe-area-inset-left))}.menu-links{grid-template-columns:1fr}.hero{padding:55px var(--safe-gutter)}.hero h1{font-size:35px;letter-spacing:-1.2px}.hero p{font-size:15px}.contact-main{padding-top:44px;padding-bottom:58px}.inquiry-panel{padding:24px 20px}.inquiry-panel h2{font-size:29px}.inquiry-list{grid-template-columns:1fr}.inquiry-item:nth-last-child(2){border-bottom:1px solid var(--line)}.contact-card-main{padding:25px 20px}.response-note{padding:18px 20px}.advice-panel{padding:24px 20px}.about-strip{align-items:flex-start;flex-direction:column;padding:22px 20px}.footer-grid{grid-template-columns:1fr}.footer-grid a:not(.brand){min-height:32px}.copyright{display:block}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-        .contact-card {
-            background: linear-gradient(135deg, #2563eb, #0f4c81);
-            color: white;
-            padding: 35px;
-            border-radius: 14px;
-            text-align: center;
-            margin: 30px 0;
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
-        }
-
-        .contact-card h3 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 24px;
-        }
-
-        .contact-email {
-            font-size: 20px;
-            font-weight: 600;
-            word-break: break-word;
-        }
-
-        .contact-email a {
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        .contact-email a:hover {
-            text-decoration: underline;
-        }
-
-        .info-box {
-            background: #eff6ff;
-            border-left: 5px solid #2563eb;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 25px 0;
-        }
-
-        .footer-note {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 25px;
-            border-top: 1px solid #dbeafe;
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        @media (max-width: 768px) {
-            .contact-container {
-                padding: 30px 20px;
-            }
-
-            .contact-section h1 {
-                font-size: 32px;
-            }
-
-            .contact-subtitle {
-                font-size: 18px;
-            }
-
-            .contact-section h2 {
-                font-size: 24px;
-            }
-
-            .contact-email {
-                font-size: 17px;
-            }
-        }
-    </style>
-
-    <div class="contact-container">
-
-        <h1>Contact Us</h1>
-
-        <div class="contact-subtitle">
-            We'd Love to Hear From You
-        </div>
-
-        <p>
-            Thank you for visiting Corpusly Financial Calculators.
-        </p>
-
-        <p>
-            We welcome feedback, suggestions, questions, and bug reports that help us improve the website and provide a better experience for our users.
-        </p>
-
-        <h2>How to Reach Us</h2>
-
-        <p>
-            For any inquiries related to the website, please contact us at:
-        </p>
-
-        <div class="contact-card">
-            <h3>Email</h3>
-            <div class="contact-email">
-                <a href="mailto:jainrohil2500@gmail.com">
-                    info.corpusly@gmail.com
-                </a>
-            </div>
-        </div>
-
-        <p>
-            We aim to respond to genuine inquiries as soon as reasonably possible.
-        </p>
-
-        <h2>What Can You Contact Us About?</h2>
-
-        <p>
-            You may contact us regarding:
-        </p>
-
-        <ul>
-            <li>Calculator feedback</li>
-            <li>Calculation errors or discrepancies</li>
-            <li>Bug reports</li>
-            <li>Feature suggestions</li>
-            <li>New calculator requests</li>
-            <li>Website issues</li>
-            <li>Business inquiries</li>
-            <li>General questions</li>
-        </ul>
-
-        <p>
-            Your feedback helps us improve Corpusly and build better financial planning tools for everyone.
-        </p>
-
-        <h2>Before Contacting Us</h2>
-
-        <div class="info-box">
-
-            <p>Please note:</p>
-
-            <ul>
-                <li>Corpusly does not provide financial advice.</li>
-                <li>Corpusly does not provide investment recommendations.</li>
-                <li>Corpusly does not provide tax, legal, accounting, or insurance advice.</li>
-                <li>Calculator outputs are estimates based on user inputs and assumptions.</li>
-            </ul>
-
-            <p>
-                If you require professional advice, please consult a qualified financial advisor, accountant, tax professional, insurance advisor, or legal professional.
-            </p>
-
-        </div>
-
-        <h2>Response Time</h2>
-
-        <p>
-            While we strive to respond to all genuine inquiries, response times may vary depending on the volume of requests received.
-        </p>
-
-        <p>
-            We appreciate your patience and understanding.
-        </p>
-
-        <h2>About Corpusly</h2>
-
-        <p>
-            Corpusly is a financial calculator platform designed to help individuals make informed decisions regarding investing, retirement planning, insurance, and personal finance.
-        </p>
-
-        <p>
-            Our goal is to provide free, transparent, and easy to use financial calculators that simplify complex financial calculations and support better decision making.
-        </p>
-
-        <div class="contact-card">
-            <h3>Thank You</h3>
-            <p style="margin-bottom:0;">
-                Thank you for using Corpusly Financial Calculators.
-            </p>
-        </div>
-
-        <div class="footer-note">
-            © 2026 Corpusly Financial Calculators. All Rights Reserved.
-        </div>
-
+  <header class="corpusly-header">
+    <div class="corpusly-header-inner wrap">
+      <a class="brand" href="index.html" aria-label="Visit the Corpusly home page">Corpus<b>ly</b><i aria-hidden="true"></i></a>
+      <button class="menu-button" id="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+        <span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
     </div>
-</section>
-```
+  </header>
+
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="menu-panel" id="site-menu" aria-label="Website menu" aria-hidden="true">
+    <div class="menu-head">
+      <a class="brand" href="index.html">Corpus<b>ly</b><i aria-hidden="true"></i></a>
+      <button class="menu-close" id="menu-close" type="button" aria-label="Close menu">×</button>
+    </div>
+    <a class="menu-home" href="index.html">Home</a>
+    <div class="menu-group">
+      <h2>Calculators</h2>
+      <div class="menu-links">
+        <a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a>
+        <a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a>
+        <a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a>
+        <a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a>
+        <a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI</a>
+        <a href="taxcalculator.html">Income Tax Calculator</a>
+      </div>
+    </div>
+    <div class="menu-group">
+      <h2>Resources</h2>
+      <div class="menu-links">
+        <a href="about.html">About Us</a><a href="methodology.html">Methodology</a>
+        <a href="contact.html" aria-current="page">Contact Us</a><a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a><a href="disclaimer.html">Disclaimer</a>
+      </div>
+    </div>
+    <a class="menu-start" href="index.html#calculators">Explore all calculators</a>
+  </aside>
+
+  <section class="hero" aria-labelledby="page-title">
+    <span class="eyebrow">● We’re here to help</span>
+    <h1 id="page-title">Questions, feedback<br>or ideas? Let’s talk.</h1>
+    <p>Tell us what is working, what is not, or which financial tool you would like us to build next.</p>
+    <a class="hero-action" href="mailto:info.corpusly@gmail.com">Email Corpusly <span aria-hidden="true">→</span></a>
+  </section>
+
+  <main class="wrap contact-main" id="main-content">
+    <section class="contact-layout" aria-labelledby="topics-title">
+      <div class="inquiry-panel">
+        <span class="kicker">WHAT CAN WE HELP WITH?</span>
+        <h2 id="topics-title">Your feedback helps us build better financial tools</h2>
+        <p class="inquiry-lead">Thank you for using Corpusly. We welcome genuine questions and practical feedback that can make the calculators clearer, more accurate and easier to use.</p>
+        <div class="inquiry-list">
+          <article class="inquiry-item"><span class="inquiry-mark" aria-hidden="true">01</span><div><h3>Calculator feedback &amp; errors</h3><p>Share an unexpected result, calculation discrepancy or something that could be clearer.</p></div></article>
+          <article class="inquiry-item"><span class="inquiry-mark" aria-hidden="true">02</span><div><h3>Bug &amp; website reports</h3><p>Tell us about a broken feature, navigation problem or accessibility issue.</p></div></article>
+          <article class="inquiry-item"><span class="inquiry-mark" aria-hidden="true">03</span><div><h3>Ideas &amp; calculator requests</h3><p>Suggest an improvement, a useful feature or the next calculator you would like to see.</p></div></article>
+          <article class="inquiry-item"><span class="inquiry-mark" aria-hidden="true">04</span><div><h3>Business &amp; general inquiries</h3><p>Reach out about relevant opportunities or ask us anything else about Corpusly.</p></div></article>
+        </div>
+        <div class="detail-tip"><span class="tip-icon" aria-hidden="true">✓</span><div><strong>Help us investigate faster</strong><p>For a calculator issue, include the calculator name, the values you entered, the result shown and what you expected instead.</p></div></div>
+      </div>
+      <aside class="contact-card" aria-labelledby="email-title">
+        <div class="contact-card-main">
+          <span class="email-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg></span>
+          <span class="contact-label">Contact Corpusly</span>
+          <h2 id="email-title">Send us an email</h2>
+          <p>For feedback, questions, bug reports and genuine business inquiries.</p>
+          <a class="email-link" href="mailto:info.corpusly@gmail.com"><span>info.corpusly@gmail.com</span><span class="email-arrow" aria-hidden="true">→</span></a>
+        </div>
+        <div class="response-note"><strong>When will we reply?</strong><p>We respond to genuine inquiries as soon as reasonably possible. Timing may vary with message volume.</p></div>
+      </aside>
+    </section>
+
+    <aside class="advice-panel" aria-labelledby="advice-title">
+      <div class="advice-copy"><span class="kicker">GOOD TO KNOW</span><h2 id="advice-title">Corpusly cannot provide personal financial advice</h2><p>Our calculators are educational tools designed to help you explore scenarios—not recommendations tailored to your circumstances.</p></div>
+      <ul class="advice-list"><li>We do not provide financial or investment recommendations.</li><li>We do not provide tax, legal, accounting or insurance advice.</li><li>Calculator outputs are estimates. Consult a qualified professional before making financial decisions.</li></ul>
+    </aside>
+
+    <section class="about-strip" aria-labelledby="about-title">
+      <div><h2 id="about-title">Free tools for clearer financial planning</h2><p>Corpusly helps people explore investing, retirement, insurance, loans and taxes through transparent, easy-to-use calculators.</p></div>
+      <a class="about-link" href="about.html">About Corpusly&nbsp; →</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <a class="brand light" href="https://corpusly.in/" aria-label="Visit the Corpusly home page">Corpus<b>ly</b><i aria-hidden="true"></i></a>
+          <p>Corpusly provides free, browser based financial calculators built on industry standard formulas to help you plan investments, retirement and insurance with confidence.</p>
+        </div>
+        <div>
+          <h2>Calculators</h2>
+          <a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a>
+        </div>
+        <div>
+          <h2>Resources</h2>
+          <a href="about.html">About Us</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms &amp; Conditions</a><a href="disclaimer.html">Disclaimer</a><a href="methodology.html">Methodology</a><a href="contact.html" aria-current="page">Contact Us</a>
+        </div>
+      </div>
+      <div class="copyright"><span>&copy; 2026 Corpusly Financial Calculators</span></div>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.getElementById('menu-button');
+    const menuClose = document.getElementById('menu-close');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const siteMenu = document.getElementById('site-menu');
+
+    function setMenu(open) {
+      siteMenu.classList.toggle('open', open);
+      menuOverlay.classList.toggle('open', open);
+      document.body.classList.toggle('menu-open', open);
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      siteMenu.setAttribute('aria-hidden', String(!open));
+      if (open) menuClose.focus();
+    }
+
+    menuButton.addEventListener('click', () => setMenu(!siteMenu.classList.contains('open')));
+    menuClose.addEventListener('click', () => { setMenu(false); menuButton.focus(); });
+    menuOverlay.addEventListener('click', () => setMenu(false));
+    siteMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && siteMenu.classList.contains('open')) {
+        setMenu(false);
+        menuButton.focus();
+      }
+    });
+  </script>
+</body>
+</html>
