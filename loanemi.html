@@ -1,14 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Advanced EMI Calculator – Corpusly</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>Advanced EMI Calculator with Prepayment and Step Up | Corpusly</title>
+<meta name="description" content="Calculate loan EMI, pre EMI interest, prepayment savings, step up repayments and loan closure dates with Corpusly's free advanced EMI calculator.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="theme-color" content="#102649">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6944131887125712" crossorigin="anonymous"></script>
+<link rel="canonical" href="https://corpusly.in/loanemi.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Advanced EMI Calculator with Prepayment and Step Up | Corpusly">
+<meta property="og:description" content="Plan loan EMIs, prepayments and step up repayments with a detailed month by month schedule.">
+<meta property="og:url" content="https://corpusly.in/loanemi.html">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Corpusly Advanced EMI Calculator","url":"https://corpusly.in/loanemi.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"description":"Calculate loan EMI, pre EMI interest, prepayment savings, step up repayments and estimated loan closure dates."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is the EMI calculated?","acceptedAnswer":{"@type":"Answer","text":"The calculator uses the loan amount, annual interest rate and repayment tenure to estimate the EMI using the reducing balance method."}},{"@type":"Question","name":"What is pre EMI interest?","acceptedAnswer":{"@type":"Answer","text":"It is the interest accrued between the loan disbursement date and the first EMI date. It is collected through the first installment and any unpaid portion is carried forward."}},{"@type":"Question","name":"How does a prepayment affect my loan?","acceptedAnswer":{"@type":"Answer","text":"A prepayment reduces the outstanding principal. You can use it either to lower your future EMI or shorten the loan tenure."}},{"@type":"Question","name":"What is a step up EMI?","acceptedAnswer":{"@type":"Answer","text":"A step up EMI increases your repayment periodically by a percentage, fixed monthly amount or both. This can help repay the loan sooner and reduce total interest."}},{"@type":"Question","name":"Why might the result differ from my lender's schedule?","acceptedAnswer":{"@type":"Answer","text":"Lenders may use different rounding rules, day count methods, fees and prepayment policies. Confirm the estimate with your lender."}}]}]}</script>
 <style>
-/* ── Reset ── */
+/*    Reset    */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-/* ── Tokens ── */
+/*    Tokens    */
 :root{
   --blue:#1a56db;--blue-dark:#1e40af;--blue-light:#ebf5ff;--blue-mid:#0891b2;
   --teal:#0891b2;--teal-light:#d5f5f6;
@@ -19,10 +30,10 @@
   --text:#1e293b;--muted:#64748b;--heading:#1e293b;
 }
 
-/* ── Base ── */
+/*    Base    */
 body{background:var(--bg);font-family:"Segoe UI",system-ui,sans-serif;color:var(--text);min-height:100vh;padding:0}
 
-/* ── Header ── */
+/*    Header    */
 .header-banner{
   background:linear-gradient(to right,#0B4DCC,#1E63FF,#1BA7E1);
   padding:22px 24px 20px;text-align:center;margin-bottom:28px;
@@ -31,24 +42,24 @@ body{background:var(--bg);font-family:"Segoe UI",system-ui,sans-serif;color:var(
 .header-banner h1{color:#fff;font-size:26px;font-weight:700;letter-spacing:-.3px;margin-bottom:5px}
 .header-banner p{color:#bfdbfe;font-size:14px}
 
-/* ── Container ── */
+/*    Container    */
 .container{max-width:720px;margin:0 auto;padding:0 16px}
 
-/* ── Card ── */
+/*    Card    */
 .card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,.07)}
 @media(max-width:560px){.card{padding:18px}}
 
-/* ── Section title ── */
+/*    Section title    */
 .section-title{font-size:11px;font-weight:700;color:#1e293b;text-transform:uppercase;letter-spacing:.12em;margin-bottom:20px;display:flex;align-items:center;gap:10px}
 .section-title::after{content:"";flex:1;height:1px;background:linear-gradient(to right,#cbd5e1,transparent)}
 
-/* ── Grids ── */
+/*    Grids    */
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .five-col{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 @media(max-width:560px){.two-col,.three-col,.five-col{grid-template-columns:1fr}}
 
-/* ── Fields ── */
+/*    Fields    */
 .field{margin-bottom:16px}
 .field label{display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#64748b;margin-bottom:7px}
 .input-wrap{display:flex;align-items:center;background:#fff;border:1.5px solid #e2e8f0;border-radius:9px;overflow:hidden;transition:border .15s,box-shadow .15s}
@@ -67,7 +78,7 @@ body{background:var(--bg);font-family:"Segoe UI",system-ui,sans-serif;color:var(
 .err-msg.show{display:block}
 .tenure-group.err-field{border-color:#dc2626!important;background:#fff5f5}
 
-/* ── Calculate button ── */
+/*    Calculate button    */
 .btn-calculate{
   display:block;width:100%;height:46px;
   background:#1a56db;color:#fff;border:1px solid #1a56db;
@@ -78,7 +89,7 @@ body{background:var(--bg);font-family:"Segoe UI",system-ui,sans-serif;color:var(
 .btn-calculate:focus-visible{outline:2px solid #1e40af;outline-offset:2px}
 .tenure-group.err-field{border-color:#dc2626!important;background:#fff5f5}
 
-/* ── Calculate button ── */
+/*    Calculate button    */
 .btn-calculate{
   display:block;width:100%;height:46px;
   background:#1a56db;color:#fff;border:1px solid #1a56db;
@@ -88,35 +99,35 @@ body{background:var(--bg);font-family:"Segoe UI",system-ui,sans-serif;color:var(
 .btn-calculate:hover{background:#1649c0;box-shadow:0 2px 10px rgba(26,86,219,.3)}
 .btn-calculate:focus-visible{outline:2px solid #1e40af;outline-offset:2px}
 
-/* ── Inline tenure group ── */
+/*    Inline tenure group    */
 .tenure-group{display:flex;align-items:center;background:#fff;border:1.5px solid #e2e8f0;border-radius:9px;overflow:hidden;transition:border .15s,box-shadow .15s}
 .tenure-group:focus-within{border-color:#1a56db;box-shadow:0 0 0 3px rgba(26,86,219,.12)}
 .tenure-group input{flex:1;height:42px;border:none;outline:none;background:transparent;font-family:inherit;color:#1e293b;font-weight:500;font-size:14px;padding:0 12px;-moz-appearance:textfield}
 .tenure-group input::-webkit-outer-spin-button,.tenure-group input::-webkit-inner-spin-button{-webkit-appearance:none}
 .tenure-group select{height:42px;border:none;border-left:1.5px solid #e2e8f0;outline:none;background:#f8fafc;font-family:inherit;color:#64748b;font-weight:600;font-size:13px;padding:0 10px;cursor:pointer}
 
-/* ── Tabs ── */
+/*    Tabs    */
 .tabs{display:flex;gap:6px;background:#f1f5f9;border-radius:10px;padding:5px;margin-bottom:20px}
 .tab{flex:1;padding:9px 10px;border:none;border-radius:7px;font-family:inherit;font-size:13px;font-weight:600;color:#64748b;background:transparent;cursor:pointer;transition:all .15s;text-align:center}
 .tab.active{background:#1a56db;color:#fff;box-shadow:0 2px 6px rgba(26,86,219,.25)}
 .tab:hover:not(.active){background:#e2e8f0;color:#1e293b}
 .panel{display:none}.panel.active{display:block}
 
-/* ── Note / info box ── */
+/*    Note / info box    */
 .note-box{background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #1a56db;border-radius:10px;padding:14px 16px;font-size:11px;color:#64748b;line-height:1.75;margin-bottom:16px}
 
-/* ── Warn / err boxes ── */
+/*    Warn / err boxes    */
 .warn-box{background:#fef3c7;border:1px solid #fde68a;border-left:4px solid #b45309;border-radius:10px;padding:12px 14px;font-size:12px;color:#92400e;margin-bottom:10px}
 .err-box{background:#fee2e2;border:1px solid #fca5a5;border-left:4px solid #dc2626;border-radius:10px;padding:12px 14px;font-size:12px;color:#991b1b;margin-bottom:10px}
 
-/* ── Info-box (gap display) ── */
+/*    Info-box (gap display)    */
 .info-box{background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #1a56db;border-radius:10px;padding:12px 14px;font-size:12px;color:#1e40af;line-height:1.75;margin-top:12px;display:none}
 
-/* ── Results header ribbon ── */
+/*    Results header ribbon    */
 .results-header{background:linear-gradient(135deg,#1a56db,#0891b2);border-radius:12px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
 .results-header h2{color:#fff;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
 
-/* ── Metric cards grid ── */
+/*    Metric cards grid    */
 .result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px}
 .metric-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;border-left-width:4px;border-left-style:solid}
 .metric-card.blue{border-left-color:#1a56db}
@@ -132,7 +143,7 @@ body{background:var(--bg);font-family:"Segoe UI",system-ui,sans-serif;color:var(
 .metric-value.red{color:#dc2626}
 .metric-sub{font-size:11px;color:#64748b;margin-top:4px}
 
-/* ── Buttons ── */
+/*    Buttons    */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:9px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;border:1px solid transparent}
 .btn-primary{background:#1a56db;color:#fff;border-color:#1a56db}
 .btn-primary:hover{background:#1649c0;box-shadow:0 2px 8px rgba(26,86,219,.3)}
@@ -143,27 +154,27 @@ body{background:var(--bg);font-family:"Segoe UI",system-ui,sans-serif;color:var(
 .btn-danger:hover{background:#fecaca}
 .btn-calc{padding:10px 28px;font-size:14px}
 
-/* ── Step-up mode tabs ── */
+/*    Step-up mode tabs    */
 .su-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
 .su-tab{padding:7px 14px;border-radius:20px;border:1.5px solid #e2e8f0;font-size:12px;font-weight:600;background:#fff;color:#64748b;cursor:pointer;transition:all .15s}
 .su-tab.active{background:#1a56db;color:#fff;border-color:#1a56db;box-shadow:0 2px 6px rgba(26,86,219,.2)}
 
-/* ── Divider ── */
+/*    Divider    */
 .divider{border:none;border-top:1px solid #e2e8f0;margin:16px 0}
 
-/* ── PP entries ── */
+/*    PP entries    */
 .pp-entry{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;margin-bottom:10px}
 
-/* ── Audit link ── */
+/*    Audit link    */
 .audit-link{font-size:11px;color:#1a56db;cursor:pointer;text-decoration:underline;margin-left:auto;font-weight:600}
 
-/* ── Toggle group ── */
+/*    Toggle group    */
 .toggle-group{display:flex;border:1.5px solid #e2e8f0;border-radius:8px;overflow:hidden;background:#f8fafc}
 .toggle-btn{padding:7px 16px;font-size:12px;font-weight:600;cursor:pointer;border:none;background:transparent;color:#64748b;font-family:inherit;transition:all .15s}
 .toggle-btn.active{background:#1a56db;color:#fff}
 .toggle-btn:hover:not(.active){background:#e2e8f0}
 
-/* ── Table ── */
+/*    Table    */
 .tbl-outer{overflow-x:auto;border:1px solid #e2e8f0;border-radius:10px;margin-bottom:0}
 table{width:100%;border-collapse:collapse;font-size:12px;background:#fff;min-width:680px}
 thead tr{background:#1a56db}
@@ -185,7 +196,7 @@ tbody tr:hover td{background:#eff6ff!important}
 .row-negam td{background:#fee2e2!important}
 .row-year td{background:#eff6ff!important;color:#1e40af;font-weight:700}
 
-/* ── Badges ── */
+/*    Badges    */
 .b{display:inline-block;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;white-space:nowrap}
 .b-emi{background:#eff6ff;color:#1e40af}
 .b-pp{background:#dcfce7;color:#16a34a}
@@ -196,13 +207,13 @@ tbody tr:hover td{background:#eff6ff!important}
 .b-yr{background:#dbeafe;color:#1e40af}
 .b-neg{background:#fee2e2;color:#991b1b}
 
-/* ── Colored text ── */
+/*    Colored text    */
 .acol{color:#b45309;font-weight:500}
 .gcol{color:#16a34a;font-weight:500}
 .rcol{color:#dc2626;font-weight:500}
 .muted{color:#9ca3af}
 
-/* ── Comparison table ── */
+/*    Comparison table    */
 .cmp-table{width:100%;border-collapse:collapse;font-size:13px;min-width:auto}
 .cmp-table thead tr{background:#1a56db}
 .cmp-table th{padding:9px 13px;color:#fff;font-weight:700;font-size:11px;text-align:left;text-transform:uppercase;letter-spacing:.06em}
@@ -210,7 +221,7 @@ tbody tr:hover td{background:#eff6ff!important}
 .cmp-table tbody tr:nth-child(even) td{background:#f8fafc}
 .savings{color:#16a34a;font-weight:700}
 
-/* ── FAQ ── */
+/*    FAQ    */
 .faq-section{margin-top:28px}
 .faq-section .section-title{color:#1a56db}
 .faq-section .section-title::after{background:linear-gradient(to right,#93c5fd,transparent)}
@@ -231,7 +242,7 @@ tbody tr:hover td{background:#eff6ff!important}
 .faq-answer-inner{padding:0 20px 16px}
 .faq-item.open .faq-answer{max-height:400px}
 
-/* ── Footer ── */
+/*    Footer    */
 .corpusly-footer,.corpusly-footer *{box-sizing:border-box}
 .corpusly-footer{width:100%;background:#111827;color:#E5E7EB;padding-top:48px;margin-top:40px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.6}
 .corpusly-footer .container{max-width:1200px;margin:0 auto;padding:0 20px}
@@ -253,18 +264,56 @@ tbody tr:hover td{background:#eff6ff!important}
 @media(max-width:560px){
   .header-banner h1{font-size:20px}
 }
+
+/* Shared Improved SIP, SWP, CAGR and XIRR design system */
+:root{--navy:#102649;--blue:#175dcc;--mint:#13b886;--ink:#14233b;--muted:#68758a;--line:#dce3ed;--wash:#f3f7fb;--cream:#f9faf6;--white:#fff;--danger:#b42318;--safe-gutter:24px}
+html{scroll-behavior:smooth}
+body{overflow-x:hidden;background:#fff;color:var(--ink);font:16px/1.5 Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+body.menu-open{overflow:hidden}a{text-decoration:none;color:inherit}button,input,select{font:inherit}button{cursor:pointer}.wrap{width:100%;max-width:1064px;margin:auto;padding-left:var(--safe-gutter);padding-right:var(--safe-gutter)}
+.corpusly-header{height:70px;display:flex;align-items:center;justify-content:space-between;background:#fff}.brand{display:inline-flex;align-items:flex-start;color:var(--navy);font-size:25px;font-weight:800;letter-spacing:-1px}.brand b{color:var(--blue)}.brand i{width:7px;height:7px;border-radius:50%;background:var(--mint);margin:3px 0 0 4px}.menu-button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;background:transparent;color:var(--navy)}.menu-button:focus-visible,.menu-close:focus-visible,.menu-panel a:focus-visible,.tab:focus-visible,.btn:focus-visible,.faq-question:focus-visible{outline:3px solid #175dcc38;outline-offset:2px}.menu-icon{display:flex;width:26px;flex-direction:column;gap:5px}.menu-icon span{display:block;width:100%;height:2px;border-radius:2px;background:var(--navy)}.menu-overlay{position:fixed;inset:0;z-index:50;background:#07162ca3;opacity:0;pointer-events:none;transition:opacity .25s ease}.menu-overlay.open{opacity:1;pointer-events:auto}.menu-panel{position:fixed;z-index:51;top:0;right:0;width:min(410px,100%);height:100dvh;padding:25px 26px 34px;overflow-y:auto;background:#fff;box-shadow:-20px 0 55px #07162c33;transform:translateX(105%);transition:transform .28s ease}.menu-panel.open{transform:translateX(0)}.menu-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid var(--line)}.menu-close{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:25px;line-height:1}.menu-home{display:block;margin:18px 0;padding:13px 14px;border-radius:10px;background:var(--wash);color:var(--navy);font-size:14px;font-weight:700}.menu-group{padding:5px 0 18px}.menu-group h3{margin:0 0 10px;color:#778399;font-size:10px;letter-spacing:.13em;text-transform:uppercase}.menu-links{display:grid;grid-template-columns:1fr 1fr;gap:7px}.menu-links a{padding:10px 11px;border:1px solid transparent;border-radius:9px;color:#425169;font-size:13px}.menu-links a:hover{border-color:var(--line);background:var(--wash);color:var(--navy)}.menu-links a[aria-current=page]{border-color:#cbdaf0;background:#edf4ff;color:var(--blue);font-weight:700}.menu-start{display:block;padding:13px 16px;border-radius:10px;background:var(--navy);color:#fff;text-align:center;font-size:13px;font-weight:700}
+.hero{position:relative;overflow:hidden;padding:74px 20px 78px;text-align:center;color:#fff;background:linear-gradient(120deg,#0d2344,#123767 58%,#155aac)}.hero:before,.hero:after{content:"";position:absolute;width:520px;height:520px;border:1px solid #ffffff17;border-radius:50%}.hero:before{left:-320px;bottom:-390px}.hero:after{right:-330px;top:-390px}.eyebrow,.kicker{position:relative;display:block;margin-bottom:10px;color:#a9c8f1;font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.hero h1{position:relative;max-width:820px;margin:0 auto 16px;color:#fff;font:500 50px/1.08 Georgia,serif;letter-spacing:-2px}.hero p{position:relative;max-width:690px;margin:auto;color:#d4e1f2;font-size:17px;line-height:1.5}.trust{position:relative;display:flex;justify-content:center;gap:24px;margin-top:25px;color:#c7d6e9;font-size:12px}
+.main-container{width:100%;max-width:1064px;margin:auto;padding:70px var(--safe-gutter)}.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:24px}.section-head .kicker,.guide-intro .kicker{color:var(--blue)}.section-head h2,.guide-intro h2{margin:0;color:var(--navy);font:500 34px/1.15 Georgia,serif;letter-spacing:-1px}.card{padding:28px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 8px 30px #1432580f}.section-title{margin-bottom:24px;color:var(--navy);font-size:17px;text-transform:none;letter-spacing:0}.section-title:after{background:#e8edf3}.loan-primary-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.loan-date-fields{display:grid;grid-template-columns:1fr 1fr;gap:20px}.field label{color:#34445c;font-size:12px;text-transform:none;letter-spacing:0}.input-wrap,.tenure-group{height:46px;border:1px solid #ccd6e3;border-radius:10px;background:#fff}.input-wrap:focus-within,.tenure-group:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px #175dcc16}.adorn,.adorn-r{height:44px;background:#f6f8fb;color:#64748b}.actions{display:grid;grid-template-columns:1fr minmax(240px,360px) 1fr;align-items:center;gap:10px;margin-top:23px}.actions .btn-primary{grid-column:2;grid-row:1;width:100%;min-height:44px;border:1px solid var(--navy);background:var(--navy);color:#fff}.actions .btn-primary:hover{background:#163661}.actions .btn-secondary{grid-column:1;grid-row:1;justify-self:end;min-height:44px;border:1px solid var(--line);background:var(--wash);color:var(--muted)}.actions .btn-secondary:hover{border-color:#b8cbe7;color:var(--blue)}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:18px 0;padding:5px;border-radius:14px;background:#edf2f8}.tab{min-height:54px;border:1px solid transparent;border-radius:10px;color:#748096;background:transparent}.tab.active{border-color:#d8e1ed;background:#fff;color:var(--navy);box-shadow:0 3px 11px #18375d14}.tab:hover:not(.active){background:#e6edf6;color:var(--navy)}.results-header{background:linear-gradient(120deg,#102649,#175dcc)}thead tr,.cmp-table thead tr{background:var(--navy)}.btn-primary,.toggle-btn.active,.su-tab.active{background:var(--navy);border-color:var(--navy)}.btn-secondary{background:var(--wash);color:var(--blue);border-color:var(--line)}
+.guide-section{padding-top:58px}.guide-intro{max-width:760px}.guide-intro p{margin-top:14px;color:var(--muted);line-height:1.75}.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.guide-grid article,.guide-formula{padding:22px;border:1px solid var(--line);border-radius:14px}.guide-grid h3,.guide-formula h3{margin-bottom:8px;color:var(--navy);font-size:16px}.guide-grid p,.guide-formula p{color:var(--muted);font-size:13px;line-height:1.7}.guide-formula{margin-top:18px;background:var(--wash)}.guide-formula code{display:block;margin-top:10px;color:var(--navy);font:700 12px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:normal}.faq-section{margin-top:75px}.faq-section>.section-title{padding-bottom:22px;color:var(--navy);font:500 34px/1.15 Georgia,serif;letter-spacing:-1px}.faq-section>.section-title:after{display:none}.faq-item{margin:0;border:0;border-bottom:1px solid var(--line);border-radius:0}.faq-item:first-of-type{border-top:1px solid var(--line)}.faq-question{min-height:64px;padding:19px 4px;background:#fff;color:var(--navy);font-size:14px}.faq-question:hover{background:var(--wash)}.faq-icon{width:25px;height:25px;display:grid;place-items:center;border-radius:50%;background:#eef3f8;color:var(--blue);font-size:0}.faq-icon:before{content:"+";font-size:17px;font-weight:400}.faq-item.open .faq-icon{transform:none}.faq-item.open .faq-icon:before{content:"×"}.faq-answer-inner{padding:0 38px 18px 4px;color:var(--muted);font-size:13px}.disclaimer{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:16px 20px;border:1px solid #e3d7b6;border-radius:12px;background:#fffaf0}.disclaimer span{font-weight:800}.disclaimer p{color:#745f33;font-size:11px;line-height:1.65}
+footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:55px;padding-bottom:40px}.footer-grid>div{display:flex;flex-direction:column;gap:9px}.brand.light{color:#fff}.footer-grid p{max-width:360px;color:#a9b8cc;font-size:13px;line-height:1.7}.footer-grid h4{margin:2px 0 5px;color:#d9e6f6;font-size:10px;letter-spacing:.12em;text-transform:uppercase}.footer-grid a:not(.brand){color:#a9b8cc;font-size:12px}.copyright{display:flex;justify-content:center;padding-top:18px;border-top:1px solid #ffffff1a;color:#a9b8cc;text-align:center;font-size:10px}
+@media(max-width:800px){.loan-primary-fields{grid-template-columns:1fr 1fr}.guide-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1.4fr 1fr 1fr}}
+@media(max-width:560px){:root{--safe-gutter:22px}.corpusly-header{position:sticky;top:0;z-index:9;height:62px;padding-left:max(var(--safe-gutter),env(safe-area-inset-left));padding-right:max(var(--safe-gutter),env(safe-area-inset-right))}.brand{font-size:22px}.menu-button{width:40px;height:40px}.menu-panel{padding:20px max(var(--safe-gutter),env(safe-area-inset-right)) 30px max(var(--safe-gutter),env(safe-area-inset-left))}.menu-links{grid-template-columns:1fr}.hero{padding:55px max(var(--safe-gutter),env(safe-area-inset-right))}.hero h1{font-size:35px;letter-spacing:-1.2px}.hero p{font-size:15px}.trust{flex-direction:column;align-items:center;gap:7px;margin-top:23px}.main-container{padding:50px max(var(--safe-gutter),env(safe-area-inset-right))}.section-head h2,.guide-intro h2,.faq-section>.section-title{font-size:29px}.loan-primary-fields,.loan-date-fields,.tabs{grid-template-columns:1fr}.card{padding:21px 18px}.input-wrap,.tenure-group{height:50px}.actions{display:flex;flex-direction:column;align-items:stretch}.actions .btn-primary{order:1;width:100%}.actions .btn-secondary{order:2;width:100%}.faq-section,.guide-section{padding-top:58px;margin-top:0}.footer-grid{grid-template-columns:1fr}.footer-grid a:not(.brand){min-height:32px}.copyright{display:block}}
+
+/* Exact header parity with the Corpusly SIP calculator */
+header{height:70px;display:flex;align-items:center;justify-content:space-between;background:#fff}
+header.wrap{max-width:1120px;padding-left:24px;padding-right:24px}
+.brand{color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:1.68rem;font-weight:800;letter-spacing:-.02em}
+.brand i{width:7.2px;height:7.2px;flex-shrink:0;margin:4.8px 0 0 4.8px}
+@media(max-width:560px){
+  header{position:sticky;top:0;z-index:9;height:70px;background:#fff}
+  header.wrap{padding-left:max(22px,env(safe-area-inset-left));padding-right:max(22px,env(safe-area-inset-right))}
+  .brand{font-size:1.68rem}
+}
+@media(max-width:520px){header.wrap{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}}
+
 </style>
 </head>
 <body>
 
-<!-- ── Header ── -->
-<div class="header-banner">
-  <h1>Advanced EMI Calculator</h1>
-  <p>Daily accrual · Pre-EMI capitalisation · Prepayment & Step-Up · Full audit ledger</p>
-</div>
-
-<!-- ── Main content ── -->
-<div class="container">
+<header class="wrap">
+  <a class="brand" href="https://corpusly.in/" aria-label="Visit the Corpusly home page">Corpus<b>ly</b><i></i></a>
+  <button class="menu-button" id="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></button>
+</header>
+<div class="menu-overlay" id="menu-overlay"></div>
+<aside class="menu-panel" id="site-menu" aria-label="Website menu" aria-hidden="true">
+  <div class="menu-head"><a class="brand" href="https://corpusly.in/">Corpus<b>ly</b><i></i></a><button class="menu-close" id="menu-close" type="button" aria-label="Close menu">×</button></div>
+  <a class="menu-home" href="https://corpusly.in/">Home</a>
+  <div class="menu-group"><h3>Calculators</h3><div class="menu-links"><a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html" aria-current="page">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a></div></div>
+  <div class="menu-group"><h3>Resources</h3><div class="menu-links"><a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a></div></div>
+  <a class="menu-start" href="#calculator">Start planning</a>
+</aside>
+<section class="hero">
+  <span class="eyebrow">Free advanced loan planning tool</span>
+  <h1>Advanced EMI Calculator with Prepayment and Step Up</h1>
+  <p>Estimate your EMI, understand pre EMI interest and compare prepayment or step up strategies with a detailed repayment schedule.</p>
+  <div class="trust"><span>✓ No sign up</span><span>✓ Runs in your browser</span><span>✓ Detailed loan ledger</span></div>
+</section>
+<main class="main-container" id="calculator">
+  <div class="section-head"><div><span class="kicker">PLAN WITH CLARITY</span><h2>Model your loan repayment</h2></div></div>
 
   <!-- Master Inputs -->
   <div class="card">
@@ -301,8 +350,8 @@ tbody tr:hover td{background:#eff6ff!important}
         <div class="err-msg" id="e-fd"></div>
       </div>
     </div>
-    <button type="button" class="btn-calculate" id="calcBtn" onclick="handleCalculateClick()">Calculate EMI</button>
-    <!-- Pre-EMI mode: always capitalise. Same-day mode: always EMI first. Both hardcoded. -->
+    <div class="actions"><button type="button" class="btn btn-secondary" onclick="resetCalculator()">Reset</button><button type="button" class="btn btn-primary" id="calcBtn" onclick="handleCalculateClick()">Calculate EMI</button></div>
+    <!-- Pre EMI interest is collected through the first installment. -->
     <div id="gap-info" class="info-box"></div>
     <div id="master-warnings"></div>
   </div>
@@ -311,10 +360,10 @@ tbody tr:hover td{background:#eff6ff!important}
   <div class="tabs">
     <button class="tab active" onclick="switchTab('standard',this)">Standard EMI</button>
     <button class="tab" onclick="switchTab('prepay',this)">Prepayment</button>
-    <button class="tab" onclick="switchTab('stepup',this)">Step-Up EMI</button>
+    <button class="tab" onclick="switchTab('stepup',this)">Step Up EMI</button>
   </div>
 
-  <!-- ── Standard Panel ── -->
+  <!--    Standard Panel    -->
   <div id="panel-standard" class="panel active">
     <div id="std-output" style="display:none">
     <div id="std-results" class="result-grid"></div>
@@ -333,7 +382,7 @@ tbody tr:hover td{background:#eff6ff!important}
     </div>
   </div>
 
-  <!-- ── Prepayment Panel ── -->
+  <!--    Prepayment Panel    -->
   <div id="panel-prepay" class="panel">
     <div class="note-box">
       Prepayments reduce principal on the exact date. Interest in that EMI cycle splits around the prepayment date using actual days.
@@ -351,18 +400,18 @@ tbody tr:hover td{background:#eff6ff!important}
     <div id="pp-results"></div>
   </div>
 
-  <!-- ── Step-Up Panel ── -->
+  <!--    Step Up Panel    -->
   <div id="panel-stepup" class="panel">
     <div class="card">
-      <div class="section-title">Step-Up Configuration</div>
+      <div class="section-title">Step Up Configuration</div>
       <div class="su-tabs">
-        <div class="su-tab active" id="sm-pct"   onclick="setStepMode('pct',this)">% Step-Up Only</div>
+        <div class="su-tab active" id="sm-pct"   onclick="setStepMode('pct',this)">% Step Up Only</div>
         <div class="su-tab"        id="sm-fixed" onclick="setStepMode('fixed',this)">Fixed Additional</div>
         <div class="su-tab"        id="sm-combo" onclick="setStepMode('combo',this)">Combination</div>
       </div>
       <div id="sp-inp">
         <div class="field" style="max-width:260px">
-          <label>Step-Up % (yearly)</label>
+          <label>Step Up % (yearly)</label>
           <div class="input-wrap"><input type="number" id="stepPct" value="10" min="0" max="100" step="0.5"><span class="adorn-r">%</span></div>
         </div>
       </div>
@@ -375,7 +424,7 @@ tbody tr:hover td{background:#eff6ff!important}
       <div id="sc-inp" style="display:none">
         <div class="two-col">
           <div class="field">
-            <label>Step-Up % (yearly)</label>
+            <label>Step Up % (yearly)</label>
             <div class="input-wrap"><input type="number" id="stepPct2" value="10" min="0" max="100" step="0.5"><span class="adorn-r">%</span></div>
           </div>
           <div class="field">
@@ -395,34 +444,45 @@ tbody tr:hover td{background:#eff6ff!important}
     <div id="su-results"></div>
   </div>
 
-  <!-- ── FAQ Section ── -->
-  <div class="faq-section">
-    <div class="section-title">Frequently Asked Questions</div>
+
+  <section class="guide-section">
+    <div class="guide-intro"><span class="kicker">EMI, EXPLAINED</span><h2>See what shapes your repayment</h2><p>This calculator models a reducing balance loan, the timing of the first EMI and optional repayment changes. Use the full ledger to understand how each payment is split between interest and principal.</p></div>
+    <div class="guide-grid">
+      <article><h3>Start with the repayment basics</h3><p>Enter the sanctioned loan amount, annual interest rate, full tenure and actual dates. The first EMI date determines any pre EMI accrual.</p></article>
+      <article><h3>Compare prepayment choices</h3><p>Choose whether each prepayment should reduce the future EMI or retain the EMI and shorten the remaining tenure.</p></article>
+      <article><h3>Test a rising repayment</h3><p>A step up plan increases payments each year by a percentage, fixed amount or a combination, which may reduce interest and close the loan sooner.</p></article>
+    </div>
+    <div class="guide-formula"><h3>Standard EMI formula</h3><p>The regular EMI uses the reducing balance method with a monthly interest rate. Pre EMI interest is calculated separately using actual days and a 365 day year.</p><code>EMI = P × r × (1 + r)ⁿ ÷ ((1 + r)ⁿ − 1)</code></div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="section-title">Advanced EMI questions, answered clearly</div>
 
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         How is the EMI calculated?
-        <span class="faq-icon">V</span>
+        <span class="faq-icon" aria-hidden="true"></span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
-        The calculator uses the loan amount, annual interest rate and repayment tenure to estimate the EMI using the reducing-balance method.
+        The calculator uses the loan amount, annual interest rate and repayment tenure to estimate the EMI using the reducing balance method.
       </div></div>
     </div>
 
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
-        What is pre-EMI interest?
-        <span class="faq-icon">V</span>
+        What is pre EMI interest?
+        <span class="faq-icon" aria-hidden="true"></span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
-        It is the interest accrued between the loan disbursement date and the first EMI date. This calculator adds it to the outstanding principal before calculating the EMI.
+        It is the interest accrued between the loan disbursement date and the first EMI date. The calculator collects it through the first installment and carries forward any unpaid amount.
       </div></div>
     </div>
 
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         How does a prepayment affect my loan?
-        <span class="faq-icon">V</span>
+        <span class="faq-icon" aria-hidden="true"></span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
         A prepayment reduces the outstanding principal. You can use it either to lower your future EMI or shorten the loan tenure.
@@ -431,28 +491,28 @@ tbody tr:hover td{background:#eff6ff!important}
 
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
-        What is a step-up EMI?
-        <span class="faq-icon">V</span>
+        What is a step up EMI?
+        <span class="faq-icon" aria-hidden="true"></span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
-        A step-up EMI increases your repayment periodically by a percentage, fixed monthly amount or both. This can help repay the loan sooner and reduce total interest.
+        A step up EMI increases your repayment periodically by a percentage, fixed monthly amount or both. This can help repay the loan sooner and reduce total interest.
       </div></div>
     </div>
 
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         Why might the result differ from my lender's schedule?
-        <span class="faq-icon">V</span>
+        <span class="faq-icon" aria-hidden="true"></span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
-        Lenders may use different rounding rules, day-count methods, fees and prepayment policies. The calculator's results are estimates and should be confirmed with your lender.
+        Lenders may use different rounding rules, day count methods, fees and prepayment policies. The calculator's results are estimates and should be confirmed with your lender.
       </div></div>
     </div>
 
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         Can I add multiple prepayments?
-        <span class="faq-icon">V</span>
+        <span class="faq-icon" aria-hidden="true"></span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
         Yes. You can enter multiple prepayments with different dates, amounts and actions. They are processed chronologically.
@@ -462,7 +522,7 @@ tbody tr:hover td{background:#eff6ff!important}
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         What is the difference between "Reduce EMI" and "Reduce Tenure"?
-        <span class="faq-icon">V</span>
+        <span class="faq-icon" aria-hidden="true"></span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
         "Reduce EMI" recalculates a lower EMI over the remaining repayment period. "Reduce Tenure" retains the current EMI and uses the lower principal balance to repay the loan sooner.
@@ -472,74 +532,82 @@ tbody tr:hover td{background:#eff6ff!important}
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
         Does the loan tenure begin from the disbursement date?
-        <span class="faq-icon">V</span>
+        <span class="faq-icon" aria-hidden="true"></span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
-        Yes. The calculator treats the entered tenure as beginning from the disbursement date. Calendar months between disbursement and the first EMI are deducted when determining the number of regular EMIs.
+        The entered tenure is the number of scheduled monthly repayments beginning on the first EMI date. The gap before that date affects pre EMI interest but does not silently remove installments from the tenure.
       </div></div>
     </div>
 
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
-        Why does the first EMI date affect my EMI?
-        <span class="faq-icon">V</span>
+        Why does the first EMI date affect my total repayment?
+        <span class="faq-icon" aria-hidden="true"></span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
-        A longer gap between disbursement and the first EMI creates more pre-EMI interest. Since that interest is capitalised, it can increase the adjusted principal and consequently the EMI.
+        A longer gap between disbursement and the first EMI creates more accrued interest. The calculator collects that amount through the first installment and carries forward any unpaid portion without charging it twice.
       </div></div>
     </div>
-  </div>
+  </section>
 
-</div><!-- /container -->
+  <div class="disclaimer"><span>!</span><p>This calculator provides estimates for educational and planning purposes only. Actual lender schedules may differ because of rounding, fees, day count conventions, rate changes and prepayment rules. Confirm repayment terms and charges with your lender before making a financial decision.</p></div>
+</main>
 
-<!-- ── Footer ── -->
-<footer class="corpusly-footer">
-  <div class="container">
-    <div class="corpusly-footer-grid">
-      <div class="corpusly-footer-col">
-        <div class="corpusly-footer-logo">Corpus<span class="accent">ly</span><span class="dot"></span></div>
-        <p>Corpusly provides free, browser based financial calculators built on industry standard formulas to help you plan investments, retirement and insurance with confidence.</p>
-      </div>
-      <div class="corpusly-footer-col">
-        <h4>Calculators</h4>
-        <ul>
-          <li><a href="sip.html">SIP Calculator</a></li>
-          <li><a href="swp.html">SWP Calculator</a></li>
-          <li><a href="cagr.html">CAGR Calculator</a></li>
-          <li><a href="xirr.html">XIRR Calculator</a></li>
-          <li><a href="epf.html">EPF Calculator</a></li>
-          <li><a href="ppf.html">PPF Calculator</a></li>
-          <li><a href="retirementplanner.html">Retirement Planner</a></li>
-          <li><a href="termcoverage.html">Term Coverage</a></li>
-          <li><a href="premiumcomparer.html">Premium Comparer</a></li>
-          <li><a href="loanemi.html">Advanced EMI Calculator</a></li>
-          <li><a href="taxcalculator.html">Income Tax Calculator</a></li>
-        </ul>
-      </div>
-      <div class="corpusly-footer-col">
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms &amp; Conditions</a></li>
-          <li><a href="disclaimer.html">Disclaimer</a></li>
-          <li><a href="methodology.html">Methodology</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-      </div>
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div><a class="brand light" href="https://corpusly.in/" aria-label="Visit the Corpusly home page">Corpus<b>ly</b><i></i></a><p>Corpusly provides free, browser based financial calculators built on industry standard formulas to help you plan investments, retirement, insurance and loans with confidence.</p></div>
+      <div><h4>Calculators</h4><a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a></div>
+      <div><h4>Resources</h4><a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a></div>
     </div>
-    <div class="corpusly-footer-bottom"><p>&copy; 2026 Corpusly Financial Calculators</p></div>
+    <div class="copyright"><span>© 2026 Corpusly Financial Calculators</span></div>
   </div>
 </footer>
 
 <script>
-// ═══════════════════════════════════════════════════════════════════════════════
-// CALCULATION MODEL — Hybrid monthly/daily
-// Clean EMI cycle: interest = principal × annualRate/1200 (monthly rate, matches calcEMI)
-// Broken cycle (mid-cycle prepayment): daily split actual/365 around prepayment date
-// Pre-EMI: always actual/365; always capitalised into principal
-// Same-day: EMI first, then prepayment (hardcoded)
-// ═══════════════════════════════════════════════════════════════════════════════
+'use strict';
+
+function setMenu(open){
+  document.body.classList.toggle('menu-open',open);
+  document.getElementById('site-menu').classList.toggle('open',open);
+  document.getElementById('menu-overlay').classList.toggle('open',open);
+  document.getElementById('site-menu').setAttribute('aria-hidden',String(!open));
+  document.getElementById('menu-button').setAttribute('aria-expanded',String(open));
+  if(open)document.getElementById('menu-close').focus();else document.getElementById('menu-button').focus();
+}
+document.getElementById('menu-button').addEventListener('click',()=>setMenu(true));
+document.getElementById('menu-close').addEventListener('click',()=>setMenu(false));
+document.getElementById('menu-overlay').addEventListener('click',()=>setMenu(false));
+document.querySelectorAll('#site-menu a').forEach(link=>link.addEventListener('click',()=>setMenu(false)));
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&document.getElementById('site-menu').classList.contains('open'))setMenu(false)});
+
+function resetCalculator(){
+  ['loanAmt','rate','tenure','disburseDate','firstEmiDate'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('tenureUnit').value='years';
+  document.getElementById('stepPct').value='10';document.getElementById('stepPct2').value='10';
+  document.getElementById('stepFixed').value='5000';document.getElementById('stepFixed2').value='5000';
+  hasAttemptedCalculation=false;stdResult=null;stdView='monthly';ppEntries=[];suPpEntries=[];
+  clearFieldErrors();
+  document.getElementById('std-output').style.display='none';
+  document.getElementById('pp-results').innerHTML='';document.getElementById('su-results').innerHTML='';
+  document.getElementById('pp-entries').innerHTML='';document.getElementById('su-pp-entries').innerHTML='';
+  document.getElementById('gap-info').style.display='none';document.getElementById('master-warnings').innerHTML='';
+  document.getElementById('calcBtn').textContent='Calculate EMI';
+  document.querySelectorAll('.tab').forEach((tab,index)=>tab.classList.toggle('active',index===0));
+  document.querySelectorAll('.panel').forEach(panel=>panel.classList.toggle('active',panel.id==='panel-standard'));
+  stepMode='pct';document.querySelectorAll('.su-tab').forEach(tab=>tab.classList.toggle('active',tab.id==='sm-pct'));
+  document.getElementById('sp-inp').style.display='';document.getElementById('sf-inp').style.display='none';document.getElementById('sc-inp').style.display='none';
+  document.getElementById('loanAmt').focus();
+}
+//                                                                                
+// CALCULATION MODEL
+// Regular EMI cycles use the monthly rate applied by the standard EMI formula.
+// When a dated prepayment occurs, that same monthly interest is apportioned by
+// days inside the cycle, so adding a tiny prepayment cannot change conventions.
+// Interest before the first EMI uses actual days/365 and is paid through the
+// first installment. Same day prepayments are applied after that day's EMI.
+//                                                                                
 
 function toDate(s){return s?new Date(s+'T00:00:00'):null}
 function daysBetween(a,b){return Math.round((b-a)/86400000)}
@@ -556,7 +624,7 @@ function fmtDate(d){
 }
 const fmtI=v=>'₹'+Math.round(v).toLocaleString('en-IN');
 const fmtA=v=>'₹'+(+v.toFixed(2)).toLocaleString('en-IN',{minimumFractionDigits:2});
-const dash=()=>'<span class="muted">—</span>';
+const dash=()=>'<span class="muted">Not applicable</span>';
 
 function calcEMI(P,annualRate,n){
   if(!isFinite(P)||P<=0||n<=0)return 0;
@@ -582,8 +650,8 @@ function getLoanParams(){
   const months=unit==='years'?Math.round(tv*12):Math.round(tv);
   const dd=toDate(document.getElementById('disburseDate').value);
   const fd=toDate(document.getElementById('firstEmiDate').value);
-  const preEmiMode ='capitalise'; // hardcoded: pre-EMI interest always capitalised
-  const sameDayMode='emi-first';  // hardcoded: EMI always applied before same-day prepayment
+  const preEmiMode ='first-installment';
+  const sameDayMode='emi-first';
   return{amt,rate,months,disburseDate:dd,firstEmiDate:fd,preEmiMode,sameDayMode};
 }
 
@@ -624,6 +692,7 @@ function validate(){
   else if(p.rate<0||p.rate>60) showFieldErr('rate','e-rate','Rate must be between 0% and 60%');
 
   if(!p.months||p.months<=0) showFieldErr('tenure','e-ten','Enter a valid loan tenure');
+  else if(p.months>1200) showFieldErr('tenure','e-ten','Loan tenure cannot exceed 1,200 months');
 
   if(!document.getElementById('disburseDate').value) showFieldErr('disburseDate','e-dd','Required');
   if(!document.getElementById('firstEmiDate').value) showFieldErr('firstEmiDate','e-fd','Required');
@@ -657,13 +726,14 @@ function auditRow(row){
   if(Math.abs(ec-row.principalClose)>eps)notes.push(`⚠ Principal check: expected ${fmtA(ec)} got ${fmtA(row.principalClose)}`);
   if(row.principalClose<-eps)notes.push('⚠ Closing principal negative');
   const eu=row.totalIntDue-row.interestPaid-row.ppToInt;
-  if(Math.abs(eu-row.unpaidIntCf)>eps)notes.push(`⚠ Int carry-fwd: expected ${fmtA(eu)} got ${fmtA(row.unpaidIntCf)}`);
+  if(Math.abs(eu-row.unpaidIntCf)>eps)notes.push(`⚠ Int carry forward: expected ${fmtA(eu)} got ${fmtA(row.unpaidIntCf)}`);
   return notes;
 }
 
 function buildSchedule(P,annualRate,totalMonths,disburseDate,firstEmiDate,prepayEvents,stepup,preEmiMode,sameDayMode){
-  const mElapsed=(firstEmiDate.getFullYear()-disburseDate.getFullYear())*12+(firstEmiDate.getMonth()-disburseDate.getMonth());
-  let numEMIs=Math.max(1,totalMonths-mElapsed);
+  // The entered tenure is the number of scheduled repayments beginning on the
+  // first EMI date. Pre EMI days affect accrued interest, not the EMI count.
+  let numEMIs=Math.max(1,totalMonths);
   const originalNumEMIs=numEMIs;
   const sorted=(prepayEvents||[]).filter(e=>e.amount>0&&e.date&&e.date>=disburseDate).sort((a,b)=>a.date-b.date);
   const preEmiPPs=sorted.filter(e=>e.date<firstEmiDate);
@@ -680,9 +750,9 @@ function buildSchedule(P,annualRate,totalMonths,disburseDate,firstEmiDate,prepay
     preEmiInterest+=intSnap;
     const pOpen=principal;
     const ppAmt=Math.min(pp.amount,principal);
-    if(pp.amount>principal+0.005)warnings.push(`Pre-EMI prepayment on ${fmtDate(pp.date)} exceeds principal — capped.`);
+    if(pp.amount>principal+0.005)warnings.push(`Pre EMI prepayment on ${fmtDate(pp.date)} exceeds principal   capped.`);
     principal-=ppAmt;
-    ledger.push(mkRow('prepay',{date:pp.date,days,principalOpen:pOpen,interestDue:intSnap,unpaidIntBf:0,totalIntDue:intSnap,interestPaid:0,unpaidIntCf:intSnap,ppAmt,ppToPrin:ppAmt,principalClose:principal,note:'Pre-EMI prepayment',action:pp.action}));
+    ledger.push(mkRow('prepay',{date:pp.date,days,principalOpen:pOpen,interestDue:intSnap,unpaidIntBf:0,totalIntDue:intSnap,interestPaid:0,unpaidIntCf:intSnap,ppAmt,ppToPrin:ppAmt,principalClose:principal,note:'Pre EMI prepayment',action:pp.action}));
     prevDate=pp.date;
   }
   for(const pp of preEmiPPs)processPreEmiPP(pp);
@@ -692,24 +762,25 @@ function buildSchedule(P,annualRate,totalMonths,disburseDate,firstEmiDate,prepay
     const intSnap=dailyInt(principal,annualRate,days);
     preEmiInterest+=intSnap;
     if(days>0){
-      ledger.push(mkRow('pre-emi',{date:firstEmiDate,days,principalOpen:principal,interestDue:intSnap,totalIntDue:preEmiInterest,principalClose:principal,note:`${days}d pre-EMI accrual → capitalised`}));
+      ledger.push(mkRow('pre-emi',{date:firstEmiDate,days,principalOpen:principal,interestDue:intSnap,totalIntDue:preEmiInterest,unpaidIntCf:preEmiInterest,principalClose:principal,note:`${days} days of pre EMI interest, payable with the first installment`}));
     }
     prevDate=firstEmiDate;
   }
-  // Always capitalise
-  principal+=preEmiInterest;
+  // Interest accrued before the first due date is paid through the first
+  // installment. It is not added to principal and charged twice.
+  unpaidInt=preEmiInterest;
   const adjustedPrincipal=principal;
-  emi=calcEMI(adjustedPrincipal,annualRate,numEMIs);
+  emi=adjustedPrincipal>0?calcEMI(adjustedPrincipal,annualRate,numEMIs):preEmiInterest;
   baseEmi=emi;
   const originalEMI=emi;
-  if(emi<adjustedPrincipal*annualRate/1200)warnings.push('EMI may not cover interest — possible negative amortisation.');
+  const fixedStepAmount=stepup&&(stepup.type==='fixed'||stepup.type==='combo')?stepup.fixed:0;
+  if(emi<adjustedPrincipal*annualRate/1200)warnings.push('EMI may not cover interest   possible negative amortisation.');
 
   const pendingPPs=postEmiPPs.slice();
   let emiNum=0;
 
-  for(let m=0;m<numEMIs+1200;m++){
+  for(let m=0;m<2400&&emiNum<numEMIs;m++){
     if(principal<0.005&&unpaidInt<0.005)break;
-    if(emiNum>=numEMIs+1200)break;
     const emiDate=addMonthsSafe(firstEmiDate,m);
     emiNum++;
 
@@ -727,85 +798,119 @@ function buildSchedule(P,annualRate,totalMonths,disburseDate,firstEmiDate,prepay
       }
     }
 
-    // EMI-first (hardcoded): mid-cycle PPs go before, same-day go after
+    // Prepayments before the due date reduce principal during the cycle.
+    // Prepayments on the due date are applied after that day's EMI.
     const ppBefore=[],ppAfter=[];
     while(pendingPPs.length>0&&pendingPPs[0].date<emiDate)ppBefore.push(pendingPPs.shift());
     while(pendingPPs.length>0&&pendingPPs[0].date.getTime()===emiDate.getTime())ppAfter.push(pendingPPs.shift());
 
-    let brokenCycleInt=0,hadMidCyclePP=false;
+    const cycleStart=prevDate;
+    const cycleDays=Math.max(1,daysBetween(cycleStart,emiDate));
+    const monthlyRate=annualRate/1200;
+    const periodInterest=(balance,days)=>balance*monthlyRate*(Math.max(0,days)/cycleDays);
+    let brokenCycleInt=0,hadMidCyclePP=false,segmentStart=cycleStart;
+    const actionsAfterEmi=[];
     for(const pp of ppBefore){
       hadMidCyclePP=true;
-      const days1=daysBetween(prevDate,pp.date);
-      const intSnap=dailyInt(principal,annualRate,days1);
+      const days1=daysBetween(segmentStart,pp.date);
+      const intSnap=periodInterest(principal,days1);
       brokenCycleInt+=intSnap;
-      const pOpen=principal;
+      const pOpen=principal,unpaidBefore=unpaidInt;
       const ppAmt=Math.min(pp.amount,principal+unpaidInt);
-      let ppToInt=0,ppToPrin=0;
-      if(ppAmt>=unpaidInt&&unpaidInt>0.005){ppToInt=unpaidInt;unpaidInt=0;ppToPrin=Math.min(ppAmt-ppToInt,principal);}
-      else{ppToPrin=Math.min(ppAmt,principal);}
+      const ppToInt=Math.min(ppAmt,unpaidInt);
+      unpaidInt=Math.max(0,unpaidInt-ppToInt);
+      const ppToPrin=Math.min(ppAmt-ppToInt,principal);
       principal=Math.max(0,principal-ppToPrin);
-      if(pp.amount>pOpen+unpaidInt+0.005)warnings.push(`Prepayment on ${fmtDate(pp.date)} exceeds outstanding — capped.`);
-      const emisDone=emiNum-1,emisLeft=Math.max(1,numEMIs-emisDone);
-      ledger.push(mkRow('prepay',{date:pp.date,days:days1,principalOpen:pOpen,interestDue:intSnap,unpaidIntBf:unpaidInt,totalIntDue:intSnap+unpaidInt,interestPaid:0,unpaidIntCf:intSnap+unpaidInt,emiAmt:0,principalPaid:0,ppAmt:pp.amount,ppToInt,ppToPrin,principalClose:principal,currentEMI:emi,emiNum:emisDone,action:pp.action,note:`Mid-cycle prepayment → ${pp.action==='emi'?'Reduce EMI':'Reduce Tenure'}`}));
-      prevDate=pp.date;
-      if(pp.action==='emi'){if(principal>0.005&&emisLeft>0){emi=calcEMI(principal,annualRate,emisLeft);if(!stepup)baseEmi=emi;}}
-      else{if(principal>0.005&&emi>0){const newRem=calcRemainingTenure(principal,annualRate,emi);if(newRem===9999)warnings.push(`After prepayment on ${fmtDate(pp.date)}: EMI too small to cover interest.`);numEMIs=emisDone+newRem;}else{numEMIs=emisDone;}}
+      if(pp.amount>pOpen+unpaidBefore+0.005)warnings.push(`Prepayment on ${fmtDate(pp.date)} exceeds outstanding and was capped.`);
+      const appliedPp=ppToInt+ppToPrin;
+      const emisDone=emiNum-1;
+      ledger.push(mkRow('prepay',{date:pp.date,days:days1,principalOpen:pOpen,interestDue:intSnap,unpaidIntBf:unpaidBefore,totalIntDue:unpaidBefore,interestPaid:0,unpaidIntCf:unpaidInt,emiAmt:0,principalPaid:0,ppAmt:appliedPp,ppToInt,ppToPrin,principalClose:principal,currentEMI:emi,emiNum:emisDone,action:pp.action,note:`Mid cycle prepayment, ${pp.action==='emi'?'reduce EMI from the next installment':'reduce tenure after this installment'}`}));
+      actionsAfterEmi.push(pp.action);
+      segmentStart=pp.date;
     }
 
-    if(principal<0.005&&unpaidInt<0.005)break;
-
     let interestDue;
-    if(hadMidCyclePP){const days2=daysBetween(prevDate,emiDate);brokenCycleInt+=dailyInt(principal,annualRate,days2);interestDue=brokenCycleInt;}
+    if(emiNum===1){interestDue=0;}
+    else if(hadMidCyclePP){
+      const days2=daysBetween(segmentStart,emiDate);
+      brokenCycleInt+=periodInterest(principal,days2);
+      interestDue=brokenCycleInt;
+    }
     else{interestDue=principal*(annualRate/1200);}
-    const totalIntDue=interestDue+unpaidInt,pOpen=principal;
-    let emiAmt=emi,additional=0;
-    if(stepup&&(stepup.type==='fixed'||stepup.type==='combo'))additional=stepup.fixed;
+    const unpaidBeforeEmi=unpaidInt;
+    const totalIntDue=interestDue+unpaidBeforeEmi,pOpen=principal;
+    let additionalPlanned=0;
+    if(fixedStepAmount>0)additionalPlanned=fixedStepAmount;
     const totalOwed=principal+totalIntDue;
-    if(emiAmt+additional>=totalOwed){emiAmt=totalOwed;additional=0;}
-    const negAmort=emiAmt<totalIntDue;
-    if(negAmort)warnings.push(`EMI ${emiNum} on ${fmtDate(emiDate)}: EMI less than interest — negative amortisation.`);
-    const intPaid=Math.min(emiAmt,totalIntDue);
+    const plannedPayment=emiNum===numEMIs?totalOwed:emi+additionalPlanned;
+    const actualPayment=Math.min(plannedPayment,totalOwed);
+    const emiAmt=Math.min(emi,actualPayment);
+    const additional=Math.max(0,actualPayment-emiAmt);
+    const negAmort=actualPayment<totalIntDue;
+    if(negAmort)warnings.push(`EMI ${emiNum} on ${fmtDate(emiDate)}: EMI less than interest   negative amortisation.`);
+    const intPaid=Math.min(actualPayment,totalIntDue);
     const newUnpaidInt=Math.max(0,totalIntDue-intPaid);
-    const principalPaid=Math.max(0,emiAmt-intPaid)+additional;
+    const principalPaid=Math.min(principal,Math.max(0,actualPayment-intPaid));
     principal=Math.max(0,principal-principalPaid);
     unpaidInt=newUnpaidInt;
-    const days=hadMidCyclePP?daysBetween(prevDate,emiDate):30;
-    ledger.push(mkRow('emi',{date:emiDate,days,principalOpen:pOpen,interestDue,unpaidIntBf:newUnpaidInt===unpaidInt?0:unpaidInt,totalIntDue,interestPaid:intPaid,unpaidIntCf:newUnpaidInt,emiAmt,principalPaid,principalClose:principal,currentEMI:emi,emiNum,additional,negAmort,note:[hadMidCyclePP?'Broken cycle (daily split)':'',negAmort?'⚠ Negative amortisation':'',additional>0?`+${fmtI(additional)} addl`:''].filter(Boolean).join(' · ')}));
+    ledger.push(mkRow('emi',{date:emiDate,days:cycleDays,principalOpen:pOpen,interestDue,unpaidIntBf:unpaidBeforeEmi,totalIntDue,interestPaid:intPaid,unpaidIntCf:newUnpaidInt,emiAmt,principalPaid,principalClose:principal,currentEMI:emi,emiNum,additional,negAmort,note:[hadMidCyclePP?'Monthly interest split around dated prepayment':'',negAmort?'⚠ Negative amortisation':'',additional>0?`+${fmtI(additional)} additional`:''].filter(Boolean).join(' · ')}));
     prevDate=emiDate;
 
+    // A mid cycle change takes effect after the current scheduled installment.
+    for(const action of actionsAfterEmi){
+      if(action==='emi'){
+        const remaining=Math.max(0,numEMIs-emiNum);
+        const requiredPayment=principal>0.005&&remaining>0?calcEMI(principal,annualRate,remaining):0;
+        emi=Math.max(0,requiredPayment-fixedStepAmount);
+        baseEmi=emi;
+      }else if(principal>0.005&&emi+fixedStepAmount>0){
+        const newRem=calcRemainingTenure(principal,annualRate,emi+fixedStepAmount);
+        if(newRem===9999)warnings.push(`After prepayment before ${fmtDate(emiDate)}, the EMI is too small to cover interest.`);
+        else numEMIs=Math.min(2400,emiNum+newRem);
+      }else numEMIs=emiNum;
+    }
+
     for(const pp of ppAfter){
-      const pOpen2=principal,ppAmt=Math.min(pp.amount,principal),ppToPrin=Math.min(ppAmt,principal);
+      const pOpen2=principal,unpaidBefore=unpaidInt;
+      const ppAmt=Math.min(pp.amount,principal+unpaidInt);
+      const ppToInt=Math.min(ppAmt,unpaidInt);
+      unpaidInt=Math.max(0,unpaidInt-ppToInt);
+      const ppToPrin=Math.min(ppAmt-ppToInt,principal);
       principal=Math.max(0,principal-ppToPrin);
       const emisDone2=emiNum,emisLeft2=Math.max(1,numEMIs-emisDone2);
-      ledger.push(mkRow('prepay',{date:pp.date,days:0,principalOpen:pOpen2,ppAmt:pp.amount,ppToPrin,principalClose:principal,currentEMI:emi,emiNum:emisDone2,action:pp.action,note:`Same-day prepayment applied after EMI → ${pp.action==='emi'?'Reduce EMI':'Reduce Tenure'}`}));
-      if(pp.action==='emi'){if(principal>0.005&&emisLeft2>0){emi=calcEMI(principal,annualRate,emisLeft2);if(!stepup)baseEmi=emi;}}
-      else{if(principal>0.005&&emi>0){numEMIs=emisDone2+calcRemainingTenure(principal,annualRate,emi);}else numEMIs=emisDone2;}
+      if(pp.amount>pOpen2+unpaidBefore+0.005)warnings.push(`Prepayment on ${fmtDate(pp.date)} exceeds outstanding and was capped.`);
+      ledger.push(mkRow('prepay',{date:pp.date,days:0,principalOpen:pOpen2,unpaidIntBf:unpaidBefore,totalIntDue:unpaidBefore,unpaidIntCf:unpaidInt,ppAmt:ppToInt+ppToPrin,ppToInt,ppToPrin,principalClose:principal,currentEMI:emi,emiNum:emisDone2,action:pp.action,note:`Same day prepayment applied after EMI, ${pp.action==='emi'?'reduce EMI':'reduce tenure'}`}));
+      if(pp.action==='emi'){if(principal>0.005&&emisLeft2>0){emi=Math.max(0,calcEMI(principal,annualRate,emisLeft2)-fixedStepAmount);baseEmi=emi;}}
+      else{if(principal>0.005&&emi+fixedStepAmount>0){const rem=calcRemainingTenure(principal,annualRate,emi+fixedStepAmount);if(rem!==9999)numEMIs=Math.min(2400,emisDone2+rem);else warnings.push(`After prepayment on ${fmtDate(pp.date)}, the EMI is too small to cover interest.`);}else numEMIs=emisDone2;}
     }
     if(principal<0.005&&unpaidInt<0.005)break;
   }
 
+  const fullyRepaid=principal<0.005&&unpaidInt<0.005;
   const lastPayEv=ledger.filter(e=>['emi','prepay'].includes(e.type)).slice(-1)[0];
-  ledger.push(mkRow('closure',{date:lastPayEv?lastPayEv.date:firstEmiDate,principalClose:0,note:'Loan fully repaid'}));
-  return{ledger,warnings,adjustedPrincipal,originalEMI,originalNumEMIs,finalNumEMIs:numEMIs,preEmiInterest,separatePreEmiInt:false};
+  if(fullyRepaid)ledger.push(mkRow('closure',{date:lastPayEv?lastPayEv.date:firstEmiDate,principalClose:0,note:'Loan fully repaid'}));
+  else warnings.push(`The schedule did not fully repay the remaining balance of ${fmtI(principal+unpaidInt)} within the supported term.`);
+  if(pendingPPs.length)warnings.push(`${pendingPPs.length} prepayment${pendingPPs.length===1?' was':'s were'} not applied because the loan schedule ended first.`);
+  return{ledger,warnings,adjustedPrincipal,originalEMI,originalNumEMIs,finalNumEMIs:emiNum,preEmiInterest,separatePreEmiInt:false,fullyRepaid,remainingBalance:principal+unpaidInt,stepup};
 }
 
-// ── Table rendering ───────────────────────────────────────────────────────────
+//    Table rendering                                                            
 const COLS_MAIN=`<th>Event</th><th>Date</th><th>Days</th><th>Opening Principal</th><th>Interest Due</th><th>Total Int Due</th><th>EMI Amount</th><th>Int Paid</th><th>Prin Repaid</th><th>Prepayment</th><th>Closing Principal</th>`;
 const COLS_AUDIT=`<th>Event</th><th>Date</th><th>Days</th><th>Opening Principal</th><th>Int Accrued</th><th>Unpaid BF</th><th>Total Int Due</th><th>EMI Amount</th><th>Int Paid</th><th>Unpaid CF</th><th>Prin Repaid</th><th>PP Amount</th><th>PP→Int</th><th>PP→Prin</th><th>Closing Principal</th><th>Current EMI</th><th>Notes</th>`;
 
 function rowHtmlMain(ev,f){
   const d=dash();
-  if(ev.type==='disburse')return`<tr class="row-disburse"><td><span class="b b-dis">Disbursement</span></td><td>${fmtDate(ev.date)}</td><td>—</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td><strong>${f(ev.principalClose)}</strong></td></tr>`;
-  if(ev.type==='pre-emi')return`<tr class="row-preemi"><td><span class="b b-pre">Pre-EMI</span></td><td>${fmtDate(ev.date)}</td><td>${ev.days}</td><td>${f(ev.principalOpen)}</td><td class="acol">${f(ev.interestDue)}</td><td class="acol">${f(ev.totalIntDue)}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${f(ev.principalClose)}<span style="font-size:10px;color:#b45309;margin-left:4px">(cap.)</span></td></tr>`;
-  if(ev.type==='prepay')return`<tr class="row-prepay"><td><span class="b b-pp">Prepayment</span></td><td>${fmtDate(ev.date)}</td><td>${ev.days||'—'}</td><td>${f(ev.principalOpen)}</td><td class="acol">${ev.interestDue>0.005?f(ev.interestDue):d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td class="gcol">${f(ev.ppAmt)}</td><td>${f(ev.principalClose)}</td></tr>`;
-  if(ev.type==='emi'){const cls=ev.negAmort?'row-emi row-negam':'row-emi';const addNote=ev.additional>0?`<br><span style="font-size:10px;color:#64748b">+${f(ev.additional)} addl</span>`:'';return`<tr class="${cls}"><td><span class="b ${ev.negAmort?'b-neg':'b-emi'}">EMI ${ev.emiNum}</span></td><td>${fmtDate(ev.date)}</td><td>${ev.days}</td><td>${f(ev.principalOpen)}</td><td class="acol">${f(ev.interestDue)}</td><td class="acol">${f(ev.totalIntDue)}</td><td>${f(ev.emiAmt)}${addNote}</td><td>${f(ev.interestPaid)}</td><td>${f(ev.principalPaid)}</td><td>${d}</td><td>${f(ev.principalClose)}</td></tr>`;}
-  if(ev.type==='stepup_note')return`<tr class="row-stepup"><td><span class="b b-su">Step-Up</span></td><td>${fmtDate(ev.date)}</td><td>—</td><td colspan="8" style="text-align:left;color:#7e22ce;padding-left:10px">${ev.note}</td></tr>`;
-  if(ev.type==='closure')return`<tr class="row-closure"><td><span class="b b-cls">Closure</span></td><td>${fmtDate(ev.date)}</td><td>—</td><td colspan="7" style="text-align:center;color:#713f12">Loan fully repaid</td><td>${d}</td><td style="color:#16a34a;font-weight:700">₹0</td></tr>`;
+  if(ev.type==='disburse')return`<tr class="row-disburse"><td><span class="b b-dis">Disbursement</span></td><td>${fmtDate(ev.date)}</td><td>Not applicable</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td><strong>${f(ev.principalClose)}</strong></td></tr>`;
+  if(ev.type==='pre-emi')return`<tr class="row-preemi"><td><span class="b b-pre">Pre EMI</span></td><td>${fmtDate(ev.date)}</td><td>${ev.days}</td><td>${f(ev.principalOpen)}</td><td class="acol">${f(ev.interestDue)}</td><td class="acol">${f(ev.totalIntDue)}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${f(ev.principalClose)}<span style="font-size:10px;color:#b45309;margin-left:4px">(due)</span></td></tr>`;
+  if(ev.type==='prepay')return`<tr class="row-prepay"><td><span class="b b-pp">Prepayment</span></td><td>${fmtDate(ev.date)}</td><td>${ev.days||' '}</td><td>${f(ev.principalOpen)}</td><td class="acol">${ev.interestDue>0.005?f(ev.interestDue):d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td class="gcol">${f(ev.ppAmt)}</td><td>${f(ev.principalClose)}</td></tr>`;
+  if(ev.type==='emi'){const cls=ev.negAmort?'row-emi row-negam':'row-emi';const addNote=ev.additional>0?`<br><span style="font-size:10px;color:#64748b">+${f(ev.additional)} additional</span>`:'';return`<tr class="${cls}"><td><span class="b ${ev.negAmort?'b-neg':'b-emi'}">EMI ${ev.emiNum}</span></td><td>${fmtDate(ev.date)}</td><td>${ev.days}</td><td>${f(ev.principalOpen)}</td><td class="acol">${f(ev.interestDue)}</td><td class="acol">${f(ev.totalIntDue)}</td><td>${f(ev.emiAmt)}${addNote}</td><td>${f(ev.interestPaid)}</td><td>${f(ev.principalPaid)}</td><td>${d}</td><td>${f(ev.principalClose)}</td></tr>`;}
+  if(ev.type==='stepup_note')return`<tr class="row-stepup"><td><span class="b b-su">Step Up</span></td><td>${fmtDate(ev.date)}</td><td>Not applicable</td><td colspan="8" style="text-align:left;color:#7e22ce;padding-left:10px">${ev.note}</td></tr>`;
+  if(ev.type==='closure')return`<tr class="row-closure"><td><span class="b b-cls">Closure</span></td><td>${fmtDate(ev.date)}</td><td>Not applicable</td><td colspan="7" style="text-align:center;color:#713f12">Loan fully repaid</td><td>${d}</td><td style="color:#16a34a;font-weight:700">₹0</td></tr>`;
   return'';
 }
 function rowHtmlAudit(ev,f){
   const d=dash(),checks=auditRow(ev).join('<br>'),note=[ev.note,checks].filter(Boolean).join('<br>');
-  const cells=[ev.type,fmtDate(ev.date),ev.days||'—',ev.principalOpen>0?f(ev.principalOpen):d,ev.interestDue>0.001?f(ev.interestDue):d,ev.unpaidIntBf>0.001?f(ev.unpaidIntBf):d,ev.totalIntDue>0.001?f(ev.totalIntDue):d,ev.emiAmt>0.001?f(ev.emiAmt):d,ev.interestPaid>0.001?f(ev.interestPaid):d,ev.unpaidIntCf>0.001?`<span class="rcol">${f(ev.unpaidIntCf)}</span>`:d,ev.principalPaid>0.001?f(ev.principalPaid):d,ev.ppAmt>0.001?f(ev.ppAmt):d,ev.ppToInt>0.001?f(ev.ppToInt):d,ev.ppToPrin>0.001?f(ev.ppToPrin):d,f(ev.principalClose),ev.currentEMI>0.001?f(ev.currentEMI):d,note||d];
+  const cells=[ev.type,fmtDate(ev.date),ev.days||' ',ev.principalOpen>0?f(ev.principalOpen):d,ev.interestDue>0.001?f(ev.interestDue):d,ev.unpaidIntBf>0.001?f(ev.unpaidIntBf):d,ev.totalIntDue>0.001?f(ev.totalIntDue):d,ev.emiAmt+ev.additional>0.001?f(ev.emiAmt+ev.additional):d,ev.interestPaid>0.001?f(ev.interestPaid):d,ev.unpaidIntCf>0.001?`<span class="rcol">${f(ev.unpaidIntCf)}</span>`:d,ev.principalPaid>0.001?f(ev.principalPaid):d,ev.ppAmt>0.001?f(ev.ppAmt):d,ev.ppToInt>0.001?f(ev.ppToInt):d,ev.ppToPrin>0.001?f(ev.ppToPrin):d,f(ev.principalClose),ev.currentEMI>0.001?f(ev.currentEMI):d,note||d];
   const cls=ev.negAmort?'row-negam':(ev.type==='prepay'?'row-prepay':ev.type==='emi'?'row-emi':ev.type==='pre-emi'?'row-preemi':ev.type==='disburse'?'row-disburse':ev.type==='closure'?'row-closure':'');
   return`<tr class="${cls}">${cells.map((c,i)=>`<td${i===0||i===1?' style="text-align:left"':i===cells.length-1?' style="text-align:left;max-width:240px;white-space:normal"':''}>${c}</td>`).join('')}</tr>`;
 }
@@ -817,7 +922,7 @@ function buildTableHtml(ledger,mode){
 }
 function buildYearlyHtml(ledger){
   const ym={};
-  ledger.forEach(ev=>{if(!['emi','prepay','pre-emi'].includes(ev.type))return;const y=ev.date.getFullYear();if(!ym[y])ym[y]={open:ev.principalOpen,intDue:0,emi:0,intPd:0,prin:0,pp:0,close:0};ym[y].intDue+=ev.interestDue||0;ym[y].emi+=ev.emiAmt||0;ym[y].intPd+=ev.interestPaid||0;ym[y].prin+=ev.principalPaid||0;ym[y].pp+=ev.ppAmt||0;ym[y].close=ev.principalClose;});
+  ledger.forEach(ev=>{if(!['emi','prepay','pre-emi'].includes(ev.type))return;const y=ev.date.getFullYear();if(!ym[y])ym[y]={open:ev.principalOpen,intDue:0,emi:0,intPd:0,prin:0,pp:0,close:0};if(ev.type!=='prepay')ym[y].intDue+=ev.interestDue||0;ym[y].emi+=(ev.emiAmt||0)+(ev.additional||0);ym[y].intPd+=ev.interestPaid||0;ym[y].prin+=ev.principalPaid||0;ym[y].pp+=ev.ppAmt||0;ym[y].close=ev.principalClose;});
   const hdr=`<th>Year</th><th>Opening Principal</th><th>Interest</th><th>Total EMI</th><th>Int Paid</th><th>Prin Repaid</th><th>Prepayment</th><th>Closing Principal</th>`;
   const rows=Object.entries(ym).map(([y,d])=>`<tr class="row-year"><td><span class="b b-yr">${y}</span></td><td>${fmtI(d.open)}</td><td class="acol">${fmtI(d.intDue)}</td><td>${fmtI(d.emi)}</td><td>${fmtI(d.intPd)}</td><td>${fmtI(d.prin)}</td><td>${d.pp>0.5?fmtI(d.pp):dash()}</td><td>${fmtI(d.close)}</td></tr>`).join('');
   return`<div class="tbl-outer"><table><thead><tr>${hdr}</tr></thead><tbody>${rows}</tbody></table></div>`;
@@ -828,33 +933,31 @@ function summarise(result){
   const emiEvs=ledger.filter(e=>e.type==='emi');
   const ppEvs=ledger.filter(e=>e.type==='prepay'&&e.ppAmt>0);
   const lastEmi=emiEvs[emiEvs.length-1];
-  return{emiCount:emiEvs.length,totalEmi:emiEvs.reduce((s,e)=>s+e.emiAmt,0),totalIntPd:emiEvs.reduce((s,e)=>s+e.interestPaid,0),totalPrin:emiEvs.reduce((s,e)=>s+e.principalPaid,0),totalPrepay:ppEvs.reduce((s,e)=>s+e.ppAmt,0),lastDate:lastEmi?lastEmi.date:null,lastEmiAmt:lastEmi?lastEmi.emiAmt:0,hasNegAmort:emiEvs.some(e=>e.negAmort)};
+  return{emiCount:emiEvs.length,totalEmi:emiEvs.reduce((s,e)=>s+e.emiAmt+e.additional,0),totalIntPd:emiEvs.reduce((s,e)=>s+e.interestPaid,0),totalPrin:emiEvs.reduce((s,e)=>s+e.principalPaid,0),totalPrepay:ppEvs.reduce((s,e)=>s+e.ppAmt,0),lastDate:lastEmi?lastEmi.date:null,lastEmiAmt:lastEmi?lastEmi.emiAmt+lastEmi.additional:0,hasNegAmort:emiEvs.some(e=>e.negAmort)};
 }
 
-// ── Standard tab ──────────────────────────────────────────────────────────────
+//    Standard tab                                                               
 let stdView='monthly',stdResult=null;
 function renderStandardCalc(){
   const p=getLoanParams();
   const result=buildSchedule(p.amt,p.rate,p.months,p.disburseDate,p.firstEmiDate,[],null,p.preEmiMode,p.sameDayMode);
   stdResult=result;
   const s=summarise(result);
-  const mElapsed=(p.firstEmiDate.getFullYear()-p.disburseDate.getFullYear())*12+(p.firstEmiDate.getMonth()-p.disburseDate.getMonth());
-
   document.getElementById('std-results').innerHTML=`
     <div class="metric-card blue"><div class="metric-label">Monthly EMI</div><div class="metric-value hi">${fmtI(result.originalEMI)}</div></div>
     <div class="metric-card teal"><div class="metric-label">Loan Amount</div><div class="metric-value">${fmtI(p.amt)}</div></div>
-    <div class="metric-card amber"><div class="metric-label">Pre-EMI Interest</div><div class="metric-value amber">${fmtI(result.preEmiInterest)}</div></div>
-    <div class="metric-card teal"><div class="metric-label">Adj. Principal</div><div class="metric-value">${fmtI(result.adjustedPrincipal)}</div></div>
+    <div class="metric-card amber"><div class="metric-label">Pre EMI Interest</div><div class="metric-value amber">${fmtI(result.preEmiInterest)}</div></div>
+    <div class="metric-card teal"><div class="metric-label">Starting Principal</div><div class="metric-value">${fmtI(result.adjustedPrincipal)}</div></div>
     <div class="metric-card blue"><div class="metric-label">No. of EMIs</div><div class="metric-value">${result.originalNumEMIs}</div></div>
     <div class="metric-card teal"><div class="metric-label">Total Interest</div><div class="metric-value">${fmtI(s.totalIntPd)}</div></div>
     <div class="metric-card teal"><div class="metric-label">Total Payable</div><div class="metric-value">${fmtI(s.totalEmi)}</div></div>
-    <div class="metric-card blue"><div class="metric-label">Loan Closure</div><div class="metric-value" style="font-size:14px">${fmtDate(s.lastDate)}</div></div>`;
+    <div class="metric-card blue"><div class="metric-label">Loan Closure</div><div class="metric-value" style="font-size:14px">${result.fullyRepaid?fmtDate(s.lastDate):'Not repaid'}</div></div>`;
 
   const gi=document.getElementById('gap-info');
   gi.style.display='block';
-  gi.innerHTML=`<strong>${daysBetween(p.disburseDate,p.firstEmiDate)} days</strong> pre-EMI gap · ${mElapsed} calendar months elapsed → <strong>${result.originalNumEMIs} EMIs</strong>.
-    Pre-EMI interest (actual/365): <strong>${fmtI(result.preEmiInterest)}</strong> — capitalised into adjusted principal <strong>${fmtI(result.adjustedPrincipal)}</strong>.
-    EMI calculated on adjusted principal: <strong>${fmtI(result.originalEMI)}</strong>.`;
+  gi.innerHTML=`<strong>${daysBetween(p.disburseDate,p.firstEmiDate)} days</strong> before the first EMI, with <strong>${result.originalNumEMIs} scheduled installments</strong>.
+    Pre EMI interest (actual/365): <strong>${fmtI(result.preEmiInterest)}</strong>. It is collected through the first installment and any unpaid portion is carried forward.
+    EMI calculated on starting principal: <strong>${fmtI(result.originalEMI)}</strong>.`;
 
   document.getElementById('master-warnings').innerHTML=result.warnings.map(w=>`<div class="warn-box">⚠ ${w}</div>`).join('');
   renderStdTable();
@@ -888,7 +991,7 @@ function setStdView(v){
   renderStdTable();
 }
 
-// ── Prepayment tab ────────────────────────────────────────────────────────────
+//    Prepayment tab                                                             
 let ppEntries=[],ppId=0;
 function savePpState(){ppEntries.forEach(e=>{['d','a','ac'].forEach(f=>{const el=document.getElementById(`ppe-${f}-${e.id}`);if(el)e[f==='d'?'date':f==='a'?'amount':'action']=el.value;});});}
 function addPpEntry(){
@@ -947,6 +1050,7 @@ function computePrepay(){
   if(!validate())return;
   const p=getLoanParams();
   const evts=getPpEvents();
+  if(evts.length!==ppEntries.length){document.getElementById('pp-results').innerHTML='<div class="err-box">Every prepayment needs a positive amount and a date on or after disbursement.</div>';return;}
   if(!evts.length){document.getElementById('pp-results').innerHTML='';return;}
   const origResult=buildSchedule(p.amt,p.rate,p.months,p.disburseDate,p.firstEmiDate,[],null,p.preEmiMode,p.sameDayMode);
   const revResult=buildSchedule(p.amt,p.rate,p.months,p.disburseDate,p.firstEmiDate,evts,null,p.preEmiMode,p.sameDayMode);
@@ -956,8 +1060,8 @@ function renderPpResults(origResult,revResult,ppEvts){
   const os=summarise(origResult),rs=summarise(revResult);
   const intSaved=os.totalIntPd-rs.totalIntPd,mSaved=os.emiCount-rs.emiCount;
   const totalSaved=(os.totalEmi+os.totalPrepay)-(rs.totalEmi+rs.totalPrepay);
-  const firstPostEmiPP=ppEvts.find(e=>e.date>=(getLoanParams().firstEmiDate));
-  const emiAfterPP=firstPostEmiPP?revResult.ledger.find(e=>e.type==='emi'&&e.date>firstPostEmiPP.date):null;
+  const firstPostEmiPP=revResult.ledger.find(e=>e.type==='prepay'&&e.action==='emi'&&e.date>=getLoanParams().firstEmiDate);
+  const emiAfterPP=firstPostEmiPP?revResult.ledger.find(e=>e.type==='emi'&&e.date>firstPostEmiPP.date&&Math.abs(e.currentEMI-origResult.originalEMI)>0.005):null;
   const revEmiAmt=emiAfterPP?emiAfterPP.emiAmt:origResult.originalEMI;
   const hasReduceEMI=ppEvts.some(e=>e.action==='emi'),hasReduceTen=ppEvts.some(e=>e.action==='tenure');
   const allWarns=[...new Set([...origResult.warnings,...revResult.warnings])];
@@ -968,7 +1072,7 @@ function renderPpResults(origResult,revResult,ppEvts){
     <div class="result-grid">
       ${hasReduceEMI?`<div class="metric-card blue"><div class="metric-label">Revised EMI</div><div class="metric-value hi">${fmtI(revEmiAmt)}</div></div>`:''}
       <div class="metric-card blue"><div class="metric-label">Revised EMI Count</div><div class="metric-value hi">${rs.emiCount}</div></div>
-      <div class="metric-card teal"><div class="metric-label">New Loan Closure</div><div class="metric-value">${fmtDate(rs.lastDate)}</div></div>
+      <div class="metric-card teal"><div class="metric-label">New Loan Closure</div><div class="metric-value">${revResult.fullyRepaid?fmtDate(rs.lastDate):'Not repaid'}</div></div>
       <div class="metric-card green"><div class="metric-label">Interest Saved</div><div class="metric-value green">${fmtI(intSaved)}</div></div>
       ${hasReduceTen?`<div class="metric-card green"><div class="metric-label">Months Saved</div><div class="metric-value green">${Math.max(0,mSaved)}</div></div>`:''}
       <div class="metric-card green"><div class="metric-label">Total Saved</div><div class="metric-value green">${fmtI(Math.max(0,totalSaved))}</div></div>
@@ -978,14 +1082,14 @@ function renderPpResults(origResult,revResult,ppEvts){
       <div class="tbl-outer"><table class="cmp-table">
         <thead><tr><th>Metric</th><th>Original</th><th>With Prepayment</th><th>Saved</th></tr></thead>
         <tbody>
-          <tr><td>Original EMI</td><td>${fmtI(origResult.originalEMI)}</td><td colspan="2">—</td></tr>
-          ${hasReduceEMI?`<tr><td>Revised EMI</td><td>—</td><td>${fmtI(revEmiAmt)}</td><td class="savings">${fmtI(Math.max(0,origResult.originalEMI-revEmiAmt))}</td></tr>`:''}
+          <tr><td>Original EMI</td><td>${fmtI(origResult.originalEMI)}</td><td colspan="2"> </td></tr>
+          ${hasReduceEMI?`<tr><td>Revised EMI</td><td>Not applicable</td><td>${fmtI(revEmiAmt)}</td><td class="savings">${fmtI(Math.max(0,origResult.originalEMI-revEmiAmt))}</td></tr>`:''}
           <tr><td>No. of EMIs</td><td>${os.emiCount}</td><td>${rs.emiCount}</td><td class="savings">${Math.max(0,mSaved)} months</td></tr>
-          <tr><td>Loan Closure</td><td>${fmtDate(os.lastDate)}</td><td>${fmtDate(rs.lastDate)}</td><td>—</td></tr>
-          <tr><td>Total EMI Paid</td><td>${fmtI(os.totalEmi)}</td><td>${fmtI(rs.totalEmi)}</td><td>—</td></tr>
-          <tr><td>Total Prepayments</td><td>—</td><td>${fmtI(rs.totalPrepay)}</td><td>—</td></tr>
+          <tr><td>Loan Closure</td><td>${origResult.fullyRepaid?fmtDate(os.lastDate):'Not repaid'}</td><td>${revResult.fullyRepaid?fmtDate(rs.lastDate):'Not repaid'}</td><td>Not applicable</td></tr>
+          <tr><td>Total EMI Paid</td><td>${fmtI(os.totalEmi)}</td><td>${fmtI(rs.totalEmi)}</td><td>Not applicable</td></tr>
+          <tr><td>Total Prepayments</td><td>Not applicable</td><td>${fmtI(rs.totalPrepay)}</td><td>Not applicable</td></tr>
           <tr><td>Total Interest</td><td>${fmtI(os.totalIntPd)}</td><td>${fmtI(rs.totalIntPd)}</td><td class="savings">${fmtI(intSaved)}</td></tr>
-          <tr><td>Adj. Principal</td><td>${fmtI(origResult.adjustedPrincipal)}</td><td>${fmtI(revResult.adjustedPrincipal)}</td><td class="savings">${fmtI(origResult.adjustedPrincipal-revResult.adjustedPrincipal)}</td></tr>
+          <tr><td>Starting Principal</td><td>${fmtI(origResult.adjustedPrincipal)}</td><td>${fmtI(revResult.adjustedPrincipal)}</td><td class="savings">${fmtI(origResult.adjustedPrincipal-revResult.adjustedPrincipal)} reduction</td></tr>
         </tbody>
       </table></div>
     </div>
@@ -997,7 +1101,7 @@ function renderPpResults(origResult,revResult,ppEvts){
     </div>`;
 }
 
-// ── Step-Up tab ───────────────────────────────────────────────────────────────
+//    Step Up tab                                                                
 let stepMode='pct',suPpEntries=[],suPpId=0;
 function saveSuState(){suPpEntries.forEach(e=>{['d','a','ac'].forEach(f=>{const el=document.getElementById(`sppe-${f}-${e.id}`);if(el)e[f==='d'?'date':f==='a'?'amount':'action']=el.value;});});}
 function setStepMode(mode,el){
@@ -1060,6 +1164,14 @@ function computeStepUp(){
   if(!validate())return;
   const p=getLoanParams();
   const su=getStepupCfg(),evts=getSuPpEvents();
+  if(!Number.isFinite(su.pct)||su.pct<0||su.pct>100||!Number.isFinite(su.fixed)||su.fixed<0){
+    document.getElementById('su-results').innerHTML='<div class="err-box">Enter a Step Up percentage between 0% and 100% and a non negative additional amount.</div>';
+    return;
+  }
+  if(suPpEntries.length!==evts.length){
+    document.getElementById('su-results').innerHTML='<div class="err-box">Every prepayment needs a positive amount and a date on or after disbursement.</div>';
+    return;
+  }
   const origResult=buildSchedule(p.amt,p.rate,p.months,p.disburseDate,p.firstEmiDate,[],null,p.preEmiMode,p.sameDayMode);
   const revResult=buildSchedule(p.amt,p.rate,p.months,p.disburseDate,p.firstEmiDate,evts,su,p.preEmiMode,p.sameDayMode);
   renderSuResults(origResult,revResult);
@@ -1067,47 +1179,51 @@ function computeStepUp(){
 function renderSuResults(origResult,revResult){
   const os=summarise(origResult),rs=summarise(revResult);
   const intSaved=os.totalIntPd-rs.totalIntPd,mSaved=os.emiCount-rs.emiCount;
-  const pyear={};
-  revResult.ledger.filter(e=>e.type==='emi').forEach(e=>{const y=e.date.getFullYear();if(!pyear[y])pyear[y]={emi:e.emiAmt,add:e.additional||0};});
+  const progression=[];
+  const plannedAdditional=revResult.stepup&&(revResult.stepup.type==='fixed'||revResult.stepup.type==='combo')?revResult.stepup.fixed:0;
+  revResult.ledger.filter(e=>e.type==='emi').forEach(e=>{
+    const previous=progression[progression.length-1];
+    if(!previous||Math.abs(previous.emi-e.currentEMI)>0.005||Math.abs(previous.add-plannedAdditional)>0.005)progression.push({date:e.date,emi:e.currentEMI,add:plannedAdditional});
+  });
   const allWarns=[...new Set([...origResult.warnings,...revResult.warnings])];
   document.getElementById('su-results').innerHTML=`
     ${allWarns.map(w=>`<div class="warn-box">⚠ ${w}</div>`).join('')}
-    <div class="results-header"><span style="font-size:20px">📈</span><h2>Step-Up Results</h2></div>
+    <div class="results-header"><span style="font-size:20px">📈</span><h2>Step Up Results</h2></div>
     <div class="result-grid">
       <div class="metric-card blue"><div class="metric-label">Revised EMI Count</div><div class="metric-value hi">${rs.emiCount}</div></div>
-      <div class="metric-card teal"><div class="metric-label">New Loan Closure</div><div class="metric-value">${fmtDate(rs.lastDate)}</div></div>
+      <div class="metric-card teal"><div class="metric-label">New Loan Closure</div><div class="metric-value">${revResult.fullyRepaid?fmtDate(rs.lastDate):'Not repaid'}</div></div>
       <div class="metric-card green"><div class="metric-label">Interest Saved</div><div class="metric-value green">${fmtI(intSaved)}</div></div>
       <div class="metric-card green"><div class="metric-label">Months Saved</div><div class="metric-value green">${Math.max(0,mSaved)}</div></div>
     </div>
     <div class="card">
-      <div class="section-title">EMI Progression by Year</div>
+      <div class="section-title">Payment Progression</div>
       <div class="tbl-outer"><table>
-        <thead><tr><th>Year</th><th>Base EMI</th><th>Additional</th><th>Total Monthly</th></tr></thead>
-        <tbody>${Object.entries(pyear).map(([y,d])=>`<tr><td>${y}</td><td>${fmtI(d.emi)}</td><td>${d.add>0?fmtI(d.add):dash()}</td><td>${fmtI(d.emi+d.add)}</td></tr>`).join('')}</tbody>
+        <thead><tr><th>Effective From</th><th>Base EMI</th><th>Additional</th><th>Total Monthly</th></tr></thead>
+        <tbody>${progression.map(d=>`<tr><td>${fmtDate(d.date)}</td><td>${fmtI(d.emi)}</td><td>${d.add>0?fmtI(d.add):dash()}</td><td>${fmtI(d.emi+d.add)}</td></tr>`).join('')}</tbody>
       </table></div>
     </div>
     <div class="card">
       <div class="section-title">Comparison</div>
       <div class="tbl-outer"><table class="cmp-table">
-        <thead><tr><th>Metric</th><th>Original</th><th>With Step-Up</th><th>Saved</th></tr></thead>
+        <thead><tr><th>Metric</th><th>Original</th><th>With Step Up</th><th>Saved</th></tr></thead>
         <tbody>
-          <tr><td>Initial EMI</td><td>${fmtI(origResult.originalEMI)}</td><td>${fmtI(origResult.originalEMI)}</td><td>—</td></tr>
+          <tr><td>Initial EMI</td><td>${fmtI(origResult.originalEMI)}</td><td>${fmtI(origResult.originalEMI)}</td><td>Not applicable</td></tr>
           <tr><td>No. of EMIs</td><td>${os.emiCount}</td><td>${rs.emiCount}</td><td class="savings">${Math.max(0,mSaved)} months</td></tr>
-          <tr><td>Loan Closure</td><td>${fmtDate(os.lastDate)}</td><td>${fmtDate(rs.lastDate)}</td><td>—</td></tr>
+          <tr><td>Loan Closure</td><td>${origResult.fullyRepaid?fmtDate(os.lastDate):'Not repaid'}</td><td>${revResult.fullyRepaid?fmtDate(rs.lastDate):'Not repaid'}</td><td>Not applicable</td></tr>
           <tr><td>Total Interest</td><td>${fmtI(os.totalIntPd)}</td><td>${fmtI(rs.totalIntPd)}</td><td class="savings">${fmtI(intSaved)}</td></tr>
-          <tr><td>Total EMI Paid</td><td>${fmtI(os.totalEmi)}</td><td>${fmtI(rs.totalEmi)}</td><td>—</td></tr>
+          <tr><td>Total EMI Paid</td><td>${fmtI(os.totalEmi)}</td><td>${fmtI(rs.totalEmi)}</td><td>Not applicable</td></tr>
         </tbody>
       </table></div>
     </div>
     <div class="card">
       <div class="card-title" style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-        <span style="font-size:15px;font-weight:700;color:#1e293b">Step-Up Loan Ledger</span>
+        <span style="font-size:15px;font-weight:700;color:#1e293b">Step Up Loan Ledger</span>
       </div>
       ${buildTableHtml(revResult.ledger,'main')}
     </div>`;
 }
 
-// ── FAQ accordion ─────────────────────────────────────────────────────────────
+//    FAQ accordion                                                              
 function toggleFaq(el){
   const item=el.closest('.faq-item');
   const isOpen=item.classList.contains('open');
@@ -1123,7 +1239,7 @@ document.querySelectorAll('.faq-question').forEach(q=>{
   });
 });
 
-// ── Tabs & init ───────────────────────────────────────────────────────────────
+//    Tabs & init                                                                
 function switchTab(name,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
@@ -1139,7 +1255,7 @@ function switchTab(name,el){
     if(hasAttemptedCalculation) validate();
   });
 });
-// No automatic calculation on page load — user must click "Calculate EMI".
+// No automatic calculation on page load   user must click "Calculate EMI".
 </script>
 </body>
 </html>
