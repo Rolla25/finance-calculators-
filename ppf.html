@@ -1,494 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>PPF Calculator: Calculate Maturity Value Online | Corpusly</title>
+<meta name="description" content="Use Corpusly's free PPF calculator to estimate maturity value, annual interest, future contributions, five year extensions and inflation adjusted value.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="theme-color" content="#102649">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6944131887125712" crossorigin="anonymous"></script>
+<meta name="author" content="Corpusly">
+<meta name="application-name" content="Corpusly PPF Calculator">
+<link rel="canonical" href="https://corpusly.in/ppf.html">
+<link rel="alternate" hreflang="en-IN" href="https://corpusly.in/ppf.html">
+<link rel="alternate" hreflang="x-default" href="https://corpusly.in/ppf.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_IN">
+<meta property="og:site_name" content="Corpusly">
+<meta property="og:title" content="PPF Calculator: Calculate Maturity Value Online">
+<meta property="og:description" content="Estimate your Public Provident Fund maturity value, interest, contributions and purchasing power with a detailed annual projection.">
+<meta property="og:url" content="https://corpusly.in/ppf.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PPF Calculator: Calculate Maturity Value Online">
+<meta name="twitter:description" content="Calculate PPF maturity value, annual interest, five year extensions and inflation adjusted value.">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"WebPage","@id":"https://corpusly.in/ppf.html#webpage","url":"https://corpusly.in/ppf.html","name":"PPF Calculator: Calculate Maturity Value Online","description":"Estimate Public Provident Fund maturity value, interest, future contributions, account extensions and inflation adjusted value.","inLanguage":"en-IN","mainEntity":{"@id":"https://corpusly.in/ppf.html#calculator"},"breadcrumb":{"@id":"https://corpusly.in/ppf.html#breadcrumb"}},
+    {"@type":"WebApplication","@id":"https://corpusly.in/ppf.html#calculator","name":"Corpusly PPF Calculator","url":"https://corpusly.in/ppf.html","description":"A free browser based Public Provident Fund calculator with annual projections and extension scenarios.","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"provider":{"@type":"Organization","name":"Corpusly","url":"https://corpusly.in/"},"featureList":["PPF maturity value projection","Annual contribution step up","Five year extension scenarios","Annual interest schedule","Inflation adjusted value"]},
+    {"@type":"BreadcrumbList","@id":"https://corpusly.in/ppf.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://corpusly.in/"},{"@type":"ListItem","position":2,"name":"PPF Calculator","item":"https://corpusly.in/ppf.html"}]}
+  ]
+}
+</script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#F8FAFC;color:#111827;font-size:14px;margin:0;padding:0}
-.page{max-width:900px;margin:0 auto;padding:0 1.25rem 3rem}
-
-/* HERO */
-.hero-outer{background:linear-gradient(to right,#0B4DCC,#1E63FF,#1BA7E1);padding:2.25rem 2rem;text-align:center;margin-bottom:1.5rem;margin-top:-1px}
-.hero{}
-.hero h1{font-size:1.75rem;font-weight:700;color:#fff;letter-spacing:-.02em}
-.hero p{font-size:13px;color:rgba(255,255,255,.85);margin-top:6px}
-
-/* CARDS */
-.card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:1.5rem;margin-bottom:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,.05)}
-.card-title{font-size:11px;font-weight:700;color:#0B4DCC;letter-spacing:.07em;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
-.card-title::before{content:'';display:inline-block;width:3px;height:14px;border-radius:2px;background:#0B4DCC;flex-shrink:0}
-.faq-card-title{color:#0B4DCC!important}
-.faq-card-title::before{background:#0B4DCC!important}
-
-/* INPUTS */
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
-.field{display:flex;flex-direction:column;gap:5px}
-.field label{font-size:12px;font-weight:500;color:#374151}
-.field input,.field select{height:40px;border:1px solid #E5E7EB;border-radius:8px;padding:0 12px;font-size:14px;font-family:'Inter',sans-serif;background:#F8FAFC;color:#111827;width:100%;transition:border-color .15s,box-shadow .15s}
-.field input:focus,.field select:focus{outline:none;border-color:#1E63FF;box-shadow:0 0 0 3px rgba(30,99,255,.1);background:#fff}
-.field input::placeholder{color:#D1D5DB}
-.field .hint{font-size:11px;color:#9CA3AF}
-.field .warn{font-size:11px;color:#D97706;font-weight:500}
-
-/* SUMMARY HERO CARD */
-.summary-hero{background:linear-gradient(135deg,#EFF6FF 0%,#F0FDFA 100%);border:1px solid #BFDBFE;border-radius:12px;padding:1.75rem;margin-bottom:1.25rem}
-.summary-hero .sh-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:1.5rem}
-.summary-hero .sh-label{font-size:11px;font-weight:700;color:#0B4DCC;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
-.summary-hero .sh-label::before{content:'';display:inline-block;width:3px;height:14px;border-radius:2px;background:#0B4DCC}
-.corpus-block{text-align:right}
-.corpus-block .cl{font-size:11px;font-weight:600;color:#16A34A;letter-spacing:.04em;text-transform:uppercase}
-.corpus-block .cv{font-size:2rem;font-weight:700;color:#111827;letter-spacing:-.03em;line-height:1.1}
-.corpus-block .tax{font-size:11px;font-weight:600;color:#16A34A;margin-top:3px;display:flex;align-items:center;justify-content:flex-end;gap:4px}
-.corpus-block .tax::before{content:'✦';font-size:9px}
-.sh-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
-.sh-metric{background:#fff;border-radius:10px;padding:.875rem 1rem;border:1px solid #E5E7EB;border-top:3px solid #1BA7E1}
-.sh-metric .sml{font-size:11px;color:#6B7280;margin-bottom:4px;font-weight:500}
-.sh-metric .smv{font-size:16px;font-weight:600;color:#111827}
-.sh-metric.green{border-top-color:#16A34A}
-.sh-metric.green .sml{color:#16A34A}
-.sh-metric.green .smv{color:#15803D}
-.sh-metric.inf-m{border-top-color:#1E63FF;background:#EFF6FF}
-.sh-metric.inf-m .sml{color:#1E63FF}
-.sh-metric.inf-m .smv{color:#0B4DCC}
-
-/* EXTENSION CARD */
-.ext-card{background:#FFFBEB;border:1px solid #FDE68A;border-radius:12px;padding:1.5rem;margin-bottom:1.25rem}
-.ext-card .card-title{color:#92400E}
-.ext-card .card-title::before{background:#D97706}
-.ext-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
-.ext-metric{background:#fff;border-radius:10px;padding:.875rem 1rem;border:1px solid #FDE68A;border-top:3px solid #F59E0B}
-.ext-metric .eml{font-size:11px;color:#92400E;font-weight:500;margin-bottom:4px}
-.ext-metric .emv{font-size:16px;font-weight:600;color:#78350F}
-.ext-metric.hi{border-top-color:#16A34A}
-.ext-metric.hi .emv{color:#15803D}
-.ext-metric.inf-e{background:#EFF6FF;border-color:#BFDBFE;border-top-color:#1E63FF}
-.ext-metric.inf-e .eml{color:#1E63FF}
-.ext-metric.inf-e .emv{color:#0B4DCC}
-
-/* TABS */
-.tab-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem;background:#F1F5F9;border-radius:9px;padding:4px;width:fit-content}
-.tab{padding:6px 14px;border:none;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;background:transparent;color:#6B7280;transition:all .15s;font-family:'Inter',sans-serif}
-.tab:hover{color:#111827}
-.tab.active{background:#fff;color:#0B4DCC;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px;font-size:11px;font-weight:500;color:#6B7280}
-.legend span{display:flex;align-items:center;gap:5px}
-.legend .dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
-.chart-wrap{position:relative;width:100%;height:230px}
-
-/* TABLE */
-.table-wrap{overflow-x:auto;max-height:360px;overflow-y:auto;border-radius:9px;border:1px solid #E5E7EB}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-thead{position:sticky;top:0;z-index:2}
-th{background:#0B4DCC;padding:10px 12px;text-align:right;font-weight:600;font-size:11px;color:#fff;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
-th:first-child{text-align:left}
-td{padding:8px 12px;text-align:right;border-top:1px solid #F1F5F9;color:#374151;font-variant-numeric:tabular-nums}
-td:first-child{text-align:left;font-weight:600;color:#111827}
-tbody tr:nth-child(even) td{background:#F8FAFC}
-tbody tr:hover td{background:#EFF6FF}
-tr.ext-row td{background:#FFFBEB!important}
-tr.ext-row:hover td{background:#FEF3C7!important}
-tr.ext-row td:first-child{color:#92400E}
-
-/* ===== Corpusly Footer ===== */
-.corpusly-footer{background:#111827;color:#E5E7EB;padding-top:48px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;}
-.corpusly-footer .container{max-width:1200px;margin:0 auto;padding:0 20px;}
-.corpusly-footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.08);}
-.corpusly-footer-logo{font-size:1.4rem;font-weight:800;color:#fff;letter-spacing:-0.02em;display:inline-flex;align-items:flex-start;margin-bottom:12px;}
-.corpusly-footer-logo .accent{color:#DBEAFE;}
-.corpusly-footer-logo .dot{width:6px;height:6px;border-radius:50%;background:#10B981;margin-left:4px;margin-top:4px;flex-shrink:0;}
-.corpusly-footer-col p{color:#9CA3AF;font-size:0.9rem;max-width:320px;margin:0;}
-.corpusly-footer-col h4{color:#DBEAFE;font-size:0.8rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:14px;}
-.corpusly-footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin:0;padding:0;}
-.corpusly-footer-col ul a{color:#9CA3AF;font-size:0.9rem;text-decoration:none;transition:color .2s;}
-.corpusly-footer-col ul a:hover{color:#fff;}
-.corpusly-footer-bottom{text-align:center;padding:18px 0;color:#9CA3AF;font-size:0.85rem;}
-@media (max-width:768px){.corpusly-footer-grid{grid-template-columns:1fr;gap:28px;}}
-
-/* FAQ — matches landing page accordion exactly */
-.accordion{display:grid;grid-template-columns:1fr;gap:14px}
-.accordion-item{background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(15,23,42,0.08);overflow:hidden}
-.accordion-item summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:0.95rem;gap:12px;color:#111827}
-.accordion-item summary::-webkit-details-marker{display:none}
-.accordion-item summary .chevron{width:20px;height:20px;color:#2563EB;flex-shrink:0;transition:transform .25s}
-.accordion-item[open] summary .chevron{transform:rotate(180deg)}
-.accordion-item .accordion-body{padding:0 20px 18px;color:#6B7280;font-size:0.88rem;line-height:1.65}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+:root{--navy:#102649;--blue:#175dcc;--mint:#13b886;--ink:#14233b;--muted:#68758a;--line:#dce3ed;--wash:#f3f7fb;--cream:#f9faf6;--white:#fff;--danger:#b42318;--safe-gutter:24px}
+body{overflow-x:hidden;background:#fff;color:var(--ink);font:16px/1.5 Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}body.menu-open{overflow:hidden}a{text-decoration:none;color:inherit}button,input,select{font:inherit}button{cursor:pointer}.wrap{width:100%;max-width:1064px;margin:auto;padding-left:var(--safe-gutter);padding-right:var(--safe-gutter)}
+.corpusly-header{height:70px;display:flex;align-items:center;justify-content:space-between;background:#fff}.brand{display:inline-flex;align-items:flex-start;color:var(--navy);font-size:25px;font-weight:800;letter-spacing:-1px}.brand b{color:var(--blue)}.brand i{width:7px;height:7px;border-radius:50%;background:var(--mint);margin:3px 0 0 4px}.menu-button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;background:transparent;color:var(--navy)}.menu-button:focus-visible,.menu-close:focus-visible,.menu-panel a:focus-visible,.btn:focus-visible,.faq-q:focus-visible{outline:3px solid #175dcc38;outline-offset:2px}.menu-icon{display:flex;width:26px;flex-direction:column;gap:5px}.menu-icon span{display:block;width:100%;height:2px;border-radius:2px;background:var(--navy)}.menu-overlay{position:fixed;inset:0;z-index:50;background:#07162ca3;opacity:0;pointer-events:none;transition:opacity .25s ease}.menu-overlay.open{opacity:1;pointer-events:auto}.menu-panel{position:fixed;z-index:51;top:0;right:0;width:min(410px,100%);height:100dvh;padding:25px 26px 34px;overflow-y:auto;background:#fff;box-shadow:-20px 0 55px #07162c33;transform:translateX(105%);transition:transform .28s ease}.menu-panel.open{transform:translateX(0)}.menu-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid var(--line)}.menu-close{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:25px;line-height:1}.menu-home{display:block;margin:18px 0;padding:13px 14px;border-radius:10px;background:var(--wash);color:var(--navy);font-size:14px;font-weight:700}.menu-group{padding:5px 0 18px}.menu-group h3{margin:0 0 10px;color:#778399;font-size:10px;letter-spacing:.13em;text-transform:uppercase}.menu-links{display:grid;grid-template-columns:1fr 1fr;gap:7px}.menu-links a{padding:10px 11px;border:1px solid transparent;border-radius:9px;color:#425169;font-size:13px}.menu-links a:hover{border-color:var(--line);background:var(--wash);color:var(--navy)}.menu-links a[aria-current=page]{border-color:#cbdaf0;background:#edf4ff;color:var(--blue);font-weight:700}.menu-start{display:block;padding:13px 16px;border-radius:10px;background:var(--navy);color:#fff;text-align:center;font-size:13px;font-weight:700}
+.hero{position:relative;overflow:hidden;padding:74px 20px 78px;text-align:center;color:#fff;background:linear-gradient(120deg,#0d2344,#123767 58%,#155aac)}.hero:before,.hero:after{content:"";position:absolute;width:520px;height:520px;border:1px solid #ffffff17;border-radius:50%}.hero:before{left:-320px;bottom:-390px}.hero:after{right:-330px;top:-390px}.eyebrow,.kicker{position:relative;display:block;margin-bottom:10px;color:#a9c8f1;font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.hero h1{position:relative;max-width:800px;margin:0 auto 16px;font:500 50px/1.08 Georgia,serif;letter-spacing:-2px}.hero p{position:relative;max-width:690px;margin:auto;color:#d4e1f2;font-size:17px;line-height:1.5}.trust{position:relative;display:flex;justify-content:center;gap:24px;margin-top:25px;color:#c7d6e9;font-size:12px}
+.main{max-width:1064px;padding-top:70px;padding-bottom:70px}.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:24px}.section-head .kicker,.guide-intro .kicker{color:var(--blue)}.section-head h2,.guide-intro h2{margin:0;color:var(--navy);font:500 34px/1.15 Georgia,serif;letter-spacing:-1px}.calculator-grid{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:18px;align-items:start}.input-card{padding:28px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 8px 30px #1432580f;overflow:hidden}.card-head{position:relative;margin-bottom:24px;padding:0 0 21px 44px;border-bottom:1px solid #e8edf3}.card-head:before{content:"01";position:absolute;top:0;left:0;width:31px;height:31px;display:grid;place-items:center;border-radius:8px;color:#fff;background:var(--navy);font-size:10px;font-weight:800}.card-head h3{color:var(--navy);font-size:17px;line-height:1.35}.card-head p{margin-top:3px;color:var(--muted);font-size:12px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:20px 16px}.field.full{grid-column:1 / -1}.field label{display:block;margin-bottom:7px;color:#34445c;font-size:12px;font-weight:700}.field-hint{margin-top:5px;color:#8a96a8;font-size:10px;line-height:1.45}.input-wrap{height:46px;display:flex;align-items:center;overflow:hidden;border:1px solid #ccd6e3;border-radius:10px;background:#fff}.input-wrap:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px #175dcc18}.input-prefix,.input-suffix{padding:0 12px;color:#65738a;font-size:12px;flex:0 0 auto}.input-wrap input{width:0;min-width:0;flex:1;height:100%;padding:0 12px;border:0;background:transparent;color:var(--navy);font-size:15px;font-weight:700;outline:none}.input-wrap input:focus{box-shadow:none}.input-wrap.invalid,select.invalid{border-color:var(--danger)}input[type=number]{appearance:textfield;-moz-appearance:textfield}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}select{width:100%;height:46px;padding:0 34px 0 12px;border:1px solid #ccd6e3;border-radius:10px;background-color:#fff;color:var(--navy);font-size:14px;font-weight:700;outline:none;appearance:none;background-image:linear-gradient(45deg,transparent 50%,#64748b 50%),linear-gradient(135deg,#64748b 50%,transparent 50%);background-position:calc(100% - 17px) 20px,calc(100% - 12px) 20px;background-size:5px 5px;background-repeat:no-repeat}select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #175dcc18}.actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:23px}.btn{min-height:44px;padding:10px 18px;border-radius:10px;font-size:12px;font-weight:700}.btn-primary{min-width:180px;border:1px solid var(--navy);background:var(--navy);color:#fff}.btn-primary:hover{background:#163661}.btn-secondary{border:1px solid var(--line);background:var(--wash);color:var(--muted)}.alert{display:none;margin-top:14px;padding:11px 13px;border:1px solid #f0c5bf;border-radius:9px;background:#fff5f3;color:var(--danger);font-size:11px;line-height:1.55}.alert.show{display:block}
+.results-panel{position:sticky;top:16px;min-width:0;padding:34px;overflow:hidden;border-radius:18px;background:linear-gradient(145deg,#10284c,#153b70);color:#fff;box-shadow:0 8px 30px #1432580f}.result-hero{padding-bottom:23px;text-align:center}.rh-label{color:#94b9e8;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.rh-value{margin-top:9px;color:#fff;font:500 43px/1 Georgia,serif;letter-spacing:-1px}.rh-sub{margin-top:7px;color:#bbcee5;font-size:12px}.extension-snapshot{display:none;align-items:center;justify-content:space-between;gap:18px;margin-bottom:18px;padding:17px 19px;border:1px solid #59dab247;border-radius:12px;background:#38d1a21c}.extension-snapshot.show{display:flex}.es-label{color:#fff;font-size:12px;font-weight:700}.es-help{margin-top:3px;color:#a9cdbf;font-size:9px}.es-value{color:#78dfbd;font:500 27px/1 Georgia,serif;white-space:nowrap}.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:0;padding:15px 0;border-top:1px solid #ffffff1f;border-bottom:1px solid #ffffff1f}.metric{padding:9px 16px}.metric:nth-child(even){border-left:1px solid #ffffff14}.metric:nth-child(n+3){border-top:1px solid #ffffff14}.m-label{color:#aec2da;font-size:9px;text-transform:uppercase}.m-value{margin-top:3px;color:#fff;font-size:14px;font-weight:700}.m-sub{margin-top:2px;color:#a9bfd9;font-size:9px}.mix{margin-top:19px;padding-top:17px}.mix-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.mix-head h4{font-size:11px}.mix-head span{color:#9eb4cf;font-size:9px}.mix-bar{height:9px;display:flex;overflow:hidden;border-radius:9px;background:#ffffff1a}.mix-contrib{background:#5f91da}.mix-interest{background:var(--mint)}.mix-legend{display:flex;justify-content:space-between;gap:12px;margin-top:9px;color:#b6c9df;font-size:9px}.mix-legend i{width:7px;height:7px;display:inline-block;margin-right:5px;border-radius:50%;background:#5f91da}.mix-legend span:last-child i{background:var(--mint)}.schedule{margin-top:20px;padding-top:18px;border-top:1px solid #ffffff1f}.schedule-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.schedule-head h4{color:#fff;font-size:11px}.schedule-head span{color:#9eb4cf;font-size:9px}.table-scroll{max-height:360px;overflow:auto;border:1px solid #ffffff20;border-radius:10px}.result-table{width:100%;min-width:650px;border-collapse:collapse}.result-table th{position:sticky;top:0;z-index:2;padding:9px 8px;background:#153b70;color:#aec2da;text-align:right;font-size:8px;text-transform:uppercase;white-space:nowrap}.result-table th:first-child,.result-table td:first-child{text-align:left}.result-table td{padding:8px;border-top:1px solid #ffffff13;color:#d6e1ef;text-align:right;font-size:9px;white-space:nowrap}.result-table td:first-child{color:#fff}.result-table .positive{color:#78dfbd}.result-table .extension-row td{background:#13b88612}.result-note{margin-top:13px;padding:10px 11px;border:1px solid #f6ce7047;border-radius:9px;background:#f6ce7014;color:#f4d99a;font-size:10px;line-height:1.55}
+.guide-section{padding-top:75px}.guide-intro{max-width:750px}.guide-intro p{margin-top:14px;color:var(--muted);line-height:1.75}.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.guide-grid article,.guide-formula{padding:22px;border:1px solid var(--line);border-radius:14px}.guide-grid h3,.guide-formula h3{margin-bottom:8px;color:var(--navy);font-size:16px}.guide-grid p,.guide-formula p{color:var(--muted);font-size:13px;line-height:1.7}.guide-formula{margin-top:18px;background:var(--wash)}.guide-formula code{display:block;margin-top:10px;color:var(--navy);font:700 12px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:normal}.guide-formula a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}.faq-card{margin-top:75px}.faq-card>h2{padding-bottom:32px;color:var(--navy);font:500 34px/1.15 Georgia,serif;letter-spacing:-1px}.faq-list{padding:0 20px;overflow:hidden;border:1px solid var(--line);border-radius:14px}.faq-item{border-bottom:1px solid var(--line)}.faq-item:last-child{border:0}.faq-q{width:100%;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:19px 0;border:0;background:none;color:var(--navy);text-align:left;font-size:14px;font-weight:700;line-height:1.45}.faq-icon{width:25px;height:25px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;background:#eef3f8;color:var(--blue);font-size:17px;font-weight:400}.faq-item.open .faq-icon:before{content:"×"}.faq-icon:before{content:"+"}.faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease}.faq-item.open .faq-a{max-height:460px}.faq-a-inner{padding:0 38px 18px 0;color:var(--muted);font-size:13px;line-height:1.7}.disclaimer{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:16px 20px;border:1px solid #e3d7b6;border-radius:12px;background:#fffaf0}.disclaimer span{font-weight:800}.disclaimer p{color:#745f33;font-size:11px;line-height:1.65}
+footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:55px;padding-bottom:40px}.footer-grid>div{display:flex;flex-direction:column;gap:9px}.brand.light{color:#fff}.footer-grid p{max-width:360px;color:#a9b8cc;font-size:13px;line-height:1.7}.footer-grid h4{margin:2px 0 5px;color:#d9e6f6;font-size:10px;letter-spacing:.12em;text-transform:uppercase}.footer-grid a:not(.brand){color:#a9b8cc;font-size:12px}.copyright{display:flex;justify-content:center;padding-top:18px;border-top:1px solid #ffffff1a;color:#a9b8cc;text-align:center;font-size:10px}
+.calculator-grid{grid-template-columns:minmax(0,1fr)}
+.results-panel{position:relative;top:0}
+.actions{justify-content:center}
+@media(max-width:800px){.guide-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1.4fr 1fr 1fr}}
+@media(max-width:560px){:root{--safe-gutter:22px}.corpusly-header{position:sticky;top:0;z-index:9;height:62px;padding-left:max(var(--safe-gutter),env(safe-area-inset-left));padding-right:max(var(--safe-gutter),env(safe-area-inset-right))}.brand{font-size:22px}.menu-button{width:40px;height:40px}.menu-panel{padding:20px max(var(--safe-gutter),env(safe-area-inset-right)) 30px max(var(--safe-gutter),env(safe-area-inset-left))}.menu-links{grid-template-columns:1fr}.hero{padding:55px max(var(--safe-gutter),env(safe-area-inset-right))}.hero h1{font-size:35px;letter-spacing:-1.2px}.hero p{font-size:15px}.trust{flex-direction:column;align-items:center;gap:7px;margin-top:23px}.main{padding:50px max(var(--safe-gutter),env(safe-area-inset-right))}.section-head h2,.guide-intro h2,.faq-card>h2{font-size:29px}.input-card,.results-panel{padding:21px 18px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.input-wrap,select{height:50px}.actions{justify-content:center}.btn-primary{min-width:0}.rh-value{font-size:36px}.extension-snapshot{align-items:flex-start;flex-direction:column;gap:10px}.es-value{font-size:25px}.guide-section,.faq-card{padding-top:58px;margin-top:0}.faq-list{padding:0 16px}.faq-a-inner{padding-right:22px}.footer-grid{grid-template-columns:1fr}.footer-grid a:not(.brand){min-height:32px}.copyright{display:block}}
+/* Header matches the Improved SIP calculator exactly */
+header.wrap{max-width:1120px;height:70px;display:flex;align-items:center;justify-content:space-between;padding-left:24px;padding-right:24px;background:#fff}
+.brand{display:inline-flex;align-items:flex-start;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:1.68rem;font-weight:800;letter-spacing:-.02em}
+.brand b{color:var(--blue)}
+.brand i{width:7.2px;height:7.2px;flex-shrink:0;border-radius:50%;background:var(--mint);margin:4.8px 0 0 4.8px}
+@media(max-width:560px){header.wrap{position:sticky;top:0;z-index:9;height:70px;padding-left:max(22px,env(safe-area-inset-left));padding-right:max(22px,env(safe-area-inset-right));background:#fff}}
+@media(max-width:520px){header.wrap{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}}
 </style>
 </head>
 <body>
-<div class="hero-outer">
-  <div class="hero">
-    <h1>PPF Calculator</h1>
-    <p>Public Provident Fund – Maturity &amp; Growth Projections</p>
+<header class="wrap"><a class="brand" href="https://corpusly.in/" aria-label="Visit the Corpusly home page">Corpus<b>ly</b><i></i></a><button class="menu-button" id="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></button></header>
+<div class="menu-overlay" id="menu-overlay"></div>
+<aside class="menu-panel" id="site-menu" aria-label="Website menu" aria-hidden="true">
+  <div class="menu-head"><a class="brand" href="https://corpusly.in/">Corpus<b>ly</b><i></i></a><button class="menu-close" id="menu-close" type="button" aria-label="Close menu">×</button></div>
+  <a class="menu-home" href="https://corpusly.in/">Home</a>
+  <div class="menu-group"><h3>Calculators</h3><div class="menu-links"><a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html" aria-current="page">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a></div></div>
+  <div class="menu-group"><h3>Resources</h3><div class="menu-links"><a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a></div></div>
+  <a class="menu-start" href="#calculator">Start planning</a>
+</aside>
+<section class="hero"><span class="eyebrow">PUBLIC PROVIDENT FUND PLANNER</span><h1>PPF Calculator</h1><p>Estimate your PPF maturity value, annual interest and purchasing power with a clear year by year projection.</p><div class="trust"><span>Free to use</span><span>Runs in your browser</span><span>No personal data required</span></div></section>
+
+<main class="main wrap" id="calculator">
+  <div class="section-head"><div><span class="kicker">PLAN YOUR PPF</span><h2>Project your maturity corpus</h2></div></div>
+  <div class="calculator-grid">
+    <section class="input-card" aria-labelledby="details-title">
+      <div class="card-head"><h3 id="details-title">Account details</h3><p>Use completed financial years for an existing account.</p></div>
+      <div class="fields">
+        <div class="field"><label for="accountAge">Completed account years</label><div class="input-wrap"><input type="number" id="accountAge" value="0" min="0" max="15" step="1"><span class="input-suffix">years</span></div><div class="field-hint">Enter 0 for a new account.</div></div>
+        <div class="field" id="balanceField" hidden><label for="currentBalance">Current PPF balance</label><div class="input-wrap"><span class="input-prefix">₹</span><input type="number" id="currentBalance" value="500000" min="0" step="1000"></div><div class="field-hint">Use the latest balance shown in your passbook.</div></div>
+        <div class="field"><label for="annualContribution">Annual contribution</label><div class="input-wrap"><span class="input-prefix">₹</span><input type="number" id="annualContribution" value="150000" min="500" max="150000" step="500"></div><div class="field-hint">Permitted range is ₹500 to ₹1,50,000 per financial year.</div></div>
+        <div class="field"><label for="stepUp">Annual contribution increase</label><div class="input-wrap"><input type="number" id="stepUp" value="0" min="0" max="50" step="0.5"><span class="input-suffix">%</span></div><div class="field-hint">Future contributions stop increasing at the annual limit.</div></div>
+        <div class="field"><label for="interestRate">Assumed PPF interest rate</label><div class="input-wrap"><input type="number" id="interestRate" value="7.1" min="0" max="20" step="0.1"><span class="input-suffix">%</span></div><div class="field-hint">The Government may revise the rate in future quarters.</div></div>
+        <div class="field"><label for="inflationRate">Expected inflation</label><div class="input-wrap"><input type="number" id="inflationRate" value="6" min="0" max="20" step="0.1"><span class="input-suffix">%</span></div><div class="field-hint">Used only to show value in today's money.</div></div>
+        <div class="field full"><label for="extensionOption">After maturity</label><select id="extensionOption"><option value="none">Close at maturity</option><option value="without">Continue for 5 years without deposits</option><option value="with">Extend for 5 years with deposits</option></select><div class="field-hint">An extension with deposits generally requires the prescribed option within one year of maturity.</div></div>
+      </div>
+      <div class="actions"><button class="btn btn-secondary" type="button" onclick="resetCalculator()">Reset</button><button class="btn btn-primary" type="button" onclick="calculate()">Calculate PPF</button></div>
+      <div class="alert" id="form-alert" role="alert"></div>
+    </section>
+
+    <section class="results-panel" aria-live="polite">
+      <div class="result-hero"><div class="rh-label">Estimated maturity value</div><div class="rh-value" id="maturityValue">₹0</div><div class="rh-sub" id="maturitySubtitle">At the end of account year 15</div></div>
+      <div class="extension-snapshot" id="extensionSnapshot"><div><div class="es-label" id="extensionLabel">Value after extension</div><div class="es-help">Five additional account years</div></div><div class="es-value" id="extensionValue">₹0</div></div>
+      <div class="metrics">
+        <div class="metric"><div class="m-label">Opening balance</div><div class="m-value" id="openingBalanceResult">₹0</div></div>
+        <div class="metric"><div class="m-label">Future contributions</div><div class="m-value" id="contributionResult">₹0</div></div>
+        <div class="metric"><div class="m-label">Interest until maturity</div><div class="m-value" id="interestResult">₹0</div></div>
+        <div class="metric"><div class="m-label">Value in today's money</div><div class="m-value" id="realValueResult">₹0</div><div class="m-sub" id="realValueSub">At 6% inflation</div></div>
+      </div>
+      <div class="mix"><div class="mix-head"><h4>Maturity corpus mix</h4><span>Capital and projected interest</span></div><div class="mix-bar"><span class="mix-contrib" id="capitalBar"></span><span class="mix-interest" id="interestBar"></span></div><div class="mix-legend"><span><i></i>Capital included</span><span><i></i>Projected interest</span></div></div>
+      <div class="schedule"><div class="schedule-head"><h4>Annual projection</h4><span>Amounts rounded to the nearest rupee</span></div><div class="table-scroll"><table class="result-table"><thead><tr><th>Account year</th><th>Opening balance</th><th>Deposit</th><th>Interest</th><th>Closing balance</th><th>Value today</th></tr></thead><tbody id="projectionBody"></tbody></table></div></div>
+      <div class="result-note" id="basisNote">The estimate assumes each annual deposit is made on or before 5 April and therefore earns interest for the full financial year.</div>
+    </section>
   </div>
-</div>
-<div class="page">
-  <div class="card">
-    <div class="card-title">Account Details</div>
-    <div class="grid2">
-      <div class="field">
-        <label>PPF account age (years)</label>
-        <input type="number" id="ppfAge" value="0" min="0" max="15" step="1">
-        <span class="hint">0 = new account</span>
-      </div>
-      <div class="field" id="balField" style="display:none">
-        <label>Current PPF balance (₹)</label>
-        <input type="number" id="curBal" value="500000" min="0">
-      </div>
-      <div class="field">
-        <label>Annual contribution (₹)</label>
-        <input type="number" id="contrib" value="150000" min="500" max="150000">
-        <span id="contribWarn" class="warn" style="display:none"></span>
-      </div>
-      <div class="field">
-        <label>Step-up % per year</label>
-        <input type="number" id="stepup" value="0" min="0" max="50" step="1">
-        <span class="hint">0 = flat contribution</span>
-      </div>
-      <div class="field">
-        <label>PPF interest rate (%)</label>
-        <input type="number" id="rate" value="7.1" min="1" max="15" step="0.1">
-      </div>
-      <div class="field">
-        <label>Inflation rate (%) <span style="color:#9CA3AF;font-weight:400">— optional</span></label>
-        <input type="number" id="inflation" value="" min="0" max="20" step="0.1" placeholder="e.g. 6">
-        <span class="hint">Leave blank to skip adjustment</span>
-      </div>
+
+  <section class="guide-section">
+    <div class="guide-intro"><span class="kicker">UNDERSTAND THE ESTIMATE</span><h2>How this PPF calculation works</h2><p>The calculator starts with your current balance, adds each planned annual contribution and credits interest at the end of every projected financial year.</p></div>
+    <div class="guide-grid">
+      <article><h3>Deposit timing</h3><p>PPF interest uses the lowest monthly balance between the close of the fifth day and month end. This projection assumes your annual deposit is available by 5 April, so it receives a full year of interest.</p></article>
+      <article><h3>Maturity period</h3><p>A PPF account matures after fifteen complete financial years from the end of the financial year in which it was opened. Enter only completed account years when using an existing balance.</p></article>
+      <article><h3>Inflation adjustment</h3><p>The value in today's money discounts the projected corpus by your inflation assumption. It does not change the nominal PPF interest calculation.</p></article>
     </div>
-  </div>
+    <div class="guide-formula"><h3>Calculation basis</h3><p>For each projected year, the eligible opening balance and deposit earn the assumed annual rate. Actual PPF interest is credited annually and future rates may change.</p><code>Closing balance = Opening balance + Deposit + ((Opening balance + Deposit) × Interest rate)</code><p style="margin-top:10px">Rules reference: <a href="https://www.nsiindia.gov.in/writereaddata/SchemeRules/PublicProvidentFundSchemeRule.pdf" target="_blank" rel="noopener">Public Provident Fund Scheme, 2019</a>.</p></div>
+  </section>
 
-  <!-- AFTER MATURITY -->
-  <div class="card">
-    <div class="card-title">After Maturity</div>
-    <div class="grid2">
-      <div class="field">
-        <label>Extension option</label>
-        <select id="ext">
-          <option value="none">Stop at maturity</option>
-          <option value="nocontrib">Extend 5 years — no contribution</option>
-          <option value="withcontrib">Extend 5 years — with contribution</option>
-        </select>
-      </div>
+  <section class="faq-card">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">What is the current PPF interest rate used by this calculator?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">The default assumption is 7.1% a year. The Government reviews small savings rates periodically, so you can replace the default with another rate to test a future scenario.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">What are the minimum and maximum annual PPF deposits?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">The present permitted range is ₹500 to ₹1,50,000 in a financial year. The maximum applies to the relevant accounts covered by the depositor's overall limit under the scheme rules.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">When should I make a PPF deposit to earn interest for the month?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Interest is based on the lowest balance between the close of the fifth day and the end of each month. A deposit made on or before the fifth day can be eligible for that month's interest, subject to the scheme rules and actual credit timing.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">How long does a PPF account run?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">The account matures after fifteen complete financial years from the end of the financial year in which it was opened. The practical calendar duration can therefore be longer than fifteen years, depending on the opening date.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Can I extend a PPF account after maturity?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Yes. You may continue without new deposits, or choose an extension with deposits in blocks of five years under the applicable process. An account continued without deposits remains eligible for interest at the prevailing scheme rate.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">What does annual contribution increase mean?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">It increases the planned deposit by your chosen percentage each year until the annual PPF limit is reached. It is a planning feature, not a special facility offered by the PPF account.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Why does my passbook balance differ from the estimate?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Actual results can differ because of deposit dates, changing interest rates, withdrawals, missed contributions, rounding, account opening timing and rule changes. Use your PPF passbook as the authoritative record.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Is the PPF maturity amount tax free?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">PPF interest and eligible maturity proceeds are generally exempt under current Indian tax rules. Contribution deductions depend on the tax regime and your eligibility. Tax rules can change, so check the current provisions for your situation.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">How is value in today's money calculated?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">The calculator divides the future corpus by the compounded inflation factor over the remaining years. This expresses the final amount in approximate current purchasing power without changing the nominal account projection.</div></div></div>
     </div>
-  </div>
+    <div class="disclaimer"><span>ⓘ</span><p>This calculator provides an educational estimate, not an account statement, tax opinion or investment recommendation. It assumes one deposit by 5 April each financial year, a constant annual interest rate, no withdrawals and no missed deposits. Actual results depend on official rates, account dates, deposit timing, rounding and prevailing PPF and tax rules.</p></div>
+  </section>
+</main>
 
-  <!-- MATURITY SUMMARY -->
-  <div class="summary-hero">
-    <div class="sh-top">
-      <div class="sh-label">Maturity Summary</div>
-      <div class="corpus-block">
-        <div class="cl">Maturity Corpus</div>
-        <div class="cv" id="heroCorpus">—</div>
-        <div class="tax">Tax free</div>
-      </div>
-    </div>
-    <div class="sh-metrics" id="shMetrics"></div>
-  </div>
+<footer><div class="wrap"><div class="footer-grid"><div><a class="brand light" href="https://corpusly.in/">Corpus<b>ly</b><i></i></a><p>Corpusly provides free, browser based financial calculators built on industry standard formulas to help you plan investments, retirement and insurance with confidence.</p></div><div><h4>Calculators</h4><a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a></div><div><h4>Resources</h4><a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a></div></div><div class="copyright">© 2026 Corpusly Financial Calculators</div></div></footer>
 
-  <!-- EXTENSION -->
-  <div class="ext-card" id="extSection" style="display:none">
-    <div class="card-title">After Extension</div>
-    <div class="ext-metrics" id="extMetrics"></div>
-  </div>
-
-  <!-- CHARTS -->
-  <div class="card">
-    <div class="tab-bar">
-      <button class="tab active" onclick="showChart(0,this)">Corpus Growth</button>
-      <button class="tab" onclick="showChart(1,this)">Contribution vs Interest</button>
-      <button class="tab" onclick="showChart(2,this)" id="infTab" style="display:none">Inflation Comparison</button>
-    </div>
-    <div class="legend" id="chartLegend"></div>
-    <div class="chart-wrap"><canvas id="mainChart"></canvas></div>
-  </div>
-
-  <!-- TABLE -->
-  <div class="card">
-    <div class="card-title">Year-wise Projection</div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr>
-          <th style="text-align:left">Year</th>
-          <th>Opening Balance</th>
-          <th>Contribution</th>
-          <th>Interest Earned</th>
-          <th>Closing Balance</th>
-          <th id="realHeader" style="display:none">Real Value (Inflation-Adj.)</th>
-        </tr></thead>
-        <tbody id="projBody"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- FAQ -->
-  <div class="card">
-    <div class="card-title faq-card-title">Frequently Asked Questions</div>
-    <div class="accordion" id="faqList"></div>
-  </div>
-
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-const PPF_LIMIT=150000,PPF_MIN=500;
-let chartInstance=null,activeChart=0,calcData={};
-
-function fmt(n){
-  if(n>=10000000)return'₹'+(n/10000000).toFixed(2)+' Cr';
-  if(n>=100000)return'₹'+(n/100000).toFixed(2)+' L';
-  return'₹'+Math.round(n).toLocaleString('en-IN');
+const PPF_MIN=500,PPF_MAX=150000;
+function numberValue(id){return Number(document.getElementById(id).value)}
+function money(value){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(Math.round(value||0))}
+function compactMoney(value){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',notation:'compact',maximumFractionDigits:2}).format(value||0)}
+function getInputs(){return{accountAge:numberValue('accountAge'),currentBalance:numberValue('currentBalance'),annualContribution:numberValue('annualContribution'),stepUp:numberValue('stepUp'),interestRate:numberValue('interestRate'),inflationRate:numberValue('inflationRate'),extensionOption:document.getElementById('extensionOption').value}}
+function validate(v){
+  if(!Number.isInteger(v.accountAge)||v.accountAge<0||v.accountAge>15)return 'Completed account years must be a whole number from 0 to 15.';
+  if(v.accountAge>0&&(!Number.isFinite(v.currentBalance)||v.currentBalance<0))return 'Enter a valid current PPF balance.';
+  if(!Number.isFinite(v.annualContribution)||v.annualContribution<PPF_MIN||v.annualContribution>PPF_MAX)return 'Annual contribution must be between ₹500 and ₹1,50,000.';
+  if(!Number.isFinite(v.stepUp)||v.stepUp<0||v.stepUp>50)return 'Enter an annual contribution increase between 0% and 50%.';
+  if(!Number.isFinite(v.interestRate)||v.interestRate<0||v.interestRate>20)return 'Enter an interest rate between 0% and 20%.';
+  if(!Number.isFinite(v.inflationRate)||v.inflationRate<0||v.inflationRate>20)return 'Enter an inflation rate between 0% and 20%.';
+  return '';
 }
-function fmtFull(n){return'₹'+Math.round(n).toLocaleString('en-IN')}
-
-function setFieldError(id,msg){
-  const el=document.getElementById(id+'Warn');
-  if(!el)return;
-  if(msg){el.textContent=msg;el.style.display='';}
-  else el.style.display='none';
-}
-
-function getInputs(){
-  let age=parseInt(document.getElementById('ppfAge').value);
-  if(isNaN(age)||age<0){age=0;document.getElementById('ppfAge').value=0;}
-  age=Math.min(age,15);
-  let contrib=parseFloat(document.getElementById('contrib').value);
-  if(isNaN(contrib)||contrib<PPF_MIN){
-    contrib=PPF_MIN;
-    setFieldError('contrib','PPF annual contribution must be between ₹500 and ₹1,50,000.');
-  }else if(contrib>PPF_LIMIT){
-    contrib=PPF_LIMIT;
-    setFieldError('contrib','Capped at ₹1,50,000 — PPF annual contribution must be between ₹500 and ₹1,50,000.');
-  }else{setFieldError('contrib',null);}
-  let curBal=age>0?parseFloat(document.getElementById('curBal').value):0;
-  if(isNaN(curBal)||curBal<0){curBal=0;if(age>0)document.getElementById('curBal').value=0;}
-  let stepup=parseFloat(document.getElementById('stepup').value)||0;
-  if(stepup<0){stepup=0;document.getElementById('stepup').value=0;}
-  let rate=parseFloat(document.getElementById('rate').value)||7.1;
-  if(rate<0){rate=0;document.getElementById('rate').value=0;}
-  let inflation=parseFloat(document.getElementById('inflation').value)||0;
-  if(inflation<0){inflation=0;document.getElementById('inflation').value='';}
-  return{age,curBal,contrib,stepup,rate,inflation,ext:document.getElementById('ext').value};
-}
-
-function calcPPF(){
-  const p=getInputs();
-  const remaining=15-p.age;
-  let rows=[],bal=p.curBal,annual=p.contrib;
-  let totalContrib=0,totalInterest=0;
-
-  // Real rate of return (used for inflation-adjusted projection)
-  const realRate=p.inflation>0?(((1+p.rate/100)/(1+p.inflation/100))-1)*100:0;
-  let realBal=p.curBal,realAnnual=p.contrib;
-  let realRows=[];
-
-  for(let y=1;y<=remaining;y++){
-    let c=Math.min(annual,PPF_LIMIT);
-    let open=bal;
-    let interest=Math.round((open+c)*p.rate/100);
-    bal=open+c+interest;
-    totalContrib+=c;totalInterest+=interest;
-    rows.push({yr:p.age+y,open:Math.round(open),contrib:Math.round(c),interest,close:Math.round(bal),ext:false});
-    if(p.stepup>0)annual=Math.min(annual*(1+p.stepup/100),PPF_LIMIT);
-
-    // Parallel real-return projection
-    let rc=Math.min(realAnnual,PPF_LIMIT);
-    let ropen=realBal;
-    let rinterest=(ropen+rc)*realRate/100;
-    realBal=ropen+rc+rinterest;
-    realRows.push({yr:p.age+y,close:realBal,ext:false});
-    if(p.stepup>0)realAnnual=Math.min(realAnnual*(1+p.stepup/100),PPF_LIMIT);
+function computeProjection(v){
+  const remainingYears=15-v.accountAge;
+  const openingBalance=v.accountAge===0?0:v.currentBalance;
+  let balance=openingBalance,contribution=v.annualContribution,totalContributions=0,totalInterest=0;
+  const rows=[];
+  function addYear(accountYear,isExtension,withDeposit){
+    const deposit=withDeposit?Math.min(contribution,PPF_MAX):0;
+    const opening=balance;
+    const interest=Math.round((opening+deposit)*v.interestRate/100);
+    balance=opening+deposit+interest;
+    totalContributions+=deposit;totalInterest+=interest;
+    const elapsed=accountYear-v.accountAge;
+    const valueToday=v.inflationRate>0?balance/Math.pow(1+v.inflationRate/100,elapsed):balance;
+    rows.push({accountYear,opening,deposit,interest,closing:balance,valueToday,isExtension});
+    if(withDeposit)contribution=Math.min(contribution*(1+v.stepUp/100),PPF_MAX);
   }
-
-  const matCorpus=bal,matContrib=totalContrib,matInterest=totalInterest;
-  const matInfAdj=p.inflation>0?realBal:0;
-  let extContrib=0,extInterest=0;
-
-  if(p.ext!=='none'){
-    for(let y=1;y<=5;y++){
-      let c=p.ext==='withcontrib'?Math.min(annual,PPF_LIMIT):0;
-      let open=bal;
-      let interest=Math.round((open+c)*p.rate/100);
-      bal=open+c+interest;
-      extContrib+=c;extInterest+=interest;
-      totalContrib+=c;totalInterest+=interest;
-      rows.push({yr:15+y,open:Math.round(open),contrib:Math.round(c),interest,close:Math.round(bal),ext:true});
-      if(p.stepup>0&&p.ext==='withcontrib')annual=Math.min(annual*(1+p.stepup/100),PPF_LIMIT);
-
-      // Parallel real-return projection during extension
-      let rc=p.ext==='withcontrib'?Math.min(realAnnual,PPF_LIMIT):0;
-      let ropen=realBal;
-      let rinterest=(ropen+rc)*realRate/100;
-      realBal=ropen+rc+rinterest;
-      realRows.push({yr:15+y,close:realBal,ext:true});
-      if(p.stepup>0&&p.ext==='withcontrib')realAnnual=Math.min(realAnnual*(1+p.stepup/100),PPF_LIMIT);
-    }
-  }
-
-  const finalCorpus=bal;
-  const finalInfAdj=p.inflation>0?realBal:0;
-
-  calcData={p,rows,realRows,matCorpus,matContrib,matInterest,extContrib,extInterest,finalCorpus,matInfAdj,finalInfAdj};
-  render();
+  for(let year=1;year<=remainingYears;year++)addYear(v.accountAge+year,false,true);
+  const maturityValue=balance,maturityContributions=totalContributions,maturityInterest=totalInterest;
+  const maturityReal=v.inflationRate>0?maturityValue/Math.pow(1+v.inflationRate/100,remainingYears):maturityValue;
+  if(v.extensionOption!=='none')for(let year=1;year<=5;year++)addYear(15+year,true,v.extensionOption==='with');
+  const totalYears=remainingYears+(v.extensionOption==='none'?0:5);
+  const finalReal=v.inflationRate>0?balance/Math.pow(1+v.inflationRate/100,totalYears):balance;
+  return{openingBalance,remainingYears,rows,maturityValue,maturityContributions,maturityInterest,maturityReal,finalValue:balance,finalReal,totalContributions,totalInterest};
 }
-
-function render(){
-  const d=calcData;
-  const{p,rows,matCorpus,matContrib,matInterest,extContrib,extInterest,finalCorpus,matInfAdj,finalInfAdj}=d;
-  document.getElementById('infTab').style.display=p.inflation>0?'':'none';
-  document.getElementById('heroCorpus').textContent=fmt(matCorpus);
-  document.getElementById('shMetrics').innerHTML=`
-    <div class="sh-metric"><div class="sml">Total Invested</div><div class="smv">${fmt(matContrib)}</div></div>
-    <div class="sh-metric green"><div class="sml">Interest Earned</div><div class="smv">${fmt(matInterest)}</div></div>
-    ${p.inflation>0?`<div class="sh-metric inf-m"><div class="sml">Inflation-Adjusted (${p.inflation}%)</div><div class="smv">${fmt(matInfAdj)}</div></div>`:''}
-  `;
-  const extSec=document.getElementById('extSection');
-  if(p.ext!=='none'){
-    extSec.style.display='';
-    document.getElementById('extMetrics').innerHTML=`
-      <div class="ext-metric"><div class="eml">Extra Contributions</div><div class="emv">${fmt(extContrib)}</div></div>
-      <div class="ext-metric"><div class="eml">Extra Interest</div><div class="emv">${fmt(extInterest)}</div></div>
-      <div class="ext-metric hi"><div class="eml">Corpus After Extension</div><div class="emv">${fmt(finalCorpus)}</div></div>
-      ${p.inflation>0?`<div class="ext-metric inf-e"><div class="eml">Inflation-Adjusted</div><div class="emv">${fmt(finalInfAdj)}</div></div>`:''}
-    `;
-  }else extSec.style.display='none';
-  document.getElementById('projBody').innerHTML=rows.map((r,i)=>`
-    <tr class="${r.ext?'ext-row':''}">
-      <td>${r.ext?'Ext ':''}Yr ${r.yr}</td>
-      <td>${fmtFull(r.open)}</td><td>${fmtFull(r.contrib)}</td>
-      <td>${fmtFull(r.interest)}</td><td>${fmtFull(r.close)}</td>
-      ${p.inflation>0?`<td>${fmtFull(calcData.realRows[i].close)}</td>`:''}
-    </tr>`).join('');
-  document.getElementById('realHeader').style.display=p.inflation>0?'':'none';
-  renderChart(activeChart);
+function calculate(){
+  const v=getInputs(),error=validate(v),alert=document.getElementById('form-alert');
+  alert.textContent=error;alert.classList.toggle('show',Boolean(error));if(error)return null;
+  const r=computeProjection(v),capital=r.openingBalance+r.maturityContributions,capitalShare=r.maturityValue?Math.min(100,capital/r.maturityValue*100):0;
+  document.getElementById('maturityValue').textContent=compactMoney(r.maturityValue);
+  document.getElementById('maturitySubtitle').textContent=r.remainingYears?`After ${r.remainingYears} projected financial ${r.remainingYears===1?'year':'years'}`:'Account has reached the selected maturity year';
+  document.getElementById('openingBalanceResult').textContent=money(r.openingBalance);
+  document.getElementById('contributionResult').textContent=money(r.maturityContributions);
+  document.getElementById('interestResult').textContent=money(r.maturityInterest);
+  document.getElementById('realValueResult').textContent=money(r.maturityReal);
+  document.getElementById('realValueSub').textContent=v.inflationRate?`At ${v.inflationRate}% inflation`:'No inflation adjustment';
+  document.getElementById('capitalBar').style.width=`${capitalShare}%`;document.getElementById('interestBar').style.width=`${100-capitalShare}%`;
+  const snapshot=document.getElementById('extensionSnapshot'),hasExtension=v.extensionOption!=='none';snapshot.classList.toggle('show',hasExtension);
+  if(hasExtension){document.getElementById('extensionLabel').textContent=v.extensionOption==='with'?'Value after extension with deposits':'Value after extension without deposits';document.getElementById('extensionValue').textContent=compactMoney(r.finalValue)}
+  document.getElementById('projectionBody').innerHTML=r.rows.length?r.rows.map(row=>`<tr class="${row.isExtension?'extension-row':''}"><td>${row.accountYear}${row.isExtension?' extension':''}</td><td>${money(row.opening)}</td><td>${money(row.deposit)}</td><td class="positive">${money(row.interest)}</td><td>${money(row.closing)}</td><td>${money(row.valueToday)}</td></tr>`).join(''):`<tr><td colspan="6">Enter an extension option to project beyond maturity.</td></tr>`;
+  return r;
 }
-
-function showChart(idx,btn){
-  activeChart=idx;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  renderChart(idx);
-}
-
-function renderChart(idx){
-  const{rows,p}=calcData;
-  const labels=rows.map(r=>(r.ext?'E':'')+r.yr);
-  let datasets=[],legendItems=[];
-  if(idx===0){
-    datasets=[{label:'Corpus',data:rows.map(r=>r.close),borderColor:'#1E63FF',backgroundColor:'rgba(30,99,255,0.08)',fill:true,tension:0.4,pointRadius:2,borderWidth:2,pointBackgroundColor:'#1E63FF'}];
-    legendItems=[{c:'#1E63FF',l:'Corpus Value'}];
-  }else if(idx===1){
-    const cumC=[],cumI=[];
-    let cc=p.curBal||0,ci=0;
-    rows.forEach(r=>{cc+=r.contrib;ci+=r.interest;cumC.push(cc);cumI.push(ci);});
-    datasets=[
-      {label:'Invested',data:cumC,backgroundColor:'#BFDBFE',borderWidth:0,borderRadius:4},
-      {label:'Interest',data:cumI,backgroundColor:'#16A34A',borderWidth:0,borderRadius:4}
-    ];
-    legendItems=[{c:'#BFDBFE',l:'Amount Invested'},{c:'#16A34A',l:'Interest Earned'}];
-  }else{
-    const{realRows}=calcData;
-    const corpus=rows.map(r=>r.close);
-    const adjCorpus=realRows.map(r=>Math.round(r.close));
-    datasets=[
-      {label:'Nominal',data:corpus,borderColor:'#1E63FF',backgroundColor:'rgba(30,99,255,0.07)',fill:true,tension:0.4,pointRadius:2,borderWidth:2},
-      {label:'Adjusted',data:adjCorpus,borderColor:'#16A34A',backgroundColor:'rgba(22,163,74,0.07)',fill:true,tension:0.4,pointRadius:2,borderWidth:1.5,borderDash:[5,4]}
-    ];
-    legendItems=[{c:'#1E63FF',l:'Nominal Corpus'},{c:'#16A34A',l:'Inflation-Adjusted (Real Return)',dash:true}];
-  }
-  document.getElementById('chartLegend').innerHTML=legendItems.map(i=>`
-    <span><span class="dot" style="background:${i.dash?'transparent':''}; ${i.dash?`outline:2px dashed ${i.c};`:''} background-color:${i.dash?'transparent':i.c}"></span>${i.l}</span>`).join('');
-  const ctx=document.getElementById('mainChart');
-  if(chartInstance)chartInstance.destroy();
-  chartInstance=new Chart(ctx,{
-    type:idx===1?'bar':'line',
-    data:{labels,datasets},
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+fmt(c.raw)},backgroundColor:'#111827',padding:10,cornerRadius:8,titleFont:{family:'Inter'},bodyFont:{family:'Inter'}}},
-      scales:{
-        x:{ticks:{font:{size:10,family:'Inter'},maxRotation:45,autoSkip:true,maxTicksLimit:15},grid:{display:false},border:{display:false}},
-        y:{ticks:{callback:v=>fmt(v),font:{size:10,family:'Inter'}},grid:{color:'rgba(229,231,235,.8)'},border:{display:false}},
-        ...(idx===1?{x:{stacked:true,ticks:{font:{size:10,family:'Inter'}},grid:{display:false},border:{display:false}},y:{stacked:true,ticks:{callback:v=>fmt(v),font:{size:10,family:'Inter'}},grid:{color:'rgba(229,231,235,.8)'},border:{display:false}}}:{})
-      }
-    }
-  });
-}
-
-// FAQ
-const faqs=[
-  ["What is a PPF account?","The Public Provident Fund (PPF) is a government-backed long-term savings scheme that offers tax benefits and tax-free maturity proceeds."],
-  ["What is the current maturity period of a PPF account?","A PPF account matures after 15 financial years from the end of the financial year in which the account was opened."],
-  ["Why does this calculator ask for PPF account age?","The remaining investment period depends on how old your PPF account is. The calculator uses the account age to determine the years left until maturity."],
-  ["When should I enter my current PPF balance?","Enter your current PPF balance if your account is already active. For a new account, keep the account age and balance at zero."],
-  ["What is the maximum amount I can contribute to PPF each year?","The current contribution limit is ₹1.5 lakh per financial year across all deposits made into the account."],
-  ["What is a Step-Up contribution?","A Step-Up contribution increases your annual PPF investment by a fixed percentage every year. This helps align your savings with future income growth."],
-  ["How is PPF interest calculated?","PPF interest is calculated on the lowest balance between the 5th day and the last day of each month and is credited annually by the government."],
-  ["Can the PPF interest rate change?","Yes. The Government of India reviews and may revise the PPF interest rate periodically. Future returns may differ from current rates."],
-  ["What happens after my PPF account matures?","After maturity, you may withdraw the corpus, extend the account with fresh contributions, or extend it without making further contributions, subject to prevailing PPF rules."],
-  ["Should I extend my PPF account after maturity?","Extension can allow your corpus to continue compounding tax-free. The right choice depends on your liquidity needs and financial goals."],
-  ["Why does the calculator show an inflation-adjusted value?","Inflation reduces purchasing power over time. The inflation-adjusted value helps estimate what your future corpus may be worth in today's money."],
-  ["Is PPF maturity amount taxable?","No. PPF falls under the EEE (Exempt-Exempt-Exempt) category, meaning contributions, interest earned, and maturity proceeds are generally tax-free under current rules."],
-  ["Why may my actual PPF corpus differ from the estimate?","Actual results may vary due to changes in contribution amounts, interest rate revisions, account extensions, withdrawals, or changes in government rules."],
-  ["Can I use this calculator for an existing PPF account?","Yes. Simply enter your current account age and current PPF balance, and the calculator will estimate future growth based on the remaining tenure."]
-];
-document.getElementById('faqList').innerHTML=faqs.map((f,i)=>`
-  <details class="accordion-item">
-    <summary>${f[0]}
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </summary>
-    <div class="accordion-body">${f[1]}</div>
-  </details>`).join('');
-
-['ppfAge','curBal','contrib','stepup','rate','inflation','ext'].forEach(id=>{
-  const el=document.getElementById(id);
-  if(el)el.addEventListener('input',()=>{
-    const age=parseInt(document.getElementById('ppfAge').value)||0;
-    document.getElementById('balField').style.display=age>0?'':'none';
-    calcPPF();
-  });
-});
-calcPPF();
+function resetCalculator(){const defaults={accountAge:0,currentBalance:500000,annualContribution:150000,stepUp:0,interestRate:7.1,inflationRate:6};Object.entries(defaults).forEach(([id,value])=>document.getElementById(id).value=value);document.getElementById('extensionOption').value='none';syncBalanceField();calculate()}
+function syncBalanceField(){document.getElementById('balanceField').hidden=numberValue('accountAge')===0}
+function toggleFAQ(button){const item=button.closest('.faq-item'),open=item.classList.toggle('open');button.setAttribute('aria-expanded',String(open))}
+document.querySelectorAll('.input-card input,.input-card select').forEach(control=>{control.addEventListener('input',()=>{if(control.id==='accountAge')syncBalanceField();window.clearTimeout(control._timer);control._timer=window.setTimeout(calculate,120)});control.addEventListener('change',calculate)});
+const menuButton=document.getElementById('menu-button'),menuPanel=document.getElementById('site-menu'),menuOverlay=document.getElementById('menu-overlay'),menuClose=document.getElementById('menu-close');function setMenu(open){document.body.classList.toggle('menu-open',open);menuPanel.classList.toggle('open',open);menuOverlay.classList.toggle('open',open);menuPanel.setAttribute('aria-hidden',String(!open));menuButton.setAttribute('aria-expanded',String(open));if(open)menuClose.focus()}menuButton.addEventListener('click',()=>setMenu(true));menuClose.addEventListener('click',()=>setMenu(false));menuOverlay.addEventListener('click',()=>setMenu(false));menuPanel.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>setMenu(false)));document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menuPanel.classList.contains('open'))setMenu(false)});
+window.PPFCalculator={computeProjection,validate};syncBalanceField();calculate();
 </script>
-<footer class="corpusly-footer">
-  <div class="container">
-    <div class="corpusly-footer-grid">
-      <div class="corpusly-footer-col">
-        <div class="corpusly-footer-logo">Corpus<span class="accent">ly</span><span class="dot"></span></div>
-        <p>Corpusly provides free, browser based financial calculators built on industry standard formulas to help you plan investments, retirement and insurance with confidence.</p>
-      </div>
-      <div class="corpusly-footer-col">
-        <h4>Calculators</h4>
-        <ul>
-          <li><a href="sip.html">SIP Calculator</a></li>
-          <li><a href="swp.html">SWP Calculator</a></li>
-          <li><a href="cagr.html">CAGR Calculator</a></li>
-          <li><a href="xirr.html">XIRR Calculator</a></li>
-          <li><a href="epf.html">EPF Calculator</a></li>
-          <li><a href="ppf.html">PPF Calculator</a></li>
-          <li><a href="retirementplanner.html">Retirement Planner</a></li>
-          <li><a href="termcoverage.html">Term Coverage</a></li>
-          <li><a href="premiumcomparer.html">Premium Comparer</a></li>
-          <li><a href="loanemi.html">Advanced EMI Calculator</a></li>
-          <li><a href="taxcalculator.html">Income Tax Calculator</a></li>
-        </ul>
-      </div>
-      <div class="corpusly-footer-col">
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms &amp; Conditions</a></li>
-          <li><a href="disclaimer.html">Disclaimer</a></li>
-          <li><a href="methodology.html">Methodology</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="corpusly-footer-bottom">
-      <p>&copy; 2026 Corpusly Financial Calculators</p>
-    </div>
-  </div>
-</footer>
 </body>
 </html>
