@@ -1,395 +1,107 @@
-<section id="methodology" class="methodology-section">
-    <style>
-        .methodology-section {
-            background: #f8fbff;
-            padding: 80px 20px;
-            font-family: Arial, sans-serif;
-            color: #1f2937;
-        }
-
-        .methodology-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 50px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-
-        .methodology-section h1 {
-            color: #0f4c81;
-            text-align: center;
-            font-size: 42px;
-            margin-bottom: 10px;
-        }
-
-        .methodology-subtitle {
-            text-align: center;
-            color: #2563eb;
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 40px;
-        }
-
-        .methodology-section h2 {
-            color: #0f4c81;
-            margin-top: 40px;
-            margin-bottom: 15px;
-            font-size: 28px;
-            border-left: 5px solid #2563eb;
-            padding-left: 15px;
-        }
-
-        .methodology-section p {
-            line-height: 1.8;
-            margin-bottom: 18px;
-            font-size: 16px;
-        }
-
-        .methodology-section ul {
-            margin: 15px 0 25px 25px;
-            padding: 0;
-        }
-
-        .methodology-section li {
-            margin-bottom: 10px;
-            line-height: 1.7;
-        }
-
-        .calculator-box {
-            background: #ffffff;
-            border: 1px solid #dbeafe;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 25px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-        }
-
-        .calculator-box h2 {
-            margin-top: 0;
-        }
-
-        .assumption-box {
-            background: #eff6ff;
-            border-left: 5px solid #2563eb;
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 30px;
-        }
-
-        .important-box {
-            background: linear-gradient(135deg, #2563eb, #0f4c81);
-            color: white;
-            padding: 30px;
-            border-radius: 12px;
-            margin-top: 40px;
-            line-height: 1.8;
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
-        }
-
-        .footer-note {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 25px;
-            border-top: 1px solid #dbeafe;
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        @media (max-width: 768px) {
-            .methodology-container {
-                padding: 30px 20px;
-            }
-
-            .methodology-section h1 {
-                font-size: 32px;
-            }
-
-            .methodology-subtitle {
-                font-size: 18px;
-            }
-
-            .methodology-section h2 {
-                font-size: 24px;
-            }
-        }
-    </style>
-
-    <div class="methodology-container">
-
-        <h1>Methodology</h1>
-
-        <div class="methodology-subtitle">
-            How Our Calculators Work
-        </div>
-
-        <p>
-            At Corpusly, we believe that clear financial decisions begin with a clear understanding of the calculations behind them.
-        </p>
-
-        <p>
-            Our calculators use widely accepted financial formulas and methodologies commonly applied by investors, financial planners, financial institutions, and leading spreadsheet applications.
-        </p>
-
-        <p>
-            This page explains how each Corpusly calculator works, which inputs it uses, and the key assumptions and limitations to consider when interpreting its results.
-        </p>
-
-        <div class="calculator-box">
-            <h2>SIP Calculator</h2>
-
-            <p>The SIP Calculator estimates how regular monthly investments may grow over a selected period.</p>
-
-            <p>The calculation considers:</p>
-            <ul>
-                <li>Monthly investment amount</li>
-                <li>Expected annual return</li>
-                <li>Investment duration</li>
-                <li>Optional step-up contributions</li>
-            </ul>
-
-            <p><strong>Assumptions:</strong></p>
-
-            <ul>
-                <li>Returns are compounded at the frequency used by the calculator.</li>
-                <li>Contributions are made regularly throughout the investment period.</li>
-                <li>Return rates remain constant for projection purposes.</li>
-            </ul>
-
-            <p>The result is an illustration of potential long-term growth, not a guarantee of future returns.</p>
-        </div>
-
-        <div class="calculator-box">
-            <h2>SWP Calculator</h2>
-
-            <p>The SWP Calculator estimates how an invested corpus may change when regular withdrawals are made over time.</p>
-
-            <p>The calculation considers:</p>
-            <ul>
-                <li>Initial investment amount</li>
-                <li>Expected annual return</li>
-                <li>Monthly withdrawal amount</li>
-                <li>Duration of withdrawals</li>
-            </ul>
-
-            <p><strong>Assumptions:</strong></p>
-
-            <ul>
-                <li>Returns are earned on the remaining corpus.</li>
-                <li>Withdrawals occur at regular intervals.</li>
-                <li>Investment returns remain constant for projection purposes.</li>
-            </ul>
-
-            <p>The results help users assess how long a corpus may last and whether a chosen withdrawal plan appears sustainable under the selected assumptions.</p>
-        </div>
-
-        <div class="calculator-box">
-            <h2>CAGR Calculator</h2>
-
-            <p>The CAGR (Compound Annual Growth Rate) Calculator measures the constant annual rate at which an investment would have grown from its beginning value to its ending value over a specified period.</p>
-
-            <p>The calculation considers:</p>
-
-            <ul>
-                <li>Beginning value</li>
-                <li>Ending value</li>
-                <li>Investment duration</li>
-            </ul>
-
-            <p>CAGR provides a standardised way to compare investment growth across different periods, although it does not reflect year-to-year volatility.</p>
-        </div>
-
-        <div class="calculator-box">
-            <h2>XIRR Calculator</h2>
-
-            <p>The XIRR Calculator estimates the annualised return on a series of cash flows that occur on different dates.</p>
-
-            <p>The calculation considers:</p>
-
-            <ul>
-                <li>Multiple cash flows</li>
-                <li>Actual transaction dates</li>
-                <li>Final investment value</li>
-            </ul>
-
-            <p>The calculation follows the same general methodology as the XIRR function used in spreadsheet applications such as Microsoft Excel and Google Sheets.</p>
-
-            <p>XIRR is particularly useful for evaluating mutual funds, SIPs, and portfolios that involve irregular contributions or withdrawals.</p>
-        </div>
-
-        <div class="calculator-box">
-            <h2>EPF Calculator</h2>
-
-            <p>The EPF Calculator projects the potential value of an Employee Provident Fund balance over time.</p>
-
-            <p>The calculation includes:</p>
-
-            <ul>
-                <li>Employee contributions</li>
-                <li>Employer contributions</li>
-                <li>Annual salary growth assumptions</li>
-                <li>EPF interest rates</li>
-            </ul>
-
-            <p>The result is an estimate of long-term retirement savings based on the contribution, salary-growth, and interest-rate assumptions provided.</p>
-        </div>
-
-        <div class="calculator-box">
-            <h2>PPF Calculator</h2>
-
-            <p>The PPF Calculator estimates the maturity value of contributions made to a Public Provident Fund account.</p>
-
-            <p>The calculation considers:</p>
-
-            <ul>
-                <li>Annual contributions</li>
-                <li>Applicable interest assumptions</li>
-                <li>Investment tenure</li>
-            </ul>
-
-            <p>PPF interest rates are determined by the Government of India and may change periodically. Actual account values may therefore differ from the estimate.</p>
-        </div>
-
-        <div class="calculator-box">
-            <h2>Retirement Planner</h2>
-
-            <p>The Retirement Planner estimates the corpus that may be required to support a user's expected expenses throughout retirement.</p>
-
-            <p>The calculation may consider:</p>
-
-            <ul>
-                <li>Current age</li>
-                <li>Retirement age</li>
-                <li>Current expenses</li>
-                <li>Inflation assumptions</li>
-                <li>Expected investment returns</li>
-                <li>Life expectancy</li>
-            </ul>
-
-            <p>The planner adjusts current expenses for inflation and estimates the retirement corpus needed under the selected return and life-expectancy assumptions.</p>
-        </div>
-
-        <div class="calculator-box">
-            <h2>Term Insurance Coverage Calculator</h2>
-
-            <p>The Term Insurance Coverage Calculator provides an indicative estimate of life insurance cover based on a user's income, obligations, assets, and dependants.</p>
-
-            <p>The calculation may consider:</p>
-
-            <ul>
-                <li>Annual income</li>
-                <li>Existing assets</li>
-                <li>Outstanding liabilities</li>
-                <li>Financial dependents</li>
-                <li>Future financial obligations</li>
-            </ul>
-
-            <p>The result is intended as general guidance only and should not be treated as a personalised insurance recommendation.</p>
-        </div>
-
-        <div class="calculator-box">
-            <h2>Insurance Premium Comparator</h2>
-
-            <p>The Insurance Premium Comparator helps users compare the premiums and costs associated with different insurance scenarios.</p>
-
-            <p>Comparisons are based entirely on the information entered by the user and are intended for indicative purposes only.</p>
-
-            <p>Actual premiums may differ because of underwriting decisions, policy terms, medical history, and other insurer-specific factors.</p>
-        </div>
-
-        <div class="calculator-box">
-            <h2>Advanced EMI Calculator</h2>
-
-            <p>The Advanced EMI Calculator estimates the regular instalment, total interest cost, and overall repayment amount for a loan calculated on a reducing balance basis.</p>
-
-            <p>The calculation considers:</p>
-
-            <ul>
-                <li>Loan principal</li>
-                <li>Annual interest rate</li>
-                <li>Loan tenure</li>
-                <li>Payment frequency</li>
-            </ul>
-
-            <p><strong>Assumptions:</strong></p>
-
-            <ul>
-                <li>The interest rate remains constant throughout the selected loan tenure.</li>
-                <li>Instalments are paid in full and on time according to the selected repayment schedule.</li>
-                <li>Processing fees, penalties, taxes, and other lender charges are excluded unless they are specifically entered.</li>
-            </ul>
-
-            <p>The results are indicative. Actual instalments and borrowing costs may vary according to the lender's terms, rate changes, fees, and repayment schedule.</p>
-        </div>
-
-        <div class="calculator-box">
-            <h2>Income Tax Calculator</h2>
-
-            <p>The Income Tax Calculator provides an estimate of a user's income tax liability based on the financial details and tax options selected.</p>
-
-            <p>The calculation may consider:</p>
-
-            <ul>
-                <li>Financial year</li>
-                <li>Tax regime</li>
-                <li>Income from applicable sources</li>
-                <li>Eligible deductions and exemptions</li>
-                <li>Applicable surcharge, rebate, and cess</li>
-            </ul>
-
-            <p><strong>Assumptions:</strong></p>
-
-            <ul>
-                <li>The calculation uses the tax rates and rules configured for the selected financial year and tax regime.</li>
-                <li>The income, deductions, exemptions, and other details entered by the user are complete and accurate.</li>
-                <li>Tax laws, rates, rebates, and deduction rules may change over time.</li>
-            </ul>
-
-            <p>The result is an informational estimate and should not be treated as tax advice, a formal assessment, or a substitute for a completed tax return.</p>
-        </div>
-
-        <div class="assumption-box">
-            <h2>Assumptions and Limitations</h2>
-
-            <p>
-                Financial projections depend on assumptions about investment returns, inflation, interest rates, contributions, withdrawals, and other variables.
-            </p>
-
-            <p>
-                These assumptions simplify real-world conditions and may not account for market volatility, taxes, fees, policy changes, or individual circumstances. Actual outcomes may therefore differ materially from the projections shown.
-            </p>
-
-            <p>
-                All calculator outputs should be treated as estimates and planning aids, not as guaranteed outcomes.
-            </p>
-        </div>
-
-        <div class="assumption-box">
-            <h2>Transparency and Accuracy</h2>
-
-            <p>
-                We aim to make every calculation clear, transparent, and easy to understand while using widely accepted financial methodologies.
-            </p>
-
-            <p>
-                Although we take care to maintain accurate formulas and explanations, users should independently verify important information before making financial decisions.
-            </p>
-        </div>
-
-        <div class="important-box">
-            <strong>Important Disclaimer</strong><br><br>
-
-            Corpusly is an educational and informational platform. Calculator results are estimates based on the inputs and assumptions selected by the user.
-
-            Nothing on this website constitutes financial, investment, tax, legal, accounting, or insurance advice.
-
-            Users should consult an appropriately qualified professional before making significant financial, tax, investment, or insurance decisions.
-        </div>
-
-        <div class="footer-note">
-            © 2026 Corpusly Financial Calculators. All Rights Reserved.
-        </div>
-
-    </div>
-</section>
-```
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+  <meta name="theme-color" content="#102649">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <meta name="author" content="Corpusly">
+  <title>Calculator Methodology | How Corpusly Calculates Results</title>
+  <meta name="description" content="See the formulas, inputs, assumptions and limitations behind every Corpusly financial calculator for investments, retirement, insurance, loans and tax.">
+  <link rel="canonical" href="https://www.corpusly.in/methodology.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:site_name" content="Corpusly">
+  <meta property="og:title" content="Calculator Methodology | Corpusly">
+  <meta property="og:description" content="A transparent look at how Corpusly calculators turn your inputs into useful financial estimates.">
+  <meta property="og:url" content="https://www.corpusly.in/methodology.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23175DCC'/%3E%3Ctext x='50' y='68' font-size='58' fill='white' text-anchor='middle' font-family='Arial' font-weight='bold'%3EC%3C/text%3E%3C/svg%3E">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebPage","name":"Corpusly Calculator Methodology","url":"https://www.corpusly.in/methodology.html","description":"The formulas, inputs, assumptions and limitations behind Corpusly financial calculators.","inLanguage":"en-IN","isPartOf":{"@type":"WebSite","name":"Corpusly","url":"https://www.corpusly.in/"}}
+  </script>
+  <style>
+    :root{--navy:#102649;--blue:#175dcc;--blue-dark:#124ca8;--mint:#13b886;--ink:#14233b;--muted:#68758a;--line:#dce3ed;--wash:#f3f7fb;--blue-wash:#edf4ff;--cream:#fffaf0;--white:#fff;--footer:#0d1d36;--shadow:0 8px 30px rgba(20,50,88,.06);--shadow-hover:0 16px 38px rgba(20,50,88,.11);--safe-gutter:24px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;scroll-padding-top:88px}
+    body{overflow-x:hidden;background:#fff;color:var(--ink);font:16px/1.6 Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+    body.menu-open{overflow:hidden}a{color:inherit;text-decoration:none}button{font:inherit}.wrap{width:100%;max-width:1064px;margin:0 auto;padding-left:var(--safe-gutter);padding-right:var(--safe-gutter)}
+    .skip-link{position:fixed;top:12px;left:16px;z-index:300;padding:10px 16px;border-radius:8px;background:#fff;color:var(--navy);font-weight:800;box-shadow:var(--shadow);transform:translateY(-160%);transition:transform .2s}.skip-link:focus{transform:translateY(0)}:focus-visible{outline:3px solid rgba(23,93,204,.28);outline-offset:3px}
+
+    .corpusly-header{position:sticky;top:0;z-index:100;height:70px;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid #e5e7eb}.corpusly-header-inner{height:70px;display:flex;align-items:center;justify-content:space-between}.brand{display:inline-flex;align-items:flex-start;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:1.68rem;font-weight:800;letter-spacing:-.02em}.brand b{color:var(--blue)}.brand i{width:7.2px;height:7.2px;flex-shrink:0;margin:4.8px 0 0 4.8px;border-radius:50%;background:var(--mint)}.menu-button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;background:transparent;color:var(--navy);cursor:pointer}.menu-icon{display:flex;width:26px;flex-direction:column;gap:5px}.menu-icon span{display:block;width:100%;height:2px;border-radius:2px;background:var(--navy)}.menu-overlay{position:fixed;inset:0;z-index:150;background:rgba(7,22,44,.64);opacity:0;pointer-events:none;transition:opacity .25s}.menu-overlay.open{opacity:1;pointer-events:auto}.menu-panel{position:fixed;z-index:151;top:0;right:0;width:min(410px,100%);height:100dvh;padding:25px 26px 34px;overflow-y:auto;background:#fff;box-shadow:-20px 0 55px rgba(7,22,44,.2);transform:translateX(105%);transition:transform .28s}.menu-panel.open{transform:translateX(0)}.menu-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid var(--line)}.menu-close{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:25px;line-height:1;cursor:pointer}.menu-home{display:block;margin:18px 0;padding:13px 14px;border-radius:10px;background:var(--wash);color:var(--navy);font-size:14px;font-weight:700}.menu-group{padding:5px 0 18px}.menu-group h2{margin:0 0 10px;color:#778399;font-size:10px;letter-spacing:.13em;text-transform:uppercase}.menu-links{display:grid;grid-template-columns:1fr 1fr;gap:7px}.menu-links a{padding:10px 11px;border:1px solid transparent;border-radius:9px;color:#425169;font-size:13px}.menu-links a:hover{border-color:var(--line);background:var(--wash);color:var(--navy)}.menu-links a[aria-current="page"]{border-color:#cbdaf0;background:var(--blue-wash);color:var(--blue);font-weight:700}.menu-start{display:block;padding:13px 16px;border-radius:10px;background:var(--navy);color:#fff;text-align:center;font-size:13px;font-weight:700}
+
+    .hero{position:relative;overflow:hidden;padding:74px 20px 78px;background:linear-gradient(120deg,#0d2344,#123767 58%,#155aac);color:#fff;text-align:center}.hero::before,.hero::after{content:"";position:absolute;width:520px;height:520px;border:1px solid rgba(255,255,255,.09);border-radius:50%;pointer-events:none}.hero::before{left:-320px;bottom:-390px}.hero::after{right:-330px;top:-390px}.eyebrow{position:relative;display:block;margin-bottom:10px;color:#a9c8f1;font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.hero h1{position:relative;max-width:820px;margin:0 auto 16px;color:#fff;font:500 clamp(38px,5.5vw,50px)/1.08 Georgia,serif;letter-spacing:-2px}.hero p{position:relative;max-width:680px;margin:0 auto;color:#d4e1f2;font-size:17px;line-height:1.6}.trust{position:relative;display:flex;justify-content:center;gap:24px;margin-top:25px;color:#c7d6e9;font-size:12px}
+
+    .page-content{padding-top:70px;padding-bottom:76px}.kicker{display:block;margin-bottom:9px;color:var(--blue);font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.section-heading{max-width:730px;margin-bottom:28px}.section-heading h2{color:var(--navy);font:500 clamp(29px,4vw,36px)/1.15 Georgia,serif;letter-spacing:-1px}.section-heading p{margin-top:12px;color:var(--muted);font-size:14px;line-height:1.75}
+    .intro-grid{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(280px,.72fr);gap:18px;align-items:stretch}.intro-card,.standard-card{display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.intro-card{padding:30px;background:#fff}.intro-card p{color:var(--muted);font-size:14px;line-height:1.82}.intro-card p+p{margin-top:16px}.intro-card strong{color:var(--navy)}.standard-card{position:relative;overflow:hidden;padding:30px;background:linear-gradient(145deg,#10284c,#153b70);color:#fff}.standard-card::after{content:"";position:absolute;right:-76px;bottom:-88px;width:190px;height:190px;border:1px solid rgba(255,255,255,.1);border-radius:50%}.standard-card h2{position:relative;margin-bottom:10px;font:500 27px/1.15 Georgia,serif}.standard-card p{position:relative;color:#d4e1f2;font-size:13px;line-height:1.7}.standard-list{position:relative;display:grid;gap:8px;margin-top:15px;list-style:none}.standard-list li{display:flex;gap:9px;color:#dce8f7;font-size:11px;line-height:1.5}.standard-list li::before{content:"✓";color:#78dfbd;font-weight:800}
+
+    .method-section{margin-top:78px}.method-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:25px}.method-head .section-heading{margin:0}.expand-button{flex:0 0 auto;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--wash);color:var(--blue);font-size:11px;font-weight:800;cursor:pointer}.expand-button:hover{border-color:#b8cbe7;background:var(--blue-wash)}
+    .jump-nav{display:flex;gap:8px;margin-bottom:18px;padding-bottom:3px;overflow-x:auto;scrollbar-width:thin}.jump-nav a{flex:0 0 auto;padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#526178;font-size:10px;font-weight:700}.jump-nav a:hover{border-color:#aec7ea;background:var(--blue-wash);color:var(--blue)}
+    .calculator-list{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}.method-card{border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:var(--shadow);overflow:hidden;transition:border-color .2s,box-shadow .2s}.method-card[open]{border-color:#c6d7ec;box-shadow:var(--shadow-hover)}.method-card summary{position:relative;display:grid;grid-template-columns:38px 1fr 26px;gap:13px;align-items:center;min-height:112px;padding:20px;cursor:pointer;list-style:none}.method-card summary::-webkit-details-marker{display:none}.method-card summary:hover{background:#fbfdff}.card-number{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:var(--blue-wash);color:var(--blue);font-size:10px;font-weight:800}.card-title{display:block;color:var(--navy);font-size:16px;font-weight:700}.card-desc{display:block;margin-top:4px;color:var(--muted);font-size:11px;line-height:1.55}.card-toggle{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--wash);color:var(--blue);font-size:17px}.card-toggle::before{content:"+"}.method-card[open] .card-toggle::before{content:"−"}.method-body{padding:0 20px 21px}.method-body::before{content:"";display:block;margin-bottom:18px;border-top:1px solid #e8edf3}.method-label{margin:17px 0 8px;color:#7a8799;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.input-chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none}.input-chips li{padding:6px 9px;border-radius:7px;background:var(--wash);color:#435169;font-size:10px;font-weight:700}.method-copy{color:var(--muted);font-size:12px;line-height:1.72}.formula{margin-top:16px;padding:13px 14px;border:1px solid #d6e4f6;border-radius:10px;background:var(--blue-wash)}.formula span{display:block;margin-bottom:4px;color:var(--blue);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.formula code{color:var(--navy);font:700 11px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:normal}.assumption{margin-top:13px;padding:12px 13px;border-left:3px solid var(--mint);border-radius:0 9px 9px 0;background:#f1faf7;color:#35665a;font-size:10px;line-height:1.65}.method-link{display:inline-flex;align-items:center;gap:5px;margin-top:15px;color:var(--blue);font-size:11px;font-weight:800}.method-link:hover{text-decoration:underline;text-underline-offset:3px}
+
+    .principles{margin-top:78px;padding:38px;border:1px solid var(--line);border-radius:20px;background:var(--wash)}.principles-top{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start}.principles h2{color:var(--navy);font:500 32px/1.15 Georgia,serif;letter-spacing:-.7px}.principles-intro{margin-top:13px;color:var(--muted);font-size:13px;line-height:1.75}.principle-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.principle{padding:17px;border:1px solid #e2e9f1;border-radius:12px;background:#fff}.principle-mark{display:inline-grid;place-items:center;width:23px;height:23px;margin-bottom:11px;border-radius:50%;background:#eaf8f3;color:#16745a;font-size:12px;font-weight:800}.principle h3{margin-bottom:4px;color:var(--navy);font-size:13px}.principle p{color:var(--muted);font-size:11px;line-height:1.55}
+    .disclaimer{display:flex;gap:13px;margin-top:18px;padding:17px 18px;border:1px solid #e3d7b6;border-radius:11px;background:var(--cream);color:#745f33}.disclaimer-icon{display:grid;place-items:center;width:23px;height:23px;flex:0 0 auto;border:1px solid #d9c894;border-radius:50%;font-size:12px;font-weight:800}.disclaimer h2{margin-bottom:5px;color:#5f4c24;font-size:12px}.disclaimer p{font-size:11px;line-height:1.7}.disclaimer p+p{margin-top:5px}
+    .cta{position:relative;overflow:hidden;margin-top:76px;padding:48px 30px;border-radius:20px;background:linear-gradient(120deg,#0d2344,#123767 58%,#155aac);color:#fff;text-align:center}.cta::before{content:"";position:absolute;left:-110px;bottom:-150px;width:280px;height:280px;border:1px solid rgba(255,255,255,.09);border-radius:50%}.cta h2{position:relative;margin-bottom:9px;font:500 30px/1.2 Georgia,serif}.cta p{position:relative;max-width:540px;margin:0 auto 21px;color:#d4e1f2;font-size:13px}.cta-link{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:12px 23px;border-radius:10px;background:#fff;color:var(--navy);font-size:13px;font-weight:800}.cta-link:hover{background:var(--blue-wash);transform:translateY(-2px)}
+    footer{padding:52px 0 20px;background:var(--footer);color:#a9b8cc}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:55px;padding-bottom:40px}.footer-grid>div{display:flex;flex-direction:column;gap:9px}.brand.light{color:#fff}.footer-grid p{max-width:360px;font-size:13px;line-height:1.7}.footer-grid h2{margin:2px 0 5px;color:#d9e6f6;font-size:10px;letter-spacing:.12em;text-transform:uppercase}.footer-grid a:not(.brand){font-size:12px}.copyright{display:flex;justify-content:center;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:10px}
+    @media(max-width:820px){.intro-grid,.principles-top{grid-template-columns:1fr}.calculator-list{grid-template-columns:1fr}.footer-grid{grid-template-columns:1.4fr 1fr 1fr}.principles-top{gap:28px}}
+    @media(max-width:560px){:root{--safe-gutter:22px}.corpusly-header-inner{padding-left:max(var(--safe-gutter),env(safe-area-inset-left));padding-right:max(var(--safe-gutter),env(safe-area-inset-right))}.menu-button{width:40px;height:40px}.menu-panel{padding:20px max(var(--safe-gutter),env(safe-area-inset-right)) 30px max(var(--safe-gutter),env(safe-area-inset-left))}.menu-links{grid-template-columns:1fr}.hero{padding:55px var(--safe-gutter)}.hero h1{font-size:35px;letter-spacing:-1.2px}.hero p{font-size:15px}.trust{flex-direction:column;align-items:center;gap:7px;margin-top:23px}.page-content{padding-top:50px;padding-bottom:58px}.intro-card,.standard-card{padding:22px 20px}.method-section{margin-top:58px}.method-head{align-items:start}.expand-button{font-size:0;width:42px;height:42px;padding:0}.expand-button::after{content:"±";font-size:18px}.method-card summary{min-height:106px;padding:17px 15px;grid-template-columns:34px 1fr 26px;gap:10px}.card-number{width:34px;height:34px}.method-body{padding:0 15px 18px}.principles{margin-top:58px;padding:24px 20px}.principle-grid{grid-template-columns:1fr}.cta{margin-top:58px;padding:40px 20px}.footer-grid{grid-template-columns:1fr}.footer-grid a:not(.brand){min-height:32px}.copyright{display:block}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="corpusly-header"><div class="corpusly-header-inner wrap"><a class="brand" href="index.html" aria-label="Visit the Corpusly home page">Corpus<b>ly</b><i aria-hidden="true"></i></a><button class="menu-button" id="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></button></div></header>
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="menu-panel" id="site-menu" aria-label="Website menu" aria-hidden="true">
+    <div class="menu-head"><a class="brand" href="index.html">Corpus<b>ly</b><i aria-hidden="true"></i></a><button class="menu-close" id="menu-close" type="button" aria-label="Close menu">×</button></div>
+    <a class="menu-home" href="index.html">Home</a>
+    <div class="menu-group"><h2>Calculators</h2><div class="menu-links"><a href="corpusly-sip-calculator.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI</a><a href="taxcalculator.html">Income Tax Calculator</a></div></div>
+    <div class="menu-group"><h2>Resources</h2><div class="menu-links"><a href="about.html">About Us</a><a href="methodology.html" aria-current="page">Methodology</a><a href="contact.html">Contact Us</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms &amp; Conditions</a><a href="disclaimer.html">Disclaimer</a></div></div>
+    <a class="menu-start" href="index.html#calculators">Explore all calculators</a>
+  </aside>
+
+  <section class="hero" aria-labelledby="page-title"><span class="eyebrow">● Transparent by design</span><h1 id="page-title">The thinking behind<br>every calculation.</h1><p>See the inputs, formulas and assumptions we use to turn complex financial questions into clear, practical estimates.</p><div class="trust"><span>✓ Standard formulas</span><span>✓ Assumptions explained</span><span>✓ Limitations disclosed</span></div></section>
+
+  <main class="wrap page-content" id="main-content">
+    <section aria-labelledby="method-intro-title">
+      <div class="section-heading"><span class="kicker">HOW OUR CALCULATORS WORK</span><h2 id="method-intro-title">Clear methods lead to more useful results</h2></div>
+      <div class="intro-grid">
+        <article class="intro-card"><p><strong>Every Corpusly calculator begins with a financial question and a recognised way to model it.</strong> Your inputs are processed using formulas commonly used by investors, financial planners, institutions and spreadsheet applications.</p><p>We show what goes into each estimate so you can understand the result—not simply accept a number on screen. Projections are built to support planning and comparison; they do not predict markets or guarantee outcomes.</p></article>
+        <aside class="standard-card"><h2>One consistent standard</h2><p>Each tool is designed around the same three principles.</p><ul class="standard-list"><li>Use widely accepted financial methods</li><li>Keep assumptions visible and understandable</li><li>Separate estimates from personalised advice</li></ul></aside>
+      </div>
+    </section>
+
+    <section class="method-section" aria-labelledby="calculator-methods-title">
+      <div class="method-head"><div class="section-heading"><span class="kicker">CALCULATOR LIBRARY</span><h2 id="calculator-methods-title">Explore each methodology</h2><p>Open a calculator to review its inputs, core approach and key assumptions.</p></div><button class="expand-button" id="expand-all" type="button">Expand all</button></div>
+      <nav class="jump-nav" aria-label="Jump to a calculator"><a href="#sip-method">SIP</a><a href="#swp-method">SWP</a><a href="#cagr-method">CAGR</a><a href="#xirr-method">XIRR</a><a href="#epf-method">EPF</a><a href="#ppf-method">PPF</a><a href="#retirement-method">Retirement</a><a href="#term-method">Term cover</a><a href="#premium-method">Premiums</a><a href="#emi-method">EMI</a><a href="#tax-method">Income tax</a></nav>
+      <div class="calculator-list">
+        <details class="method-card" id="sip-method"><summary><span class="card-number">01</span><span><span class="card-title">SIP Calculator</span><span class="card-desc">Projects how regular investments may compound over time.</span></span><span class="card-toggle" aria-hidden="true"></span></summary><div class="method-body"><div class="method-label">Inputs used</div><ul class="input-chips"><li>Monthly investment</li><li>Expected return</li><li>Duration</li><li>Optional step-up</li></ul><div class="formula"><span>Core method</span><code>Future value of a recurring investment, compounded at the calculator frequency</code></div><div class="assumption">Contributions are made regularly, the selected return remains constant for projection purposes, and actual market returns may vary.</div><a class="method-link" href="corpusly-sip-calculator.html">Open SIP Calculator →</a></div></details>
+        <details class="method-card" id="swp-method"><summary><span class="card-number">02</span><span><span class="card-title">SWP Calculator</span><span class="card-desc">Models a corpus while regular withdrawals are made.</span></span><span class="card-toggle" aria-hidden="true"></span></summary><div class="method-body"><div class="method-label">Inputs used</div><ul class="input-chips"><li>Initial corpus</li><li>Expected return</li><li>Withdrawal amount</li><li>Duration</li></ul><p class="method-copy">At each interval, returns are applied to the remaining invested balance and the selected withdrawal is deducted. The projection indicates how long a corpus may last under those conditions.</p><div class="assumption">Withdrawals occur regularly and returns remain constant. Market volatility, tax and transaction costs may change the outcome.</div><a class="method-link" href="swp.html">Open SWP Calculator →</a></div></details>
+        <details class="method-card" id="cagr-method"><summary><span class="card-number">03</span><span><span class="card-title">CAGR Calculator</span><span class="card-desc">Expresses multi-year growth as one annualised rate.</span></span><span class="card-toggle" aria-hidden="true"></span></summary><div class="method-body"><div class="method-label">Inputs used</div><ul class="input-chips"><li>Beginning value</li><li>Ending value</li><li>Duration</li></ul><div class="formula"><span>Core formula</span><code>CAGR = (Ending value ÷ Beginning value)^(1 ÷ Years) − 1</code></div><div class="assumption">CAGR smooths the full period into a constant annual rate. It does not show year-to-year volatility or the path taken.</div><a class="method-link" href="cagr.html">Open CAGR Calculator →</a></div></details>
+        <details class="method-card" id="xirr-method"><summary><span class="card-number">04</span><span><span class="card-title">XIRR Calculator</span><span class="card-desc">Annualises returns for cash flows on different dates.</span></span><span class="card-toggle" aria-hidden="true"></span></summary><div class="method-body"><div class="method-label">Inputs used</div><ul class="input-chips"><li>Multiple cash flows</li><li>Transaction dates</li><li>Final value</li></ul><p class="method-copy">The calculator finds the discount rate that makes the net present value of all dated cash flows equal to zero, following the general XIRR methodology used by Excel and Google Sheets.</p><div class="assumption">Cash-flow signs and dates must be accurate. The result is sensitive to the sequence and timing of transactions.</div><a class="method-link" href="xirr.html">Open XIRR Calculator →</a></div></details>
+        <details class="method-card" id="epf-method"><summary><span class="card-number">05</span><span><span class="card-title">EPF Calculator</span><span class="card-desc">Projects provident fund contributions and accumulated interest.</span></span><span class="card-toggle" aria-hidden="true"></span></summary><div class="method-body"><div class="method-label">Inputs used</div><ul class="input-chips"><li>Employee contribution</li><li>Employer contribution</li><li>Salary growth</li><li>EPF rate</li></ul><p class="method-copy">Employee and eligible employer EPF contributions are accumulated through the contribution period, with interest applied using the rate and timing configured in the calculator.</p><div class="assumption">Salary growth, contribution rates and EPF interest are projection assumptions. Statutory rules and declared rates can change.</div><a class="method-link" href="epf.html">Open EPF Calculator →</a></div></details>
+        <details class="method-card" id="ppf-method"><summary><span class="card-number">06</span><span><span class="card-title">PPF Calculator</span><span class="card-desc">Estimates the maturity value of Public Provident Fund deposits.</span></span><span class="card-toggle" aria-hidden="true"></span></summary><div class="method-body"><div class="method-label">Inputs used</div><ul class="input-chips"><li>Annual contribution</li><li>Interest rate</li><li>Tenure</li></ul><p class="method-copy">Eligible deposits are accumulated over the selected tenure and compounded using the interest-rate assumptions configured by the calculator.</p><div class="assumption">PPF rates are set by the Government of India and may change periodically. Contribution timing can also affect credited interest.</div><a class="method-link" href="ppf.html">Open PPF Calculator →</a></div></details>
+        <details class="method-card" id="retirement-method"><summary><span class="card-number">07</span><span><span class="card-title">Retirement Planner</span><span class="card-desc">Estimates the corpus needed to fund future retirement expenses.</span></span><span class="card-toggle" aria-hidden="true"></span></summary><div class="method-body"><div class="method-label">Inputs used</div><ul class="input-chips"><li>Current age</li><li>Retirement age</li><li>Expenses</li><li>Inflation</li><li>Returns</li><li>Life expectancy</li></ul><p class="method-copy">Current expenses are first adjusted for inflation to retirement. The planner then estimates the capital needed to fund those expenses across the selected retirement period.</p><div class="assumption">Inflation, returns and lifespan are uncertain. Small changes to these inputs can materially change the estimated corpus.</div><a class="method-link" href="retirementplanner.html">Open Retirement Planner →</a></div></details>
+        <details class="method-card" id="term-method"><summary><span class="card-number">08</span><span><span class="card-title">Term Insurance Coverage</span><span class="card-desc">Provides an indicative estimate of life cover needs.</span></span><span class="card-toggle" aria-hidden="true"></span></summary><div class="method-body"><div class="method-label">Inputs used</div><ul class="input-chips"><li>Annual income</li><li>Assets</li><li>Liabilities</li><li>Dependants</li><li>Future obligations</li></ul><p class="method-copy">The model considers resources already available against income replacement needs, outstanding obligations and future goals to produce a planning estimate.</p><div class="assumption">This is general guidance, not a personalised insurance recommendation. Health, affordability and policy terms require individual review.</div><a class="method-link" href="termcoverage.html">Open Term Coverage Calculator →</a></div></details>
+        <details class="method-card" id="premium-method"><summary><span class="card-number">09</span><span><span class="card-title">Insurance Premium Comparator</span><span class="card-desc">Compares the cost of user-defined insurance scenarios.</span></span><span class="card-toggle" aria-hidden="true"></span></summary><div class="method-body"><div class="method-label">Inputs used</div><ul class="input-chips"><li>Premiums</li><li>Payment term</li><li>Policy term</li><li>Scenario details</li></ul><p class="method-copy">The comparator places the entered costs on a consistent basis so users can review how premium structures differ across scenarios.</p><div class="assumption">Actual premiums depend on underwriting, medical history, policy wording and insurer-specific decisions. Entered values drive the comparison.</div><a class="method-link" href="premiumcomparer.html">Open Premium Comparator →</a></div></details>
+        <details class="method-card" id="emi-method"><summary><span class="card-number">10</span><span><span class="card-title">Advanced EMI Calculator</span><span class="card-desc">Calculates instalments and interest on a reducing balance loan.</span></span><span class="card-toggle" aria-hidden="true"></span></summary><div class="method-body"><div class="method-label">Inputs used</div><ul class="input-chips"><li>Loan principal</li><li>Interest rate</li><li>Tenure</li><li>Payment frequency</li></ul><div class="formula"><span>Core formula</span><code>EMI = P × r × (1 + r)^n ÷ ((1 + r)^n − 1)</code></div><div class="assumption">The rate is assumed constant and instalments are paid on schedule. Fees, penalties and taxes are excluded unless entered.</div><a class="method-link" href="loanemi.html">Open Advanced EMI Calculator →</a></div></details>
+        <details class="method-card" id="tax-method"><summary><span class="card-number">11</span><span><span class="card-title">Income Tax Calculator</span><span class="card-desc">Estimates tax under the selected year and regime.</span></span><span class="card-toggle" aria-hidden="true"></span></summary><div class="method-body"><div class="method-label">Inputs used</div><ul class="input-chips"><li>Financial year</li><li>Tax regime</li><li>Income</li><li>Deductions</li><li>Rebate</li><li>Cess</li></ul><p class="method-copy">Eligible income and deductions are processed through the slabs, rebates, surcharge and cess rules configured for the chosen financial year and regime.</p><div class="assumption">Tax rules can change. The estimate depends on complete and accurate inputs and is not a formal assessment or substitute for a tax return.</div><a class="method-link" href="taxcalculator.html">Open Income Tax Calculator →</a></div></details>
+      </div>
+    </section>
+
+    <section class="principles" aria-labelledby="limitations-title"><div class="principles-top"><div><span class="kicker">READ RESULTS RESPONSIBLY</span><h2 id="limitations-title">Assumptions shape every projection</h2><p class="principles-intro">Financial models simplify the real world. Use the results to explore scenarios, understand trade-offs and prepare better questions—not as guaranteed outcomes.</p></div><div class="principle-grid"><article class="principle"><span class="principle-mark">✓</span><h3>Market movement</h3><p>Actual returns rarely arrive at a constant rate and may vary significantly over time.</p></article><article class="principle"><span class="principle-mark">✓</span><h3>Rates and rules</h3><p>Interest rates, tax laws, policy terms and statutory rules may change.</p></article><article class="principle"><span class="principle-mark">✓</span><h3>Costs and taxes</h3><p>Fees, charges and taxes are excluded unless a calculator explicitly includes them.</p></article><article class="principle"><span class="principle-mark">✓</span><h3>Your circumstances</h3><p>A general-purpose model cannot account for every personal goal, risk or constraint.</p></article></div></div></section>
+    <aside class="disclaimer" aria-labelledby="disclaimer-title"><span class="disclaimer-icon" aria-hidden="true">i</span><div><h2 id="disclaimer-title">Important disclaimer</h2><p>Corpusly is an educational and informational platform. Calculator results are estimates based on the inputs and assumptions selected by the user.</p><p>Nothing on this website constitutes financial, investment, tax, legal, accounting or insurance advice. Consult an appropriately qualified professional before making a significant decision.</p></div></aside>
+    <section class="cta" aria-labelledby="cta-title"><h2 id="cta-title">Ready to put the numbers to work?</h2><p>Choose a calculator, adjust the assumptions and compare scenarios in your browser—free, with no sign up.</p><a class="cta-link" href="index.html#calculators">Explore all calculators</a></section>
+  </main>
+
+  <footer><div class="wrap"><div class="footer-grid"><div><a class="brand light" href="index.html">Corpus<b>ly</b><i aria-hidden="true"></i></a><p>Free, browser-based financial calculators built on established formulas to help you plan investments, retirement, insurance, loans and tax with confidence.</p></div><div><h2>Calculators</h2><a href="corpusly-sip-calculator.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI</a><a href="taxcalculator.html">Income Tax Calculator</a></div><div><h2>Resources</h2><a href="about.html">About Us</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms &amp; Conditions</a><a href="disclaimer.html">Disclaimer</a><a href="methodology.html">Methodology</a><a href="contact.html">Contact Us</a></div></div><div class="copyright"><span>© 2026 Corpusly Financial Calculators</span></div></div></footer>
+  <script>
+    (()=>{const body=document.body,button=document.getElementById('menu-button'),panel=document.getElementById('site-menu'),overlay=document.getElementById('menu-overlay'),closeButton=document.getElementById('menu-close'),expandButton=document.getElementById('expand-all'),cards=[...document.querySelectorAll('.method-card')];let lastFocus=null;
+      const setMenu=open=>{body.classList.toggle('menu-open',open);panel.classList.toggle('open',open);overlay.classList.toggle('open',open);panel.setAttribute('aria-hidden',String(!open));button.setAttribute('aria-expanded',String(open));if(open){lastFocus=document.activeElement;closeButton.focus()}else if(lastFocus){lastFocus.focus()}};
+      button.addEventListener('click',()=>setMenu(true));closeButton.addEventListener('click',()=>setMenu(false));overlay.addEventListener('click',()=>setMenu(false));panel.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>setMenu(false)));document.addEventListener('keydown',event=>{if(event.key==='Escape'&&panel.classList.contains('open'))setMenu(false)});
+      expandButton.addEventListener('click',()=>{const shouldOpen=cards.some(card=>!card.open);cards.forEach(card=>card.open=shouldOpen);expandButton.textContent=shouldOpen?'Collapse all':'Expand all'});
+      cards.forEach(card=>card.addEventListener('toggle',()=>{expandButton.textContent=cards.every(item=>item.open)?'Collapse all':'Expand all'}));
+    })();
+  </script>
+</body>
+</html>
