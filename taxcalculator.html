@@ -1,13 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta
-      name="description"
-      content="Indian income tax calculator for FY 2026-27 with old vs new regime comparison, meal-coupon exemption and capital gains."
-    />
-    <title>Indian Income Tax Calculator</title>
+    <title>Income Tax Calculator FY 2026 to 2027 | Old vs New Regime | Corpusly</title>
+    <meta name="description" content="Calculate income tax for FY 2026 to 2027 and compare old and new tax regimes. Estimate tax on salary, house property, deductions and capital gains for free." />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+    <meta name="theme-color" content="#102649" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6944131887125712" crossorigin="anonymous"></script>
+    <link rel="canonical" href="https://corpusly.in/taxcalculator.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Corpusly" />
+    <meta property="og:title" content="Income Tax Calculator FY 2026 to 2027 | Corpusly" />
+    <meta property="og:description" content="Compare old and new tax regimes with a detailed estimate for salary, deductions, property income and capital gains." />
+    <meta property="og:url" content="https://corpusly.in/taxcalculator.html" />
+    <meta name="twitter:card" content="summary" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Corpusly Income Tax Calculator","url":"https://corpusly.in/taxcalculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"description":"Calculate Indian income tax for FY 2026 to 2027 and compare the old and new tax regimes."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which financial year does this calculator cover?","acceptedAnswer":{"@type":"Answer","text":"This calculator is designed for FY 2026 to 2027 for individual taxpayers in India."}},{"@type":"Question","name":"Should I enter monthly or annual amounts?","acceptedAnswer":{"@type":"Answer","text":"Enter annual amounts for the entire financial year."}},{"@type":"Question","name":"What is the difference between the old and new tax regimes?","acceptedAnswer":{"@type":"Answer","text":"The new regime uses revised slab rates with fewer deductions, while the old regime allows eligible deductions and exemptions. The calculator compares both."}},{"@type":"Question","name":"Does the rebate apply to capital gains?","acceptedAnswer":{"@type":"Answer","text":"The rebate does not reduce tax charged at specified special rates, including specified capital gains."}},{"@type":"Question","name":"What standard deduction is applied?","acceptedAnswer":{"@type":"Answer","text":"The calculator applies the eligible standard deduction for salary or pension income under each regime."}}]}]}
+    </script>
     <style>
       :root {
         --ink: #101c31;
@@ -1518,18 +1528,186 @@
           font-size: 23px;
         }
       }
+
+      /* Shared Corpusly calculator presentation */
+      :root {
+        --navy: #102649;
+        --blue: #175dcc;
+        --mint: #13b886;
+        --ink: #14233b;
+        --muted: #68758a;
+        --line: #dce3ed;
+        --wash: #f3f7fb;
+        --cream: #f9faf6;
+        --white: #fff;
+        --safe-gutter: 24px;
+      }
+      body { overflow-x: hidden; background: #fff; color: var(--ink); font: 16px/1.5 Arial, Helvetica, sans-serif; }
+      body.menu-open { overflow: hidden; }
+      a { color: inherit; text-decoration: none; }
+      .wrap { width: 100%; max-width: 1064px; margin: auto; padding-left: var(--safe-gutter); padding-right: var(--safe-gutter); }
+      .corpusly-header { height: 70px; display: flex; align-items: center; justify-content: space-between; background: #fff; }
+      .corpusly-header.wrap { max-width: 1120px; padding-left: 24px; padding-right: 24px; }
+      .corpusly-header .brand { display: inline-flex; align-items: flex-start; gap: 0; color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 1.68rem; font-weight: 800; line-height: 1.5; letter-spacing: -.02em; }
+      .menu-panel .brand, .corpusly-footer .brand { display: inline-flex; align-items: flex-start; gap: 0; color: var(--navy); font-size: 25px; font-weight: 800; line-height: 1.2; letter-spacing: -1px; }
+      .brand b { color: var(--blue); }
+      .brand i { width: 7px; height: 7px; margin: 3px 0 0 4px; border-radius: 50%; background: var(--mint); }
+      .corpusly-header .brand i { width: 7.2px; height: 7.2px; flex-shrink: 0; margin: 4.8px 0 0 4.8px; }
+      .menu-button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; color: var(--navy); }
+      .menu-icon { display: flex; width: 26px; flex-direction: column; gap: 5px; }
+      .menu-icon span { display: block; width: 100%; height: 2px; border-radius: 2px; background: var(--navy); }
+      .menu-button:focus-visible, .menu-close:focus-visible, .menu-panel a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid #175dcc38; outline-offset: 2px; }
+      .menu-overlay { position: fixed; inset: 0; z-index: 50; background: #07162ca3; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+      .menu-overlay.open { opacity: 1; pointer-events: auto; }
+      .menu-panel { position: fixed; z-index: 51; top: 0; right: 0; width: min(410px, 100%); height: 100dvh; padding: 25px 26px 34px; overflow-y: auto; background: #fff; box-shadow: -20px 0 55px #07162c33; transform: translateX(105%); transition: transform .28s ease; }
+      .menu-panel.open { transform: translateX(0); }
+      .menu-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+      .menu-close { display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 50%; background: #fff; color: var(--navy); font-size: 25px; line-height: 1; }
+      .menu-home { display: block; margin: 18px 0; padding: 13px 14px; border-radius: 10px; background: var(--wash); color: var(--navy); font-size: 14px; font-weight: 700; }
+      .menu-group { padding: 5px 0 18px; }
+      .menu-group h3 { margin: 0 0 10px; color: #778399; font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
+      .menu-links { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+      .menu-links a { padding: 10px 11px; border: 1px solid transparent; border-radius: 9px; color: #425169; font-size: 13px; }
+      .menu-links a:hover { border-color: var(--line); background: var(--wash); color: var(--navy); }
+      .menu-links a[aria-current="page"] { border-color: #cbdaf0; background: #edf4ff; color: var(--blue); font-weight: 700; }
+      .menu-start { display: block; padding: 13px 16px; border-radius: 10px; background: var(--navy); color: #fff; text-align: center; font-size: 13px; font-weight: 700; }
+      .hero { position: relative; overflow: hidden; width: 100%; max-width: none; margin: 0; padding: 74px 20px 78px; text-align: center; color: #fff; background: linear-gradient(120deg, #0d2344, #123767 58%, #155aac); }
+      .hero:before, .hero:after { content: ""; position: absolute; width: 520px; height: 520px; border: 1px solid #ffffff17; border-radius: 50%; }
+      .hero:before { left: -320px; bottom: -390px; }
+      .hero:after { right: -330px; top: -390px; }
+      .hero .eyebrow { position: relative; display: block; margin-bottom: 10px; color: #a9c8f1; font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+      .hero h1 { position: relative; max-width: 820px; margin: 0 auto 16px; color: #fff; font: 500 50px/1.08 Georgia, serif; letter-spacing: -2px; }
+      .hero p { position: relative; max-width: 700px; margin: auto; color: #d4e1f2; font-size: 17px; line-height: 1.5; }
+      .trust { position: relative; display: flex; justify-content: center; gap: 24px; margin-top: 25px; color: #c7d6e9; font-size: 12px; }
+      .calculator-intro { max-width: 1064px; margin: 0 auto; padding: 70px var(--safe-gutter) 0; }
+      .calculator-intro .kicker, .guide-intro .kicker { display: block; margin-bottom: 10px; color: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+      .calculator-intro h2, .guide-intro h2 { margin: 0; color: var(--navy); font: 500 34px/1.15 Georgia, serif; letter-spacing: -1px; }
+      .steps { max-width: 1064px; margin: 24px auto 18px; padding: 0 var(--safe-gutter); gap: 5px; }
+      .step { min-height: 58px; border: 1px solid transparent; border-radius: 10px; background: var(--wash); color: #748096; padding: 12px 14px; }
+      .step.active { border-color: #d8e1ed; background: #fff; color: var(--navy); box-shadow: 0 3px 11px #18375d14; }
+      .step.done { border-color: #b9e7d8; background: #effbf7; color: #087c5a; }
+      .step span { color: var(--blue); }
+      .workspace { max-width: 1064px; padding: 0 var(--safe-gutter) 70px; grid-template-columns: minmax(0, 1fr) 320px; gap: 18px; }
+      .panel { border-color: var(--line); border-radius: 18px; box-shadow: 0 8px 30px #1432580f; }
+      .panel + .panel { margin-top: 18px; border-top: 1px solid var(--line); }
+      .section { padding: 28px; }
+      .title { margin-bottom: 24px; }
+      .title > span, .title-top > span { padding: 0; border: 0; color: var(--blue); font-size: 10px; font-weight: 800; letter-spacing: .13em; }
+      .title h2 { color: var(--navy); font: 500 26px/1.2 Georgia, serif; letter-spacing: -.5px; }
+      .money, .field select, .field input[type="date"] { height: 46px; border-color: #ccd6e3; border-radius: 10px; }
+      .segments label span, .mode button { min-height: 43px; border-color: #dce3ed; border-radius: 9px; }
+      .actions { display: grid; grid-template-columns: 1fr minmax(240px, 360px) 1fr; align-items: center; gap: 10px; padding: 22px 28px 28px; border-top: 1px solid #e8edf3; background: #fff; }
+      .actions button { min-height: 44px; padding: 10px 16px; border-radius: 10px; font-size: 12px; font-weight: 700; }
+      .actions .calculate { grid-column: 2; grid-row: 1; width: 100%; border: 1px solid var(--navy); background: var(--navy); color: #fff; }
+      .actions .calculate:hover { background: #163661; }
+      .actions .reset { grid-column: 1; grid-row: 1; justify-self: end; min-width: 94px; border: 1px solid var(--line); background: #fff; color: var(--muted); }
+      .actions .reset:hover { border-color: #b8cbe7; color: var(--blue); }
+      .live { position: sticky; top: 18px; margin-top: 0; padding: 28px; border: 0; border-radius: 18px; background: linear-gradient(145deg, #10284c, #153b70); color: #fff; box-shadow: 0 8px 30px #1432580f; }
+      .live-label { color: #94b9e8; }
+      .live h3, .mini > strong, .saving strong { color: #fff; }
+      .mini { border-top-color: #ffffff1f; }
+      .mini div, .mini small, .live > small { color: #aec2da; }
+      .saving { background: #38d1a21c; border: 1px solid #59dab22e; }
+      .saving span { color: #8ee3c6; }
+      .saving p { color: #bbcee5; }
+      .view-results { background: var(--mint); color: #082d24; font-weight: 800; }
+      .guide-section { max-width: 1064px; margin: 0 auto; padding: 5px var(--safe-gutter) 0; }
+      .guide-intro { max-width: 740px; }
+      .guide-intro p { margin: 14px 0 0; color: var(--muted); line-height: 1.75; }
+      .guide-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 30px; }
+      .guide-grid article { padding: 22px; border: 1px solid var(--line); border-radius: 14px; }
+      .guide-grid h3 { margin: 0 0 8px; color: var(--navy); font-size: 16px; }
+      .guide-grid p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+      .faq { max-width: 1064px; margin: 75px auto 0; padding: 0 var(--safe-gutter); }
+      .faq-head { margin-bottom: 32px; }
+      .faq-head h2 { color: var(--navy); font: 500 34px/1.15 Georgia, serif; letter-spacing: -1px; }
+      .faq-head p { margin-top: 10px; color: var(--muted); }
+      .faq-list { padding: 0 20px; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+      .faq details { margin: 0; border: 0 !important; border-bottom: 1px solid var(--line) !important; border-radius: 0; }
+      .faq details:last-child { border-bottom: 0 !important; }
+      .faq summary { min-height: 64px; display: flex; align-items: center; padding: 19px 38px 19px 0; color: var(--navy); font-size: 14px; font-weight: 700; line-height: 1.45; }
+      .faq summary:after { content: "+"; top: 19px; right: 0; width: 25px; height: 25px; border-radius: 50%; background: #eef3f8; color: var(--blue); font-size: 17px; font-weight: 400; }
+      .faq details[open] summary { background: #fff; color: var(--navy); }
+      .faq details[open] summary:after { content: "−"; transform: none; }
+      .faq details p, .faq details ul { padding: 0 38px 18px 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+      .disclaimer { max-width: 1016px; margin: 18px auto 60px; padding: 16px 20px; border-color: #e3d7b6; border-radius: 12px; background: #fffaf0; }
+      .disclaimer strong { color: #745f33; }
+      .disclaimer p { color: #745f33; font-size: 11px; }
+      footer.corpusly-footer { margin: 0; padding: 52px 0 20px; background: #0d1d36; color: #a9b8cc; }
+      .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 55px; padding-bottom: 40px; }
+      .footer-grid > div { display: flex; flex-direction: column; gap: 9px; }
+      .corpusly-footer .brand.light { color: #fff; }
+      .footer-grid p { max-width: 360px; margin: 0; color: #a9b8cc; font-size: 13px; line-height: 1.7; }
+      .footer-grid h4 { margin: 2px 0 5px; color: #d9e6f6; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+      .footer-grid a:not(.brand) { color: #a9b8cc; font-size: 12px; }
+      .copyright { display: flex; justify-content: center; padding-top: 18px; border-top: 1px solid #ffffff1a; color: #a9b8cc; text-align: center; font-size: 10px; }
+      @media (max-width: 900px) {
+        .workspace { grid-template-columns: 1fr; }
+        .live { position: relative; top: 0; }
+        .guide-grid { grid-template-columns: 1fr; }
+        .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+      }
+      @media (max-width: 560px) {
+        :root { --safe-gutter: 22px; }
+        .corpusly-header { position: sticky; top: 0; z-index: 9; height: 70px; padding-left: max(var(--safe-gutter), env(safe-area-inset-left)); padding-right: max(var(--safe-gutter), env(safe-area-inset-right)); }
+        .menu-panel .brand, .corpusly-footer .brand { font-size: 22px; }
+        .menu-button { width: 40px; height: 40px; }
+        .menu-panel { padding: 20px max(var(--safe-gutter), env(safe-area-inset-right)) 30px max(var(--safe-gutter), env(safe-area-inset-left)); }
+        .menu-links { grid-template-columns: 1fr; }
+        .hero { padding: 55px max(var(--safe-gutter), env(safe-area-inset-right)); }
+        .hero h1 { font-size: 35px; letter-spacing: -1.2px; }
+        .hero p { font-size: 15px; }
+        .trust { flex-direction: column; align-items: center; gap: 7px; margin-top: 23px; }
+        .calculator-intro { padding-top: 50px; }
+        .calculator-intro h2, .guide-intro h2, .faq-head h2 { font-size: 29px; }
+        .steps { display: flex; overflow-x: auto; padding-bottom: 5px; }
+        .step { min-width: 145px; }
+        .section { padding: 21px 18px; }
+        .actions { display: flex; flex-direction: column; align-items: stretch; padding: 18px; }
+        .actions .calculate, .actions .reset { width: 100%; min-width: 0; justify-self: stretch; }
+        .actions .calculate { order: 1; }
+        .actions .reset { order: 2; }
+        .faq-list { padding: 0 16px; }
+        .faq summary { min-height: 62px; }
+        .footer-grid { grid-template-columns: 1fr; }
+        .footer-grid a:not(.brand) { min-height: 32px; }
+        .copyright { display: block; }
+      }
+      @media (max-width: 520px) {
+        .corpusly-header.wrap { padding-left: max(18px, env(safe-area-inset-left)); padding-right: max(18px, env(safe-area-inset-right)); }
+      }
     </style>
   </head>
   <body>
+    <header class="corpusly-header wrap">
+      <a class="brand" href="https://corpusly.in/" aria-label="Visit the Corpusly home page">Corpus<b>ly</b><i></i></a>
+      <button class="menu-button" id="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></button>
+    </header>
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <aside class="menu-panel" id="site-menu" aria-label="Website menu" aria-hidden="true">
+      <div class="menu-head"><a class="brand" href="https://corpusly.in/">Corpus<b>ly</b><i></i></a><button class="menu-close" id="menu-close" type="button" aria-label="Close menu">×</button></div>
+      <a class="menu-home" href="https://corpusly.in/">Home</a>
+      <div class="menu-group"><h3>Calculators</h3><div class="menu-links">
+        <a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html" aria-current="page">Income Tax Calculator</a>
+      </div></div>
+      <div class="menu-group"><h3>Resources</h3><div class="menu-links"><a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a></div></div>
+      <a class="menu-start" href="#calculator">Start planning</a>
+    </aside>
     <section class="hero">
       <div>
-        <h1>Income Tax Calculator</h1>
+        <span class="eyebrow">● Free Indian tax planning tool</span>
+        <h1>Income Tax Calculator for FY 2026 to 2027</h1>
         <p>
           Compare India’s old and new tax regimes with salary, deductions, property income and
           capital gains calculated separately.
         </p>
+        <div class="trust"><span>✓ No sign up</span><span>✓ Runs in your browser</span><span>✓ Detailed regime comparison</span></div>
       </div>
     </section>
+    <div class="calculator-intro" id="calculator">
+      <span class="kicker">PLAN WITH CLARITY</span>
+      <h2>Compare your income tax under both regimes</h2>
+    </div>
     <nav class="steps" aria-label="Calculator steps">
       <button class="step active" data-step="0"><span>01</span><b>Basic details</b></button
       ><button class="step" data-step="1"><span>02</span><b>Income</b></button
@@ -1542,18 +1720,15 @@
         <section class="panel active" data-panel="0">
           <div class="section">
             <div class="title">
-              <div class="title-top">
-                <span>01 — START HERE</span
-                ><button class="reset" id="reset" type="button">Reset calculator</button>
-              </div>
+              <div class="title-top"><span>01 &nbsp; START HERE</span></div>
               <div>
                 <h2>Tell us about you</h2>
                 <p>These details decide your tax slabs and eligible deductions.</p>
               </div>
             </div>
             <div class="fy">
-              <div><span>FINANCIAL YEAR</span><b>2026–27</b></div>
-              <div><span>TAX YEAR</span><b>2026–27</b></div>
+              <div><span>FINANCIAL YEAR</span><b>2026 to 2027</b></div>
+              <div><span>TAX YEAR</span><b>2026 to 2027</b></div>
               <span class="current">CURRENT</span>
             </div>
             <fieldset>
@@ -1564,7 +1739,7 @@
                     >Below 60</span
                   ></label
                 ><label
-                  ><input type="radio" name="age" value="senior" /><span>60–79 years</span></label
+                  ><input type="radio" name="age" value="senior" /><span>60 to 79 years</span></label
                 ><label
                   ><input type="radio" name="age" value="super" /><span>80+ years</span></label
                 >
@@ -1579,7 +1754,7 @@
                   ></label
                 ><label
                   ><input type="radio" name="resident" value="nonResident" /><span
-                    >Non-resident</span
+                    >Non resident</span
                   ></label
                 >
               </div>
@@ -1597,7 +1772,7 @@
                   ></label
                 ><label
                   ><input type="radio" name="employment" value="self" /><span
-                    >Self-employed</span
+                    >Self employed</span
                   ></label
                 ><label
                   ><input type="radio" name="employment" value="other" /><span>Other</span></label
@@ -1618,8 +1793,8 @@
                 >
               </div>
               <p style="margin: 8px 0 0; color: #7c8696; font-size: 10px">
-                Old-regime employer-NPS limit: 10% for private/PSU/other employers and 14% for
-                Central or State Government. New-regime limit: 14% for all employers.
+                Old regime employer NPS limit: 10% for private, PSU and other employers and 14% for
+                Central or State Government. New regime limit: 14% for all employers.
               </p>
             </fieldset>
             <fieldset>
@@ -1643,9 +1818,9 @@
         <section class="panel" data-panel="1">
           <div class="section">
             <div class="title">
-              <span>02 — INCOME</span>
+              <span>02 &nbsp; INCOME</span>
               <div>
-                <h2>Salary & pension</h2>
+                <h2>Salary &amp; pension</h2>
                 <p>Enter annual amounts from your salary slips or Form 16.</p>
               </div>
             </div>
@@ -1679,7 +1854,7 @@
                 </div>
                 <small
                   >Enter the actual annual amount from Form 16/payroll. The 12% figure is shown only
-                  as a payroll benchmark, not a FY 2026–27 tax cap.</small
+                  as a payroll benchmark, not a FY 2026 to 2027 tax cap.</small
                 ></label
               ><label class="field"
                 ><span>Employer NPS contribution</span>
@@ -1700,7 +1875,7 @@
                   lakh</strong
                 >
                 <p>
-                  NPS deduction — old: <b data-out="employerNpsOldDed">₹0</b> · new:
+                  NPS deduction, old: <b data-out="employerNpsOldDed">₹0</b> · new:
                   <b data-out="employerNpsNewDed">₹0</b>
                 </p>
               </div>
@@ -1710,7 +1885,7 @@
                   <b>₹</b><input id="mealCoupons" type="number" min="0" placeholder="0" />
                 </div>
                 <small
-                  >Enter the annual coupon portion already included above—do not add it twice</small
+                  >Enter the annual coupon portion already included above. Do not add it twice.</small
                 ></label
               ><label class="field"
                 ><span>Eligible meals during working hours</span>
@@ -1723,7 +1898,7 @@
                 ></label
               >
               <div class="auto">
-                <span>MEAL-COUPON CALCULATION</span>
+                <span>MEAL COUPON CALCULATION</span>
                 <p>Maximum from meals: <b data-out="mealLimit">₹0</b></p>
                 <strong><span data-out="mealExemption">₹0</span> exempt</strong>
                 <p>Taxable excess: <b data-out="mealTaxable">₹0</b> · both regimes</p>
@@ -1757,30 +1932,30 @@
               <div class="segments">
                 <label
                   ><input type="radio" name="propertyType" value="none" checked /><span
-                    >No house-property income</span
+                    >No house property income</span
                   ></label
                 ><label
                   ><input type="radio" name="propertyType" value="self" /><span
-                    >Self-occupied</span
+                    >Self occupied</span
                   ></label
                 ><label
                   ><input type="radio" name="propertyType" value="let" /><span
-                    >Rented / let-out</span
+                    >Rented or let out</span
                   ></label
                 >
               </div>
             </fieldset>
             <div id="selfPropertyFields" class="grid hide">
               <label class="field"
-                ><span>Eligible home-loan interest for this year</span>
+                ><span>Eligible home loan interest for this year</span>
                 <div class="money"><b>₹</b><input id="selfInterest" type="number" min="0" /></div>
                 <small
-                  >Include the eligible one-fifth pre-construction-interest instalment. Old regime:
+                  >Include the eligible one fifth pre construction interest instalment. Old regime:
                   generally capped at ₹2,00,000; new regime: no deduction.</small
                 ></label
               >
               <div class="auto">
-                <span>SELF-OCCUPIED TREATMENT</span><strong>Old regime only</strong>
+                <span>SELF OCCUPIED TREATMENT</span><strong>Old regime only</strong>
                 <p>The eligible interest is capped automatically at ₹2,00,000.</p>
               </div>
             </div>
@@ -1796,22 +1971,22 @@
                   >Optional; enter only taxes actually paid by the owner during the year</small
                 ></label
               ><label class="field"
-                ><span>Eligible home-loan interest for this year</span>
+                ><span>Eligible home loan interest for this year</span>
                 <div class="money"><b>₹</b><input id="letInterest" type="number" min="0" /></div>
                 <small
-                  >Include the eligible one-fifth pre-construction-interest instalment</small
+                  >Include the eligible one fifth pre construction interest instalment</small
                 ></label
               >
               <div class="auto">
-                <span>LET-OUT CALCULATION</span>
+                <span>LET OUT CALCULATION</span>
                 <p>
                   Net annual value: <b data-out="houseNetAnnual">₹0</b> · 30% standard deduction:
                   <b data-out="houseStandardDed">₹0</b>
                 </p>
-                <strong>Old-regime house income: <span data-out="houseIncomeOld">₹0</span></strong>
+                <strong>Old regime house income: <span data-out="houseIncomeOld">₹0</span></strong>
                 <p>
-                  New-regime amount included: <b data-out="houseIncomeNew">₹0</b> · estimated
-                  old-regime loss carry-forward: <b data-out="houseCarryForward">₹0</b>
+                  New regime amount included: <b data-out="houseIncomeNew">₹0</b> · estimated
+                  old regime loss carry forward: <b data-out="houseCarryForward">₹0</b>
                 </p>
               </div>
             </div>
@@ -1819,7 +1994,7 @@
           <div class="section">
             <div class="title">
               <span>OTHER SOURCES</span>
-              <div><h2>Interest & other income</h2></div>
+              <div><h2>Interest &amp; other income</h2></div>
             </div>
             <div class="grid">
               <label class="field"
@@ -1836,7 +2011,7 @@
                   <b>₹</b><input id="taxablePfInterest" type="number" min="0" />
                 </div>
                 <small
-                  >Use the taxable-interest amount reported by EPFO/employer; the contribution
+                  >Use the taxable interest amount reported by EPFO or your employer; the contribution
                   threshold is monitored below</small
                 ></label
               ><label class="field"
@@ -1865,7 +2040,7 @@
           </div>
           <div class="section">
             <div class="title">
-              <span>03 — DEDUCTIONS</span>
+              <span>03 &nbsp; DEDUCTIONS</span>
               <div><h2>Your eligible deductions</h2></div>
             </div>
             <div class="grid">
@@ -1895,7 +2070,7 @@
                 ></label
               >
               <div class="auto">
-                <span>EMPLOYEE RETIREMENT DEDUCTIONS — OLD REGIME</span>
+                <span>EMPLOYEE RETIREMENT DEDUCTIONS &nbsp; OLD REGIME</span>
                 <p>Section 123 basket used: <b data-out="section123Ded">₹0</b></p>
                 <strong
                   >Additional personal NPS: <span data-out="personalNpsExtraDed">₹0</span></strong
@@ -1906,7 +2081,7 @@
                 </p>
               </div>
               <fieldset>
-                <legend>Section 126 health deduction — self, spouse & dependent children</legend>
+                <legend>Section 126 health deduction for self, spouse and dependent children</legend>
                 <div class="segments">
                   <label
                     ><input type="radio" name="healthSelfSenior" value="no" checked /><span
@@ -1920,7 +2095,7 @@
                 </div>
               </fieldset>
               <fieldset>
-                <legend>Section 126 health deduction — parents</legend>
+                <legend>Section 126 health deduction for parents</legend>
                 <div class="segments">
                   <label
                     ><input type="radio" name="healthParentSenior" value="no" checked /><span
@@ -1934,7 +2109,7 @@
                 </div>
               </fieldset>
               <label class="field"
-                ><span>Self/family health-insurance premium</span>
+                ><span>Self and family health insurance premium</span>
                 <div class="money">
                   <b>₹</b><input id="healthSelfPremium" type="number" min="0" />
                 </div>
@@ -1943,7 +2118,7 @@
                   citizen</small
                 ></label
               ><label class="field"
-                ><span>Parents’ health-insurance premium</span>
+                ><span>Parents’ health insurance premium</span>
                 <div class="money">
                   <b>₹</b><input id="healthParentPremium" type="number" min="0" />
                 </div>
@@ -1953,9 +2128,9 @@
                 ></label
               >
               <div class="auto">
-                <span>SECTION 126 — OLD REGIME</span
+                <span>SECTION 126 &nbsp; OLD REGIME</span
                 ><strong
-                  ><span data-out="healthDeduction">₹0</span> eligible health-insurance
+                  ><span data-out="healthDeduction">₹0</span> eligible health insurance
                   deduction</strong
                 >
                 <p>
@@ -1996,7 +2171,7 @@
             <b>NEW REGIME</b>
             <p>
               Employee PF and personal NPS do not qualify. Standard deduction, eligible employer NPS
-              and family-pension relief are applied automatically.
+              and family pension relief are applied automatically.
             </p>
           </div>
           <div class="section">
@@ -2018,11 +2193,11 @@
         <section class="panel" data-panel="3">
           <div class="section">
             <div class="title">
-              <span>04 — CAPITAL GAINS</span>
+              <span>04 &nbsp; CAPITAL GAINS</span>
               <div>
-                <h2>Keep special-rate gains separate</h2>
+                <h2>Keep special rate gains separate</h2>
                 <p>
-                  Chapter VI-A deductions do not reduce gains taxed under Sections 111A and 112A.
+                  Chapter VI A deductions do not reduce gains taxed under Sections 111A and 112A.
                 </p>
               </div>
             </div>
@@ -2032,19 +2207,19 @@
             </div>
             <div id="summaryMode" class="grid">
               <label class="field"
-                ><span>STCG — listed equity / equity MF</span>
+                ><span>STCG, listed equity or equity MF</span>
                 <div class="money"><b>₹</b><input id="equityStcg" type="number" min="0" /></div>
                 <small>Section 111A · 20%</small></label
               ><label class="field"
-                ><span>LTCG — listed equity / equity MF</span>
+                ><span>LTCG, listed equity or equity MF</span>
                 <div class="money"><b>₹</b><input id="equityLtcg" type="number" min="0" /></div>
                 <small>12.5% above ₹1,25,000</small></label
               ><label class="field"
-                ><span>STCG — other assets</span>
+                ><span>STCG, other assets</span>
                 <div class="money"><b>₹</b><input id="otherStcg" type="number" min="0" /></div>
                 <small>Added to normal slab income</small></label
               ><label class="field"
-                ><span>LTCG — other assets</span>
+                ><span>LTCG, other assets</span>
                 <div class="money"><b>₹</b><input id="otherLtcg" type="number" min="0" /></div>
                 <small>Generally 12.5% without indexation</small></label
               >
@@ -2099,11 +2274,11 @@
           </div>
           <div class="section">
             <div class="title">
-              <span>LOSS SET-OFF</span>
+              <span>LOSS SET OFF</span>
               <div>
                 <h2>Capital losses</h2>
                 <p>
-                  STCL can offset short- or long-term gains; LTCL can offset long-term gains only.
+                  STCL can offset short or long term gains. LTCL can offset long term gains only.
                   Eligible unused capital losses can be carried forward for up to 8 tax years if the
                   loss return is filed by the applicable due date.
                 </p>
@@ -2111,25 +2286,25 @@
             </div>
             <div class="grid">
               <label class="field"
-                ><span>Current-year STCL</span>
+                ><span>Current year STCL</span>
                 <div class="money">
                   <b>₹</b><input id="currentStcl" type="number" min="0" /></div></label
               ><label class="field"
-                ><span>Current-year LTCL</span>
+                ><span>Current year LTCL</span>
                 <div class="money">
                   <b>₹</b><input id="currentLtcl" type="number" min="0" /></div></label
               ><label class="field"
-                ><span>Brought-forward STCL</span>
+                ><span>Brought forward STCL</span>
                 <div class="money">
                   <b>₹</b><input id="broughtStcl" type="number" min="0" /></div></label
               ><label class="field"
-                ><span>Brought-forward LTCL</span>
+                ><span>Brought forward LTCL</span>
                 <div class="money"><b>₹</b><input id="broughtLtcl" type="number" min="0" /></div
               ></label>
             </div>
             <div class="loss-line">
               <span>Loss adjusted now <b data-out="lossAdjusted">₹0</b></span
-              ><span>Estimated carry-forward <b data-out="carryForward">₹0</b></span>
+              ><span>Estimated carry forward <b data-out="carryForward">₹0</b></span>
             </div>
           </div>
         </section>
@@ -2142,7 +2317,7 @@
                 <em data-out="saving">₹0</em>
               </h2>
               <p id="reason">
-                The lower new-regime slabs are worth more than your available old-regime deductions.
+                The lower new regime slabs are worth more than your available old regime deductions.
               </p>
             </div>
             <div class="payable">
@@ -2173,7 +2348,7 @@
             <div class="table-title">
               <div>
                 <span>CAPITAL GAINS TAX</span>
-                <h3>Special-rate breakdown</h3>
+                <h3>Special rate breakdown</h3>
               </div>
               <p>Loss adjusted: <b data-out="lossAdjusted">₹0</b></p>
             </div>
@@ -2192,15 +2367,15 @@
             </div>
           </div>
           <div class="break-even">
-            <span>OLD-REGIME BREAK-EVEN</span>
+            <span>OLD REGIME BREAK EVEN</span>
             <h3 id="breakTitle">How much more deduction would old regime need?</h3>
             <strong id="breakValue">₹0</strong>
             <p id="breakText"></p>
           </div>
         </section>
         <div class="actions">
-          <button class="back" id="back" disabled>← Back</button
-          ><button class="next" id="next">Continue →</button>
+          <button class="reset" id="reset" type="button">Reset</button>
+          <button class="calculate" id="calculateButton" type="button">Calculate Income Tax</button>
         </div>
       </div>
       <aside class="live" id="live">
@@ -2220,14 +2395,26 @@
           <span>ESTIMATED SAVING</span><strong data-out="saving">₹0</strong>
           <p>with the <span data-out="bestRegime">new</span> regime</p>
         </div>
-        <button class="view-results" id="viewResults">View full breakdown →</button
+        <button class="view-results" id="viewResults">View full breakdown</button
         ><small
           >Includes statutory rebate marginal relief, surcharge caps, surcharge marginal relief and
-          ₹10 rounding. Transaction-specific exceptions may still require professional
+          ₹10 rounding. Transaction specific exceptions may still require professional
           review.</small
         >
       </aside>
     </div>
+    <section class="guide-section" aria-labelledby="guideTitle">
+      <div class="guide-intro">
+        <span class="kicker">UNDERSTAND YOUR ESTIMATE</span>
+        <h2 id="guideTitle">How the income tax calculator works</h2>
+        <p>The calculator brings salary, house property income, other income, eligible deductions and capital gains into one old versus new regime comparison. Your entries stay in your browser.</p>
+      </div>
+      <div class="guide-grid">
+        <article><h3>Enter annual income</h3><p>Add salary components, property income, interest, dividends and any other taxable income for the full financial year.</p></article>
+        <article><h3>Add eligible deductions</h3><p>Record eligible retirement contributions, health insurance, interest and other deductions. The calculator applies each item only where the selected regime permits it.</p></article>
+        <article><h3>Review both regimes</h3><p>Compare taxable income, rebate, surcharge, cess, special rate capital gains tax and the estimated final tax payable under each regime.</p></article>
+      </div>
+    </section>
     <section class="faq" aria-labelledby="faqTitle">
       <div class="faq-head">
         <h2 id="faqTitle">Frequently Asked Questions</h2>
@@ -2237,7 +2424,7 @@
         <details>
           <summary>Which financial year does this calculator cover?</summary>
           <p>
-            This calculator is designed for Tax Year/FY 2026–27 under the Income-tax Act, 2025, as
+            This calculator is designed for Tax Year and FY 2026 to 2027 under the Income Tax Act, 2025, as
             amended by the Finance Act, 2026.
           </p>
         </details>
@@ -2252,24 +2439,24 @@
           <summary>What is the difference between the old and new tax regimes?</summary>
           <p>
             The new regime has lower slab rates but permits fewer deductions and exemptions. The old
-            regime allows eligible deductions such as employee PF, health-insurance premiums, HRA
+            regime allows eligible deductions such as employee PF, health insurance premiums, HRA
             and specified investments. The calculator compares both automatically.
           </p>
         </details>
         <details>
-          <summary>Is income up to ₹12 lakh completely tax-free under the new regime?</summary>
+          <summary>Is income up to ₹12 lakh completely tax free under the new regime?</summary>
           <p>
             A resident individual can receive a rebate that reduces ordinary slab tax to zero when
             total income does not exceed ₹12 lakh. For an eligible salaried taxpayer, the ₹75,000
-            standard deduction can effectively make salary up to ₹12.75 lakh tax-free, assuming
-            there is no other income or special-rate income.
+            standard deduction can effectively make salary up to ₹12.75 lakh tax free, assuming
+            there is no other income or special rate income.
           </p>
         </details>
         <details>
           <summary>Does the ₹12 lakh rebate apply to capital gains?</summary>
           <p>
             No rebate is allowed against tax charged at special rates, such as specified capital
-            gains. Special-rate income also counts when checking whether total income exceeds the
+            gains. Special rate income also counts when checking whether total income exceeds the
             ₹12 lakh eligibility limit.
           </p>
         </details>
@@ -2292,9 +2479,9 @@
         <details>
           <summary>How are employee and employer PF contributions treated?</summary>
           <p>
-            Your employee PF contribution can qualify within the old-regime ₹1.5 lakh deduction
-            basket but does not reduce new-regime taxable income. Employer PF is generally excluded
-            from taxable salary within the applicable employer-retirement contribution rules.
+            Your employee PF contribution can qualify within the old regime ₹1.5 lakh deduction
+            basket but does not reduce new regime taxable income. Employer PF is generally excluded
+            from taxable salary within the applicable employer retirement contribution rules.
           </p>
         </details>
         <details>
@@ -2306,7 +2493,7 @@
           </p>
         </details>
         <details>
-          <summary>How does the health-insurance deduction work?</summary>
+          <summary>How does the health insurance deduction work?</summary>
           <p>
             Under the old regime, premiums for you, your spouse and dependent children have a
             separate ₹25,000 or ₹50,000 limit from premiums paid for parents. The higher limit
@@ -2317,24 +2504,24 @@
           <summary>How is income from a rented property calculated?</summary>
           <p>
             The calculator deducts municipal taxes actually paid, applies the statutory 30%
-            deduction to net annual value and then deducts eligible home-loan interest. Old-regime
-            house-property loss set-off is limited to ₹2 lakh; the new regime does not allow that
+            deduction to net annual value and then deducts eligible home loan interest. Old regime
+            house property loss set off is limited to ₹2 lakh; the new regime does not allow that
             loss to offset salary or other income.
           </p>
         </details>
         <details>
           <summary>Why are capital gains entered separately from salary?</summary>
           <p>
-            Some capital gains are taxed at special rates and do not follow the normal income-tax
-            slabs. Keeping them separate helps apply the rebate, basic-exemption adjustment, loss
-            set-off and surcharge rules correctly.
+            Some capital gains are taxed at special rates and do not follow the normal income tax
+            slabs. Keeping them separate helps apply the rebate, basic exemption adjustment, loss
+            set off and surcharge rules correctly.
           </p>
         </details>
         <details>
           <summary>How are meal coupons calculated?</summary>
           <p>
             Enter the coupon amount already included in salary and the number of eligible meals. The
-            calculator limits the exemption to the lower of coupons received and the meal-based
+            calculator limits the exemption to the lower of coupons received and the meal based
             maximum. Entering meals alone does not create an exemption.
           </p>
         </details>
@@ -2342,14 +2529,14 @@
           <summary>Does the result include cess and surcharge?</summary>
           <p>
             Yes. The calculator adds the 4% health and education cess and applies applicable
-            surcharge rates, specified-income surcharge caps and statutory marginal relief.
+            surcharge rates, specified income surcharge caps and statutory marginal relief.
           </p>
         </details>
         <details>
           <summary>Can I use this result to file my tax return?</summary>
           <p>
             This calculator provides an educational estimate. Reconcile the result with Form 16,
-            AIS, TIS, capital-gain statements, loan certificates and other tax documents before
+            AIS, TIS, capital gain statements, loan certificates and other tax documents before
             filing. Complex transactions may require professional advice.
           </p>
         </details>
@@ -2358,53 +2545,29 @@
     <footer class="disclaimer">
       <strong>Plan, don’t file, with this estimate.</strong>
       <p>
-        Based on Tax Year/FY 2026–27 rules for individual taxpayers under the Income-tax Act, 2025
-        and Income-tax Rules, 2026. This calculator applies the core rebate and surcharge
-        marginal-relief rules, but remains educational and does not replace professional tax advice.
-        Treaty relief, exemptions and transaction-specific provisions may change the result.
+        Based on Tax Year and FY 2026 to 2027 rules for individual taxpayers under the Income Tax Act, 2025
+        and Income Tax Rules, 2026. This calculator applies the core rebate and surcharge
+        marginal relief rules, but remains educational and does not replace professional tax advice.
+        Treaty relief, exemptions and transaction specific provisions may change the result.
       </p>
     </footer>
     <footer class="corpusly-footer">
-      <div class="footer-container">
-        <div class="corpusly-footer-grid">
-          <div class="corpusly-footer-col">
-            <div class="corpusly-footer-logo">
-              Corpus<span class="accent">ly</span><span class="dot"></span>
-            </div>
-            <p>
-              Corpusly provides free, browser based financial calculators built on industry standard
-              formulas to help you plan investments, retirement and insurance with confidence.
-            </p>
+      <div class="wrap">
+        <div class="footer-grid">
+          <div>
+            <a class="brand light" href="https://corpusly.in/" aria-label="Visit the Corpusly home page">Corpus<b>ly</b><i></i></a>
+            <p>Corpusly provides free, browser based financial calculators built on industry standard formulas to help you plan investments, retirement and insurance with confidence.</p>
           </div>
-          <div class="corpusly-footer-col">
+          <div>
             <h4>Calculators</h4>
-            <ul>
-              <li><a href="sip.html">SIP Calculator</a></li>
-              <li><a href="swp.html">SWP Calculator</a></li>
-              <li><a href="cagr.html">CAGR Calculator</a></li>
-              <li><a href="xirr.html">XIRR Calculator</a></li>
-              <li><a href="epf.html">EPF Calculator</a></li>
-              <li><a href="ppf.html">PPF Calculator</a></li>
-              <li><a href="retirementplanner.html">Retirement Planner</a></li>
-              <li><a href="termcoverage.html">Term Coverage</a></li>
-              <li><a href="premiumcomparer.html">Premium Comparer</a></li>
-              <li><a href="loanemi.html">Advanced EMI Calculator</a></li>
-              <li><a href="taxcalculator.html">Income Tax Calculator</a></li>
-            </ul>
+            <a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a>
           </div>
-          <div class="corpusly-footer-col">
+          <div>
             <h4>Resources</h4>
-            <ul>
-              <li><a href="about.html">About Us</a></li>
-              <li><a href="privacy.html">Privacy Policy</a></li>
-              <li><a href="terms.html">Terms &amp; Conditions</a></li>
-              <li><a href="disclaimer.html">Disclaimer</a></li>
-              <li><a href="methodology.html">Methodology</a></li>
-              <li><a href="contact.html">Contact Us</a></li>
-            </ul>
+            <a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a>
           </div>
         </div>
-        <div class="corpusly-footer-bottom"><p>&copy; 2026 Corpusly Financial Calculators</p></div>
+        <div class="copyright"><span>&copy; 2026 Corpusly Financial Calculators</span></div>
       </div>
     </footer>
     <script>
@@ -2485,7 +2648,7 @@
             long = months > (equity ? 12 : 24);
           let kind = long ? "otherLtcg" : "otherStcg";
           if (equity && $("#stt").checked) kind = long ? "equityLtcg" : "equityStcg";
-          return { kind, gain, label: `${long ? "Long" : "Short"}-term · ${months} months held` };
+          return { kind, gain, label: `${long ? "Long" : "Short"} term, ${months} months held` };
         }
         function gains() {
           const tx = transaction(),
@@ -2849,11 +3012,11 @@
             : "Enter eligible meals first";
           message.textContent =
             radio("employment") !== "salaried"
-              ? "Meal-coupon exemption is available only for salaried employment."
+              ? "Meal coupon exemption is available only for salaried employment."
               : meal.received === 0
                 ? "Meals only set the cap. Enter coupons received, or use the maximum eligible amount button."
                 : meal.taxable > 0
-                  ? `${money(meal.taxable)} exceeds the meal-based limit and remains taxable.`
+                  ? `${money(meal.taxable)} exceeds the meal based limit and remains taxable.`
                   : `The full entered coupon amount is being deducted from taxable salary.`;
         }
         function updatePropertyFields() {
@@ -2905,8 +3068,8 @@
           $("#oldMini").classList.toggle("best", win === old);
           $("#reason").textContent =
             win.regime === "old"
-              ? "Your eligible deductions outweigh the benefit of the new-regime slab structure."
-              : "The lower new-regime slabs are worth more than your available old-regime deductions.";
+              ? "Your eligible deductions outweigh the benefit of the new regime slab structure."
+              : "The lower new regime slabs are worth more than your available old regime deductions.";
           const rows = [
             ["Gross total income", "gross"],
             ["Employer retirement excess added", "employerRetirementExcess"],
@@ -2979,6 +3142,23 @@
               update();
             }),
         );
+        function setMenu(open) {
+          $("#site-menu").classList.toggle("open", open);
+          $("#menu-overlay").classList.toggle("open", open);
+          $("#site-menu").setAttribute("aria-hidden", String(!open));
+          $("#menu-button").setAttribute("aria-expanded", String(open));
+          document.body.classList.toggle("menu-open", open);
+        }
+        $("#menu-button").onclick = () => setMenu(true);
+        $("#menu-close").onclick = () => setMenu(false);
+        $("#menu-overlay").onclick = () => setMenu(false);
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") setMenu(false);
+        });
+        $("#calculateButton").onclick = () => {
+          update();
+          go(4);
+        };
         $("#reset").onclick = () => {
           $$('input[type="number"]').forEach((el) => (el.value = "0"));
           $$('input[type="date"]').forEach((el) => (el.value = ""));
