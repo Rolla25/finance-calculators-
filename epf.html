@@ -1,405 +1,383 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>EPF Calculator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>EPF Calculator: Calculate Provident Fund Balance | Corpusly</title>
+<meta name="description" content="Use Corpusly's free EPF calculator to estimate employee and employer contributions, EPS allocation, interest and your provident fund balance at retirement.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="theme-color" content="#102649">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6944131887125712" crossorigin="anonymous"></script>
+<meta name="author" content="Corpusly">
+<meta name="application-name" content="Corpusly EPF Calculator">
+<link rel="canonical" href="https://corpusly.in/epf.html">
+<link rel="alternate" hreflang="en-IN" href="https://corpusly.in/epf.html">
+<link rel="alternate" hreflang="x-default" href="https://corpusly.in/epf.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_IN">
+<meta property="og:site_name" content="Corpusly">
+<meta property="og:title" content="EPF Calculator: Calculate Provident Fund Balance">
+<meta property="og:description" content="Estimate EPF contributions, EPS allocation, monthly interest and your projected provident fund balance at retirement and age 58.">
+<meta property="og:url" content="https://corpusly.in/epf.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EPF Calculator: Calculate Provident Fund Balance">
+<meta name="twitter:description" content="Estimate EPF contributions, EPS allocation, interest and your projected provident fund balance at retirement and age 58.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://corpusly.in/epf.html#webpage",
+      "url": "https://corpusly.in/epf.html",
+      "name": "EPF Calculator: Calculate Provident Fund Balance",
+      "description": "Estimate employee and employer EPF contributions, EPS allocation, interest, and provident fund balances at retirement and age 58.",
+      "inLanguage": "en-IN",
+      "mainEntity": {"@id": "https://corpusly.in/epf.html#calculator"},
+      "breadcrumb": {"@id": "https://corpusly.in/epf.html#breadcrumb"}
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://corpusly.in/epf.html#calculator",
+      "name": "Corpusly EPF Calculator",
+      "url": "https://corpusly.in/epf.html",
+      "description": "A free browser based calculator for projecting employee provident fund contributions, employer EPF and EPS allocations, monthly interest, and retirement balances.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "isAccessibleForFree": true,
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+      "provider": {"@type": "Organization", "name": "Corpusly", "url": "https://corpusly.in/"},
+      "featureList": [
+        "Employee and employer EPF contribution projection",
+        "Employer EPS allocation calculation",
+        "Yearly projection schedule backed by monthly calculations",
+        "Balance at the selected retirement age",
+        "Projected balance through age 58"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://corpusly.in/epf.html#breadcrumb",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://corpusly.in/"},
+        {"@type": "ListItem", "position": 2, "name": "EPF Calculator", "item": "https://corpusly.in/epf.html"}
+      ]
+    }
+  ]
+}
+</script>
 <style>
-:root{
-  --primary:#1a56db;--primary-dark:#1e40af;--primary-light:#dbeafe;
-  --accent:#0891b2;--green:#059669;--orange:#d97706;--red:#dc2626;
-  --bg:#f0f4ff;--card:#fff;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;
-  --shadow:0 2px 12px rgba(30,64,175,.10);--radius:14px;
-}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
-.header{background:linear-gradient(to right,#0B4DCC,#1E63FF,#1BA7E1);color:#fff;padding:22px 24px 18px;text-align:center}
-.header h1{font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:.5px;color:#fff}
-.header p{font-size:13px;color:rgba(255,255,255,0.88);margin-top:4px}
-.container{max-width:1400px;margin:0 auto;padding:20px 16px}
-.section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--primary);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.section-title::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,var(--primary-light),transparent)}
-.input-card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:20px;border:1px solid var(--border)}
-.input-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-.field{display:flex;flex-direction:column;gap:5px}
-.field label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
-.field input,.field select{border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;font-weight:600;color:var(--text);background:#f8faff;transition:border-color .2s,box-shadow .2s;outline:none;width:100%}
-.field input:focus,.field select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(26,86,219,.12)}
-.field .helper{font-size:11px;color:var(--muted);font-style:italic;margin-top:2px}
-input[type=number]#erEPF::-webkit-inner-spin-button,
-input[type=number]#erEPF::-webkit-outer-spin-button,
-input[type=number]#erEPS::-webkit-inner-spin-button,
-input[type=number]#erEPS::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
-input[type=number]#erEPF,input[type=number]#erEPS{-moz-appearance:textfield}
-.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:20px}
-.sum-card{background:var(--card);border-radius:12px;padding:16px 14px;box-shadow:var(--shadow);border:1px solid var(--border);position:relative;overflow:hidden}
-.sum-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.sum-card.blue::before{background:var(--primary)}
-.sum-card.green::before{background:var(--green)}
-.sum-card.orange::before{background:var(--orange)}
-.sum-card.teal::before{background:var(--accent)}
-.sum-card.purple::before{background:#7c3aed}
-.sum-card.dark::before{background:var(--text)}
-.sum-card.highlight::before{background:linear-gradient(90deg,var(--primary),var(--accent))}
-.sum-card label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:6px}
-.sum-card .val{font-size:clamp(14px,2vw,18px);font-weight:800;color:var(--text)}
-.sum-card.highlight .val{color:var(--primary)}
-.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
-.tab{padding:8px 18px;border-radius:30px;border:1.5px solid var(--border);background:var(--card);font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:.2s}
-.tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
-.table-wrap{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden}
-.table-toolbar{padding:14px 16px;border-bottom:1px solid var(--border);background:#f8faff}
-.tbl-outer{overflow-x:auto;max-height:520px;overflow-y:auto}
-table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:1000px}
-thead th{background:linear-gradient(135deg,#1a56db,#0891b2);color:#fff;font-weight:700;padding:10px 10px;white-space:nowrap;position:sticky;top:0;z-index:2;text-align:right}
-thead th:first-child,thead th:nth-child(2),thead th:nth-child(3){text-align:center}
-tbody tr{transition:background .15s}
-tbody tr:hover{background:#f0f4ff!important}
-tbody tr.mar-row{background:#dcfce7!important;font-weight:700}
-tbody tr.yr-end{background:#dbeafe!important;font-weight:600}
-tbody td{padding:7px 10px;border-bottom:1px solid #f1f5f9;text-align:right;white-space:nowrap}
-tbody td:first-child,tbody td:nth-child(2),tbody td:nth-child(3){text-align:center;color:var(--muted);font-weight:600}
-.zero-row td{color:#cbd5e1}
-.accordion{display:grid;grid-template-columns:1fr;gap:14px}
-.accordion-item{background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(15,23,42,0.08);overflow:hidden}
-.accordion-item summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:0.95rem;gap:12px;color:#111827}
-.accordion-item summary::-webkit-details-marker{display:none}
-.accordion-item summary .chevron{width:20px;height:20px;color:#2563EB;flex-shrink:0;transition:transform .25s}
-.accordion-item[open] summary .chevron{transform:rotate(180deg)}
-.accordion-item .accordion-body{padding:0 20px 18px;color:#6B7280;font-size:0.88rem;line-height:1.65}
-/* Footer */
-.site-footer{background:#111827;color:#E5E7EB;padding-top:48px;margin-top:40px}
-.site-footer .inner{max-width:1200px;margin:0 auto;padding:0 20px}
-.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.08)}
-.footer-logo{font-size:1.4rem;font-weight:800;color:#fff;letter-spacing:-0.02em;display:inline-flex;align-items:flex-start;margin-bottom:12px}
-.footer-logo .accent{color:#DBEAFE}
-.footer-logo .dot{width:6px;height:6px;border-radius:50%;background:#10B981;margin-left:4px;margin-top:6px;flex-shrink:0}
-.footer-col p{color:#9CA3AF;font-size:0.9rem;max-width:320px;margin:0}
-.footer-col h4{color:#DBEAFE;font-size:0.8rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:14px}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin:0;padding:0}
-.footer-col ul a{color:#9CA3AF;font-size:0.9rem;text-decoration:none;transition:color .2s}
-.footer-col ul a:hover{color:#fff}
-.footer-bottom{text-align:center;padding:18px 0;color:#9CA3AF;font-size:0.85rem}
-@media(max-width:768px){.footer-grid{grid-template-columns:1fr;gap:28px}}
-@media(max-width:600px){
-  .summary-grid{grid-template-columns:repeat(2,1fr)}
-  .input-grid{grid-template-columns:1fr}
-  .tabs{gap:4px}
-  .tab{padding:7px 12px;font-size:12px}
-}
+html{scroll-behavior:smooth}
+:root{--navy:#102649;--blue:#175dcc;--mint:#13b886;--ink:#14233b;--muted:#68758a;--line:#dce3ed;--wash:#f3f7fb;--cream:#f9faf6;--white:#fff;--danger:#b42318;--safe-gutter:24px}
+body{overflow-x:hidden;background:#fff;color:var(--ink);font:16px/1.5 Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+body.menu-open{overflow:hidden}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.wrap{width:100%;max-width:1064px;margin:auto;padding-left:var(--safe-gutter);padding-right:var(--safe-gutter)}
+
+/* Shared Improved SIP / SWP / CAGR header and menu */
+.corpusly-header{height:70px;display:flex;align-items:center;justify-content:space-between;background:#fff}
+.corpusly-header.wrap{max-width:1120px;padding-left:24px;padding-right:24px}
+.brand{display:inline-flex;align-items:flex-start;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:1.68rem;font-weight:800;letter-spacing:-.02em}.brand b{color:var(--blue)}.brand i{width:7.2px;height:7.2px;flex-shrink:0;border-radius:50%;background:var(--mint);margin:4.8px 0 0 4.8px}
+.menu-button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;background:transparent;color:var(--navy)}
+.menu-button:focus-visible,.menu-close:focus-visible,.menu-panel a:focus-visible,.btn:focus-visible,.faq-q:focus-visible{outline:3px solid #175dcc38;outline-offset:2px}
+.menu-icon{display:flex;width:26px;flex-direction:column;gap:5px}.menu-icon span{display:block;width:100%;height:2px;border-radius:2px;background:var(--navy)}
+.menu-overlay{position:fixed;inset:0;z-index:50;background:#07162ca3;opacity:0;pointer-events:none;transition:opacity .25s ease}.menu-overlay.open{opacity:1;pointer-events:auto}
+.menu-panel{position:fixed;z-index:51;top:0;right:0;width:min(410px,100%);height:100dvh;padding:25px 26px 34px;overflow-y:auto;background:#fff;box-shadow:-20px 0 55px #07162c33;transform:translateX(105%);transition:transform .28s ease}.menu-panel.open{transform:translateX(0)}
+.menu-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid var(--line)}.menu-close{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:25px;line-height:1}
+.menu-home{display:block;margin:18px 0;padding:13px 14px;border-radius:10px;background:var(--wash);color:var(--navy);font-size:14px;font-weight:700}.menu-group{padding:5px 0 18px}.menu-group h3{margin:0 0 10px;color:#778399;font-size:10px;letter-spacing:.13em;text-transform:uppercase}.menu-links{display:grid;grid-template-columns:1fr 1fr;gap:7px}.menu-links a{padding:10px 11px;border:1px solid transparent;border-radius:9px;color:#425169;font-size:13px}.menu-links a:hover{border-color:var(--line);background:var(--wash);color:var(--navy)}.menu-links a[aria-current=page]{border-color:#cbdaf0;background:#edf4ff;color:var(--blue);font-weight:700}.menu-start{display:block;padding:13px 16px;border-radius:10px;background:var(--navy);color:#fff;text-align:center;font-size:13px;font-weight:700}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;padding:74px 20px 78px;text-align:center;color:#fff;background:linear-gradient(120deg,#0d2344,#123767 58%,#155aac)}
+.hero:before,.hero:after{content:"";position:absolute;width:520px;height:520px;border:1px solid #ffffff17;border-radius:50%}.hero:before{left:-320px;bottom:-390px}.hero:after{right:-330px;top:-390px}
+.eyebrow,.kicker{position:relative;display:block;margin-bottom:10px;color:#a9c8f1;font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.hero h1{position:relative;max-width:800px;margin:0 auto 16px;font:500 50px/1.08 Georgia,serif;letter-spacing:-2px}.hero p{position:relative;max-width:670px;margin:auto;color:#d4e1f2;font-size:17px;line-height:1.5}.trust{position:relative;display:flex;justify-content:center;gap:24px;margin-top:25px;color:#c7d6e9;font-size:12px}
+
+/* Calculator shell */
+.main{max-width:1064px;padding-top:70px;padding-bottom:70px}.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:24px}.section-head .kicker,.guide-intro .kicker{color:var(--blue)}.section-head h2,.guide-intro h2{margin:0;color:var(--navy);font:500 34px/1.15 Georgia,serif;letter-spacing:-1px}
+.calculator-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
+.input-card{padding:28px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 8px 30px #1432580f;overflow:hidden}.card-head{position:relative;margin-bottom:24px;padding:0 0 21px 44px;border-bottom:1px solid #e8edf3}.card-head:before{content:"01";position:absolute;top:0;left:0;width:31px;height:31px;display:grid;place-items:center;border-radius:8px;color:#fff;background:var(--navy);font-size:10px;font-weight:800}.card-head h3{color:var(--navy);font-size:17px;line-height:1.35}.card-head p{margin-top:3px;color:var(--muted);font-size:12px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 18px}.field.full{grid-column:auto}.field label{display:block;margin-bottom:7px;color:#34445c;font-size:12px;font-weight:700}.field-hint{margin-top:5px;color:#8a96a8;font-size:10px;line-height:1.45}.input-wrap.readonly{background:var(--wash);color:var(--muted)}.input-wrap.readonly input{color:var(--muted);cursor:not-allowed}
+.input-wrap{height:46px;display:flex;align-items:center;overflow:hidden;border:1px solid #ccd6e3;border-radius:10px;background:#fff}.input-wrap:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px #175dcc18}.input-prefix,.input-suffix{padding:0 12px;color:#65738a;font-size:12px;flex:0 0 auto}.input-wrap input{width:0!important;min-width:0;flex:1 1 auto;height:100%;border:0!important;box-shadow:none!important;padding:0 12px!important;background:transparent}
+input[type=number],select{width:100%;height:46px;padding:0 12px;border:1px solid #ccd6e3;border-radius:10px;background:#fff;color:var(--navy);font-size:15px;font-weight:700;outline:none}input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #175dcc18}input.invalid,select.invalid{border-color:var(--danger)}
+input[type=number]{appearance:textfield;-moz-appearance:textfield}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#64748b 50%),linear-gradient(135deg,#64748b 50%,transparent 50%);background-position:calc(100% - 17px) 20px,calc(100% - 12px) 20px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:34px}
+.actions{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-top:23px}.actions .btn-primary{grid-column:2}.actions .btn-secondary{grid-column:1;grid-row:1;justify-self:end}.btn{min-height:44px;padding:10px 18px;border-radius:10px;font-size:12px;font-weight:700}.btn-primary{min-width:180px;border:1px solid var(--navy);background:var(--navy);color:#fff}.btn-primary:hover{background:#163661}.btn-secondary{border:1px solid var(--line);background:var(--wash);color:var(--muted)}.btn-secondary:hover{border-color:#b8cbe7;color:var(--blue)}
+.alert{display:none;margin-top:14px;padding:11px 13px;border:1px solid #f0c5bf;border-radius:9px;background:#fff5f3;color:var(--danger);font-size:11px;line-height:1.55}.alert.show{display:block}
+
+/* Results panel */
+.results-panel{position:relative;top:0;min-height:0;padding:34px;overflow:hidden;border-radius:18px;background:linear-gradient(145deg,#10284c,#153b70);color:#fff;box-shadow:0 8px 30px #1432580f}.result-hero{padding-bottom:23px;text-align:center}.rh-label{color:#94b9e8;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.rh-value{margin-top:9px;color:#fff;font:500 43px/1 Georgia,serif;letter-spacing:-1px}.rh-sub{margin-top:7px;color:#bbcee5;font-size:12px}.retirement-snapshot{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:18px;padding:17px 19px;border:1px solid #59dab247;border-radius:12px;background:#38d1a21c}.rs-label{color:#fff;font-size:12px;font-weight:700}.rs-help{margin-top:3px;color:#a9cdbf;font-size:9px}.rs-value{color:#78dfbd;font:500 27px/1 Georgia,serif;white-space:nowrap}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:15px 0;border-top:1px solid #ffffff1f;border-bottom:1px solid #ffffff1f}.metric{padding:9px 16px}.metric+.metric{border-left:1px solid #ffffff14}.m-label{color:#aec2da;font-size:9px;text-transform:uppercase}.m-value{margin-top:3px;color:#fff;font-size:14px;font-weight:700}.m-sub{margin-top:2px;color:#a9bfd9;font-size:9px}
+.journey{margin-top:19px;padding:13px;border:1px solid #59dab22e;border-radius:11px;background:#38d1a21c}.journey-row{display:flex;align-items:center;justify-content:space-between;gap:8px}.jv-label{color:#a9bfd9;font-size:10px}.jv-num{margin-top:2px;color:#fff;font-size:14px;font-weight:700}.journey-arrow{color:#78dfbd}.journey-badge{padding:5px 9px;border-radius:7px;background:var(--mint);font-size:10px;font-weight:700}
+.mix{margin-top:19px;padding-top:17px;border-top:1px solid #ffffff1f}.mix-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.mix-head h4{font-size:11px}.mix-head span{color:#9eb4cf;font-size:9px}.mix-bar{height:9px;display:flex;overflow:hidden;border-radius:9px;background:#ffffff1a}.mix-contrib{background:#5f91da}.mix-interest{background:var(--mint)}.mix-legend{display:flex;justify-content:space-between;gap:12px;margin-top:9px;color:#b6c9df;font-size:9px}.mix-legend i{width:7px;height:7px;display:inline-block;margin-right:5px;border-radius:50%;background:#5f91da}.mix-legend span:last-child i{background:var(--mint)}
+.schedule{margin-top:20px;padding-top:18px;border-top:1px solid #ffffff1f}.schedule-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.schedule-head h4{color:#fff;font-size:11px}.schedule-head span{color:#9eb4cf;font-size:9px}.table-scroll{max-height:430px;overflow:auto;border:1px solid #ffffff20;border-radius:10px}.result-table{width:100%;min-width:1040px;border-collapse:collapse}.result-table th{position:sticky;top:0;z-index:2;padding:9px 8px;background:#153b70;color:#aec2da;text-align:right;font-size:8px;text-transform:uppercase;white-space:nowrap}.result-table th:first-child,.result-table td:first-child{text-align:center}.result-table td{padding:8px;border-top:1px solid #ffffff13;color:#d6e1ef;text-align:right;font-size:9px;white-space:nowrap}.result-table td:first-child{color:#fff}.result-table td small{color:#9eb4cf;font-size:8px}.result-table .positive{color:#78dfbd}.result-table .inactive-row td{color:#8497af}
+.result-note{margin-top:13px;padding:10px 11px;border:1px solid #f6ce7047;border-radius:9px;background:#f6ce7014;color:#f4d99a;font-size:10px;line-height:1.55}
+
+/* Education and FAQ */
+.guide-section{padding-top:75px}.guide-intro{max-width:720px}.guide-intro p{margin-top:14px;color:var(--muted);line-height:1.75}.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.guide-grid article,.guide-formula{padding:22px;border:1px solid var(--line);border-radius:14px}.guide-grid h3,.guide-formula h3{margin-bottom:8px;color:var(--navy);font-size:16px}.guide-grid p,.guide-formula p{color:var(--muted);font-size:13px;line-height:1.7}.guide-formula{margin-top:18px;background:var(--wash)}.guide-formula code{display:block;margin-top:10px;color:var(--navy);font:700 12px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:normal}.guide-formula a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+.faq-card{margin-top:75px}.faq-card>h2{padding-bottom:32px;color:var(--navy);font:500 34px/1.15 Georgia,serif;letter-spacing:-1px}.faq-list{padding:0 20px;overflow:hidden;border:1px solid var(--line);border-radius:14px}.faq-item{border-bottom:1px solid var(--line)}.faq-item:last-child{border:0}.faq-q{width:100%;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:19px 0;border:0;background:none;color:var(--navy);text-align:left;font-size:14px;font-weight:700;line-height:1.45}.faq-icon{width:25px;height:25px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;background:#eef3f8;color:var(--blue);font-size:17px;font-weight:400}.faq-item.open .faq-icon:before{content:"−"}.faq-icon:before{content:"+"}.faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease}.faq-item.open .faq-a{max-height:420px}.faq-a-inner{padding:0 38px 18px 0;color:var(--muted);font-size:13px;line-height:1.7}
+.disclaimer{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:16px 20px;border:1px solid #e3d7b6;border-radius:12px;background:#fffaf0}.disclaimer span{font-weight:800}.disclaimer p{color:#745f33;font-size:11px;line-height:1.65}
+
+/* Exact shared footer */
+footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:55px;padding-bottom:40px}.footer-grid>div{display:flex;flex-direction:column;gap:9px}.brand.light{color:#fff}.footer-grid p{max-width:360px;color:#a9b8cc;font-size:13px;line-height:1.7}.footer-grid h4{margin:2px 0 5px;color:#d9e6f6;font-size:10px;letter-spacing:.12em;text-transform:uppercase}.footer-grid a:not(.brand){color:#a9b8cc;font-size:12px}.copyright{display:flex;justify-content:center;padding-top:18px;border-top:1px solid #ffffff1a;color:#a9b8cc;text-align:center;font-size:10px}
+
+@media(max-width:800px){.fields{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:1fr 1fr}.metric:nth-child(3){border-left:0}.metric:nth-child(n+3){border-top:1px solid #ffffff14}.guide-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1.4fr 1fr 1fr}}
+@media(max-width:560px){:root{--safe-gutter:22px}.corpusly-header{position:sticky;top:0;z-index:9;height:62px;padding-left:max(var(--safe-gutter),env(safe-area-inset-left));padding-right:max(var(--safe-gutter),env(safe-area-inset-right))}.brand{font-size:22px}.menu-button{width:40px;height:40px}.menu-panel{padding:20px max(var(--safe-gutter),env(safe-area-inset-right)) 30px max(var(--safe-gutter),env(safe-area-inset-left))}.menu-links{grid-template-columns:1fr}.hero{padding:55px max(var(--safe-gutter),env(safe-area-inset-right))}.hero h1{font-size:35px;letter-spacing:-1.2px}.hero h1 br{display:none}.hero p{font-size:15px}.trust{flex-direction:column;align-items:center;gap:7px;margin-top:23px}.main{padding:50px max(var(--safe-gutter),env(safe-area-inset-right))}.section-head h2,.guide-intro h2,.faq-card>h2{font-size:29px}.input-card,.results-panel{padding:21px 18px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}input[type=number],select,.input-wrap{height:50px}.actions{justify-content:stretch}.btn-primary{min-width:0;flex:1}.rh-value{font-size:36px}.retirement-snapshot{align-items:flex-start;flex-direction:column;gap:10px}.rs-value{font-size:25px}.guide-section,.faq-card{padding-top:58px;margin-top:0}.faq-list{padding:0 16px}.faq-a-inner{padding-right:22px}.footer-grid{grid-template-columns:1fr}.footer-grid a:not(.brand){min-height:32px}.copyright{display:block}.copyright span{display:block;margin-top:5px}}
+@media(max-width:560px){.actions{display:flex;flex-direction:column;align-items:stretch}.actions .btn-primary,.actions .btn-secondary{width:100%;min-width:0}.actions .btn-primary{order:1}.actions .btn-secondary{order:2}}
+@media(max-width:560px){.corpusly-header{height:70px;background:#fff}.corpusly-header .brand{font-size:1.68rem}}
+@media(max-width:520px){.corpusly-header.wrap{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>EPF Calculator</h1>
-  <p>Employee Provident Fund – Interactive Corpus Projector &nbsp;|&nbsp; FY 2026-27 Rate: 8.25% p.a.</p>
-</div>
+<header class="corpusly-header wrap">
+  <a class="brand" href="https://corpusly.in/" aria-label="Visit the Corpusly home page">Corpus<b>ly</b><i></i></a>
+  <button class="menu-button" id="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></button>
+</header>
+<div class="menu-overlay" id="menu-overlay"></div>
+<aside class="menu-panel" id="site-menu" aria-label="Website menu" aria-hidden="true">
+  <div class="menu-head"><a class="brand" href="https://corpusly.in/">Corpus<b>ly</b><i></i></a><button class="menu-close" id="menu-close" type="button" aria-label="Close menu">×</button></div>
+  <a class="menu-home" href="https://corpusly.in/">Home</a>
+  <div class="menu-group"><h3>Calculators</h3><div class="menu-links">
+    <a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html" aria-current="page">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a>
+  </div></div>
+  <div class="menu-group"><h3>Resources</h3><div class="menu-links"><a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a></div></div>
+  <a class="menu-start" href="#calculator">Start planning</a>
+</aside>
 
-<div class="container">
+<section class="hero">
+  <span class="eyebrow">● Free retirement planning tool</span>
+  <h1>EPF Calculator to Estimate Your<br>Provident Fund Balance</h1>
+  <p>Calculate employee and employer EPF contributions, EPS allocation and monthly interest, then compare your balance at retirement and age 58.</p>
+  <div class="trust"><span>✓ No sign up</span><span>✓ Runs in your browser</span><span>✓ Built around EPFO rules</span></div>
+</section>
 
-  <!-- INPUTS -->
-  <div class="input-card">
-    <div class="section-title">Assumptions & Inputs</div>
-    <div class="input-grid">
-      <div class="field">
-        <label>Present Age (Years)</label>
-        <input type="number" id="presentAge" value="22" min="18" max="60"/>
+<main class="main wrap" id="calculator">
+  <div class="section-head"><div><span class="kicker">PLAN WITH CLARITY</span><h2>Calculate your EPF retirement corpus</h2></div></div>
+
+  <div class="calculator-grid">
+    <section class="input-card" aria-labelledby="details-title">
+      <div class="card-head"><h3 id="details-title">Enter your EPF details</h3><p>Use the figures from your latest payslip and EPF passbook.</p></div>
+      <div class="fields">
+        <div class="field"><label for="currentAge">Present age</label><div class="input-wrap"><input id="currentAge" type="number" value="22" min="18" max="57" step="1"><span class="input-suffix">years</span></div></div>
+        <div class="field"><label for="retirementAge">Retirement age</label><div class="input-wrap"><input id="retirementAge" type="number" value="35" min="19" max="58" step="1"><span class="input-suffix">years</span></div><div class="field-hint">Contributions stop at this age; interest continues through age 58.</div></div>
+        <div class="field"><label for="monthlySalary">Current salary: Basic + DA</label><div class="input-wrap"><span class="input-prefix">₹</span><input id="monthlySalary" type="number" value="80000" min="1" step="500"></div></div>
+        <div class="field"><label for="salaryGrowth">Expected annual salary increase</label><div class="input-wrap"><input id="salaryGrowth" type="number" value="0" min="0" max="50" step="0.01"><span class="input-suffix">%</span></div></div>
+        <div class="field"><label for="minimumSalary">Minimum salary for EPF</label><div class="input-wrap"><span class="input-prefix">₹</span><input id="minimumSalary" type="number" value="15000" min="1" step="500"></div></div>
+        <div class="field"><label for="employeeRate">Employee contribution</label><div class="input-wrap"><input id="employeeRate" type="number" value="12" min="0" max="100" step="0.01"><span class="input-suffix">%</span></div></div>
+        <div class="field"><label for="employerEPFRate">Employer EPF contribution</label><div class="input-wrap readonly"><input id="employerEPFRate" type="number" value="3.67" readonly><span class="input-suffix">%</span></div></div>
+        <div class="field"><label for="employerEPSRate">Employer EPS contribution</label><div class="input-wrap readonly"><input id="employerEPSRate" type="number" value="8.33" readonly><span class="input-suffix">%</span></div></div>
+        <div class="field"><label for="interestRate">Interest rate on EPF</label><div class="input-wrap"><input id="interestRate" type="number" value="8.25" min="0" max="30" step="0.01"><span class="input-suffix">%</span></div></div>
+        <div class="field"><label for="calculationBasis">EPF calculated on minimum salary?</label><select id="calculationBasis"><option value="No" selected>No, full salary</option><option value="Yes">Yes, minimum salary</option></select><div class="field-hint">This matches the Yes/No calculation basis in the uploaded calculator.</div></div>
       </div>
-      <div class="field">
-        <label>Retirement Age (Years)</label>
-        <input type="number" id="retireAge" value="35" min="18" max="65"/>
+      <div class="actions"><button class="btn btn-primary" type="button" onclick="calculate()">Calculate EPF</button><button class="btn btn-secondary" type="button" onclick="resetCalculator()">Reset</button></div>
+      <div class="alert" id="form-alert" role="alert"></div>
+    </section>
+
+    <section class="results-panel" aria-live="polite" aria-label="EPF projection results">
+      <div class="result-hero"><div class="rh-label">Projected EPF balance at age 58</div><div class="rh-value" id="finalBalance">₹0</div><div class="rh-sub" id="resultSubtitle">Contributions through age 35 · interest through age 58</div></div>
+      <div class="retirement-snapshot"><div><div class="rs-label" id="retirementBalanceLabel">EPF balance when you retire at age 35</div><div class="rs-help">Balance when monthly contributions stop</div></div><div class="rs-value" id="retirementBalance">₹0</div></div>
+      <div class="metrics">
+        <div class="metric"><div class="m-label">Employee added</div><div class="m-value" id="employeeTotal">₹0</div><div class="m-sub">Includes VPF, if entered</div></div>
+        <div class="metric"><div class="m-label">Employer to EPF</div><div class="m-value" id="employerTotal">₹0</div><div class="m-sub">After EPS diversion</div></div>
+        <div class="metric"><div class="m-label">Interest earned</div><div class="m-value" id="interestTotal">₹0</div><div class="m-sub">Monthly running balance</div></div>
+        <div class="metric"><div class="m-label">Accumulated EPS</div><div class="m-value" id="epsTotal">₹0</div><div class="m-sub">Included in combined total below</div></div>
       </div>
-      <div class="field">
-        <label>Current Salary – Basic + DA (₹)</label>
-        <input type="number" id="salary" value="80000" min="0"/>
-      </div>
-      <div class="field">
-        <label>Expected Annual Salary Increase (%)</label>
-        <input type="number" id="salaryIncrease" value="0" min="0" max="50" step="0.01"/>
-      </div>
-      <div class="field">
-        <label>Minimum Salary for EPF (₹)</label>
-        <input type="number" id="minSalary" value="15000" min="0"/>
-      </div>
-      <div class="field">
-        <label>Employee Contribution (%)</label>
-        <input type="number" id="empContrib" value="12" min="0" max="100" step="0.01"/>
-      </div>
-      <div class="field">
-        <label>Employer EPF Contribution (%)</label>
-        <input type="number" id="erEPF" value="3.67" readonly
-          style="background:#f1f5f9;color:var(--muted);cursor:not-allowed;border-color:var(--border)"/>
-      </div>
-      <div class="field">
-        <label>Employer EPS Contribution (%)</label>
-        <input type="number" id="erEPS" value="8.33" readonly
-          style="background:#f1f5f9;color:var(--muted);cursor:not-allowed;border-color:var(--border)"/>
-      </div>
-      <div class="field">
-        <label>Interest Rate on EPF (% p.a.)</label>
-        <input type="number" id="intRate" value="8.25" min="0" max="30" step="0.01"/>
-      </div>
-      <div class="field">
-        <label>EPF Calculated on Minimum Salary?</label>
-        <select id="calcOnMin">
-          <option value="No" selected>No – Full Salary</option>
-          <option value="Yes">Yes – Minimum Salary</option>
-        </select>
-        <span class="helper">Select Yes if EPF calculated on Minimum Salary, No if on Full Salary</span>
-      </div>
+      <div class="journey"><div class="journey-row"><div><div class="jv-label">Total contributions</div><div class="jv-num" id="journeyStart">₹0</div></div><div class="journey-arrow">→</div><div><div class="jv-label">Combined EPF + EPS</div><div class="jv-num" id="journeyEnd">₹0</div></div><div class="journey-badge" id="multipleBadge">0%</div></div></div>
+      <div class="mix"><div class="mix-head"><h4>What builds the final balance</h4><span>EPF only</span></div><div class="mix-bar"><div class="mix-contrib" id="contribBar"></div><div class="mix-interest" id="interestBar"></div></div><div class="mix-legend"><span><i></i>Balance + contributions</span><span><i></i>Interest</span></div></div>
+      <div class="schedule"><div class="schedule-head"><h4>Yearly schedule through age 58</h4><span>Calculated monthly and summarised by financial year</span></div><div class="table-scroll"><table class="result-table"><thead><tr><th>Projection Year<br>and Age</th><th>Annual PF Wages</th><th>Employee<br>EPF</th><th>Employer<br>EPF</th><th>Employer<br>EPS</th><th>Interest<br>Credited</th><th>Closing<br>EPF Balance</th><th>Cumulative<br>EPS</th><th>Total<br>Corpus</th></tr></thead><tbody id="projectionBody"></tbody></table></div></div>
+      <div class="result-note" id="basisNote"></div>
+    </section>
+  </div>
+
+  <section class="guide-section">
+    <div class="guide-intro"><span class="kicker">UNDERSTAND THE ESTIMATE</span><h2>How this EPF projection works</h2><p>The calculator separates your provident fund savings from the pension contribution, then applies interest to the balance month by month until the retirement age you enter.</p></div>
+    <div class="guide-grid">
+      <article><h3>Employee contribution</h3><p>Your selected rate is applied to the chosen PF wage. The standard rate is 12%; any higher percentage is treated as a voluntary PF contribution.</p></article>
+      <article><h3>Employer split</h3><p>The employer share is modelled at 12%. For a standard EPS member, 8.33% of wages up to ₹15,000 (normally rounded to ₹1,250 a month) is diverted to EPS and the rest goes to EPF.</p></article>
+      <article><h3>Interest timing</h3><p>EPF interest is calculated on monthly running balances. A contribution starts earning from the month after it is credited, and accrued interest is added at the financial year end.</p></article>
     </div>
-  </div>
+    <div class="guide-formula"><h3>Calculation basis</h3><p>For each month, the calculator first accrues interest on the existing EPF balance and then adds that month's employee and employer EPF credits.</p><code>Monthly accrual = Opening EPF balance × Annual rate ÷ 12</code><p style="margin-top:10px">Rules references: <a href="https://www.epfindia.gov.in/site_en/FAQ.php" target="_blank" rel="noopener">EPFO FAQs</a> and the <a href="https://www.epfindia.gov.in/site_docs/PDFs/Downloads_PDFs/EPFScheme.pdf" target="_blank" rel="noopener">Employees' Provident Funds Scheme, 1952</a>.</p></div>
+  </section>
 
-  <!-- SUMMARY CARDS -->
-  <div class="section-title">Corpus Summary</div>
-  <div class="summary-grid">
-    <div class="sum-card blue"><label>Employee Contribution</label><div class="val" id="sc_empTotal">—</div></div>
-    <div class="sum-card teal"><label>Employer EPF Contribution</label><div class="val" id="sc_erEPF">—</div></div>
-    <div class="sum-card orange"><label>Employer EPS Contribution</label><div class="val" id="sc_erEPS">—</div></div>
-    <div class="sum-card green"><label>Total Interest Credited</label><div class="val" id="sc_interest">—</div></div>
-    <div class="sum-card purple"><label>Final EPF Corpus</label><div class="val" id="sc_epf">—</div></div>
-    <div class="sum-card dark"><label>Final EPS Corpus</label><div class="val" id="sc_eps">—</div></div>
-    <div class="sum-card highlight"><label>🏆 Total Retirement Corpus</label><div class="val" id="sc_total">—</div></div>
-  </div>
-
-  <!-- TABS -->
-  <div class="tabs">
-    <button class="tab active">📋 Monthly Schedule</button>
-  </div>
-
-  <!-- SCHEDULE -->
-  <div class="table-wrap">
-    <div class="table-toolbar">
-      <p style="font-size:11px;color:var(--muted)">
-        🟢 <strong>Green row = March</strong> — annual interest credited to EPF
-      </p>
+  <section class="faq-card">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">What salary should I enter in the EPF calculator?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Enter the monthly pay on which your EPF is actually calculated, normally Basic salary plus Dearness Allowance and any other components treated as EPF wages. Do not enter gross salary or take home pay unless it happens to equal your PF wage.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Should I choose the ₹15,000 ceiling or actual Basic + DA?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Check your payslip or EPF passbook. Choose the statutory ceiling when contributions are limited to a PF wage of ₹15,000. Choose actual Basic + DA only when your employer contributes on wages above that ceiling.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Why is EPS not added to the projected EPF balance?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">EPS is a pension scheme, not an interest bearing account balance equivalent to EPF. Pension and withdrawal benefits depend on the pensionable salary, eligible service and the scheme rules, so simply adding accumulated EPS contributions to EPF would overstate a withdrawable corpus.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">How is the employer's 12% contribution divided?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">For a standard EPS member, 8.33% of pensionable wages up to ₹15,000 is diverted to EPS. The balance of the employer's 12% share is credited to EPF. When contributions are made on higher actual wages, the EPS diversion remains capped in this standard model.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Does EPF interest compound monthly or annually?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">EPF interest is worked out on monthly running balances and credited for the financial year. Once credited, it forms part of the opening balance for the next year. This calculator follows that timing rather than treating every contribution as if it earned a full year's interest.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Is 8.25% guaranteed for every future year?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">No. EPF interest is determined for each financial year. The calculator keeps one rate constant only to create a projection. Try lower and higher assumptions to understand how future rate changes could affect the estimate.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">How does VPF affect the calculation?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">If you enter an employee contribution above 12%, the excess is treated as voluntary provident fund contribution. It increases the employee amount credited to EPF, but it does not increase the employer's statutory 12% share.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">What happens to EPS contributions after age 58?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">In the standard case, EPS contribution stops at age 58 and the employer's share is credited to EPF instead. Special deferred pension cases can differ; this calculator does not model those arrangements.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Why might my EPF passbook differ from this estimate?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Actual results can differ because of contribution timing, unpaid leave, bonuses treated as PF wages, job changes, withdrawals, delayed deposits, changes in salary or interest rates, EPS eligibility, higher pension options and EPFO rounding or settlement rules.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Are EPF withdrawals always tax free?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">No. Tax treatment depends on service history, the reason and timing of withdrawal, and applicable tax rules. Interest on certain employee contributions may also be taxable. Check the latest rules or consult a qualified tax professional for your situation.</div></div></div>
     </div>
-    <div class="tbl-outer">
-      <table>
-        <thead>
-          <tr>
-            <th>Year</th>
-            <th>Month #</th>
-            <th>FY Month</th>
-            <th>Monthly Salary</th>
-            <th>Employee Contrib<br>(EPF 1)</th>
-            <th>Employer Contrib<br>(EPF 2)</th>
-            <th>Employer EPS</th>
-            <th>Interest Bearing<br>(EPF1+EPF2)</th>
-            <th>Monthly Interest<br>Accrued</th>
-            <th>Interest Credited<br>(Mar Only)</th>
-            <th>Cumulative EPF</th>
-            <th>Cumulative EPS</th>
-            <th>Total Corpus</th>
-          </tr>
-        </thead>
-        <tbody id="schedBody"></tbody>
-      </table>
-    </div>
-  </div>
+    <div class="disclaimer"><span>ⓘ</span><p>This calculator provides an educational estimate, not an EPFO statement or pension quote. It assumes the projection begins in April, deposits arrive regularly each month, the annual interest rate remains constant and salary increases occur once every 12 months. It does not model withdrawals, employment gaps, higher pension arrangements, taxes or changing statutory rules.</p></div>
+  </section>
+</main>
 
-  <!-- FAQ -->
-  <div style="margin-top:28px">
-    <div class="section-title">Frequently Asked Questions</div>
-    <div class="accordion" id="faqList"></div>
-  </div>
-
-</div><!-- end .container -->
-
-<!-- FOOTER -->
-<div class="site-footer">
-  <div class="inner">
+<footer>
+  <div class="wrap">
     <div class="footer-grid">
-      <div class="footer-col">
-        <div class="footer-logo">Corpus<span class="accent">ly</span><span class="dot"></span></div>
-        <p>Corpusly provides free, browser based financial calculators built on industry standard formulas to help you plan investments, retirement and insurance with confidence.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Calculators</h4>
-        <ul>
-          <li><a href="sip.html">SIP Calculator</a></li>
-          <li><a href="swp.html">SWP Calculator</a></li>
-          <li><a href="cagr.html">CAGR Calculator</a></li>
-          <li><a href="xirr.html">XIRR Calculator</a></li>
-          <li><a href="epf.html">EPF Calculator</a></li>
-          <li><a href="ppf.html">PPF Calculator</a></li>
-          <li><a href="retirementplanner.html">Retirement Planner</a></li>
-          <li><a href="termcoverage.html">Term Coverage</a></li>
-          <li><a href="premiumcomparer.html">Premium Comparer</a></li>
-          <li><a href="loanemi.html">Advanced EMI Calculator</a></li>
-          <li><a href="taxcalculator.html">Income Tax Calculator</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms &amp; Conditions</a></li>
-          <li><a href="disclaimer.html">Disclaimer</a></li>
-          <li><a href="methodology.html">Methodology</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-      </div>
+      <div><a class="brand light" href="https://corpusly.in/">Corpus<b>ly</b><i></i></a><p>Corpusly provides free, browser based financial calculators built on industry standard formulas to help you plan investments, retirement and insurance with confidence.</p></div>
+      <div><h4>Calculators</h4><a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a></div>
+      <div><h4>Resources</h4><a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a></div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Corpusly Financial Calculators</p>
-    </div>
+    <div class="copyright">© 2026 Corpusly Financial Calculators</div>
   </div>
-</div>
+</footer>
 
 <script>
-const MONTH_NAMES=['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
-let schedule=[];
-let charts={};
-
-function inr(n){
-  if(isNaN(n)||n===null||n===undefined)return '₹0.00';
-  const neg=n<0;const abs=Math.abs(n);
-  let[int,dec]=abs.toFixed(2).split('.');
-  if(int.length>3){let last3=int.slice(-3);let rest=int.slice(0,-3).replace(/\B(?=(\d{2})+(?!\d))/g,',');int=rest+','+last3;}
-  return(neg?'-':'')+'₹'+int+'.'+dec;
-}
+function inputNumber(id){return Number(document.getElementById(id).value)}
+function money(value){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(Math.round(value||0))}
+function preciseMoney(value){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',minimumFractionDigits:2,maximumFractionDigits:2}).format(value||0)}
+function compactMoney(value){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',notation:'compact',maximumFractionDigits:2}).format(value||0)}
 
 function getInputs(){
-  const v=id=>document.getElementById(id).value.trim();
-  const num=(id,def)=>{const s=v(id);return s===''?def:+s;};
   return{
-    presentAge:num('presentAge',22),
-    retireAge: num('retireAge',35),
-    salary:    num('salary',0),
-    salaryInc: num('salaryIncrease',0),
-    minSalary: num('minSalary',0),
-    empPct:    num('empContrib',12),
-    erEPFpct:  num('erEPF',3.67),
-    erEPSpct:  num('erEPS',8.33),
-    intRate:   num('intRate',8.25),
-    calcOnMin: v('calcOnMin')
+    currentAge:inputNumber('currentAge'),retirementAge:inputNumber('retirementAge'),monthlySalary:inputNumber('monthlySalary'),
+    salaryGrowth:inputNumber('salaryGrowth'),minimumSalary:inputNumber('minimumSalary'),employeeRate:inputNumber('employeeRate'),
+    employerEPFRate:inputNumber('employerEPFRate'),employerEPSRate:inputNumber('employerEPSRate'),interestRate:inputNumber('interestRate'),
+    calculationBasis:document.getElementById('calculationBasis').value
   };
 }
 
-function validate(inp){
-  if(inp.retireAge<=inp.presentAge) return 'Retirement Age must be greater than Present Age.';
-  if(inp.salary<=0)   return 'Current Salary must be greater than ₹0.';
-  if(inp.minSalary<=0) return 'Minimum Salary must be greater than ₹0.';
-  if(inp.salaryInc<0) return 'Expected Annual Salary Increase cannot be negative.';
-  return null;
+function validate(values){
+  if(!Number.isInteger(values.currentAge)||values.currentAge<18||values.currentAge>57)return 'Enter a present age between 18 and 57 in whole years.';
+  if(!Number.isInteger(values.retirementAge)||values.retirementAge<=values.currentAge||values.retirementAge>58)return 'Retirement age must be a whole year greater than your present age and no more than 58.';
+  if(!Number.isFinite(values.monthlySalary)||values.monthlySalary<=0)return 'Monthly Basic + DA must be greater than zero.';
+  if(!Number.isFinite(values.minimumSalary)||values.minimumSalary<=0)return 'Minimum salary for EPF must be greater than zero.';
+  if(!Number.isFinite(values.salaryGrowth)||values.salaryGrowth<0||values.salaryGrowth>50)return 'Enter an annual salary increase between 0% and 50%.';
+  if(!Number.isFinite(values.employeeRate)||values.employeeRate<0||values.employeeRate>100)return 'Enter an employee contribution between 0% and 100%.';
+  if(!Number.isFinite(values.interestRate)||values.interestRate<0||values.interestRate>30)return 'Enter an EPF interest rate between 0% and 30%.';
+  return '';
 }
 
-function clearAll(msg){
-  schedule=[];
-  ['sc_empTotal','sc_erEPF','sc_erEPS','sc_interest','sc_epf','sc_eps','sc_total']
-    .forEach(id=>document.getElementById(id).textContent='—');
-  document.getElementById('schedBody').innerHTML=
-    `<tr><td colspan="13" style="text-align:center;color:#dc2626;padding:24px;font-weight:600">⚠ ${msg}</td></tr>`;
-}
+function computeProjection(values){
+  const activeYears=values.retirementAge-values.currentAge;
+  const totalMonths=(58-values.currentAge+1)*12;
+  const monthlyRate=values.interestRate/1200;
+  const epsCap=values.minimumSalary*values.employerEPSRate/100;
+  let balance=0,cumulativeEPS=0,pendingInterest=0,totalInterest=0,totalEmployee=0,totalEmployerEPF=0,totalEPS=0,retirementBalance=0;
+  const rows=[];
+  const monthNames=['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
 
-function calcSchedule(inp){
-  const{presentAge,retireAge,salary,salaryInc,minSalary,empPct,erEPFpct,erEPSpct,intRate,calcOnMin}=inp;
-  const activePeriod=Math.max(0,retireAge-presentAge);
-  const totalMonths=444;
-  const monthlyRate=intRate/12/100;
-  const epsCap=minSalary*erEPSpct/100;
-  let cEPF=0,cEPS=0,fyInterestAccum=0;
-  let rows=[];
-
-  for(let m=1;m<=totalMonths;m++){
-    const yr=Math.ceil(m/12);
-    const fyMonth=((m-1)%12)+1;
-    const isActive=yr<=activePeriod;
-    const isApril=fyMonth===1;
+  for(let month=1;month<=totalMonths;month++){
+    const year=Math.ceil(month/12);
+    const age=values.currentAge+year-1;
+    const fyMonth=((month-1)%12)+1;
     const isMarch=fyMonth===12;
-    if(isApril){/* snapshot opening — used implicitly via cEPF */}
+    const isActive=year<=activeYears;
+    const salary=isActive?(values.calculationBasis==='Yes'
+      ?values.minimumSalary
+      :values.monthlySalary*Math.pow(1+values.salaryGrowth/100,year-1)):0;
+    const eps=isActive?(salary<=values.minimumSalary?salary*values.employerEPSRate/100:epsCap):0;
+    const employerEPF=isActive?(salary<=values.minimumSalary
+      ?salary*values.employerEPFRate/100
+      :salary*values.employerEPFRate/100+(salary*values.employerEPSRate/100-epsCap)):0;
+    const employee=isActive?salary*values.employeeRate/100:0;
+    const interestBearingContribution=employee+employerEPF;
 
-    let sal=0;
-    if(isActive) sal=calcOnMin==='Yes'?minSalary:salary*Math.pow(1+salaryInc/100,yr-1);
+    const interestAccrued=balance*monthlyRate;
+    pendingInterest+=interestAccrued;
+    balance+=interestBearingContribution;
+    cumulativeEPS+=eps;
+    totalEmployee+=employee;totalEmployerEPF+=employerEPF;totalEPS+=eps;
 
-    const erEPS_c=isActive?(sal<=minSalary?sal*erEPSpct/100:epsCap):0;
-    const erEPF_c=isActive?(sal<=minSalary?sal*erEPFpct/100:sal*erEPFpct/100+(sal*erEPSpct/100-epsCap)):0;
-    const empC=isActive?sal*empPct/100:0;
-    const ibc=empC+erEPF_c;
-
-    const openingThisMonth=cEPF;
-    const monthlyInterest=openingThisMonth*monthlyRate;
-    fyInterestAccum+=monthlyInterest;
-    cEPF+=ibc;
-
-    let interestCredited=0;
-    if(isMarch){interestCredited=fyInterestAccum;cEPF+=fyInterestAccum;fyInterestAccum=0;}
-    cEPS+=erEPS_c;
-
-    rows.push({yr,m,fyMonth,fyMonthName:MONTH_NAMES[fyMonth-1],sal,empC,erEPF_c,erEPS_c,ibc,
-      monthlyInterest,interestCredited,cEPF,cEPS,total:cEPF+cEPS,
-      isActive,isMarch,isYearEnd:m%12===0});
+    let creditedInterest=0;
+    if(isMarch){
+      creditedInterest=pendingInterest;
+      balance+=creditedInterest;
+      totalInterest+=creditedInterest;
+      pendingInterest=0;
+    }
+    rows.push({year,age,month,fyMonth,fyMonthName:monthNames[fyMonth-1],salary,employee,employerEPF,eps,
+      interestBearingContribution,interestAccrued,creditedInterest,balance,cumulativeEPS,total:balance+cumulativeEPS,isActive,isMarch});
+    if(month===activeYears*12)retirementBalance=balance;
   }
-  return rows;
+
+  return{balance,retirementBalance,cumulativeEPS,total:balance+cumulativeEPS,totalInterest,totalEmployee,totalEmployerEPF,totalEPS,rows,totalMonths};
 }
 
-function updateSummary(rows){
-  const last=rows[rows.length-1];
-  document.getElementById('sc_empTotal').textContent=inr(rows.reduce((a,r)=>a+r.empC,0));
-  document.getElementById('sc_erEPF').textContent   =inr(rows.reduce((a,r)=>a+r.erEPF_c,0));
-  document.getElementById('sc_erEPS').textContent   =inr(rows.reduce((a,r)=>a+r.erEPS_c,0));
-  document.getElementById('sc_interest').textContent=inr(rows.reduce((a,r)=>a+r.interestCredited,0));
-  document.getElementById('sc_epf').textContent     =inr(last.cEPF);
-  document.getElementById('sc_eps').textContent     =inr(last.cEPS);
-  document.getElementById('sc_total').textContent   =inr(last.total);
+function summariseByYear(rows){
+  const yearlyRows=[];
+  rows.forEach(row=>{
+    let year=yearlyRows[row.year-1];
+    if(!year){
+      year={year:row.year,age:row.age,salary:0,employee:0,employerEPF:0,eps:0,
+        creditedInterest:0,balance:0,cumulativeEPS:0,total:0,isActive:false};
+      yearlyRows.push(year);
+    }
+    year.salary+=row.salary;
+    year.employee+=row.employee;
+    year.employerEPF+=row.employerEPF;
+    year.eps+=row.eps;
+    year.creditedInterest+=row.creditedInterest;
+    year.balance=row.balance;
+    year.cumulativeEPS=row.cumulativeEPS;
+    year.total=row.total;
+    year.isActive=year.isActive||row.isActive;
+  });
+  return yearlyRows;
 }
 
-function renderTable(){
-  document.getElementById('schedBody').innerHTML=schedule.map(r=>{
-    let cls=r.isMarch?'mar-row':(r.isYearEnd?'yr-end':(r.sal===0?'zero-row':''));
-    return`<tr class="${cls}">
-      <td>${r.yr}</td><td>${r.m}</td><td>${r.fyMonthName}</td>
-      <td>${inr(r.sal)}</td><td>${inr(r.empC)}</td><td>${inr(r.erEPF_c)}</td>
-      <td>${inr(r.erEPS_c)}</td><td>${inr(r.ibc)}</td>
-      <td style="color:#0891b2">${inr(r.monthlyInterest)}</td>
-      <td style="color:#059669;font-weight:700">${r.isMarch?inr(r.interestCredited):'—'}</td>
-      <td>${inr(r.cEPF)}</td><td>${inr(r.cEPS)}</td><td>${inr(r.total)}</td>
-    </tr>`;
-  }).join('');
+function calculate(){
+  const values=getInputs();
+  const error=validate(values);
+  const alert=document.getElementById('form-alert');
+  alert.textContent=error;alert.classList.toggle('show',Boolean(error));
+  if(error)return null;
+  const result=computeProjection(values);
+  const totalContributed=result.totalEmployee+result.totalEmployerEPF;
+  const contributionShare=result.balance?Math.min(100,totalContributed/result.balance*100):0;
+  document.getElementById('finalBalance').textContent=compactMoney(result.balance);
+  document.getElementById('resultSubtitle').textContent=`Contributions through age ${values.retirementAge} · interest through age 58`;
+  document.getElementById('retirementBalanceLabel').textContent=`EPF balance when you retire at age ${values.retirementAge}`;
+  document.getElementById('retirementBalance').textContent=compactMoney(result.retirementBalance);
+  document.getElementById('employeeTotal').textContent=money(result.totalEmployee);
+  document.getElementById('employerTotal').textContent=money(result.totalEmployerEPF);
+  document.getElementById('interestTotal').textContent=money(result.totalInterest);
+  document.getElementById('epsTotal').textContent=money(result.totalEPS);
+  const allContributions=totalContributed+result.totalEPS;
+  document.getElementById('journeyStart').textContent=compactMoney(allContributions);
+  document.getElementById('journeyEnd').textContent=compactMoney(result.total);
+  document.getElementById('multipleBadge').textContent=allContributions>0?`+${(result.totalInterest/allContributions*100).toFixed(0)}%`:'0%';
+  document.getElementById('contribBar').style.width=`${contributionShare}%`;
+  document.getElementById('interestBar').style.width=`${100-contributionShare}%`;
+  const yearlyRows=summariseByYear(result.rows);
+  document.getElementById('projectionBody').innerHTML=yearlyRows.map(row=>`<tr class="${row.isActive?'':'inactive-row'}"><td>Year ${row.year}<br><small>Age ${row.age}</small></td><td>${preciseMoney(row.salary)}</td><td>${preciseMoney(row.employee)}</td><td>${preciseMoney(row.employerEPF)}</td><td>${preciseMoney(row.eps)}</td><td class="positive">${preciseMoney(row.creditedInterest)}</td><td>${preciseMoney(row.balance)}</td><td>${preciseMoney(row.cumulativeEPS)}</td><td>${preciseMoney(row.total)}</td></tr>`).join('');
+  document.getElementById('basisNote').textContent=values.calculationBasis==='Yes'
+    ?`Minimum salary basis selected: all contributions are calculated on ${money(values.minimumSalary)} a month.`
+    :`Full salary basis selected: employee contribution grows with salary, while employer EPS is capped using ${money(values.minimumSalary)} and the excess employer share flows to EPF.`;
+  return result;
 }
 
-function recalc(){
-  const inp=getInputs();
-  const err=validate(inp);
-  if(err){clearAll(err);return;}
-  schedule=calcSchedule(inp);
-  updateSummary(schedule);
-  renderTable();
+function resetCalculator(){
+  const defaults={currentAge:22,retirementAge:35,monthlySalary:80000,salaryGrowth:0,minimumSalary:15000,employeeRate:12,employerEPFRate:3.67,employerEPSRate:8.33,interestRate:8.25};
+  Object.entries(defaults).forEach(([id,value])=>document.getElementById(id).value=value);
+  document.getElementById('calculationBasis').value='No';
+  calculate();
 }
 
-// FAQ
-const faqs=[
-  ["How is EPF interest calculated?","EPF interest is calculated on the monthly running balance throughout the financial year. The accumulated interest is credited to the account at the end of the financial year."],
-  ["What is the current EPF interest rate?","The EPF interest rate is declared by the Employees' Provident Fund Organisation (EPFO) and may change from time to time. This calculator uses the rate shown in the input section."],
-  ["What is the difference between EPF and EPS?","EPF is a retirement savings account that earns interest, while EPS (Employee Pension Scheme) is a pension benefit provided by the government and does not earn interest."],
-  ["Does the entire employer contribution go to EPF?","No. A portion of the employer's contribution is allocated to EPS, while the remaining amount is credited to your EPF account."],
-  ["Can I calculate EPF on my full salary instead of ₹15,000?","Yes. If your employer contributes based on your actual Basic Salary + DA, you can choose the full salary option in the calculator."],
-  ["How does salary growth affect my EPF corpus?","A higher salary generally leads to higher EPF contributions, which can significantly increase your retirement corpus over time."],
-  ["Is EPF interest compounded monthly or yearly?","Interest is calculated on monthly balances but is credited to the EPF account once every financial year."],
-  ["Are EPF withdrawals taxable?","Tax treatment depends on factors such as your years of service and withdrawal conditions. Generally, EPF withdrawals after 5 years of continuous service are tax-free under current rules. Consult the latest tax regulations or a qualified tax advisor for your specific situation."]
-];
+function toggleFAQ(button){const item=button.closest('.faq-item');const open=item.classList.toggle('open');button.setAttribute('aria-expanded',String(open))}
 
-let openFaq=-1;
-function renderFAQ(){
-  document.getElementById('faqList').innerHTML=faqs.map((f,i)=>`
-    <details class="accordion-item">
-      <summary>${f[0]}
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </summary>
-      <div class="accordion-body">${f[1]}</div>
-    </details>`).join('');
-}
-
-document.querySelectorAll('input,select').forEach(el=>{
-  el.addEventListener('input',recalc);
-  el.addEventListener('change',recalc);
+document.querySelectorAll('.input-card input,.input-card select').forEach(control=>{
+  control.addEventListener('input',()=>{window.clearTimeout(control._timer);control._timer=window.setTimeout(calculate,120)});
+  control.addEventListener('change',calculate);
 });
 
-renderFAQ();
-recalc();
+const menuButton=document.getElementById('menu-button');
+const menuPanel=document.getElementById('site-menu');
+const menuOverlay=document.getElementById('menu-overlay');
+const menuClose=document.getElementById('menu-close');
+function setMenu(open){document.body.classList.toggle('menu-open',open);menuPanel.classList.toggle('open',open);menuOverlay.classList.toggle('open',open);menuPanel.setAttribute('aria-hidden',String(!open));menuButton.setAttribute('aria-expanded',String(open));if(open)menuClose.focus()}
+menuButton.addEventListener('click',()=>setMenu(true));menuClose.addEventListener('click',()=>setMenu(false));menuOverlay.addEventListener('click',()=>setMenu(false));menuPanel.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>setMenu(false)));document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menuPanel.classList.contains('open'))setMenu(false)});
+
+window.EPFCalculator={computeProjection,validate};
+calculate();
 </script>
 </body>
 </html>
