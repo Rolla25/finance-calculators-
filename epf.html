@@ -258,7 +258,7 @@ function validate(values){
 
 function computeProjection(values){
   const activeYears=values.retirementAge-values.currentAge;
-  const totalMonths=(58-values.currentAge+1)*12;
+  const totalMonths=(58-values.currentAge)*12;
   const monthlyRate=values.interestRate/1200;
   const epsCap=values.minimumSalary*values.employerEPSRate/100;
   let balance=0,cumulativeEPS=0,pendingInterest=0,totalInterest=0,totalEmployee=0,totalEmployerEPF=0,totalEPS=0,retirementBalance=0;
@@ -307,7 +307,7 @@ function summariseByYear(rows){
   rows.forEach(row=>{
     let year=yearlyRows[row.year-1];
     if(!year){
-      year={year:row.year,age:row.age,salary:0,employee:0,employerEPF:0,eps:0,
+      year={year:row.year,age:row.age+1,salary:0,employee:0,employerEPF:0,eps:0,
         creditedInterest:0,balance:0,cumulativeEPS:0,total:0,isActive:false};
       yearlyRows.push(year);
     }
