@@ -302,12 +302,12 @@ function computeProjection(values){
   return{balance,retirementBalance,cumulativeEPS,total:balance+cumulativeEPS,totalInterest,totalEmployee,totalEmployerEPF,totalEPS,rows,totalMonths};
 }
 
-function summariseByYear(rows){
+function summariseByYear(rows,currentAge){
   const yearlyRows=[];
   rows.forEach(row=>{
     let year=yearlyRows[row.year-1];
     if(!year){
-      year={year:row.year,age:row.age+1,salary:0,employee:0,employerEPF:0,eps:0,
+      year={year:row.year,age:currentAge+row.year,salary:0,employee:0,employerEPF:0,eps:0,
         creditedInterest:0,balance:0,cumulativeEPS:0,total:0,isActive:false};
       yearlyRows.push(year);
     }
@@ -347,7 +347,7 @@ function calculate(){
   document.getElementById('multipleBadge').textContent=allContributions>0?`+${(result.totalInterest/allContributions*100).toFixed(0)}%`:'0%';
   document.getElementById('contribBar').style.width=`${contributionShare}%`;
   document.getElementById('interestBar').style.width=`${100-contributionShare}%`;
-  const yearlyRows=summariseByYear(result.rows);
+  const yearlyRows=summariseByYear(result.rows,values.currentAge);
   document.getElementById('projectionBody').innerHTML=yearlyRows.map(row=>`<tr class="${row.isActive?'':'inactive-row'}"><td>Year ${row.year}<br><small>Age ${row.age}</small></td><td>${preciseMoney(row.salary)}</td><td>${preciseMoney(row.employee)}</td><td>${preciseMoney(row.employerEPF)}</td><td>${preciseMoney(row.eps)}</td><td class="positive">${preciseMoney(row.creditedInterest)}</td><td>${preciseMoney(row.balance)}</td><td>${preciseMoney(row.cumulativeEPS)}</td><td>${preciseMoney(row.total)}</td></tr>`).join('');
   document.getElementById('basisNote').textContent=values.calculationBasis==='Yes'
     ?`Minimum salary basis selected: all contributions are calculated on ${money(values.minimumSalary)} a month.`
