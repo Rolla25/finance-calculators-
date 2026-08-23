@@ -51,6 +51,7 @@
       "featureList": [
         "Employee and employer EPF contribution projection",
         "Employer EPS allocation calculation",
+        "Existing EPF and EPS opening balances",
         "Yearly projection schedule backed by monthly calculations",
         "Balance at the selected retirement age",
         "Projected balance through age 58"
@@ -108,10 +109,10 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#6
 .alert{display:none;margin-top:14px;padding:11px 13px;border:1px solid #f0c5bf;border-radius:9px;background:#fff5f3;color:var(--danger);font-size:11px;line-height:1.55}.alert.show{display:block}
 
 /* Results panel */
-.results-panel{position:relative;top:0;min-height:0;padding:34px;overflow:hidden;border-radius:18px;background:linear-gradient(145deg,#10284c,#153b70);color:#fff;box-shadow:0 8px 30px #1432580f}.result-hero{padding-bottom:23px;text-align:center}.rh-label{color:#94b9e8;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.rh-value{margin-top:9px;color:#fff;font:500 43px/1 Georgia,serif;letter-spacing:-1px}.rh-sub{margin-top:7px;color:#bbcee5;font-size:12px}.retirement-snapshot{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:18px;padding:17px 19px;border:1px solid #59dab247;border-radius:12px;background:#38d1a21c}.rs-label{color:#fff;font-size:12px;font-weight:700}.rs-help{margin-top:3px;color:#a9cdbf;font-size:9px}.rs-value{color:#78dfbd;font:500 27px/1 Georgia,serif;white-space:nowrap}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:15px 0;border-top:1px solid #ffffff1f;border-bottom:1px solid #ffffff1f}.metric{padding:9px 16px}.metric+.metric{border-left:1px solid #ffffff14}.m-label{color:#aec2da;font-size:9px;text-transform:uppercase}.m-value{margin-top:3px;color:#fff;font-size:14px;font-weight:700}.m-sub{margin-top:2px;color:#a9bfd9;font-size:9px}
+.results-panel{position:relative;top:0;min-height:0;padding:34px;overflow:hidden;border-radius:18px;background:linear-gradient(145deg,#10284c,#153b70);color:#fff;box-shadow:0 8px 30px #1432580f}.result-hero{padding-bottom:23px;text-align:center}.rh-label{color:#94b9e8;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.rh-value{margin-top:9px;color:#fff;font:500 43px/1 Georgia,serif;letter-spacing:-1px}.rh-sub{margin-top:7px;color:#bbcee5;font-size:12px}.retirement-snapshot{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:18px;padding:17px 19px;border:1px solid #59dab247;border-radius:12px;background:#38d1a21c}.rs-label{color:#fff;font-size:12px;font-weight:700}.rs-help{margin-top:3px;color:#a9cdbf;font-size:9px}.rs-value{color:#78dfbd;font:500 27px/1 Georgia,serif;white-space:nowrap}.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:0;padding:15px 0;border-top:1px solid #ffffff1f;border-bottom:1px solid #ffffff1f}.metric{padding:9px 12px}.metric+.metric{border-left:1px solid #ffffff14}.m-label{color:#aec2da;font-size:9px;text-transform:uppercase}.m-value{margin-top:3px;color:#fff;font-size:14px;font-weight:700}.m-sub{margin-top:2px;color:#a9bfd9;font-size:9px}
 .journey{margin-top:19px;padding:13px;border:1px solid #59dab22e;border-radius:11px;background:#38d1a21c}.journey-row{display:flex;align-items:center;justify-content:space-between;gap:8px}.jv-label{color:#a9bfd9;font-size:10px}.jv-num{margin-top:2px;color:#fff;font-size:14px;font-weight:700}.journey-arrow{color:#78dfbd}.journey-badge{padding:5px 9px;border-radius:7px;background:var(--mint);font-size:10px;font-weight:700}
 .mix{margin-top:19px;padding-top:17px;border-top:1px solid #ffffff1f}.mix-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.mix-head h4{font-size:11px}.mix-head span{color:#9eb4cf;font-size:9px}.mix-bar{height:9px;display:flex;overflow:hidden;border-radius:9px;background:#ffffff1a}.mix-contrib{background:#5f91da}.mix-interest{background:var(--mint)}.mix-legend{display:flex;justify-content:space-between;gap:12px;margin-top:9px;color:#b6c9df;font-size:9px}.mix-legend i{width:7px;height:7px;display:inline-block;margin-right:5px;border-radius:50%;background:#5f91da}.mix-legend span:last-child i{background:var(--mint)}
-.schedule{margin-top:20px;padding-top:18px;border-top:1px solid #ffffff1f}.schedule-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.schedule-head h4{color:#fff;font-size:11px}.schedule-head span{color:#9eb4cf;font-size:9px}.table-scroll{max-height:430px;overflow:auto;border:1px solid #ffffff20;border-radius:10px}.result-table{width:100%;min-width:1040px;border-collapse:collapse}.result-table th{position:sticky;top:0;z-index:2;padding:9px 8px;background:#153b70;color:#aec2da;text-align:right;font-size:8px;text-transform:uppercase;white-space:nowrap}.result-table th:first-child,.result-table td:first-child{text-align:center}.result-table td{padding:8px;border-top:1px solid #ffffff13;color:#d6e1ef;text-align:right;font-size:9px;white-space:nowrap}.result-table td:first-child{color:#fff}.result-table td small{color:#9eb4cf;font-size:8px}.result-table .positive{color:#78dfbd}.result-table .inactive-row td{color:#8497af}
+.schedule{margin-top:20px;padding-top:18px;border-top:1px solid #ffffff1f}.schedule-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.schedule-head h4{color:#fff;font-size:11px}.schedule-head span{color:#9eb4cf;font-size:9px}.table-scroll{max-height:430px;overflow:auto;border:1px solid #ffffff20;border-radius:10px}.result-table{width:100%;min-width:1280px;border-collapse:collapse}.result-table th{position:sticky;top:0;z-index:2;padding:9px 8px;background:#153b70;color:#aec2da;text-align:right;font-size:8px;text-transform:uppercase;white-space:nowrap}.result-table th:first-child,.result-table td:first-child{text-align:center}.result-table td{padding:8px;border-top:1px solid #ffffff13;color:#d6e1ef;text-align:right;font-size:9px;white-space:nowrap}.result-table td:first-child{color:#fff}.result-table td small{color:#9eb4cf;font-size:8px}.result-table .positive{color:#78dfbd}.result-table .inactive-row td{color:#8497af}
 .result-note{margin-top:13px;padding:10px 11px;border:1px solid #f6ce7047;border-radius:9px;background:#f6ce7014;color:#f4d99a;font-size:10px;line-height:1.55}
 
 /* Education and FAQ */
@@ -122,7 +123,7 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#6
 /* Exact shared footer */
 footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:55px;padding-bottom:40px}.footer-grid>div{display:flex;flex-direction:column;gap:9px}.brand.light{color:#fff}.footer-grid p{max-width:360px;color:#a9b8cc;font-size:13px;line-height:1.7}.footer-grid h4{margin:2px 0 5px;color:#d9e6f6;font-size:10px;letter-spacing:.12em;text-transform:uppercase}.footer-grid a:not(.brand){color:#a9b8cc;font-size:12px}.copyright{display:flex;justify-content:center;padding-top:18px;border-top:1px solid #ffffff1a;color:#a9b8cc;text-align:center;font-size:10px}
 
-@media(max-width:800px){.fields{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:1fr 1fr}.metric:nth-child(3){border-left:0}.metric:nth-child(n+3){border-top:1px solid #ffffff14}.guide-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1.4fr 1fr 1fr}}
+@media(max-width:800px){.fields{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:1fr 1fr}.metric:nth-child(odd){border-left:0}.metric:nth-child(n+3){border-top:1px solid #ffffff14}.guide-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1.4fr 1fr 1fr}}
 @media(max-width:560px){:root{--safe-gutter:22px}.corpusly-header{position:sticky;top:0;z-index:9;height:62px;padding-left:max(var(--safe-gutter),env(safe-area-inset-left));padding-right:max(var(--safe-gutter),env(safe-area-inset-right))}.brand{font-size:22px}.menu-button{width:40px;height:40px}.menu-panel{padding:20px max(var(--safe-gutter),env(safe-area-inset-right)) 30px max(var(--safe-gutter),env(safe-area-inset-left))}.menu-links{grid-template-columns:1fr}.hero{padding:55px max(var(--safe-gutter),env(safe-area-inset-right))}.hero h1{font-size:35px;letter-spacing:-1.2px}.hero h1 br{display:none}.hero p{font-size:15px}.trust{flex-direction:column;align-items:center;gap:7px;margin-top:23px}.main{padding:50px max(var(--safe-gutter),env(safe-area-inset-right))}.section-head h2,.guide-intro h2,.faq-card>h2{font-size:29px}.input-card,.results-panel{padding:21px 18px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}input[type=number],select,.input-wrap{height:50px}.actions{justify-content:stretch}.btn-primary{min-width:0;flex:1}.rh-value{font-size:36px}.retirement-snapshot{align-items:flex-start;flex-direction:column;gap:10px}.rs-value{font-size:25px}.guide-section,.faq-card{padding-top:58px;margin-top:0}.faq-list{padding:0 16px}.faq-a-inner{padding-right:22px}.footer-grid{grid-template-columns:1fr}.footer-grid a:not(.brand){min-height:32px}.copyright{display:block}.copyright span{display:block;margin-top:5px}}
 @media(max-width:560px){.actions{display:flex;flex-direction:column;align-items:stretch}.actions .btn-primary,.actions .btn-secondary{width:100%;min-width:0}.actions .btn-primary{order:1}.actions .btn-secondary{order:2}}
 @media(max-width:560px){.corpusly-header{height:70px;background:#fff}.corpusly-header .brand{font-size:1.68rem}}
@@ -162,6 +163,8 @@ footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}.footer-gri
       <div class="fields">
         <div class="field"><label for="currentAge">Present age</label><div class="input-wrap"><input id="currentAge" type="number" value="22" min="18" max="57" step="1"><span class="input-suffix">years</span></div></div>
         <div class="field"><label for="retirementAge">Retirement age</label><div class="input-wrap"><input id="retirementAge" type="number" value="35" min="19" max="58" step="1"><span class="input-suffix">years</span></div><div class="field-hint">Contributions stop at this age; interest continues through age 58.</div></div>
+        <div class="field"><label for="existingEPF">Existing EPF balance</label><div class="input-wrap"><span class="input-prefix">₹</span><input id="existingEPF" type="number" value="0" min="0" step="500"></div><div class="field-hint">Enter 0 if you are starting your first EPF.</div></div>
+        <div class="field"><label for="existingEPS">Existing accumulated EPS</label><div class="input-wrap"><span class="input-prefix">₹</span><input id="existingEPS" type="number" value="0" min="0" step="500"></div><div class="field-hint">Enter 0 if there is no earlier EPS amount.</div></div>
         <div class="field"><label for="monthlySalary">Current salary: Basic + DA</label><div class="input-wrap"><span class="input-prefix">₹</span><input id="monthlySalary" type="number" value="80000" min="1" step="500"></div></div>
         <div class="field"><label for="salaryGrowth">Expected annual salary increase</label><div class="input-wrap"><input id="salaryGrowth" type="number" value="0" min="0" max="50" step="0.01"><span class="input-suffix">%</span></div></div>
         <div class="field"><label for="minimumSalary">Minimum salary for EPF</label><div class="input-wrap"><span class="input-prefix">₹</span><input id="minimumSalary" type="number" value="15000" min="1" step="500"></div></div>
@@ -179,14 +182,15 @@ footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}.footer-gri
       <div class="result-hero"><div class="rh-label">Projected EPF balance at age 58</div><div class="rh-value" id="finalBalance">₹0</div><div class="rh-sub" id="resultSubtitle">Contributions through age 35 · interest through age 58</div></div>
       <div class="retirement-snapshot"><div><div class="rs-label" id="retirementBalanceLabel">EPF balance when you retire at age 35</div><div class="rs-help">Balance when monthly contributions stop</div></div><div class="rs-value" id="retirementBalance">₹0</div></div>
       <div class="metrics">
+        <div class="metric"><div class="m-label">Opening EPF</div><div class="m-value" id="openingEPFTotal">₹0</div><div class="m-sub">Existing balance entered</div></div>
         <div class="metric"><div class="m-label">Employee added</div><div class="m-value" id="employeeTotal">₹0</div><div class="m-sub">Includes VPF, if entered</div></div>
         <div class="metric"><div class="m-label">Employer to EPF</div><div class="m-value" id="employerTotal">₹0</div><div class="m-sub">After EPS diversion</div></div>
         <div class="metric"><div class="m-label">Interest earned</div><div class="m-value" id="interestTotal">₹0</div><div class="m-sub">Monthly running balance</div></div>
-        <div class="metric"><div class="m-label">Accumulated EPS</div><div class="m-value" id="epsTotal">₹0</div><div class="m-sub">Included in combined total below</div></div>
+        <div class="metric"><div class="m-label">Accumulated EPS</div><div class="m-value" id="epsTotal">₹0</div><div class="m-sub">Opening balance + future EPS</div></div>
       </div>
-      <div class="journey"><div class="journey-row"><div><div class="jv-label">Total contributions</div><div class="jv-num" id="journeyStart">₹0</div></div><div class="journey-arrow">→</div><div><div class="jv-label">Combined EPF + EPS</div><div class="jv-num" id="journeyEnd">₹0</div></div><div class="journey-badge" id="multipleBadge">0%</div></div></div>
-      <div class="mix"><div class="mix-head"><h4>What builds the final balance</h4><span>EPF only</span></div><div class="mix-bar"><div class="mix-contrib" id="contribBar"></div><div class="mix-interest" id="interestBar"></div></div><div class="mix-legend"><span><i></i>Balance + contributions</span><span><i></i>Interest</span></div></div>
-      <div class="schedule"><div class="schedule-head"><h4>Yearly schedule through age 58</h4><span>Calculated monthly and summarised by financial year</span></div><div class="table-scroll"><table class="result-table"><thead><tr><th>Projection Year<br>and Age</th><th>Annual PF Wages</th><th>Employee<br>EPF</th><th>Employer<br>EPF</th><th>Employer<br>EPS</th><th>Interest<br>Credited</th><th>Closing<br>EPF Balance</th><th>Cumulative<br>EPS</th><th>Total<br>Corpus</th></tr></thead><tbody id="projectionBody"></tbody></table></div></div>
+      <div class="journey"><div class="journey-row"><div><div class="jv-label">Opening balances + contributions</div><div class="jv-num" id="journeyStart">₹0</div></div><div class="journey-arrow">→</div><div><div class="jv-label">Combined EPF + EPS</div><div class="jv-num" id="journeyEnd">₹0</div></div><div class="journey-badge" id="multipleBadge">0%</div></div></div>
+      <div class="mix"><div class="mix-head"><h4>What builds the final balance</h4><span>EPF only</span></div><div class="mix-bar"><div class="mix-contrib" id="contribBar"></div><div class="mix-interest" id="interestBar"></div></div><div class="mix-legend"><span><i></i>Opening balance + contributions</span><span><i></i>Interest</span></div></div>
+      <div class="schedule"><div class="schedule-head"><h4>Yearly schedule through age 58</h4><span>Calculated monthly and summarised by financial year</span></div><div class="table-scroll"><table class="result-table"><thead><tr><th>Projection Year<br>and Age</th><th>Opening<br>EPF</th><th>Opening<br>EPS</th><th>Annual PF Wages</th><th>Employee<br>EPF</th><th>Employer<br>EPF</th><th>Employer<br>EPS</th><th>Interest<br>Credited</th><th>Closing<br>EPF Balance</th><th>Cumulative<br>EPS</th><th>Total<br>Corpus</th></tr></thead><tbody id="projectionBody"></tbody></table></div></div>
       <div class="result-note" id="basisNote"></div>
     </section>
   </div>
@@ -238,7 +242,7 @@ function compactMoney(value){return new Intl.NumberFormat('en-IN',{style:'curren
 
 function getInputs(){
   return{
-    currentAge:inputNumber('currentAge'),retirementAge:inputNumber('retirementAge'),monthlySalary:inputNumber('monthlySalary'),
+    currentAge:inputNumber('currentAge'),retirementAge:inputNumber('retirementAge'),existingEPF:inputNumber('existingEPF'),existingEPS:inputNumber('existingEPS'),monthlySalary:inputNumber('monthlySalary'),
     salaryGrowth:inputNumber('salaryGrowth'),minimumSalary:inputNumber('minimumSalary'),employeeRate:inputNumber('employeeRate'),
     employerEPFRate:inputNumber('employerEPFRate'),employerEPSRate:inputNumber('employerEPSRate'),interestRate:inputNumber('interestRate'),
     calculationBasis:document.getElementById('calculationBasis').value
@@ -248,6 +252,8 @@ function getInputs(){
 function validate(values){
   if(!Number.isInteger(values.currentAge)||values.currentAge<18||values.currentAge>57)return 'Enter a present age between 18 and 57 in whole years.';
   if(!Number.isInteger(values.retirementAge)||values.retirementAge<=values.currentAge||values.retirementAge>58)return 'Retirement age must be a whole year greater than your present age and no more than 58.';
+  if(!Number.isFinite(values.existingEPF)||values.existingEPF<0)return 'Existing EPF balance cannot be negative.';
+  if(!Number.isFinite(values.existingEPS)||values.existingEPS<0)return 'Existing accumulated EPS cannot be negative.';
   if(!Number.isFinite(values.monthlySalary)||values.monthlySalary<=0)return 'Monthly Basic + DA must be greater than zero.';
   if(!Number.isFinite(values.minimumSalary)||values.minimumSalary<=0)return 'Minimum salary for EPF must be greater than zero.';
   if(!Number.isFinite(values.salaryGrowth)||values.salaryGrowth<0||values.salaryGrowth>50)return 'Enter an annual salary increase between 0% and 50%.';
@@ -261,7 +267,7 @@ function computeProjection(values){
   const totalMonths=(58-values.currentAge)*12;
   const monthlyRate=values.interestRate/1200;
   const epsCap=values.minimumSalary*values.employerEPSRate/100;
-  let balance=0,cumulativeEPS=0,pendingInterest=0,totalInterest=0,totalEmployee=0,totalEmployerEPF=0,totalEPS=0,retirementBalance=0;
+  let balance=values.existingEPF,cumulativeEPS=values.existingEPS,pendingInterest=0,totalInterest=0,totalEmployee=0,totalEmployerEPF=0,totalEPS=0,retirementBalance=0;
   const rows=[];
   const monthNames=['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
 
@@ -281,7 +287,9 @@ function computeProjection(values){
     const employee=isActive?salary*values.employeeRate/100:0;
     const interestBearingContribution=employee+employerEPF;
 
-    const interestAccrued=balance*monthlyRate;
+    const openingBalance=balance;
+    const openingEPS=cumulativeEPS;
+    const interestAccrued=openingBalance*monthlyRate;
     pendingInterest+=interestAccrued;
     balance+=interestBearingContribution;
     cumulativeEPS+=eps;
@@ -294,7 +302,7 @@ function computeProjection(values){
       totalInterest+=creditedInterest;
       pendingInterest=0;
     }
-    rows.push({year,age,month,fyMonth,fyMonthName:monthNames[fyMonth-1],salary,employee,employerEPF,eps,
+    rows.push({year,age,month,fyMonth,fyMonthName:monthNames[fyMonth-1],openingBalance,openingEPS,salary,employee,employerEPF,eps,
       interestBearingContribution,interestAccrued,creditedInterest,balance,cumulativeEPS,total:balance+cumulativeEPS,isActive,isMarch});
     if(month===activeYears*12)retirementBalance=balance;
   }
@@ -307,7 +315,7 @@ function summariseByYear(rows,currentAge){
   rows.forEach(row=>{
     let year=yearlyRows[row.year-1];
     if(!year){
-      year={year:row.year,age:currentAge+row.year,salary:0,employee:0,employerEPF:0,eps:0,
+      year={year:row.year,age:currentAge+row.year,openingEPF:row.openingBalance,openingEPS:row.openingEPS,salary:0,employee:0,employerEPF:0,eps:0,
         creditedInterest:0,balance:0,cumulativeEPS:0,total:0,isActive:false};
       yearlyRows.push(year);
     }
@@ -332,31 +340,34 @@ function calculate(){
   if(error)return null;
   const result=computeProjection(values);
   const totalContributed=result.totalEmployee+result.totalEmployerEPF;
-  const contributionShare=result.balance?Math.min(100,totalContributed/result.balance*100):0;
+  const epfPrincipal=values.existingEPF+totalContributed;
+  const contributionShare=result.balance?Math.min(100,epfPrincipal/result.balance*100):0;
   document.getElementById('finalBalance').textContent=compactMoney(result.balance);
   document.getElementById('resultSubtitle').textContent=`Contributions through age ${values.retirementAge} · interest through age 58`;
   document.getElementById('retirementBalanceLabel').textContent=`EPF balance when you retire at age ${values.retirementAge}`;
   document.getElementById('retirementBalance').textContent=compactMoney(result.retirementBalance);
+  document.getElementById('openingEPFTotal').textContent=money(values.existingEPF);
   document.getElementById('employeeTotal').textContent=money(result.totalEmployee);
   document.getElementById('employerTotal').textContent=money(result.totalEmployerEPF);
   document.getElementById('interestTotal').textContent=money(result.totalInterest);
-  document.getElementById('epsTotal').textContent=money(result.totalEPS);
-  const allContributions=totalContributed+result.totalEPS;
-  document.getElementById('journeyStart').textContent=compactMoney(allContributions);
+  document.getElementById('epsTotal').textContent=money(result.cumulativeEPS);
+  const startingValue=values.existingEPF+values.existingEPS+totalContributed+result.totalEPS;
+  document.getElementById('journeyStart').textContent=compactMoney(startingValue);
   document.getElementById('journeyEnd').textContent=compactMoney(result.total);
-  document.getElementById('multipleBadge').textContent=allContributions>0?`+${(result.totalInterest/allContributions*100).toFixed(0)}%`:'0%';
+  document.getElementById('multipleBadge').textContent=startingValue>0?`+${(result.totalInterest/startingValue*100).toFixed(0)}%`:'0%';
   document.getElementById('contribBar').style.width=`${contributionShare}%`;
   document.getElementById('interestBar').style.width=`${100-contributionShare}%`;
   const yearlyRows=summariseByYear(result.rows,values.currentAge);
-  document.getElementById('projectionBody').innerHTML=yearlyRows.map(row=>`<tr class="${row.isActive?'':'inactive-row'}"><td>Year ${row.year}<br><small>Age ${row.age}</small></td><td>${preciseMoney(row.salary)}</td><td>${preciseMoney(row.employee)}</td><td>${preciseMoney(row.employerEPF)}</td><td>${preciseMoney(row.eps)}</td><td class="positive">${preciseMoney(row.creditedInterest)}</td><td>${preciseMoney(row.balance)}</td><td>${preciseMoney(row.cumulativeEPS)}</td><td>${preciseMoney(row.total)}</td></tr>`).join('');
-  document.getElementById('basisNote').textContent=values.calculationBasis==='Yes'
+  document.getElementById('projectionBody').innerHTML=yearlyRows.map(row=>`<tr class="${row.isActive?'':'inactive-row'}"><td>Year ${row.year}<br><small>Age ${row.age}</small></td><td>${preciseMoney(row.openingEPF)}</td><td>${preciseMoney(row.openingEPS)}</td><td>${preciseMoney(row.salary)}</td><td>${preciseMoney(row.employee)}</td><td>${preciseMoney(row.employerEPF)}</td><td>${preciseMoney(row.eps)}</td><td class="positive">${preciseMoney(row.creditedInterest)}</td><td>${preciseMoney(row.balance)}</td><td>${preciseMoney(row.cumulativeEPS)}</td><td>${preciseMoney(row.total)}</td></tr>`).join('');
+  const basisDescription=values.calculationBasis==='Yes'
     ?`Minimum salary basis selected: all contributions are calculated on ${money(values.minimumSalary)} a month.`
     :`Full salary basis selected: employee contribution grows with salary, while employer EPS is capped using ${money(values.minimumSalary)} and the excess employer share flows to EPF.`;
+  document.getElementById('basisNote').textContent=`${basisDescription} Opening balances included: EPF ${money(values.existingEPF)} and EPS ${money(values.existingEPS)}.`;
   return result;
 }
 
 function resetCalculator(){
-  const defaults={currentAge:22,retirementAge:35,monthlySalary:80000,salaryGrowth:0,minimumSalary:15000,employeeRate:12,employerEPFRate:3.67,employerEPSRate:8.33,interestRate:8.25};
+  const defaults={currentAge:22,retirementAge:35,existingEPF:0,existingEPS:0,monthlySalary:80000,salaryGrowth:0,minimumSalary:15000,employeeRate:12,employerEPFRate:3.67,employerEPSRate:8.33,interestRate:8.25};
   Object.entries(defaults).forEach(([id,value])=>document.getElementById(id).value=value);
   document.getElementById('calculationBasis').value='No';
   calculate();
