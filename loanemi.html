@@ -14,7 +14,7 @@
 <meta property="og:description" content="Plan loan EMIs, prepayments and step up repayments with a detailed month by month schedule.">
 <meta property="og:url" content="https://corpusly.in/loanemi.html">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Corpusly Advanced EMI Calculator","url":"https://corpusly.in/loanemi.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"description":"Calculate loan EMI, pre EMI interest, prepayment savings, step up repayments and estimated loan closure dates."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is the EMI calculated?","acceptedAnswer":{"@type":"Answer","text":"The calculator uses the loan amount, annual interest rate and repayment tenure to estimate the EMI using the reducing balance method."}},{"@type":"Question","name":"What is pre EMI interest?","acceptedAnswer":{"@type":"Answer","text":"It is the interest accrued between the loan disbursement date and the first EMI date. It is collected through the first installment and any unpaid portion is carried forward."}},{"@type":"Question","name":"How does a prepayment affect my loan?","acceptedAnswer":{"@type":"Answer","text":"A prepayment reduces the outstanding principal. You can use it either to lower your future EMI or shorten the loan tenure."}},{"@type":"Question","name":"What is a step up EMI?","acceptedAnswer":{"@type":"Answer","text":"A step up EMI increases your repayment periodically by a percentage, fixed monthly amount or both. This can help repay the loan sooner and reduce total interest."}},{"@type":"Question","name":"Why might the result differ from my lender's schedule?","acceptedAnswer":{"@type":"Answer","text":"Lenders may use different rounding rules, day count methods, fees and prepayment policies. Confirm the estimate with your lender."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Corpusly Advanced EMI Calculator","url":"https://corpusly.in/loanemi.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"description":"Calculate loan EMI, pre EMI interest, prepayment savings, step up repayments and estimated loan closure dates."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is the EMI calculated?","acceptedAnswer":{"@type":"Answer","text":"The calculator uses the loan amount, annual interest rate and repayment tenure to estimate the EMI using the reducing balance method."}},{"@type":"Question","name":"What is pre EMI interest?","acceptedAnswer":{"@type":"Answer","text":"It is the interest accrued between the loan disbursement date and the first EMI date. It is collected through the first installment and any unpaid portion is carried forward."}},{"@type":"Question","name":"How does a prepayment affect my loan?","acceptedAnswer":{"@type":"Answer","text":"A prepayment pays interest accrued to its date first, then reduces principal. Choose a lower EMI or retain the EMI to shorten the tenure. A payment covering the full balance settles the loan on that date."}},{"@type":"Question","name":"What is a step up EMI?","acceptedAnswer":{"@type":"Answer","text":"A step up EMI increases your repayment periodically by a percentage, fixed monthly amount or both. This can help repay the loan sooner and reduce total interest."}},{"@type":"Question","name":"Why might the result differ from my lender's schedule?","acceptedAnswer":{"@type":"Answer","text":"Lenders may use different rounding rules, day count methods, fees and prepayment policies. Confirm the estimate with your lender."}}]}]}</script>
 <style>
 /*    Reset    */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -302,7 +302,7 @@ header.wrap{max-width:1120px;padding-left:24px;padding-right:24px}
 <aside class="menu-panel" id="site-menu" aria-label="Website menu" aria-hidden="true">
   <div class="menu-head"><a class="brand" href="https://corpusly.in/">Corpus<b>ly</b><i></i></a><button class="menu-close" id="menu-close" type="button" aria-label="Close menu">×</button></div>
   <a class="menu-home" href="https://corpusly.in/">Home</a>
-  <div class="menu-group"><h3>Calculators</h3><div class="menu-links"><a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html" aria-current="page">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a></div></div>
+  <div class="menu-group"><h3>Calculators</h3><div class="menu-links"><a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="chitfund.html">Chit Fund Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html" aria-current="page">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a></div></div>
   <div class="menu-group"><h3>Resources</h3><div class="menu-links"><a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a></div></div>
   <a class="menu-start" href="#calculator">Start planning</a>
 </aside>
@@ -452,7 +452,7 @@ header.wrap{max-width:1120px;padding-left:24px;padding-right:24px}
       <article><h3>Compare prepayment choices</h3><p>Choose whether each prepayment should reduce the future EMI or retain the EMI and shorten the remaining tenure.</p></article>
       <article><h3>Test a rising repayment</h3><p>A step up plan increases payments each year by a percentage, fixed amount or a combination, which may reduce interest and close the loan sooner.</p></article>
     </div>
-    <div class="guide-formula"><h3>Standard EMI formula</h3><p>The regular EMI uses the reducing balance method with a monthly interest rate. Pre EMI interest is calculated separately using actual days and a 365 day year.</p><code>EMI = P × r × (1 + r)ⁿ ÷ ((1 + r)ⁿ − 1)</code></div>
+    <div class="guide-formula"><h3>Standard EMI formula</h3><p>This formula applies to regular monthly periods. This calculator adjusts the equal EMI for the actual first payment gap, using actual days and a 365 day year for that initial interest. Later full cycles use the monthly rate. Unpaid interest is not compounded.</p><code>EMI = P × r × (1 + r)ⁿ ÷ ((1 + r)ⁿ − 1)</code></div>
   </section>
 
   <!-- FAQ Section -->
@@ -485,7 +485,7 @@ header.wrap{max-width:1120px;padding-left:24px;padding-right:24px}
         <span class="faq-icon" aria-hidden="true"></span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
-        A prepayment reduces the outstanding principal. You can use it either to lower your future EMI or shorten the loan tenure.
+        A prepayment pays interest accrued to its date first, then reduces principal. Choose a lower EMI or retain the EMI to shorten the tenure. A payment covering the full balance settles the loan on that date.
       </div></div>
     </div>
 
@@ -545,7 +545,7 @@ header.wrap{max-width:1120px;padding-left:24px;padding-right:24px}
         <span class="faq-icon" aria-hidden="true"></span>
       </div>
       <div class="faq-answer"><div class="faq-answer-inner">
-        A longer gap between disbursement and the first EMI creates more accrued interest. The calculator collects that amount through the first installment and carries forward any unpaid portion without charging it twice.
+        A longer gap between disbursement and the first EMI creates more accrued interest. The calculator adjusts the equal EMI to repay that interest and principal over the entered tenure, without a forced extra final payment. Unpaid interest is carried without compounding.
       </div></div>
     </div>
   </section>
@@ -558,7 +558,7 @@ header.wrap{max-width:1120px;padding-left:24px;padding-right:24px}
   <div class="wrap">
     <div class="footer-grid">
       <div><a class="brand light" href="https://corpusly.in/" aria-label="Visit the Corpusly home page">Corpus<b>ly</b><i></i></a><p>Corpusly provides free, browser based financial calculators built on industry standard formulas to help you plan investments, retirement, insurance and loans with confidence.</p></div>
-      <div><h4>Calculators</h4><a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a></div>
+      <div><h4>Calculators</h4><a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="chitfund.html">Chit Fund Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a></div>
       <div><h4>Resources</h4><a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a></div>
     </div>
     <div class="copyright"><span>© 2026 Corpusly Financial Calculators</span></div>
@@ -610,7 +610,8 @@ function resetCalculator(){
 //                                                                                
 
 function toDate(s){return s?new Date(s+'T00:00:00'):null}
-function daysBetween(a,b){return Math.round((b-a)/86400000)}
+function localDateValue(d){return d?`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`:''}
+function daysBetween(a,b){return Math.round((Date.UTC(b.getFullYear(),b.getMonth(),b.getDate())-Date.UTC(a.getFullYear(),a.getMonth(),a.getDate()))/86400000)}
 function addMonthsSafe(d,n){
   const day=d.getDate(),r=new Date(d);
   r.setDate(1);r.setMonth(r.getMonth()+n);
@@ -685,11 +686,11 @@ function validate(){
     ok=false;
   };
 
-  if(!p.amt||p.amt<=0) showFieldErr('loanAmt','e-amt','Enter a valid loan amount');
+  if(!Number.isFinite(p.amt)||p.amt<=0) showFieldErr('loanAmt','e-amt','Enter a valid loan amount');
 
   const rateRaw=document.getElementById('rate').value;
   if(rateRaw==='') showFieldErr('rate','e-rate','Enter an interest rate');
-  else if(p.rate<0||p.rate>60) showFieldErr('rate','e-rate','Rate must be between 0% and 60%');
+  else if(!Number.isFinite(Number(rateRaw))||p.rate<0||p.rate>60) showFieldErr('rate','e-rate','Rate must be between 0% and 60%');
 
   if(!p.months||p.months<=0) showFieldErr('tenure','e-ten','Enter a valid loan tenure');
   else if(p.months>1200) showFieldErr('tenure','e-ten','Loan tenure cannot exceed 1,200 months');
@@ -743,34 +744,67 @@ function buildSchedule(P,annualRate,totalMonths,disburseDate,firstEmiDate,prepay
 
   ledger.push(mkRow('disburse',{date:disburseDate,principalClose:P}));
 
+  // Solve equal payments with the actual first-period interest. Unpaid interest
+  // is carried separately, never compounded into principal.
+  function firstPayment(balance,interest,count){
+    let low=0,high=balance+interest;
+    for(let k=0;k<80;k++){
+      const payment=(low+high)/2;
+      let p=balance,i=interest;
+      for(let j=0;j<count;j++){
+        if(j)i+=p*annualRate/1200;
+        const ip=Math.min(payment,i);i-=ip;
+        p=Math.max(0,p-(payment-ip));
+      }
+      if(p+i>1e-8)low=payment;else high=payment;
+    }
+    return high;
+  }
   let preEmiInterest=0;
+  emi=firstPayment(P,dailyInt(P,annualRate,daysBetween(disburseDate,firstEmiDate)),numEMIs);
   function processPreEmiPP(pp){
     const days=daysBetween(prevDate,pp.date);
     const intSnap=dailyInt(principal,annualRate,days);
     preEmiInterest+=intSnap;
-    const pOpen=principal;
-    const ppAmt=Math.min(pp.amount,principal);
-    if(pp.amount>principal+0.005)warnings.push(`Pre EMI prepayment on ${fmtDate(pp.date)} exceeds principal   capped.`);
-    principal-=ppAmt;
-    ledger.push(mkRow('prepay',{date:pp.date,days,principalOpen:pOpen,interestDue:intSnap,unpaidIntBf:0,totalIntDue:intSnap,interestPaid:0,unpaidIntCf:intSnap,ppAmt,ppToPrin:ppAmt,principalClose:principal,note:'Pre EMI prepayment',action:pp.action}));
+    const pOpen=principal,unpaidBefore=unpaidInt;
+    unpaidInt+=intSnap;
+    const totalIntDue=unpaidInt;
+    const ppAmt=Math.min(pp.amount,principal+unpaidInt);
+    const ppToInt=Math.min(ppAmt,unpaidInt),ppToPrin=ppAmt-ppToInt;
+    if(pp.amount>principal+unpaidInt+0.005)warnings.push(`Pre EMI prepayment on ${fmtDate(pp.date)} exceeds the settlement balance and was capped.`);
+    unpaidInt-=ppToInt;principal=Math.max(0,principal-ppToPrin);
+    const projectedInterest=unpaidInt+dailyInt(principal,annualRate,daysBetween(pp.date,firstEmiDate));
+    if(pp.action==='emi')emi=firstPayment(principal,projectedInterest,numEMIs);
+    else {
+      let p=principal,i=projectedInterest,n=0;
+      while(p+i>0.005&&n<2400){
+        if(n)i+=p*annualRate/1200;
+        const ip=Math.min(emi,i);i-=ip;p=Math.max(0,p-(emi-ip));n++;
+      }
+      numEMIs=Math.max(1,n);
+    }
+    ledger.push(mkRow('prepay',{date:pp.date,days,principalOpen:pOpen,interestDue:intSnap,unpaidIntBf:unpaidBefore,totalIntDue,unpaidIntCf:unpaidInt,ppAmt,ppToInt,ppToPrin,principalClose:principal,currentEMI:emi,note:`Pre EMI prepayment, ${pp.action==='emi'?'reduce EMI':'retain EMI and reduce tenure'}`,action:pp.action}));
     prevDate=pp.date;
   }
-  for(const pp of preEmiPPs)processPreEmiPP(pp);
+  for(const pp of preEmiPPs){
+    if(principal<0.005&&unpaidInt<0.005){warnings.push('Later prepayments were not applied because the loan was already settled.');break;}
+    processPreEmiPP(pp);
+  }
 
   {
     const days=daysBetween(prevDate,firstEmiDate);
     const intSnap=dailyInt(principal,annualRate,days);
     preEmiInterest+=intSnap;
-    if(days>0){
-      ledger.push(mkRow('pre-emi',{date:firstEmiDate,days,principalOpen:principal,interestDue:intSnap,totalIntDue:preEmiInterest,unpaidIntCf:preEmiInterest,principalClose:principal,note:`${days} days of pre EMI interest, payable with the first installment`}));
+    const unpaidBefore=unpaidInt;
+    unpaidInt+=intSnap;
+    if(days>0&&(principal>0.005||unpaidInt>0.005)){
+      ledger.push(mkRow('pre-emi',{date:firstEmiDate,days,principalOpen:principal,interestDue:intSnap,unpaidIntBf:unpaidBefore,totalIntDue:unpaidInt,unpaidIntCf:unpaidInt,principalClose:principal,note:`${days} days of pre EMI interest, payable through installments`}));
     }
     prevDate=firstEmiDate;
   }
   // Interest accrued before the first due date is paid through the first
   // installment. It is not added to principal and charged twice.
-  unpaidInt=preEmiInterest;
   const adjustedPrincipal=principal;
-  emi=adjustedPrincipal>0?calcEMI(adjustedPrincipal,annualRate,numEMIs):preEmiInterest;
   baseEmi=emi;
   const originalEMI=emi;
   const fixedStepAmount=stepup&&(stepup.type==='fixed'||stepup.type==='combo')?stepup.fixed:0;
@@ -779,7 +813,7 @@ function buildSchedule(P,annualRate,totalMonths,disburseDate,firstEmiDate,prepay
   const pendingPPs=postEmiPPs.slice();
   let emiNum=0;
 
-  for(let m=0;m<2400&&emiNum<numEMIs;m++){
+  for(let m=0;m<2400;m++){
     if(principal<0.005&&unpaidInt<0.005)break;
     const emiDate=addMonthsSafe(firstEmiDate,m);
     emiNum++;
@@ -814,20 +848,23 @@ function buildSchedule(P,annualRate,totalMonths,disburseDate,firstEmiDate,prepay
       hadMidCyclePP=true;
       const days1=daysBetween(segmentStart,pp.date);
       const intSnap=periodInterest(principal,days1);
-      brokenCycleInt+=intSnap;
       const pOpen=principal,unpaidBefore=unpaidInt;
+      unpaidInt+=intSnap;
+      const ppInterestDue=unpaidInt;
       const ppAmt=Math.min(pp.amount,principal+unpaidInt);
       const ppToInt=Math.min(ppAmt,unpaidInt);
       unpaidInt=Math.max(0,unpaidInt-ppToInt);
       const ppToPrin=Math.min(ppAmt-ppToInt,principal);
       principal=Math.max(0,principal-ppToPrin);
-      if(pp.amount>pOpen+unpaidBefore+0.005)warnings.push(`Prepayment on ${fmtDate(pp.date)} exceeds outstanding and was capped.`);
+      if(pp.amount>pOpen+ppInterestDue+0.005)warnings.push(`Prepayment on ${fmtDate(pp.date)} exceeds the settlement balance and was capped.`);
       const appliedPp=ppToInt+ppToPrin;
       const emisDone=emiNum-1;
-      ledger.push(mkRow('prepay',{date:pp.date,days:days1,principalOpen:pOpen,interestDue:intSnap,unpaidIntBf:unpaidBefore,totalIntDue:unpaidBefore,interestPaid:0,unpaidIntCf:unpaidInt,emiAmt:0,principalPaid:0,ppAmt:appliedPp,ppToInt,ppToPrin,principalClose:principal,currentEMI:emi,emiNum:emisDone,action:pp.action,note:`Mid cycle prepayment, ${pp.action==='emi'?'reduce EMI from the next installment':'reduce tenure after this installment'}`}));
+      ledger.push(mkRow('prepay',{date:pp.date,days:days1,principalOpen:pOpen,interestDue:intSnap,unpaidIntBf:unpaidBefore,totalIntDue:ppInterestDue,interestPaid:0,unpaidIntCf:unpaidInt,emiAmt:0,principalPaid:0,ppAmt:appliedPp,ppToInt,ppToPrin,principalClose:principal,currentEMI:emi,emiNum:emisDone,action:pp.action,note:`Prepayment pays accrued interest first, then principal; ${pp.action==='emi'?'reduce EMI from the next installment':'retain EMI and reduce tenure'}`}));
       actionsAfterEmi.push(pp.action);
       segmentStart=pp.date;
+      if(principal<0.005&&unpaidInt<0.005)break;
     }
+    if(principal<0.005&&unpaidInt<0.005){emiNum--;break;}
 
     let interestDue;
     if(emiNum===1){interestDue=0;}
@@ -842,7 +879,7 @@ function buildSchedule(P,annualRate,totalMonths,disburseDate,firstEmiDate,prepay
     let additionalPlanned=0;
     if(fixedStepAmount>0)additionalPlanned=fixedStepAmount;
     const totalOwed=principal+totalIntDue;
-    const plannedPayment=emiNum===numEMIs?totalOwed:emi+additionalPlanned;
+    const plannedPayment=emi+additionalPlanned;
     const actualPayment=Math.min(plannedPayment,totalOwed);
     const emiAmt=Math.min(emi,actualPayment);
     const additional=Math.max(0,actualPayment-emiAmt);
@@ -905,7 +942,7 @@ function rowHtmlMain(ev,f){
   if(ev.type==='prepay')return`<tr class="row-prepay"><td><span class="b b-pp">Prepayment</span></td><td>${fmtDate(ev.date)}</td><td>${ev.days||' '}</td><td>${f(ev.principalOpen)}</td><td class="acol">${ev.interestDue>0.005?f(ev.interestDue):d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td>${d}</td><td class="gcol">${f(ev.ppAmt)}</td><td>${f(ev.principalClose)}</td></tr>`;
   if(ev.type==='emi'){const cls=ev.negAmort?'row-emi row-negam':'row-emi';const addNote=ev.additional>0?`<br><span style="font-size:10px;color:#64748b">+${f(ev.additional)} additional</span>`:'';return`<tr class="${cls}"><td><span class="b ${ev.negAmort?'b-neg':'b-emi'}">EMI ${ev.emiNum}</span></td><td>${fmtDate(ev.date)}</td><td>${ev.days}</td><td>${f(ev.principalOpen)}</td><td class="acol">${f(ev.interestDue)}</td><td class="acol">${f(ev.totalIntDue)}</td><td>${f(ev.emiAmt)}${addNote}</td><td>${f(ev.interestPaid)}</td><td>${f(ev.principalPaid)}</td><td>${d}</td><td>${f(ev.principalClose)}</td></tr>`;}
   if(ev.type==='stepup_note')return`<tr class="row-stepup"><td><span class="b b-su">Step Up</span></td><td>${fmtDate(ev.date)}</td><td>Not applicable</td><td colspan="8" style="text-align:left;color:#7e22ce;padding-left:10px">${ev.note}</td></tr>`;
-  if(ev.type==='closure')return`<tr class="row-closure"><td><span class="b b-cls">Closure</span></td><td>${fmtDate(ev.date)}</td><td>Not applicable</td><td colspan="7" style="text-align:center;color:#713f12">Loan fully repaid</td><td>${d}</td><td style="color:#16a34a;font-weight:700">₹0</td></tr>`;
+  if(ev.type==='closure')return`<tr class="row-closure"><td><span class="b b-cls">Closure</span></td><td>${fmtDate(ev.date)}</td><td>Not applicable</td><td colspan="6" style="text-align:center;color:#713f12">Loan fully repaid</td><td>${d}</td><td style="color:#16a34a;font-weight:700">₹0</td></tr>`;
   return'';
 }
 function rowHtmlAudit(ev,f){
@@ -922,7 +959,7 @@ function buildTableHtml(ledger,mode){
 }
 function buildYearlyHtml(ledger){
   const ym={};
-  ledger.forEach(ev=>{if(!['emi','prepay','pre-emi'].includes(ev.type))return;const y=ev.date.getFullYear();if(!ym[y])ym[y]={open:ev.principalOpen,intDue:0,emi:0,intPd:0,prin:0,pp:0,close:0};if(ev.type!=='prepay')ym[y].intDue+=ev.interestDue||0;ym[y].emi+=(ev.emiAmt||0)+(ev.additional||0);ym[y].intPd+=ev.interestPaid||0;ym[y].prin+=ev.principalPaid||0;ym[y].pp+=ev.ppAmt||0;ym[y].close=ev.principalClose;});
+  ledger.forEach(ev=>{if(!['emi','prepay','pre-emi'].includes(ev.type))return;const y=ev.date.getFullYear();if(!ym[y])ym[y]={open:ev.principalOpen,intDue:0,emi:0,intPd:0,prin:0,pp:0,close:0};ym[y].intDue+=ev.interestDue||0;ym[y].emi+=(ev.emiAmt||0)+(ev.additional||0);ym[y].intPd+=(ev.interestPaid||0)+(ev.ppToInt||0);ym[y].prin+=(ev.principalPaid||0)+(ev.ppToPrin||0);ym[y].pp+=ev.ppAmt||0;ym[y].close=ev.principalClose;});
   const hdr=`<th>Year</th><th>Opening Principal</th><th>Interest</th><th>Total EMI</th><th>Int Paid</th><th>Prin Repaid</th><th>Prepayment</th><th>Closing Principal</th>`;
   const rows=Object.entries(ym).map(([y,d])=>`<tr class="row-year"><td><span class="b b-yr">${y}</span></td><td>${fmtI(d.open)}</td><td class="acol">${fmtI(d.intDue)}</td><td>${fmtI(d.emi)}</td><td>${fmtI(d.intPd)}</td><td>${fmtI(d.prin)}</td><td>${d.pp>0.5?fmtI(d.pp):dash()}</td><td>${fmtI(d.close)}</td></tr>`).join('');
   return`<div class="tbl-outer"><table><thead><tr>${hdr}</tr></thead><tbody>${rows}</tbody></table></div>`;
@@ -933,7 +970,7 @@ function summarise(result){
   const emiEvs=ledger.filter(e=>e.type==='emi');
   const ppEvs=ledger.filter(e=>e.type==='prepay'&&e.ppAmt>0);
   const lastEmi=emiEvs[emiEvs.length-1];
-  return{emiCount:emiEvs.length,totalEmi:emiEvs.reduce((s,e)=>s+e.emiAmt+e.additional,0),totalIntPd:emiEvs.reduce((s,e)=>s+e.interestPaid,0),totalPrin:emiEvs.reduce((s,e)=>s+e.principalPaid,0),totalPrepay:ppEvs.reduce((s,e)=>s+e.ppAmt,0),lastDate:lastEmi?lastEmi.date:null,lastEmiAmt:lastEmi?lastEmi.emiAmt+lastEmi.additional:0,hasNegAmort:emiEvs.some(e=>e.negAmort)};
+  return{emiCount:emiEvs.length,totalEmi:emiEvs.reduce((s,e)=>s+e.emiAmt+e.additional,0),totalIntPd:ledger.reduce((s,e)=>s+e.interestPaid+e.ppToInt,0),totalPrin:ledger.reduce((s,e)=>s+e.principalPaid+e.ppToPrin,0),totalPrepay:ppEvs.reduce((s,e)=>s+e.ppAmt,0),lastDate:ledger.filter(e=>e.type==='closure'||(e.type==='emi'&&e.emiAmt+e.additional>0)||(e.type==='prepay'&&e.ppAmt>0)).slice(-1)[0]?.date||null,lastEmiAmt:lastEmi?lastEmi.emiAmt+lastEmi.additional:0,hasNegAmort:emiEvs.some(e=>e.negAmort)};
 }
 
 //    Standard tab                                                               
@@ -957,7 +994,7 @@ function renderStandardCalc(){
   gi.style.display='block';
   gi.innerHTML=`<strong>${daysBetween(p.disburseDate,p.firstEmiDate)} days</strong> before the first EMI, with <strong>${result.originalNumEMIs} scheduled installments</strong>.
     Pre EMI interest (actual/365): <strong>${fmtI(result.preEmiInterest)}</strong>. It is collected through the first installment and any unpaid portion is carried forward.
-    EMI calculated on starting principal: <strong>${fmtI(result.originalEMI)}</strong>.`;
+    Equal EMI accounts for the starting principal and interest accrued before the first EMI: <strong>${fmtI(result.originalEMI)}</strong>.`;
 
   document.getElementById('master-warnings').innerHTML=result.warnings.map(w=>`<div class="warn-box">⚠ ${w}</div>`).join('');
   renderStdTable();
@@ -997,14 +1034,15 @@ function savePpState(){ppEntries.forEach(e=>{['d','a','ac'].forEach(f=>{const el
 function addPpEntry(){
   savePpState();
   const{disburseDate}=getLoanParams();
-  const min=disburseDate?disburseDate.toISOString().split('T')[0]:'';
+  const min=disburseDate?localDateValue(disburseDate):'';
   ppEntries.push({id:++ppId,date:min,amount:'500000',action:'tenure'});
   renderPpEntries();
 }
 function removePpEntry(id){savePpState();ppEntries=ppEntries.filter(e=>e.id!==id);renderPpEntries();}
 function renderPpEntries(){
+  document.getElementById('pp-results').innerHTML='';
   const{disburseDate}=getLoanParams();
-  const min=disburseDate?disburseDate.toISOString().split('T')[0]:'';
+  const min=disburseDate?localDateValue(disburseDate):'';
   document.getElementById('pp-entries').innerHTML=ppEntries.map(e=>`
     <div class="pp-entry">
       <div class="three-col">
@@ -1060,9 +1098,9 @@ function renderPpResults(origResult,revResult,ppEvts){
   const os=summarise(origResult),rs=summarise(revResult);
   const intSaved=os.totalIntPd-rs.totalIntPd,mSaved=os.emiCount-rs.emiCount;
   const totalSaved=(os.totalEmi+os.totalPrepay)-(rs.totalEmi+rs.totalPrepay);
-  const firstPostEmiPP=revResult.ledger.find(e=>e.type==='prepay'&&e.action==='emi'&&e.date>=getLoanParams().firstEmiDate);
+  const firstPostEmiPP=revResult.ledger.find(e=>e.type==='prepay'&&e.action==='emi');
   const emiAfterPP=firstPostEmiPP?revResult.ledger.find(e=>e.type==='emi'&&e.date>firstPostEmiPP.date&&Math.abs(e.currentEMI-origResult.originalEMI)>0.005):null;
-  const revEmiAmt=emiAfterPP?emiAfterPP.emiAmt:origResult.originalEMI;
+  const revEmiAmt=emiAfterPP?emiAfterPP.currentEMI:(revResult.ledger.find(e=>e.type==='emi')?.currentEMI||0);
   const hasReduceEMI=ppEvts.some(e=>e.action==='emi'),hasReduceTen=ppEvts.some(e=>e.action==='tenure');
   const allWarns=[...new Set([...origResult.warnings,...revResult.warnings])];
 
@@ -1105,6 +1143,7 @@ function renderPpResults(origResult,revResult,ppEvts){
 let stepMode='pct',suPpEntries=[],suPpId=0;
 function saveSuState(){suPpEntries.forEach(e=>{['d','a','ac'].forEach(f=>{const el=document.getElementById(`sppe-${f}-${e.id}`);if(el)e[f==='d'?'date':f==='a'?'amount':'action']=el.value;});});}
 function setStepMode(mode,el){
+  document.getElementById('su-results').innerHTML='';
   stepMode=mode;
   document.querySelectorAll('.su-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
@@ -1115,14 +1154,15 @@ function setStepMode(mode,el){
 function addSuPpEntry(){
   saveSuState();
   const{disburseDate}=getLoanParams();
-  const min=disburseDate?disburseDate.toISOString().split('T')[0]:'';
+  const min=disburseDate?localDateValue(disburseDate):'';
   suPpEntries.push({id:++suPpId,date:min,amount:'500000',action:'tenure'});
   renderSuPpEntries();
 }
 function removeSuPpEntry(id){saveSuState();suPpEntries=suPpEntries.filter(e=>e.id!==id);renderSuPpEntries();}
 function renderSuPpEntries(){
+  document.getElementById('su-results').innerHTML='';
   const{disburseDate}=getLoanParams();
-  const min=disburseDate?disburseDate.toISOString().split('T')[0]:'';
+  const min=disburseDate?localDateValue(disburseDate):'';
   document.getElementById('su-pp-entries').innerHTML=suPpEntries.map(e=>`
     <div class="pp-entry" style="margin-bottom:8px">
       <div class="three-col">
@@ -1207,7 +1247,7 @@ function renderSuResults(origResult,revResult){
       <div class="tbl-outer"><table class="cmp-table">
         <thead><tr><th>Metric</th><th>Original</th><th>With Step Up</th><th>Saved</th></tr></thead>
         <tbody>
-          <tr><td>Initial EMI</td><td>${fmtI(origResult.originalEMI)}</td><td>${fmtI(origResult.originalEMI)}</td><td>Not applicable</td></tr>
+          <tr><td>Initial EMI</td><td>${fmtI(origResult.originalEMI)}</td><td>${fmtI(revResult.originalEMI)}</td><td>Not applicable</td></tr>
           <tr><td>No. of EMIs</td><td>${os.emiCount}</td><td>${rs.emiCount}</td><td class="savings">${Math.max(0,mSaved)} months</td></tr>
           <tr><td>Loan Closure</td><td>${origResult.fullyRepaid?fmtDate(os.lastDate):'Not repaid'}</td><td>${revResult.fullyRepaid?fmtDate(rs.lastDate):'Not repaid'}</td><td>Not applicable</td></tr>
           <tr><td>Total Interest</td><td>${fmtI(os.totalIntPd)}</td><td>${fmtI(rs.totalIntPd)}</td><td class="savings">${fmtI(intSaved)}</td></tr>
@@ -1246,16 +1286,31 @@ function switchTab(name,el){
   el.classList.add('active');
   document.getElementById('panel-'+name).classList.add('active');
 }
+function invalidateLoanResults(){
+  stdResult=null;
+  document.getElementById('std-output').style.display='none';
+  document.getElementById('pp-results').innerHTML='';
+  document.getElementById('su-results').innerHTML='';
+  document.getElementById('gap-info').style.display='none';
+  document.getElementById('master-warnings').innerHTML='';
+  document.getElementById('calcBtn').textContent='Calculate EMI';
+}
 ['loanAmt','rate','tenure','tenureUnit','disburseDate','firstEmiDate'].forEach(id=>{
   const el=document.getElementById(id);
   el.addEventListener('input',()=>{
+    invalidateLoanResults();
     if(hasAttemptedCalculation) validate();
   });
   el.addEventListener('change',()=>{
+    invalidateLoanResults();
     if(hasAttemptedCalculation) validate();
   });
 });
 // No automatic calculation on page load   user must click "Calculate EMI".
+for(const eventName of ['input','change']){
+  document.getElementById('panel-prepay').addEventListener(eventName,()=>{document.getElementById('pp-results').innerHTML='';});
+  document.getElementById('panel-stepup').addEventListener(eventName,()=>{document.getElementById('su-results').innerHTML='';});
+}
 </script>
 </body>
 </html>
