@@ -1,11 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chit Fund Calculator</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>Chit Fund Calculator: Calculate Returns and XIRR | Corpusly</title>
+<meta name="description" content="Calculate chit fund payout, monthly dividends, net contributions, profit and annual XIRR with exact payment dates using Corpusly's free chit fund calculator.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="theme-color" content="#102649">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6944131887125712" crossorigin="anonymous"></script>
+<link rel="canonical" href="https://corpusly.in/chitfund.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Corpusly">
+<meta property="og:title" content="Chit Fund Calculator: Calculate Returns and XIRR">
+<meta property="og:description" content="Estimate your chit fund payout, dividends, net contributions and annualised return with exact dates.">
+<meta property="og:url" content="https://corpusly.in/chitfund.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chit Fund Calculator | Corpusly">
+<meta name="twitter:description" content="Calculate chit fund payout, dividends, profit and XIRR online.">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "name":"Corpusly Chit Fund Calculator",
+      "url":"https://corpusly.in/chitfund.html",
+      "applicationCategory":"FinanceApplication",
+      "operatingSystem":"Any",
+      "browserRequirements":"Requires JavaScript",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},
+      "description":"Calculate chit fund payouts, monthly dividends, net contributions, profit and annual XIRR with exact payment dates."
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"How is a chit fund payout calculated?","acceptedAnswer":{"@type":"Answer","text":"The estimated payout is the total monthly pool minus the winning bid discount."}},
+        {"@type":"Question","name":"Why does the calculator use XIRR?","acceptedAnswer":{"@type":"Answer","text":"A chit fund has multiple dated payments, changing dividends and one large payout, so XIRR is suitable for estimating the annualised rate across uneven cash flows."}},
+        {"@type":"Question","name":"Do members keep paying after receiving the chit?","acceptedAnswer":{"@type":"Answer","text":"Yes. The calculator assumes contributions continue for the remaining term after the payout."}},
+        {"@type":"Question","name":"What is the fixed monthly expense?","acceptedAnswer":{"@type":"Answer","text":"It is the foreman commission or another fixed amount deducted before the balance of the monthly discount is distributed."}}
+      ]
+    }
+  ]
+}
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root{
@@ -416,16 +453,118 @@
   @media (prefers-reduced-motion: reduce){
     *{ transition:none !important; }
   }
+
+  /* Shared Improved Corpusly calculator design */
+  :root{
+    --navy:#102649;
+    --blue:#175dcc;
+    --mint:#13b886;
+    --ink:#14233b;
+    --ink-soft:#425169;
+    --ink-faint:#68758a;
+    --paper:#f3f7fb;
+    --paper-dark:#edf2f8;
+    --paper-darker:#dce3ed;
+    --line:#dce3ed;
+    --brass:#175dcc;
+    --brass-light:#a9c8f1;
+    --brass-pale:#edf4ff;
+    --maroon:#b42318;
+    --forest:#087c5a;
+    --white-ish:#fff;
+    --shadow:0 8px 30px rgba(20,50,88,.06);
+    --safe-gutter:24px;
+  }
+  *{margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{overflow-x:hidden;background:#fff;color:var(--ink);font:16px/1.5 Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+  body.menu-open{overflow:hidden}
+  a{text-decoration:none;color:inherit}
+  h1,h2,h3,h4{font-family:Arial,Helvetica,sans-serif;color:var(--navy);letter-spacing:0}
+  .mono,table,.steps,.field input,.field select,td input[type="number"],td input[type="date"]{font-family:Arial,Helvetica,sans-serif}
+  .wrap{width:100%;max-width:1064px;margin:auto;padding-left:var(--safe-gutter);padding-right:var(--safe-gutter)}
+
+  .corpusly-header{width:100%;max-width:1120px;height:70px;display:flex;align-items:center;justify-content:space-between;padding-left:24px;padding-right:24px;background:#fff}
+  .brand{display:inline-flex;align-items:flex-start;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:1.68rem;font-weight:800;letter-spacing:-.02em}.brand b{color:var(--blue)}.brand i{width:7.2px;height:7.2px;flex-shrink:0;border-radius:50%;background:var(--mint);margin:4.8px 0 0 4.8px}
+  .menu-button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;background:transparent;color:var(--navy);font-family:Arial,Helvetica,sans-serif}
+  .menu-button:focus-visible,.menu-close:focus-visible,.menu-panel a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #175dcc38;outline-offset:2px}
+  .menu-icon{display:flex;width:26px;flex-direction:column;gap:5px}.menu-icon span{display:block;width:100%;height:2px;border-radius:2px;background:var(--navy)}
+  .menu-overlay{position:fixed;inset:0;z-index:50;background:#07162ca3;opacity:0;pointer-events:none;transition:opacity .25s ease}.menu-overlay.open{opacity:1;pointer-events:auto}
+  .menu-panel{position:fixed;z-index:51;top:0;right:0;width:min(410px,100%);height:100dvh;padding:25px 26px 34px;overflow-y:auto;background:#fff;box-shadow:-20px 0 55px #07162c33;transform:translateX(105%);transition:transform .28s ease}.menu-panel.open{transform:translateX(0)}
+  .menu-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid var(--line)}.menu-close{display:grid;place-items:center;width:42px;height:42px;padding:0;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-family:Arial,Helvetica,sans-serif;font-size:25px;line-height:1}
+  .menu-home{display:block;margin:18px 0;padding:13px 14px;border-radius:10px;background:var(--paper);color:var(--navy);font-size:14px;font-weight:700}.menu-group{padding:5px 0 18px}.menu-group h3{margin:0 0 10px;color:#778399;font-size:10px;letter-spacing:.13em;text-transform:uppercase}.menu-links{display:grid;grid-template-columns:1fr 1fr;gap:7px}.menu-links a{padding:10px 11px;border:1px solid transparent;border-radius:9px;color:#425169;font-size:13px}.menu-links a:hover{border-color:var(--line);background:var(--paper);color:var(--navy)}.menu-links a[aria-current="page"]{border-color:#cbdaf0;background:#edf4ff;color:var(--blue);font-weight:700}.menu-start{display:block;padding:13px 16px;border-radius:10px;background:var(--navy);color:#fff;text-align:center;font-size:13px;font-weight:700}
+
+  header.hero{position:relative;overflow:hidden;margin:0;padding:74px 20px 78px;border:0;text-align:center;color:#fff;background:linear-gradient(120deg,#0d2344,#123767 58%,#155aac)}
+  header.hero:before,header.hero:after{content:"";position:absolute;width:520px;height:520px;border:1px solid #ffffff17;border-radius:50%}header.hero:before{left:-320px;bottom:-390px}header.hero:after{right:-330px;top:-390px}
+  .hero-grid{position:relative;max-width:900px}.eyebrow{display:block;margin-bottom:10px;color:#a9c8f1;font:800 11px Arial,Helvetica,sans-serif;letter-spacing:.13em;text-transform:uppercase}
+  header.hero h1{position:relative;margin:0 auto 16px;color:#fff;font:500 50px/1.08 Georgia,serif;letter-spacing:-2px}
+  header.hero p.sub{position:relative;max-width:690px;margin:auto;color:#d4e1f2;font-size:17px;line-height:1.5}
+  .trust{position:relative;display:flex;justify-content:center;gap:24px;margin-top:25px;color:#c7d6e9;font-size:12px}
+
+  #calculator{padding-top:70px;padding-bottom:70px}
+  section{padding:0;margin:0 0 18px;border:0}
+  #inputs-section,#table-section,#steps-section,#results-section,#compare-section{padding:28px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:var(--shadow)}
+  #explain-section{padding-top:58px;margin-top:0}
+  .section-head{align-items:end;margin-bottom:24px}.section-head h2{color:var(--navy);font:500 28px/1.15 Georgia,serif;letter-spacing:-.7px}.section-num{display:inline-grid;place-items:center;width:31px;height:31px;margin-right:12px;padding:0;border:0;border-radius:8px;background:var(--navy);color:#fff;font:800 10px Arial,Helvetica,sans-serif;vertical-align:5px}
+  .section-copy{margin-top:7px;color:var(--ink-faint);font-size:12px;line-height:1.6}
+
+  .input-grid{grid-template-columns:repeat(2,1fr);gap:20px;overflow:visible;border:0;background:transparent}
+  .field{padding:0;background:#fff}.field.big{grid-column:span 2!important;padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+  .field label{margin-bottom:7px;color:#34445c;font-size:12px;font-weight:700;letter-spacing:0;text-transform:none}
+  .field input,.field select{width:100%;height:46px;padding:0 12px;border:1px solid #ccd6e3;border-radius:10px;background:#fff;color:var(--navy);font-size:15px;font-weight:700;outline:none}
+  .field input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #175dcc18}
+  .field select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#64748b 50%),linear-gradient(135deg,#64748b 50%,transparent 50%);background-position:calc(100% - 17px) 20px,calc(100% - 12px) 20px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:34px}
+  .field .hint{font-size:10px;color:#8a96a8}.field .err-msg{font-size:11px;color:var(--maroon)}.field.error input{color:var(--maroon);border-color:var(--maroon)}
+  #poolDisplay{color:var(--navy);font-weight:800}
+  .actions{display:grid;grid-template-columns:1fr minmax(240px,360px) 1fr;align-items:center;gap:10px;margin-top:23px}
+  button{min-height:44px;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:700}
+  .actions .btn-primary{grid-column:2;grid-row:1;width:100%;border:1px solid var(--navy);background:var(--navy);color:#fff}.actions .btn-primary:hover{background:#163661;opacity:1}
+  .actions .btn-secondary{grid-column:1;grid-row:1;justify-self:end;border:1px solid var(--line);background:var(--paper);color:var(--ink-faint)}.actions .btn-secondary:hover{border-color:#b8cbe7;color:var(--blue);opacity:1}
+  .actions .btn-sample{grid-column:3;grid-row:1;justify-self:start;border:1px solid var(--line);background:#fff;color:var(--blue)}.actions .btn-sample:hover{background:var(--paper);opacity:1}
+
+  .table-scroll{overflow:auto;border:1px solid var(--line);border-radius:10px}table{font-size:12px;min-width:920px}thead th{padding:11px 10px;background:var(--paper);color:#65738a}tbody td{padding:9px 10px;border-bottom:1px solid #edf1f6}tbody tr:hover{background:var(--paper)}td input[type="number"],td input[type="date"]{border-bottom:1px solid var(--line);font-size:12px}
+  .row-tag{border-radius:7px}.row-tag.payout{background:var(--blue)}
+  .steps{padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:var(--paper);font-size:12px;line-height:1.7}.steps .step-line{padding:8px 0;border-bottom:1px solid var(--line)}
+
+  #results-section{overflow:hidden;background:linear-gradient(145deg,#10284c,#153b70);color:#fff}#results-section .section-head h2{color:#fff}#results-section .section-num{background:var(--mint)}
+  .results-grid{gap:1px;margin:0;border:1px solid #ffffff20;border-radius:12px;background:#ffffff20}.stat{padding:17px;background:#ffffff0b}.stat .stat-label{color:#aec2da}.stat .stat-value{color:#fff;font:500 22px/1.2 Georgia,serif}.stat.hi{background:#38d1a21c}.stat.hi .stat-label{color:#94b9e8}.stat.hi .pos,.stat .pos{color:#78dfbd}.stat.hi .neg,.stat .neg{color:#ffb4aa}
+  .compare-toggle-row button,.brass{border-color:var(--navy);background:var(--navy)}.callout{border-radius:12px}.chart-wrap{border-radius:12px}
+
+  .faq-head{margin-bottom:26px}.faq-head h2{margin:0 0 8px;color:var(--navy);font:500 34px/1.15 Georgia,serif;letter-spacing:-1px}.faq-head p{color:var(--ink-faint)}
+  .faq-list{padding:0 20px;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#fff}.faq-list details{margin:0;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none}.faq-list details:last-child{border:0}.faq-list summary{min-height:64px;padding:19px 42px 19px 0;color:var(--navy);font-size:14px;line-height:1.45}.faq-list summary::after{content:"+";top:19px;right:0;width:25px;height:25px;border-radius:50%;background:#eef3f8;color:var(--blue);font-size:17px;font-weight:400}.faq-list details[open] summary{color:var(--navy);background:#fff}.faq-list details[open] summary::after{content:"−";transform:none}.faq-list details p{padding:0 38px 18px 0;color:var(--ink-faint);font-size:13px;line-height:1.7}
+  .disclaimer{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:16px 20px;border:1px solid #e3d7b6;border-radius:12px;background:#fffaf0}.disclaimer span{font-weight:800}.disclaimer p{color:#745f33;font-size:11px;line-height:1.65}
+
+  .corpusly-footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc;font-family:Arial,Helvetica,sans-serif}.corpusly-footer .footer-container{width:100%;max-width:1064px;margin:auto;padding-left:var(--safe-gutter);padding-right:var(--safe-gutter)}.corpusly-footer-grid{grid-template-columns:2fr 1fr 1fr;gap:55px;padding-bottom:40px}.corpusly-footer-logo{color:#fff;font-size:25px;letter-spacing:-1px}.corpusly-footer-logo .accent{color:var(--blue)}.corpusly-footer-logo .dot{width:7px;height:7px;margin:3px 0 0 4px;background:var(--mint)}.corpusly-footer-col p{color:#a9b8cc;font-size:13px;line-height:1.7}.corpusly-footer-col h4{color:#d9e6f6;font-size:10px}.corpusly-footer a{color:#a9b8cc;font-size:12px}.corpusly-footer-bottom{padding-top:18px;padding-bottom:0;border-top:1px solid #ffffff1a;color:#a9b8cc;font-size:10px}
+
+  @media(max-width:800px){.input-grid,.results-grid{grid-template-columns:1fr 1fr}.corpusly-footer-grid{grid-template-columns:1.4fr 1fr 1fr;gap:32px}}
+  @media(max-width:560px){:root{--safe-gutter:22px}.corpusly-header{position:sticky;top:0;z-index:9;height:70px;background:#fff}.menu-button{width:40px;height:40px}.menu-panel{padding:20px max(var(--safe-gutter),env(safe-area-inset-right)) 30px max(var(--safe-gutter),env(safe-area-inset-left))}.menu-links{grid-template-columns:1fr}header.hero{padding:55px max(var(--safe-gutter),env(safe-area-inset-right))}header.hero h1{font-size:35px;letter-spacing:-1.2px}header.hero p.sub{font-size:15px}.trust{flex-direction:column;align-items:center;gap:7px;margin-top:23px}#calculator{padding-top:50px;padding-bottom:50px}.section-head h2,.faq-head h2{font-size:29px}.input-grid{grid-template-columns:1fr}.field.big{grid-column:auto!important}.actions{display:flex;flex-direction:column;align-items:stretch}.actions .btn-primary{order:1;width:100%}.actions .btn-secondary{order:2;width:100%}.actions .btn-sample{order:3;width:100%}#inputs-section,#table-section,#steps-section,#results-section,#compare-section{padding:21px 18px}.results-grid{grid-template-columns:1fr}.stat.big{grid-column:auto}.faq-list{padding:0 16px}.faq-list details p{padding-right:22px}.corpusly-footer-grid{grid-template-columns:1fr}.corpusly-footer a{min-height:32px}.corpusly-footer-bottom{display:block}}
+  @media(max-width:520px){.corpusly-header{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}}
 </style>
 </head>
 <body>
 
+<header class="corpusly-header wrap">
+  <a class="brand" href="https://corpusly.in/" aria-label="Visit the Corpusly home page">Corpus<b>ly</b><i></i></a>
+  <button class="menu-button" id="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></button>
+</header>
+<div class="menu-overlay" id="menu-overlay"></div>
+<aside class="menu-panel" id="site-menu" aria-label="Website menu" aria-hidden="true">
+  <div class="menu-head"><a class="brand" href="https://corpusly.in/">Corpus<b>ly</b><i></i></a><button class="menu-close" id="menu-close" type="button" aria-label="Close menu">×</button></div>
+  <a class="menu-home" href="https://corpusly.in/">Home</a>
+  <div class="menu-group"><h3>Calculators</h3><div class="menu-links">
+    <a href="sip.html">SIP Calculator</a><a href="swp.html">SWP Calculator</a><a href="cagr.html">CAGR Calculator</a><a href="xirr.html">XIRR Calculator</a><a href="chitfund.html" aria-current="page">Chit Fund Calculator</a><a href="epf.html">EPF Calculator</a><a href="ppf.html">PPF Calculator</a><a href="retirementplanner.html">Retirement Planner</a><a href="termcoverage.html">Term Coverage</a><a href="premiumcomparer.html">Premium Comparer</a><a href="loanemi.html">Advanced EMI Calculator</a><a href="taxcalculator.html">Income Tax Calculator</a>
+  </div></div>
+  <div class="menu-group"><h3>Resources</h3><div class="menu-links"><a href="https://www.corpusly.in/about.html">About Us</a><a href="https://www.corpusly.in/methodology.html">Methodology</a><a href="https://www.corpusly.in/contact.html">Contact Us</a><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a></div></div>
+  <a class="menu-start" href="#calculator">Start planning</a>
+</aside>
+
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow">Committee &nbsp;·&nbsp; Kametti &nbsp;·&nbsp; Chit Fund</div>
-      <h1>Chit Fund Calculator</h1>
-      <p class="sub">Calculate the real annualised return from a chit fund using monthly contributions, dividends and the payout received when you win the bid.</p>
+      <div class="eyebrow">● Free chit fund return tool</div>
+      <h1>Chit Fund Calculator for Payouts and Returns</h1>
+      <p class="sub">Calculate your chit fund payout, monthly dividends, net contributions and annualised XIRR using the actual payment dates.</p>
+      <div class="trust"><span>✓ No sign up</span><span>✓ Runs in your browser</span><span>✓ Uses exact payment dates</span></div>
     </div>
     <div class="wheel-box">
       <svg id="wheelSvg" viewBox="0 0 300 300"></svg>
@@ -433,16 +572,12 @@
   </div>
 </header>
 
-<div class="wrap">
+<div class="wrap" id="calculator">
 
   <!-- ============ INPUTS ============ -->
   <section id="inputs-section">
     <div class="section-head">
-      <h2><span class="section-num">01</span>Set Up</h2>
-      <div class="btn-row" style="margin:0;">
-        <button class="secondary" id="btnSample">Fill sample data</button>
-        <button class="secondary" id="btnReset">Reset</button>
-      </div>
+      <div><h2><span class="section-num">01</span>Enter your chit fund details</h2><p class="section-copy">Use the values from your chit agreement and auction records for the most useful estimate.</p></div>
     </div>
 
     <div class="input-grid">
@@ -472,13 +607,19 @@
       </div>
       <div class="field" id="field-start">
         <label for="inStart">First installment date</label>
-        <input type="date" id="inStart">
+        <input type="date" id="inStart"><div class="hint">Changing this date regenerates all instalment dates. Other setup changes preserve existing dates.</div>
       </div>
       <div class="field big" style="grid-column: span 2;">
         <label>Total monthly pool</label>
-        <div class="mono" id="poolDisplay" style="font-size:17px; padding-top:2px;">—</div>
+        <div class="mono" id="poolDisplay" style="font-size:17px; padding-top:2px;">Not calculated</div>
         <div class="hint">Members × monthly contribution</div>
       </div>
+    </div>
+    <p id="inputWarning" role="alert" hidden>Please correct the highlighted fields, discounts or dates to calculate results.</p>
+    <div class="actions">
+      <button class="btn-secondary" id="btnReset" type="button">↺ Reset</button>
+      <button class="btn-primary" id="btnCalculate" type="button">Calculate Chit Fund Return</button>
+      <button class="btn-sample" id="btnSample" type="button">Fill sample data</button>
     </div>
   </section>
 
@@ -514,8 +655,8 @@
 
   <!-- ============ RESULTS ============ -->
   <section id="results-section">
-    <div class="section-head"><h2><span class="section-num">04</span>Results for month <span id="payoutMonthLabel">—</span></h2></div>
-    <div class="results-grid" id="resultsGrid"></div>
+    <div class="section-head"><h2><span class="section-num">04</span>Results for month <span id="payoutMonthLabel">not selected</span></h2></div>
+    <div class="results-grid" id="resultsGrid" aria-live="polite"></div>
   </section>
 
   <!-- ============ COMPARISON ============ -->
@@ -555,7 +696,7 @@
   <section id="explain-section" class="faq" aria-labelledby="faqTitle">
     <div class="faq-head">
       <h2 id="faqTitle">Frequently Asked Questions</h2>
-      <p>Quick explanations for entering your chit-fund details and understanding the results.</p>
+      <p>Quick explanations for entering your chit fund details and understanding the results.</p>
     </div>
     <div class="faq-list">
       <details>
@@ -595,12 +736,12 @@
         <p>Use this field for the foreman’s commission or other fixed amount deducted before the balance of the monthly discount is distributed. Enter the amount specified by the chit fund’s records or agreement.</p>
       </details>
       <details>
-        <summary>What does the payout-month comparison show?</summary>
-        <p>It recalculates the cash-flow pattern for different possible payout months using the entered assumptions. This helps you compare how receiving the chit earlier or later changes the estimated cost or return.</p>
+        <summary>What does the payout month comparison show?</summary>
+        <p>It recalculates the cash flow pattern for different possible payout months using the entered assumptions. This helps you compare how receiving the chit earlier or later changes the estimated cost or return.</p>
       </details>
       <details>
         <summary>Why might my actual return differ from this estimate?</summary>
-        <p>Actual bid discounts, payment dates, missed payments, penalties, taxes, commissions, member defaults and the chit fund’s bye-laws can change the cash flows. Replace sample values with the actual records for a more meaningful estimate.</p>
+        <p>Actual bid discounts, payment dates, missed payments, penalties, taxes, commissions, member defaults and the chit fund rules can change the cash flows. Replace sample values with the actual records for a more meaningful estimate.</p>
       </details>
       <details>
         <summary>Can I rely on this calculator for a financial decision?</summary>
@@ -609,6 +750,8 @@
     </div>
   </section>
 
+  <div class="disclaimer"><span>!</span><p>This calculator provides estimates for educational purposes only. Results depend on the accuracy of the discounts, expenses, dates and contributions you enter. Verify the figures against the registered chit agreement and auction records, and consult a qualified financial adviser before making a significant financial decision.</p></div>
+
 </div>
 
 <footer class="corpusly-footer">
@@ -616,7 +759,7 @@
     <div class="corpusly-footer-grid">
       <div class="corpusly-footer-col">
         <div class="corpusly-footer-logo">Corpus<span class="accent">ly</span><span class="dot"></span></div>
-        <p>Corpusly provides free, browser-based financial calculators built on industry-standard formulas to help you plan investments, retirement and insurance with confidence.</p>
+        <p>Corpusly provides free financial calculators that run in your browser and use recognised formulas to help you plan investments, retirement and insurance with confidence.</p>
       </div>
       <div class="corpusly-footer-col">
         <h4>Calculators</h4>
@@ -625,6 +768,7 @@
           <li><a href="swp.html">SWP Calculator</a></li>
           <li><a href="cagr.html">CAGR Calculator</a></li>
           <li><a href="xirr.html">XIRR Calculator</a></li>
+          <li><a href="chitfund.html">Chit Fund Calculator</a></li>
           <li><a href="epf.html">EPF Calculator</a></li>
           <li><a href="ppf.html">PPF Calculator</a></li>
           <li><a href="retirementplanner.html">Retirement Planner</a></li>
@@ -637,12 +781,12 @@
       <div class="corpusly-footer-col">
         <h4>Resources</h4>
         <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms &amp; Conditions</a></li>
-          <li><a href="disclaimer.html">Disclaimer</a></li>
-          <li><a href="methodology.html">Methodology</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="https://www.corpusly.in/about.html">About Us</a></li>
+          <li><a href="https://www.corpusly.in/privacy.html">Privacy Policy</a></li>
+          <li><a href="https://www.corpusly.in/terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="https://www.corpusly.in/disclaimer.html">Disclaimer</a></li>
+          <li><a href="https://www.corpusly.in/methodology.html">Methodology</a></li>
+          <li><a href="https://www.corpusly.in/contact.html">Contact Us</a></li>
         </ul>
       </div>
     </div>
@@ -679,12 +823,12 @@ let state = {
 ============================================================ */
 function inr(num, decimals){
   if(decimals===undefined) decimals = 0;
-  if(isNaN(num) || num===null) return '—';
+  if(isNaN(num) || num===null) return 'Not available';
   return new Intl.NumberFormat('en-IN', {style:'currency', currency:'INR', maximumFractionDigits:decimals, minimumFractionDigits:decimals}).format(num);
 }
 function pct(num, decimals){
   if(decimals===undefined) decimals=2;
-  if(isNaN(num) || num===null) return '—';
+  if(isNaN(num) || num===null) return 'Not available';
   return (num*100).toFixed(decimals) + '%';
 }
 function fmtDate(d){
@@ -795,7 +939,7 @@ function resyncArrays(){
   }
   state.discounts = state.discounts.map(v => clamp(v, state.expense, p));
   // dates
-  state.dates = generateDates(state.startDate, D);
+  state.dates = Array.from({length:D}, (_, i) => state.dates[i] || addMonths(state.startDate, i));
   // payout month bounds
   state.payoutMonth = clamp(state.payoutMonth, 1, D);
 }
@@ -898,7 +1042,7 @@ function buildTable(){
       <td class="cellDividendPool">${inr(row.dividendPool)}</td>
       <td class="cellDividendPer">${inr(row.dividendPerMember,0)}</td>
       <td class="cellNetContrib">${inr(row.netContribution,0)}</td>
-      <td class="cellReceived">${received!==null ? inr(received,0) : '—'}</td>
+      <td class="cellReceived">${received!==null ? inr(received,0) : 'Not received'}</td>
       <td class="cellCashflow ${cf>=0?'cf-pos':'cf-neg'}">${cf>=0?'':'−'}${inr(Math.abs(cf),0)}</td>
     </tr>`;
   }
@@ -919,7 +1063,7 @@ function updateComputedCells(){
     tr.querySelector('.cellDividendPool').textContent = inr(row.dividendPool);
     tr.querySelector('.cellDividendPer').textContent = inr(row.dividendPerMember,0);
     tr.querySelector('.cellNetContrib').textContent = inr(row.netContribution,0);
-    tr.querySelector('.cellReceived').textContent = isPayout ? inr(scenario.amountReceived,0) : '—';
+    tr.querySelector('.cellReceived').textContent = isPayout ? inr(scenario.amountReceived,0) : 'Not received';
     const cf = scenario.cfs[i];
     const cfCell = tr.querySelector('.cellCashflow');
     cfCell.textContent = (cf>=0?'':'−') + inr(Math.abs(cf),0);
@@ -950,10 +1094,8 @@ function attachTableListeners(){
     inp.addEventListener('change', e=>{
       const i = parseInt(e.target.dataset.i);
       const d = new Date(e.target.value + 'T00:00:00');
-      if(!isNaN(d.getTime())){
-        state.dates[i] = d;
-        renderDynamic();
-      }
+      if(!isNaN(d.getTime())) state.dates[i] = d;
+      renderDynamic();
     });
   });
 }
@@ -1034,12 +1176,14 @@ function syncInputValues(){
    MASTER RENDER FUNCTIONS
 ============================================================ */
 function renderDynamic(){
+  if(!validateFields()) return;
   // updates that don't require rebuilding table rows or select options
   const scenario = updateComputedCells();
   renderSteps(scenario);
   renderResults(scenario);
   renderWheel();
   document.getElementById('poolDisplay').textContent = inr(pool());
+  document.getElementById('compareBody').style.display = 'none';
 }
 
 function renderFull(){
@@ -1047,6 +1191,7 @@ function renderFull(){
   syncInputValues();
   renderPayoutSelect();
   buildTable();
+  validateFields();
   const base = computeBase();
   const scenario = computeScenario(base, state.payoutMonth);
   renderSteps(scenario);
@@ -1063,6 +1208,7 @@ function renderFull(){
 let xirrChartInstance = null;
 
 function runComparison(){
+  if(!validateFields()) return;
   const base = computeBase();
   const results = [];
   for(let m=1;m<=state.duration;m++){
@@ -1085,12 +1231,12 @@ function runComparison(){
     <div class="callout forest">
       <div class="callout-label">Highest investment return</div>
       <div class="callout-main">${best ? `Month ${best.payoutMonth} · ${pct(best.annualXirr)}` : 'n/a'}</div>
-      <div class="callout-sub">Best second-half month to let dividends compound</div>
+      <div class="callout-sub">Best month in the second half to let dividends compound</div>
     </div>
     <div class="callout maroon">
       <div class="callout-label">Lowest borrowing cost</div>
       <div class="callout-main">${lowestBorrow ? `Month ${lowestBorrow.payoutMonth} · ${pct(lowestBorrow.annualXirr)}` : 'n/a'}</div>
-      <div class="callout-sub">Cheapest first-half month to draw the pool forward</div>
+      <div class="callout-sub">Cheapest month in the first half to draw the pool forward</div>
     </div>
     <div class="callout">
       <div class="callout-label">Closest to 0% XIRR</div>
@@ -1161,44 +1307,68 @@ function runComparison(){
    TOP-LEVEL INPUT LISTENERS
 ============================================================ */
 function handleStructuralInput(){
-  state.members = parseInt(document.getElementById('inMembers').value) || DEFAULTS.members;
-  state.contribution = parseFloat(document.getElementById('inContribution').value) || DEFAULTS.contribution;
-  state.duration = parseInt(document.getElementById('inDuration').value) || DEFAULTS.duration;
-  state.expense = parseFloat(document.getElementById('inExpense').value) || 0;
-  const startVal = document.getElementById('inStart').value;
-  if(startVal) state.startDate = new Date(startVal + 'T00:00:00');
-  validateFields();
+  if(!validateFields()) return false;
+  const start = new Date(document.getElementById('inStart').value + 'T00:00:00');
+  const changed = toDateInputValue(start) !== toDateInputValue(state.startDate);
+  state.members = Number(document.getElementById('inMembers').value);
+  state.contribution = Number(document.getElementById('inContribution').value);
+  state.duration = Number(document.getElementById('inDuration').value);
+  state.expense = Number(document.getElementById('inExpense').value);
+  state.startDate = start;
+  if(changed) state.dates = generateDates(start, state.duration);
   renderFull();
+  return true;
 }
 
 function validateFields(){
-  const setErr = (fieldId, msg) => {
-    const f = document.getElementById(fieldId);
-    f.classList.toggle('error', !!msg);
-    f.querySelector('.err-msg').textContent = msg || '';
-  };
-  let ok = true;
-  if(state.members < 2){ setErr('field-members','Need at least 2 members'); ok=false; } else setErr('field-members','');
-  if(state.contribution <= 0){ setErr('field-contribution','Must be greater than 0'); ok=false; } else setErr('field-contribution','');
-  if(state.duration < 2){ setErr('field-duration','Need at least 2 months'); ok=false; } else setErr('field-duration','');
-  if(state.expense < 0 || state.expense >= pool()){ setErr('field-expense','Must be less than the pool'); ok=false; } else setErr('field-expense','');
-  state.members = Math.max(2, Math.min(state.members, 200));
-  state.duration = Math.max(2, Math.min(state.duration, 120));
-  state.expense = Math.max(0, state.expense);
+  const read = id => { const v=document.getElementById(id).value; return v.trim()==='' ? NaN : Number(v); };
+  const n=read('inMembers'), c=read('inContribution'), d=read('inDuration'), e=read('inExpense');
+  const errors = [
+    ['field-members', Number.isInteger(n)&&n>=2&&n<=100 ? '' : 'Enter 2 to 100 members.'],
+    ['field-contribution', Number.isFinite(c)&&c>0&&Number.isFinite(n*c) ? '' : 'Enter a finite contribution greater than zero.'],
+    ['field-duration', Number.isInteger(d)&&d>=2&&d<=60 ? '' : 'Enter 2 to 60 whole months.'],
+    ['field-expense', Number.isFinite(e)&&e>=0&&e<n*c ? '' : 'Expense must be nonnegative and less than the pool.']
+  ];
+  let ok=true;
+  errors.forEach(([id,msg])=>{const f=document.getElementById(id); f.classList.toggle('error',!!msg);f.querySelector('.err-msg').textContent=msg;if(msg)ok=false;});
+  const date=document.getElementById('inStart');
+  const validDate=!!date.value&&Number.isFinite(new Date(date.value+'T00:00:00').getTime());
+  date.setCustomValidity(validDate?'':'Enter a valid start date.');
+  ok=ok&&validDate;
+  document.querySelectorAll('.discInput').forEach(input=>{
+    const v=input.value.trim()===''?NaN:Number(input.value);
+    const valid=Number.isFinite(v)&&v>=e&&v<=n*c;
+    input.setCustomValidity(valid?'':'Discount must be between the expense and the pool.');
+    if(!valid)ok=false;
+  });
+  document.querySelectorAll('.dateInput').forEach(input=>{if(!input.value||!Number.isFinite(new Date(input.value+'T00:00:00').getTime()))ok=false;});
+  ['results-section','steps-section'].forEach(id=>document.getElementById(id).hidden=!ok);
+  document.getElementById('inputWarning').hidden=ok;
+  if(!ok){
+    document.getElementById('compareBody').style.display='none';
+    document.querySelectorAll('#tableBody td[class]').forEach(cell=>cell.textContent='Check inputs');
+  }
   return ok;
 }
 
 function initListeners(){
   ['inMembers','inContribution','inDuration','inExpense','inStart'].forEach(id=>{
+    document.getElementById(id).addEventListener('input', ()=>validateFields());
     document.getElementById(id).addEventListener('change', handleStructuralInput);
   });
   document.getElementById('inPayout').addEventListener('change', e=>{
+    if(!validateFields()) return;
     state.payoutMonth = parseInt(e.target.value);
     buildTable();
     renderDynamic();
     if(document.getElementById('compareBody').style.display !== 'none') runComparison();
   });
+  document.getElementById('btnCalculate').addEventListener('click', ()=>{
+    handleStructuralInput();
+    document.getElementById('results-section').scrollIntoView({behavior:'smooth', block:'start'});
+  });
   document.getElementById('btnSample').addEventListener('click', ()=>{
+    if(!handleStructuralInput()) return;
     state.discounts = sampleDiscounts(state.duration, pool(), state.expense);
     state.dates = generateDates(state.startDate, state.duration);
     state.payoutMonth = Math.min(16, state.duration);
@@ -1220,6 +1390,23 @@ function initListeners(){
     renderFull();
   });
   document.getElementById('btnCompare').addEventListener('click', runComparison);
+
+  const menuPanel = document.getElementById('site-menu');
+  const menuButton = document.getElementById('menu-button');
+  const setMenu = open => {
+    document.body.classList.toggle('menu-open', open);
+    menuPanel.classList.toggle('open', open);
+    document.getElementById('menu-overlay').classList.toggle('open', open);
+    menuPanel.setAttribute('aria-hidden', String(!open));
+    menuButton.setAttribute('aria-expanded', String(open));
+    if(open) document.getElementById('menu-close').focus();
+    else menuButton.focus();
+  };
+  menuButton.addEventListener('click', ()=>setMenu(true));
+  document.getElementById('menu-close').addEventListener('click', ()=>setMenu(false));
+  document.getElementById('menu-overlay').addEventListener('click', ()=>setMenu(false));
+  menuPanel.querySelectorAll('a').forEach(link=>link.addEventListener('click', ()=>setMenu(false)));
+  document.addEventListener('keydown', event=>{ if(event.key==='Escape' && menuPanel.classList.contains('open')) setMenu(false); });
 }
 
 /* ============================================================
@@ -1228,6 +1415,7 @@ function initListeners(){
 function init(){
   state.discounts = sampleDiscounts(state.duration, pool(), state.expense);
   state.dates = generateDates(state.startDate, state.duration);
+  syncInputValues();
   initListeners();
   renderFull();
 }
