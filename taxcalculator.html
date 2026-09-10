@@ -2241,7 +2241,7 @@
                   ><input id="purchaseDate" type="date" value="2025-01-01" /></label
                 ><label class="field"
                   ><span>Sale date</span
-                  ><input id="saleDate" type="date" value="2026-12-01" /></label
+                  ><input id="saleDate" type="date" min="2026-04-01" max="2027-03-31" value="2026-12-01" /></label
                 ><label class="field"
                   ><span>Purchase value</span>
                   <div class="money">
@@ -2265,7 +2265,7 @@
               >
               <div class="gain-preview">
                 <div>
-                  <small>ESTIMATED TRANSACTION GAIN</small>
+                  <small>ESTIMATED TRANSACTION GAIN OR LOSS</small>
                   <div id="txClass">No transaction added</div>
                 </div>
                 <strong id="txGain">₹0</strong>
@@ -2281,6 +2281,8 @@
                   STCL can offset short or long term gains. LTCL can offset long term gains only.
                   Eligible unused capital losses can be carried forward for up to 8 tax years if the
                   loss return is filed by the applicable due date.
+                  In transaction mode, the calculated loss is included automatically. Enter only
+                  other losses below to avoid counting the same loss twice.
                 </p>
               </div>
             </div>
@@ -2631,12 +2633,25 @@
           return { received, count, limit, exemption, taxable: Math.max(0, received - exemption) };
         }
         function transaction() {
-          if (gainMode !== "transaction" || !n("saleValue") || !n("purchaseValue"))
+          if (gainMode !== "transaction")
             return { kind: "none", gain: 0, label: "No transaction added" };
-          const gain = Math.max(
-              0,
-              n("saleValue") - n("purchaseValue") - n("transfer") - n("improvement"),
-            ),
+          const invalid = (label) => ({ kind: "none", gain: 0, invalid: true, label });
+          for (const id of ["purchaseValue", "saleValue", "transfer", "improvement"]) {
+            const value = $("#" + id).value.trim();
+            if ((["purchaseValue", "saleValue"].includes(id) && value === "") ||
+                !Number.isFinite(Number(value)) || Number(value) < 0)
+              return invalid("Enter valid nonnegative purchase and sale values and costs. Zero is allowed.");
+          }
+          const purchaseDate = $("#purchaseDate").value, saleDate = $("#saleDate").value;
+          const validDate = (value) => /^\d{4}-\d{2}-\d{2}$/.test(value) &&
+            Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
+          if (!validDate(purchaseDate) || !validDate(saleDate))
+            return invalid("Enter valid purchase and sale dates.");
+          if (saleDate < purchaseDate)
+            return invalid("Sale date must be on or after purchase date.");
+          if (saleDate < "2026-04-01" || saleDate > "2027-03-31")
+            return invalid("Sale date must be between 1 April 2026 and 31 March 2027 for this tax year.");
+          const gain = n("saleValue") - n("purchaseValue") - n("transfer") - n("improvement"),
             a = new Date($("#purchaseDate").value),
             b = new Date($("#saleDate").value),
             months = Math.max(
@@ -2648,24 +2663,25 @@
             long = months > (equity ? 12 : 24);
           let kind = long ? "otherLtcg" : "otherStcg";
           if (equity && $("#stt").checked) kind = long ? "equityLtcg" : "equityStcg";
-          return { kind, gain, label: `${long ? "Long" : "Short"} term, ${months} months held` };
+          return { kind, gain, long, label: `${long ? "Long" : "Short"} term${gain < 0 ? " loss" : ""}, ${months} months held` };
         }
         function gains() {
           const tx = transaction(),
             useSummary = gainMode === "summary",
             g = {
               equityStcg:
-                (useSummary ? n("equityStcg") : 0) + (tx.kind === "equityStcg" ? tx.gain : 0),
+                (useSummary ? n("equityStcg") : 0) + (tx.kind === "equityStcg" ? Math.max(0, tx.gain) : 0),
               equityLtcg:
-                (useSummary ? n("equityLtcg") : 0) + (tx.kind === "equityLtcg" ? tx.gain : 0),
+                (useSummary ? n("equityLtcg") : 0) + (tx.kind === "equityLtcg" ? Math.max(0, tx.gain) : 0),
               otherStcg:
-                (useSummary ? n("otherStcg") : 0) + (tx.kind === "otherStcg" ? tx.gain : 0),
+                (useSummary ? n("otherStcg") : 0) + (tx.kind === "otherStcg" ? Math.max(0, tx.gain) : 0),
               otherLtcg:
-                (useSummary ? n("otherLtcg") : 0) + (tx.kind === "otherLtcg" ? tx.gain : 0),
+                (useSummary ? n("otherLtcg") : 0) + (tx.kind === "otherLtcg" ? Math.max(0, tx.gain) : 0),
             };
           const before = Object.values(g).reduce((a, b) => a + b, 0);
-          let stcl = n("currentStcl") + n("broughtStcl"),
-            ltcl = n("currentLtcl") + n("broughtLtcl");
+          const transactionLoss = Math.max(0, -tx.gain);
+          let stcl = n("currentStcl") + n("broughtStcl") + (!tx.long ? transactionLoss : 0),
+            ltcl = n("currentLtcl") + n("broughtLtcl") + (tx.long ? transactionLoss : 0);
           const take = (k) => {
             const used = Math.min(g[k], stcl);
             g[k] -= used;
@@ -2963,7 +2979,7 @@
           return {
             regime,
             gross,
-            deductions: ded + std + hraEx + mealExemption + familyDed,
+            deductions: gross - unroundedTotal,
             totalTaxable,
             before,
             rebate,
@@ -3026,6 +3042,24 @@
         }
         function update() {
           updatePropertyFields();
+          const validation = transaction();
+          $("#txClass").textContent = validation.label;
+          $("#txClass").setAttribute("role", "status");
+          $("#txGain").textContent = validation.invalid ? "Unavailable" : signedMoney(validation.gain);
+          $("#calculateButton").disabled = !!validation.invalid;
+          $("#viewResults").disabled = !!validation.invalid;
+          $("#comparisonRows").hidden = !!validation.invalid;
+          if (validation.invalid) {
+            for (const key of ["oldTax", "newTax", "oldRate", "newRate", "bestTax", "monthlyTax", "saving", "bestRegime", "winnerName", "effectiveRate"])
+              outputs(key, "Unavailable");
+            $("#reason").textContent = validation.label;
+            $("#breakTitle").textContent = "Check transaction details";
+            $("#breakValue").textContent = "Unavailable";
+            $("#breakText").textContent = validation.label;
+            $("#newMini").classList.remove("best");
+            $("#oldMini").classList.remove("best");
+            return;
+          }
           const old = calc("old"),
             neu = calc("new"),
             win = old.final <= neu.final ? old : neu,
@@ -3071,13 +3105,13 @@
               ? "Your eligible deductions outweigh the benefit of the new regime slab structure."
               : "The lower new regime slabs are worth more than your available old regime deductions.";
           const rows = [
-            ["Gross total income", "gross"],
+            ["Income before deductions (net property income and capital gains after loss adjustment)", "gross"],
             ["Employer retirement excess added", "employerRetirementExcess"],
             ["Eligible employer NPS deduction", "employerNpsDed"],
             ["Section 123 / employee PF basket", "section123Ded"],
             ["Additional personal NPS deduction", "personalNpsExtraDed"],
             ["Section 126 health deduction", "healthDeduction"],
-            ["Total deductions & exemptions", "deductions"],
+            ["Applied deductions & exemptions (including professional tax)", "deductions"],
             ["Taxable income (rounded to ₹10)", "totalTaxable"],
             ["Tax before rebate", "before"],
             ["Section 156 rebate / marginal relief", "rebate"],
@@ -3114,7 +3148,7 @@
               "The old regime is already the better choice at your current deduction level.";
           }
           const tx = transaction();
-          $("#txGain").textContent = money(tx.gain);
+          $("#txGain").textContent = signedMoney(tx.gain);
           $("#txClass").textContent = tx.label;
         }
         function go(i) {
