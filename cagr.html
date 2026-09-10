@@ -386,7 +386,7 @@ footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}
             <span class="input-prefix">₹</span>
             <input type="text" id="c-end" class="has-prefix" placeholder="2,00,000" oninput="fmtInput(this)">
           </div>
-          <div class="err" id="c-end-err">Must be greater than ₹0</div>
+          <div class="err" id="c-end-err">Enter ₹0 or a positive ending value</div>
         </div>
         <div class="field">
           <label>End Date</label>
@@ -475,7 +475,7 @@ footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}
     <article><h3>Look beyond the smooth rate</h3><p>CAGR hides volatility and drawdowns. Use it alongside risk, fees and benchmark performance, not as a complete scorecard.</p></article>
     <article><h3>Choose the right return measure</h3><p>CAGR suits one starting value and one ending value. For SIPs or irregular cash flows, XIRR is generally more appropriate.</p></article>
   </div>
-  <div class="guide-formula"><h3>How the calculation works</h3><p>The calculator annualises the change over the exact date range you select.</p><code>CAGR = ((Ending Value ÷ Starting Value) ^ (1 ÷ Years) − 1) × 100</code></div>
+  <div class="guide-formula"><h3>How the calculation works</h3><p>Years are measured by calendar anniversaries. Each complete anniversary counts as one year; remaining days are divided by the days between that anniversary and the next. Leap day anniversaries use the last valid day of February. XIRR instead uses actual days divided by 365, so annualised rates can differ slightly. A positive investment ending at ₹0 has a CAGR of −100%; its endpoints do not reveal when the loss occurred.</p><code>CAGR = ((Ending Value ÷ Starting Value) ^ (1 ÷ Years) − 1) × 100</code><p>Supported range: amounts up to ₹1,00,00,00,00,00,00,000, periods up to 200 years, and calculated CAGR up to 1,000,000%. Future Value accepts rates from −99.99% to 1000%. Results outside these limits are not displayed.</p></div>
 </section>
 
 <!-- FAQ -->
@@ -633,20 +633,33 @@ function durationText(startDate,endDate){
 function showErr(id,show){let el=document.getElementById(id);if(el)el.classList.toggle('show',show)}
 function markInput(id,err){let el=document.getElementById(id);if(el)el.classList.toggle('error-input',err)}
 
+function calculationRangeError(kind){
+  if(kind==='cagr'&&cagrChart){cagrChart.destroy();cagrChart=null;}
+  if(kind==='fv'&&fvChart){fvChart.destroy();fvChart=null;}
+  document.getElementById(kind+'-results').innerHTML='<div class="results-empty card" role="alert"><p>This calculation is outside the supported range. Use amounts up to ₹1,00,00,00,00,00,00,000 and a period of no more than 200 years. Calculated CAGR must not exceed 1,000,000%. Try a smaller amount or rate, or adjust the dates.</p></div>';
+}
+function supportedCalculation(sv,end,years,rate){
+  return [sv,end,years,rate,end/sv,((end-sv)/sv)*100].every(Number.isFinite)
+    && sv>0 && sv<=1e15 && end>=0 && end<=1e15
+    && years>0 && years<=200 && rate>=-100 && rate<=1e6;
+}
 function calcCAGR(){
   let sv=parseAmt(document.getElementById('c-start').value);
   let ev=parseAmt(document.getElementById('c-end').value);
   let sd=document.getElementById('c-sdate').value;
   let ed=document.getElementById('c-edate').value;
   showErr('c-start-err',!sv||sv<=0); markInput('c-start',!sv||sv<=0);
-  showErr('c-end-err',!ev||ev<=0); markInput('c-end',!ev||ev<=0);
+  showErr('c-end-err',!Number.isFinite(ev)||ev<0); markInput('c-end',!Number.isFinite(ev)||ev<0);
   showErr('c-sdate-err',!sd); markInput('c-sdate',!sd);
   let dateErr=!ed||(sd&&ed<=sd);
   showErr('c-edate-err',dateErr); markInput('c-edate',dateErr);
-  if(!sv||sv<=0||!ev||ev<=0||!sd||dateErr) return;
+  if(!sv||sv<=0||!Number.isFinite(ev)||ev<0||!sd||dateErr) return;
   let days=daysBetween(sd,ed);
   let years=yearsBetween(sd,ed);
-  let cagr=(Math.pow(ev/sv,1/years)-1)*100;
+  let cagr=ev===0?-100:Math.expm1((Math.log(ev)-Math.log(sv))/years)*100;
+  if(!supportedCalculation(sv,ev,years,cagr)||(ev>0&&cagr===-100)){
+    calculationRangeError('cagr');return;
+  }
   renderCAGRResults(sv,ev,sd,ed,days,years,cagr,(ev-sv),((ev-sv)/sv)*100,ev/sv);
 }
 
@@ -659,6 +672,8 @@ function renderCAGRResults(sv,ev,sd,ed,days,years,cagr,absGain,pctReturn,multipl
     <div class="rh-label">Compound Annual Growth Rate</div>
     <div class="rh-value">${cagr.toFixed(2)}%</div>
     <div class="rh-sub">Over ${duration}</div>
+    <div class="rh-sub">Calendar anniversary year basis; XIRR uses actual days ÷ 365.</div>
+    ${ev===0?'<div class="rh-sub">Total loss. Only the starting and ending values are known; the chart does not show when the loss occurred.</div>':''}
   </div>
   <div class="metrics">
     <div class="metric ${neg?'orange':'green'}">
@@ -717,7 +732,8 @@ function renderCAGRResults(sv,ev,sd,ed,days,years,cagr,absGain,pctReturn,multipl
     if(cagrChart){cagrChart.destroy();cagrChart=null;}
     let canvas=document.getElementById('cagrChartCanvas');
     if(!canvas) return;
-    cagrChart=new Chart(canvas,{type:'line',data:{labels:t.chartData.map(d=>d.label),datasets:[{label:'Portfolio Value',data:t.chartData.map(d=>d.val),borderColor:'#13B886',backgroundColor:'rgba(19,184,134,0.12)',borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#13B886',fill:true,tension:0.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#A9BFD9'}},y:{grid:{color:'rgba(255,255,255,0.08)'},ticks:{font:{size:11},color:'#A9BFD9',callback:v=>'₹'+(v>=10000000?(v/10000000).toFixed(1)+'Cr':v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000).toFixed(0)+'K':v)}}}}});
+    if(!t.chartData.every(d=>Number.isFinite(d.val))) return;
+    cagrChart=new Chart(canvas,{type:'line',data:{labels:t.chartData.map(d=>d.label),datasets:[{label:'Portfolio Value',data:t.chartData.map(d=>d.val),borderColor:'#13B886',backgroundColor:'rgba(19,184,134,0.12)',borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#13B886',showLine:ev!==0,fill:ev!==0,tension:0.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtINR(ctx.raw)}}},scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#A9BFD9'}},y:{grid:{color:'rgba(255,255,255,0.08)'},ticks:{font:{size:11},color:'#A9BFD9',callback:v=>'₹'+(v>=10000000?(v/10000000).toFixed(1)+'Cr':v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000).toFixed(0)+'K':v)}}}}});
   },50);
 }
 
@@ -735,6 +751,7 @@ function calcFV(){
   let days=daysBetween(sd,ed);
   let years=yearsBetween(sd,ed);
   let fv=sv*Math.pow(1+cagrVal/100,years);
+  if(!supportedCalculation(sv,fv,years,cagrVal)||fv===0){calculationRangeError('fv');return;}
   renderFVResults(sv,fv,fv-sv,fv/sv,((fv-sv)/sv)*100,cagrVal,days,years,sd,ed);
 }
 
@@ -747,6 +764,7 @@ function renderFVResults(sv,fv,gain,multiple,effGrowth,cagr,days,years,sd,ed){
     <div class="rh-label">Projected Future Value</div>
     <div class="rh-value">${fmtINR(fv)}</div>
     <div class="rh-sub">At ${cagr.toFixed(2)}% CAGR over ${duration}</div>
+    <div class="rh-sub">Calendar anniversary year basis; XIRR uses actual days ÷ 365.</div>
   </div>
   <div class="metrics">
     <div class="metric ${neg?'orange':'green'}">
@@ -794,6 +812,10 @@ function renderFVResults(sv,fv,gain,multiple,effGrowth,cagr,days,years,sd,ed){
 }
 
 function buildYearTable(sv,cagrDec,totalYears,startDate,endDate){
+  if(cagrDec===-1) return {
+    rows:`<tr><td>Full period (total loss)</td><td>${fmtINR(sv)}</td><td>${fmtINR(-sv)}</td><td>${fmtINR(0)}</td></tr>`,
+    chartData:[{label:'Start',val:sv},{label:'End',val:0}]
+  };
   let rows='',chartData=[];
   let fullYears=Math.floor(totalYears),partial=totalYears-fullYears;
   let sd=utcDate(startDate);
