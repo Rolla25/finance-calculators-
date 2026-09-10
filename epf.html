@@ -167,12 +167,12 @@ footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}.footer-gri
         <div class="field"><label for="existingEPS">Existing accumulated EPS</label><div class="input-wrap"><span class="input-prefix">₹</span><input id="existingEPS" type="number" value="0" min="0" step="500"></div><div class="field-hint">Enter 0 if there is no earlier EPS amount.</div></div>
         <div class="field"><label for="monthlySalary">Current salary: Basic + DA</label><div class="input-wrap"><span class="input-prefix">₹</span><input id="monthlySalary" type="number" value="80000" min="1" step="500"></div></div>
         <div class="field"><label for="salaryGrowth">Expected annual salary increase</label><div class="input-wrap"><input id="salaryGrowth" type="number" value="0" min="0" max="50" step="0.01"><span class="input-suffix">%</span></div></div>
-        <div class="field"><label for="minimumSalary">Minimum salary for EPF</label><div class="input-wrap"><span class="input-prefix">₹</span><input id="minimumSalary" type="number" value="15000" min="1" step="500"></div></div>
+        <div class="field"><label for="minimumSalary">EPF wage ceiling</label><div class="input-wrap"><span class="input-prefix">₹</span><input id="minimumSalary" type="number" value="15000" min="1" step="500"></div></div>
         <div class="field"><label for="employeeRate">Employee contribution</label><div class="input-wrap"><input id="employeeRate" type="number" value="12" min="0" max="100" step="0.01"><span class="input-suffix">%</span></div></div>
         <div class="field"><label for="employerEPFRate">Employer EPF contribution</label><div class="input-wrap readonly"><input id="employerEPFRate" type="number" value="3.67" readonly><span class="input-suffix">%</span></div></div>
         <div class="field"><label for="employerEPSRate">Employer EPS contribution</label><div class="input-wrap readonly"><input id="employerEPSRate" type="number" value="8.33" readonly><span class="input-suffix">%</span></div></div>
         <div class="field"><label for="interestRate">Interest rate on EPF</label><div class="input-wrap"><input id="interestRate" type="number" value="8.25" min="0" max="30" step="0.01"><span class="input-suffix">%</span></div></div>
-        <div class="field"><label for="calculationBasis">EPF calculated on minimum salary?</label><select id="calculationBasis"><option value="No" selected>No, full salary</option><option value="Yes">Yes, minimum salary</option></select><div class="field-hint">This matches the Yes/No calculation basis in the uploaded calculator.</div></div>
+        <div class="field"><label for="calculationBasis">Limit EPF wages to the ceiling?</label><select id="calculationBasis"><option value="No" selected>No, full salary</option><option value="Yes">Yes, apply wage ceiling</option></select><div class="field-hint">Uses actual eligible salary up to the selected ceiling; lower salaries are never increased.</div></div>
       </div>
       <div class="actions"><button class="btn btn-primary" type="button" onclick="calculate()">Calculate EPF</button><button class="btn btn-secondary" type="button" onclick="resetCalculator()">Reset</button></div>
       <div class="alert" id="form-alert" role="alert"></div>
@@ -186,17 +186,17 @@ footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}.footer-gri
         <div class="metric"><div class="m-label">Employee added</div><div class="m-value" id="employeeTotal">₹0</div><div class="m-sub">Includes VPF, if entered</div></div>
         <div class="metric"><div class="m-label">Employer to EPF</div><div class="m-value" id="employerTotal">₹0</div><div class="m-sub">After EPS diversion</div></div>
         <div class="metric"><div class="m-label">Interest earned</div><div class="m-value" id="interestTotal">₹0</div><div class="m-sub">Monthly running balance</div></div>
-        <div class="metric"><div class="m-label">Accumulated EPS</div><div class="m-value" id="epsTotal">₹0</div><div class="m-sub">Opening balance + future EPS</div></div>
+        <div class="metric"><div class="m-label">Accumulated EPS</div><div class="m-value" id="epsTotal">₹0</div><div class="m-sub">Contributions only, not a withdrawal value</div></div>
       </div>
-      <div class="journey"><div class="journey-row"><div><div class="jv-label">Opening balances + contributions</div><div class="jv-num" id="journeyStart">₹0</div></div><div class="journey-arrow">→</div><div><div class="jv-label">Combined EPF + EPS</div><div class="jv-num" id="journeyEnd">₹0</div></div><div class="journey-badge" id="multipleBadge">0%</div></div></div>
+      <div class="journey"><div class="journey-row"><div><div class="jv-label">Opening EPF + contributions</div><div class="jv-num" id="journeyStart">₹0</div></div><div class="journey-arrow">→</div><div><div class="jv-label">Projected EPF at age 58</div><div class="jv-num" id="journeyEnd">₹0</div></div><div class="journey-badge" id="multipleBadge">0%</div></div></div>
       <div class="mix"><div class="mix-head"><h4>What builds the final balance</h4><span>EPF only</span></div><div class="mix-bar"><div class="mix-contrib" id="contribBar"></div><div class="mix-interest" id="interestBar"></div></div><div class="mix-legend"><span><i></i>Opening balance + contributions</span><span><i></i>Interest</span></div></div>
-      <div class="schedule"><div class="schedule-head"><h4>Yearly schedule through age 58</h4><span>Calculated monthly and summarised by financial year</span></div><div class="table-scroll"><table class="result-table"><thead><tr><th>Projection Year<br>and Age</th><th>Opening<br>EPF</th><th>Opening<br>EPS</th><th>Annual PF Wages</th><th>Employee<br>EPF</th><th>Employer<br>EPF</th><th>Employer<br>EPS</th><th>Interest<br>Credited</th><th>Closing<br>EPF Balance</th><th>Cumulative<br>EPS</th><th>Total<br>Corpus</th></tr></thead><tbody id="projectionBody"></tbody></table></div></div>
+      <div class="schedule"><div class="schedule-head"><h4>Yearly schedule through age 58</h4><span>Calculated monthly and summarised by financial year</span></div><div class="table-scroll"><table class="result-table"><thead><tr><th>Projection Year<br>and Age</th><th>Opening<br>EPF</th><th>Opening<br>EPS</th><th>Annual PF Wages</th><th>Employee<br>EPF</th><th>Employer<br>EPF</th><th>Employer<br>EPS</th><th>Interest<br>Credited</th><th>Closing<br>EPF Balance</th><th>Cumulative<br>EPS</th></tr></thead><tbody id="projectionBody"></tbody></table></div></div>
       <div class="result-note" id="basisNote"></div>
     </section>
   </div>
 
   <section class="guide-section">
-    <div class="guide-intro"><span class="kicker">UNDERSTAND THE ESTIMATE</span><h2>How this EPF projection works</h2><p>The calculator separates your provident fund savings from the pension contribution, then applies interest to the balance month by month until the retirement age you enter.</p></div>
+    <div class="guide-intro"><span class="kicker">UNDERSTAND THE ESTIMATE</span><h2>How this EPF projection works</h2><p>The calculator separates your provident fund savings from the pension contribution, stops contributions at the retirement age you enter and projects EPF interest month by month through age 58.</p></div>
     <div class="guide-grid">
       <article><h3>Employee contribution</h3><p>Your selected rate is applied to the chosen PF wage. The standard rate is 12%; any higher percentage is treated as a voluntary PF contribution.</p></article>
       <article><h3>Employer split</h3><p>The employer share is modelled at 12%. For a standard EPS member, 8.33% of wages up to ₹15,000 (normally rounded to ₹1,250 a month) is diverted to EPS and the rest goes to EPF.</p></article>
@@ -209,7 +209,7 @@ footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}.footer-gri
     <h2>Frequently asked questions</h2>
     <div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">What salary should I enter in the EPF calculator?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Enter the monthly pay on which your EPF is actually calculated, normally Basic salary plus Dearness Allowance and any other components treated as EPF wages. Do not enter gross salary or take home pay unless it happens to equal your PF wage.</div></div></div>
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Should I choose the ₹15,000 ceiling or actual Basic + DA?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Check your payslip or EPF passbook. Choose the statutory ceiling when contributions are limited to a PF wage of ₹15,000. Choose actual Basic + DA only when your employer contributes on wages above that ceiling.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Should I choose the ₹15,000 ceiling or actual Basic + DA?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Check your payslip or EPF passbook. Choose the statutory ceiling when contributions are limited to a maximum PF wage of ₹15,000. If your eligible salary is lower, the calculator uses that lower salary, including future annual increases up to the ceiling. Choose actual Basic + DA only when your employer contributes on wages above that ceiling.</div></div></div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Why is EPS not added to the projected EPF balance?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">EPS is a pension scheme, not an interest bearing account balance equivalent to EPF. Pension and withdrawal benefits depend on the pensionable salary, eligible service and the scheme rules, so simply adding accumulated EPS contributions to EPF would overstate a withdrawable corpus.</div></div></div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">How is the employer's 12% contribution divided?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">For a standard EPS member, 8.33% of pensionable wages up to ₹15,000 is diverted to EPS. The balance of the employer's 12% share is credited to EPF. When contributions are made on higher actual wages, the EPS diversion remains capped in this standard model.</div></div></div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Does EPF interest compound monthly or annually?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">EPF interest is worked out on monthly running balances and credited for the financial year. Once credited, it forms part of the opening balance for the next year. This calculator follows that timing rather than treating every contribution as if it earned a full year's interest.</div></div></div>
@@ -255,7 +255,7 @@ function validate(values){
   if(!Number.isFinite(values.existingEPF)||values.existingEPF<0)return 'Existing EPF balance cannot be negative.';
   if(!Number.isFinite(values.existingEPS)||values.existingEPS<0)return 'Existing accumulated EPS cannot be negative.';
   if(!Number.isFinite(values.monthlySalary)||values.monthlySalary<=0)return 'Monthly Basic + DA must be greater than zero.';
-  if(!Number.isFinite(values.minimumSalary)||values.minimumSalary<=0)return 'Minimum salary for EPF must be greater than zero.';
+  if(!Number.isFinite(values.minimumSalary)||values.minimumSalary<=0)return 'EPF wage ceiling must be greater than zero.';
   if(!Number.isFinite(values.salaryGrowth)||values.salaryGrowth<0||values.salaryGrowth>50)return 'Enter an annual salary increase between 0% and 50%.';
   if(!Number.isFinite(values.employeeRate)||values.employeeRate<0||values.employeeRate>100)return 'Enter an employee contribution between 0% and 100%.';
   if(!Number.isFinite(values.interestRate)||values.interestRate<0||values.interestRate>30)return 'Enter an EPF interest rate between 0% and 30%.';
@@ -277,9 +277,10 @@ function computeProjection(values){
     const fyMonth=((month-1)%12)+1;
     const isMarch=fyMonth===12;
     const isActive=year<=activeYears;
+    const actualSalary=values.monthlySalary*Math.pow(1+values.salaryGrowth/100,year-1);
     const salary=isActive?(values.calculationBasis==='Yes'
-      ?values.minimumSalary
-      :values.monthlySalary*Math.pow(1+values.salaryGrowth/100,year-1)):0;
+      ?Math.min(actualSalary,values.minimumSalary)
+      :actualSalary):0;
     const eps=isActive?(salary<=values.minimumSalary?salary*values.employerEPSRate/100:epsCap):0;
     const employerEPF=isActive?(salary<=values.minimumSalary
       ?salary*values.employerEPFRate/100
@@ -303,11 +304,11 @@ function computeProjection(values){
       pendingInterest=0;
     }
     rows.push({year,age,month,fyMonth,fyMonthName:monthNames[fyMonth-1],openingBalance,openingEPS,salary,employee,employerEPF,eps,
-      interestBearingContribution,interestAccrued,creditedInterest,balance,cumulativeEPS,total:balance+cumulativeEPS,isActive,isMarch});
+      interestBearingContribution,interestAccrued,creditedInterest,balance,cumulativeEPS,isActive,isMarch});
     if(month===activeYears*12)retirementBalance=balance;
   }
 
-  return{balance,retirementBalance,cumulativeEPS,total:balance+cumulativeEPS,totalInterest,totalEmployee,totalEmployerEPF,totalEPS,rows,totalMonths};
+  return{balance,retirementBalance,cumulativeEPS,totalInterest,totalEmployee,totalEmployerEPF,totalEPS,rows,totalMonths};
 }
 
 function summariseByYear(rows,currentAge){
@@ -316,7 +317,7 @@ function summariseByYear(rows,currentAge){
     let year=yearlyRows[row.year-1];
     if(!year){
       year={year:row.year,age:currentAge+row.year,openingEPF:row.openingBalance,openingEPS:row.openingEPS,salary:0,employee:0,employerEPF:0,eps:0,
-        creditedInterest:0,balance:0,cumulativeEPS:0,total:0,isActive:false};
+        creditedInterest:0,balance:0,cumulativeEPS:0,isActive:false};
       yearlyRows.push(year);
     }
     year.salary+=row.salary;
@@ -326,7 +327,6 @@ function summariseByYear(rows,currentAge){
     year.creditedInterest+=row.creditedInterest;
     year.balance=row.balance;
     year.cumulativeEPS=row.cumulativeEPS;
-    year.total=row.total;
     year.isActive=year.isActive||row.isActive;
   });
   return yearlyRows;
@@ -351,16 +351,16 @@ function calculate(){
   document.getElementById('employerTotal').textContent=money(result.totalEmployerEPF);
   document.getElementById('interestTotal').textContent=money(result.totalInterest);
   document.getElementById('epsTotal').textContent=money(result.cumulativeEPS);
-  const startingValue=values.existingEPF+values.existingEPS+totalContributed+result.totalEPS;
+  const startingValue=epfPrincipal;
   document.getElementById('journeyStart').textContent=compactMoney(startingValue);
-  document.getElementById('journeyEnd').textContent=compactMoney(result.total);
+  document.getElementById('journeyEnd').textContent=compactMoney(result.balance);
   document.getElementById('multipleBadge').textContent=startingValue>0?`+${(result.totalInterest/startingValue*100).toFixed(0)}%`:'0%';
   document.getElementById('contribBar').style.width=`${contributionShare}%`;
   document.getElementById('interestBar').style.width=`${100-contributionShare}%`;
   const yearlyRows=summariseByYear(result.rows,values.currentAge);
-  document.getElementById('projectionBody').innerHTML=yearlyRows.map(row=>`<tr class="${row.isActive?'':'inactive-row'}"><td>Year ${row.year}<br><small>Age ${row.age}</small></td><td>${preciseMoney(row.openingEPF)}</td><td>${preciseMoney(row.openingEPS)}</td><td>${preciseMoney(row.salary)}</td><td>${preciseMoney(row.employee)}</td><td>${preciseMoney(row.employerEPF)}</td><td>${preciseMoney(row.eps)}</td><td class="positive">${preciseMoney(row.creditedInterest)}</td><td>${preciseMoney(row.balance)}</td><td>${preciseMoney(row.cumulativeEPS)}</td><td>${preciseMoney(row.total)}</td></tr>`).join('');
+  document.getElementById('projectionBody').innerHTML=yearlyRows.map(row=>`<tr class="${row.isActive?'':'inactive-row'}"><td>Year ${row.year}<br><small>Age ${row.age}</small></td><td>${preciseMoney(row.openingEPF)}</td><td>${preciseMoney(row.openingEPS)}</td><td>${preciseMoney(row.salary)}</td><td>${preciseMoney(row.employee)}</td><td>${preciseMoney(row.employerEPF)}</td><td>${preciseMoney(row.eps)}</td><td class="positive">${preciseMoney(row.creditedInterest)}</td><td>${preciseMoney(row.balance)}</td><td>${preciseMoney(row.cumulativeEPS)}</td></tr>`).join('');
   const basisDescription=values.calculationBasis==='Yes'
-    ?`Minimum salary basis selected: all contributions are calculated on ${money(values.minimumSalary)} a month.`
+    ?`Wage ceiling selected: contributions use actual eligible salary, including annual increases, capped at ${money(values.minimumSalary)} a month.`
     :`Full salary basis selected: employee contribution grows with salary, while employer EPS is capped using ${money(values.minimumSalary)} and the excess employer share flows to EPF.`;
   document.getElementById('basisNote').textContent=`${basisDescription} Opening balances included: EPF ${money(values.existingEPF)} and EPS ${money(values.existingEPS)}.`;
   return result;
