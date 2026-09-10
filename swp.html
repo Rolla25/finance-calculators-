@@ -232,7 +232,7 @@ html{scroll-behavior:smooth}body{background:#fff;color:var(--ink);font:16px/1.5 
     <div class="field">
       <label for="annReturn">Expected annual return (%)</label>
       <input type="number" id="annReturn" value="0" placeholder="Enter return" min="0" max="30" step="0.01" inputmode="decimal" oninput="clrE('e-return')">
-      <div class="hint">Enter the expected annual return before withdrawals. Decimal values are allowed.</div>
+      <div class="hint">Effective annual return: 12% means 12% growth over a year before withdrawals. Returns accrue monthly and withdrawals occur at month end.</div>
       <div class="err" id="e-return">Return must be between 0% and 30%.</div>
     </div>
 
@@ -263,7 +263,7 @@ html{scroll-behavior:smooth}body{background:#fff;color:var(--ink);font:16px/1.5 
           <input type="number" id="durMonths" min="0" max="11" step="1" value="0" placeholder="0 to 11" inputmode="numeric" oninput="clrE('e-dur')">
         </div>
       </div>
-      <div class="err" id="e-dur">Duration must be between 1 month and 1,200 months.</div>
+      <div class="err" id="e-dur">Enter whole years from 0 to 100 and additional months from 0 to 11. Total duration must be 1 to 1,200 months.</div>
     </div>
 
     <div id="swpField" style="display:none">
@@ -478,13 +478,16 @@ function simulate(corpus,mRate,W1,maxMonths,inflAnnual){
     const open=bal,interest=open*mRate;
     const withdrawal=Math.min(w,open+interest);
     const close=Math.max(0,open+interest-withdrawal);
-    rows.push({month:i,open,interest,withdrawal,close,inflApplied});
+    const shortfall=Math.max(0,w-withdrawal);
+    rows.push({month:i,open,interest,withdrawal,close,inflApplied,shortfall,partial:shortfall>0.005});
     bal=close;if(bal<0.01) break;
   }
   return rows;
 }
 
 function calculate(){
+  document.querySelectorAll('.err').forEach(el=>el.style.display='none');
+  document.getElementById('results').style.display='none';
   const corpus=parseFloat(document.getElementById('corpus').value);
   const annReturn=parseFloat(document.getElementById('annReturn').value);
   const inflOn=document.getElementById('inflToggle').checked;
@@ -493,13 +496,15 @@ function calculate(){
   if(!corpus||corpus<1000){showE('e-corpus');ok=false;}
   if(isNaN(annReturn)||annReturn<0||annReturn>30){showE('e-return');ok=false;}
   if(inflOn&&(isNaN(inflRate)||inflRate<0||inflRate>30)){showE('e-infl');ok=false;}
-  const mRate=annReturn/12/100;
+  const mRate=Math.expm1(Math.log1p(annReturn/100)/12);
 
   if(mode==='duration'){
-    const dy=parseInt(document.getElementById('durYears').value)||0;
-    const dm=parseInt(document.getElementById('durMonths').value)||0;
+    const yearsInput=document.getElementById('durYears').value.trim();
+    const monthsInput=document.getElementById('durMonths').value.trim();
+    const dy=Number(yearsInput);
+    const dm=Number(monthsInput);
     const totalMonths=dy*12+dm;
-    if(totalMonths<1||totalMonths>1200){showE('e-dur');ok=false;}
+    if(!yearsInput||!monthsInput||!Number.isInteger(dy)||!Number.isInteger(dm)||dy<0||dy>100||dm<0||dm>11||totalMonths<1||totalMonths>1200){showE('e-dur');ok=false;}
     if(!ok) return;
     const W1=inflOn?maxInflSWP(corpus,mRate,totalMonths,inflRate)
       :(mRate===0?corpus/totalMonths:corpus*mRate*Math.pow(1+mRate,totalMonths)/(Math.pow(1+mRate,totalMonths)-1));
@@ -519,7 +524,9 @@ function calculate(){
     const endC=scheduleData.length?scheduleData[scheduleData.length-1].close:corpus;
     const forever=scheduleData.length>=1200&&endC>0.01;
     const finalYrSWP=inflOn?swp*Math.pow(1+inflRate/100,Math.floor((scheduleData.length-1)/12)):null;
-    renderSummary('withdrawal',{corpus,annReturn,inflOn,inflRate,swp,n:scheduleData.length,totW,totI,endC,forever,finalYrSWP});
+    const partialPayment=scheduleData.find(r=>r.partial);
+    const fundedMonths=scheduleData.filter(r=>!r.partial).length;
+    renderSummary('withdrawal',{corpus,annReturn,inflOn,inflRate,swp,n:fundedMonths,partialPayment,totW,totI,endC,forever,finalYrSWP});
   }
 
   renderTable(scheduleData);
@@ -550,7 +557,8 @@ function renderSummary(m,d){
       +(d.inflOn?metric('Inflation Rate',d.inflRate.toFixed(2)+'% p.a.','amber'):'')
       +metric('Monthly SWP',fmtINR(d.swp))
       +(d.inflOn?metric('Final Year SWP',fmtINR(d.finalYrSWP),'amber'):'')
-      +metric('Corpus Lasts For',longevity,'green')
+      +metric('Fully Funded Income Duration',longevity,'green')
+      +(d.partialPayment?metric('Partial Payment in Month '+d.partialPayment.month,fmtINR(d.partialPayment.withdrawal))+metric('Final Payment Shortfall',fmtINR(d.partialPayment.shortfall),'red'):'')
       +metric('Total Withdrawn',fmtINR(d.totW))
       +metric('Total Interest Earned',fmtINR(d.totI),'green')
       +metric(d.endC<1?'Corpus Depleted':'Ending Corpus',fmtINR(d.endC),d.endC<1000?'red':'');
@@ -560,7 +568,7 @@ function renderSummary(m,d){
 function renderTable(data){
   document.getElementById('tableBody').innerHTML=data.map(r=>`
     <tr class="${r.inflApplied?'infl-row':''}">
-      <td>Month ${r.month}</td>
+      <td>Month ${r.month}${r.partial?' (partial payment)':''}</td>
       <td>${fmtINR(r.open)}</td>
       <td style="color:#059669">${fmtINR(r.interest)}</td>
       <td style="color:#dc2626">${fmtINR(r.withdrawal)}</td>
