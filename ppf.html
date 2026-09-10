@@ -45,6 +45,9 @@ footer{margin:0;padding:52px 0 20px;background:#0d1d36;color:#a9b8cc}.footer-gri
 .calculator-grid{grid-template-columns:minmax(0,1fr)}
 .results-panel{position:relative;top:0}
 .actions{justify-content:center}
+.results-panel[hidden]{display:none}
+.input-wrap:has(input:disabled){background:var(--wash);opacity:.6}
+input:disabled{cursor:not-allowed}
 @media(max-width:800px){.guide-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1.4fr 1fr 1fr}}
 @media(max-width:560px){:root{--safe-gutter:22px}.corpusly-header{position:sticky;top:0;z-index:9;height:62px;padding-left:max(var(--safe-gutter),env(safe-area-inset-left));padding-right:max(var(--safe-gutter),env(safe-area-inset-right))}.brand{font-size:22px}.menu-button{width:40px;height:40px}.menu-panel{padding:20px max(var(--safe-gutter),env(safe-area-inset-right)) 30px max(var(--safe-gutter),env(safe-area-inset-left))}.menu-links{grid-template-columns:1fr}.hero{padding:55px max(var(--safe-gutter),env(safe-area-inset-right))}.hero h1{font-size:35px;letter-spacing:-1.2px}.hero p{font-size:15px}.trust{flex-direction:column;align-items:center;gap:7px;margin-top:23px}.main{padding:50px max(var(--safe-gutter),env(safe-area-inset-right))}.section-head h2,.guide-intro h2,.faq-card>h2{font-size:29px}.input-card,.results-panel{padding:21px 18px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.input-wrap,select{height:50px}.actions{justify-content:center}.btn-primary{min-width:0}.rh-value{font-size:36px}.extension-snapshot{align-items:flex-start;flex-direction:column;gap:10px}.es-value{font-size:25px}.guide-section,.faq-card{padding-top:58px;margin-top:0}.faq-list{padding:0 16px}.faq-a-inner{padding-right:22px}.footer-grid{grid-template-columns:1fr}.footer-grid a:not(.brand){min-height:32px}.copyright{display:block}}
 /* Header matches the Improved SIP calculator exactly */
@@ -72,14 +75,14 @@ header.wrap{max-width:1120px;height:70px;display:flex;align-items:center;justify
   <div class="section-head"><div><span class="kicker">PLAN YOUR PPF</span><h2>Project your maturity corpus</h2></div></div>
   <div class="calculator-grid">
     <section class="input-card" aria-labelledby="details-title">
-      <div class="card-head"><h3 id="details-title">Account details</h3><p>Use completed financial years for an existing account.</p></div>
+      <div class="card-head"><h3 id="details-title">Account details</h3><p>Project from a financial year end after interest has been credited. The opening financial year must already be complete.</p></div>
       <div class="fields">
-        <div class="field"><label for="accountAge">Completed account years</label><div class="input-wrap"><input type="number" id="accountAge" value="0" min="0" max="15" step="1"><span class="input-suffix">years</span></div><div class="field-hint">Enter 0 for a new account.</div></div>
-        <div class="field" id="balanceField" hidden><label for="currentBalance">Current PPF balance</label><div class="input-wrap"><span class="input-prefix">₹</span><input type="number" id="currentBalance" value="500000" min="0" step="1000"></div><div class="field-hint">Use the latest balance shown in your passbook.</div></div>
+        <div class="field"><label for="accountAge">Completed years after opening FY</label><div class="input-wrap"><input type="number" id="accountAge" value="0" min="0" max="15" step="1"><span class="input-suffix">years</span></div><div class="field-hint">0 means the opening financial year has just ended, with 15 complete financial years still to run. 15 means maturity.</div></div>
+        <div class="field" id="balanceField"><label for="currentBalance">Balance at that financial year end</label><div class="input-wrap"><span class="input-prefix">₹</span><input type="number" id="currentBalance" value="500000" min="0" step="1000"></div><div class="field-hint">Include all deposits and credited interest through 31 March, including the opening year. The displayed balance is an editable example.</div></div>
         <div class="field"><label for="annualContribution">Annual contribution</label><div class="input-wrap"><span class="input-prefix">₹</span><input type="number" id="annualContribution" value="150000" min="500" max="150000" step="500"></div><div class="field-hint">Permitted range is ₹500 to ₹1,50,000 per financial year.</div></div>
         <div class="field"><label for="stepUp">Annual contribution increase</label><div class="input-wrap"><input type="number" id="stepUp" value="0" min="0" max="50" step="0.5"><span class="input-suffix">%</span></div><div class="field-hint">Future contributions stop increasing at the annual limit.</div></div>
         <div class="field"><label for="interestRate">Assumed PPF interest rate</label><div class="input-wrap"><input type="number" id="interestRate" value="7.1" min="0" max="20" step="0.1"><span class="input-suffix">%</span></div><div class="field-hint">The Government may revise the rate in future quarters.</div></div>
-        <div class="field"><label for="inflationRate">Expected inflation</label><div class="input-wrap"><input type="number" id="inflationRate" value="6" min="0" max="20" step="0.1"><span class="input-suffix">%</span></div><div class="field-hint">Used only to show value in today's money.</div></div>
+        <div class="field"><label for="inflationRate">Expected inflation</label><div class="input-wrap"><input type="number" id="inflationRate" value="6" min="0" max="20" step="0.1"><span class="input-suffix">%</span></div><div class="field-hint">Used only to show value in money at the starting financial year end.</div></div>
         <div class="field full"><label for="extensionOption">After maturity</label><select id="extensionOption"><option value="none">Close at maturity</option><option value="without">Continue for 5 years without deposits</option><option value="with">Extend for 5 years with deposits</option></select><div class="field-hint">An extension with deposits generally requires the prescribed option within one year of maturity.</div></div>
       </div>
       <div class="actions"><button class="btn btn-secondary" type="button" onclick="resetCalculator()">Reset</button><button class="btn btn-primary" type="button" onclick="calculate()">Calculate PPF</button></div>
@@ -93,10 +96,10 @@ header.wrap{max-width:1120px;height:70px;display:flex;align-items:center;justify
         <div class="metric"><div class="m-label">Opening balance</div><div class="m-value" id="openingBalanceResult">₹0</div></div>
         <div class="metric"><div class="m-label">Future contributions</div><div class="m-value" id="contributionResult">₹0</div></div>
         <div class="metric"><div class="m-label">Interest until maturity</div><div class="m-value" id="interestResult">₹0</div></div>
-        <div class="metric"><div class="m-label">Value in today's money</div><div class="m-value" id="realValueResult">₹0</div><div class="m-sub" id="realValueSub">At 6% inflation</div></div>
+        <div class="metric"><div class="m-label">Value in money at the starting financial year end</div><div class="m-value" id="realValueResult">₹0</div><div class="m-sub" id="realValueSub">At 6% inflation</div></div>
       </div>
       <div class="mix"><div class="mix-head"><h4>Maturity corpus mix</h4><span>Capital and projected interest</span></div><div class="mix-bar"><span class="mix-contrib" id="capitalBar"></span><span class="mix-interest" id="interestBar"></span></div><div class="mix-legend"><span><i></i>Capital included</span><span><i></i>Projected interest</span></div></div>
-      <div class="schedule"><div class="schedule-head"><h4>Annual projection</h4><span>Amounts rounded to the nearest rupee</span></div><div class="table-scroll"><table class="result-table"><thead><tr><th>Account year</th><th>Opening balance</th><th>Deposit</th><th>Interest</th><th>Closing balance</th><th>Value today</th></tr></thead><tbody id="projectionBody"></tbody></table></div></div>
+      <div class="schedule"><div class="schedule-head"><h4>Annual projection</h4><span>Amounts rounded to the nearest rupee</span></div><div class="table-scroll"><table class="result-table"><thead><tr><th>Year after opening FY</th><th>Opening balance</th><th>Deposit</th><th>Interest</th><th>Closing balance</th><th>Value at start</th></tr></thead><tbody id="projectionBody"></tbody></table></div></div>
       <div class="result-note" id="basisNote">The estimate assumes each annual deposit is made on or before 5 April and therefore earns interest for the full financial year.</div>
     </section>
   </div>
@@ -105,8 +108,8 @@ header.wrap{max-width:1120px;height:70px;display:flex;align-items:center;justify
     <div class="guide-intro"><span class="kicker">UNDERSTAND THE ESTIMATE</span><h2>How this PPF calculation works</h2><p>The calculator starts with your current balance, adds each planned annual contribution and credits interest at the end of every projected financial year.</p></div>
     <div class="guide-grid">
       <article><h3>Deposit timing</h3><p>PPF interest uses the lowest monthly balance between the close of the fifth day and month end. This projection assumes your annual deposit is available by 5 April, so it receives a full year of interest.</p></article>
-      <article><h3>Maturity period</h3><p>A PPF account matures after fifteen complete financial years from the end of the financial year in which it was opened. Enter only completed account years when using an existing balance.</p></article>
-      <article><h3>Inflation adjustment</h3><p>The value in today's money discounts the projected corpus by your inflation assumption. It does not change the nominal PPF interest calculation.</p></article>
+      <article><h3>Maturity period</h3><p>A PPF account matures after fifteen complete financial years from the end of the financial year in which it was opened. Enter 0 at the end of the opening financial year and retain its full closing balance. Count subsequent completed financial years from that point. This projection begins on the following 1 April and does not calculate the partial opening year.</p></article>
+      <article><h3>Inflation adjustment</h3><p>The value in money at the starting financial year end discounts the projected corpus by your inflation assumption. It does not change the nominal PPF interest calculation.</p></article>
     </div>
     <div class="guide-formula"><h3>Calculation basis</h3><p>For each projected year, the eligible opening balance and deposit earn the assumed annual rate. Actual PPF interest is credited annually and future rates may change.</p><code>Closing balance = Opening balance + Deposit + ((Opening balance + Deposit) × Interest rate)</code><p style="margin-top:10px">Rules reference: <a href="https://www.nsiindia.gov.in/writereaddata/SchemeRules/PublicProvidentFundSchemeRule.pdf" target="_blank" rel="noopener">Public Provident Fund Scheme, 2019</a>.</p></div>
   </section>
@@ -122,7 +125,7 @@ header.wrap{max-width:1120px;height:70px;display:flex;align-items:center;justify
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">What does annual contribution increase mean?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">It increases the planned deposit by your chosen percentage each year until the annual PPF limit is reached. It is a planning feature, not a special facility offered by the PPF account.</div></div></div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Why does my passbook balance differ from the estimate?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">Actual results can differ because of deposit dates, changing interest rates, withdrawals, missed contributions, rounding, account opening timing and rule changes. Use your PPF passbook as the authoritative record.</div></div></div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">Is the PPF maturity amount tax free?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">PPF interest and eligible maturity proceeds are generally exempt under current Indian tax rules. Contribution deductions depend on the tax regime and your eligibility. Tax rules can change, so check the current provisions for your situation.</div></div></div>
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">How is value in today's money calculated?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">The calculator divides the future corpus by the compounded inflation factor over the remaining years. This expresses the final amount in approximate current purchasing power without changing the nominal account projection.</div></div></div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><button class="faq-q" type="button" aria-expanded="false" onclick="toggleFAQ(this)"><span itemprop="name">How is value in money at the starting financial year end calculated?</span><span class="faq-icon" aria-hidden="true"></span></button><div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">The calculator divides the future corpus by the compounded inflation factor over the remaining years. This expresses the final amount in approximate purchasing power at the starting financial year end without changing the nominal account projection.</div></div></div>
     </div>
     <div class="disclaimer"><span>ⓘ</span><p>This calculator provides an educational estimate, not an account statement, tax opinion or investment recommendation. It assumes one deposit by 5 April each financial year, a constant annual interest rate, no withdrawals and no missed deposits. Actual results depend on official rates, account dates, deposit timing, rounding and prevailing PPF and tax rules.</p></div>
   </section>
@@ -132,22 +135,25 @@ header.wrap{max-width:1120px;height:70px;display:flex;align-items:center;justify
 
 <script>
 const PPF_MIN=500,PPF_MAX=150000;
-function numberValue(id){return Number(document.getElementById(id).value)}
+function numberValue(id){const value=document.getElementById(id).value.trim();return value===''?NaN:Number(value)}
 function money(value){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(Math.round(value||0))}
 function compactMoney(value){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',notation:'compact',maximumFractionDigits:2}).format(value||0)}
 function getInputs(){return{accountAge:numberValue('accountAge'),currentBalance:numberValue('currentBalance'),annualContribution:numberValue('annualContribution'),stepUp:numberValue('stepUp'),interestRate:numberValue('interestRate'),inflationRate:numberValue('inflationRate'),extensionOption:document.getElementById('extensionOption').value}}
+function includesDeposits(v){return v.accountAge<15||v.extensionOption==='with'}
+function syncDepositFields(v){for(const id of ['annualContribution','stepUp'])document.getElementById(id).disabled=!includesDeposits(v)}
 function validate(v){
   if(!Number.isInteger(v.accountAge)||v.accountAge<0||v.accountAge>15)return 'Completed account years must be a whole number from 0 to 15.';
-  if(v.accountAge>0&&(!Number.isFinite(v.currentBalance)||v.currentBalance<0))return 'Enter a valid current PPF balance.';
-  if(!Number.isFinite(v.annualContribution)||v.annualContribution<PPF_MIN||v.annualContribution>PPF_MAX)return 'Annual contribution must be between ₹500 and ₹1,50,000.';
-  if(!Number.isFinite(v.stepUp)||v.stepUp<0||v.stepUp>50)return 'Enter an annual contribution increase between 0% and 50%.';
+  if(!Number.isFinite(v.currentBalance)||v.currentBalance<0)return 'Enter a valid PPF balance at the selected financial year end.';
+  if(!['none','without','with'].includes(v.extensionOption))return 'Select a valid option after maturity.';
+  if(includesDeposits(v)&&(!Number.isFinite(v.annualContribution)||v.annualContribution<PPF_MIN||v.annualContribution>PPF_MAX))return 'Annual contribution must be between ₹500 and ₹1,50,000.';
+  if(includesDeposits(v)&&(!Number.isFinite(v.stepUp)||v.stepUp<0||v.stepUp>50))return 'Enter an annual contribution increase between 0% and 50%.';
   if(!Number.isFinite(v.interestRate)||v.interestRate<0||v.interestRate>20)return 'Enter an interest rate between 0% and 20%.';
   if(!Number.isFinite(v.inflationRate)||v.inflationRate<0||v.inflationRate>20)return 'Enter an inflation rate between 0% and 20%.';
   return '';
 }
 function computeProjection(v){
   const remainingYears=15-v.accountAge;
-  const openingBalance=v.accountAge===0?0:v.currentBalance;
+  const openingBalance=v.currentBalance;
   let balance=openingBalance,contribution=v.annualContribution,totalContributions=0,totalInterest=0;
   const rows=[];
   function addYear(accountYear,isExtension,withDeposit){
@@ -171,7 +177,10 @@ function computeProjection(v){
 }
 function calculate(){
   const v=getInputs(),error=validate(v),alert=document.getElementById('form-alert');
-  alert.textContent=error;alert.classList.toggle('show',Boolean(error));if(error)return null;
+  syncDepositFields(v);
+  alert.textContent=error;alert.classList.toggle('show',Boolean(error));
+  document.querySelector('.results-panel').hidden=Boolean(error);
+  if(error){document.getElementById('projectionBody').innerHTML='';return null;}
   const r=computeProjection(v),capital=r.openingBalance+r.maturityContributions,capitalShare=r.maturityValue?Math.min(100,capital/r.maturityValue*100):0;
   document.getElementById('maturityValue').textContent=compactMoney(r.maturityValue);
   document.getElementById('maturitySubtitle').textContent=r.remainingYears?`After ${r.remainingYears} projected financial ${r.remainingYears===1?'year':'years'}`:'Account has reached the selected maturity year';
@@ -187,9 +196,9 @@ function calculate(){
   return r;
 }
 function resetCalculator(){const defaults={accountAge:0,currentBalance:500000,annualContribution:150000,stepUp:0,interestRate:7.1,inflationRate:6};Object.entries(defaults).forEach(([id,value])=>document.getElementById(id).value=value);document.getElementById('extensionOption').value='none';syncBalanceField();calculate()}
-function syncBalanceField(){document.getElementById('balanceField').hidden=numberValue('accountAge')===0}
+function syncBalanceField(){document.getElementById('balanceField').hidden=false;syncDepositFields(getInputs())}
 function toggleFAQ(button){const item=button.closest('.faq-item'),open=item.classList.toggle('open');button.setAttribute('aria-expanded',String(open))}
-document.querySelectorAll('.input-card input,.input-card select').forEach(control=>{control.addEventListener('input',()=>{if(control.id==='accountAge')syncBalanceField();window.clearTimeout(control._timer);control._timer=window.setTimeout(calculate,120)});control.addEventListener('change',calculate)});
+document.querySelectorAll('.input-card input,.input-card select').forEach(control=>{control.addEventListener('input',calculate);control.addEventListener('change',calculate)});
 const menuButton=document.getElementById('menu-button'),menuPanel=document.getElementById('site-menu'),menuOverlay=document.getElementById('menu-overlay'),menuClose=document.getElementById('menu-close');function setMenu(open){document.body.classList.toggle('menu-open',open);menuPanel.classList.toggle('open',open);menuOverlay.classList.toggle('open',open);menuPanel.setAttribute('aria-hidden',String(!open));menuButton.setAttribute('aria-expanded',String(open));if(open)menuClose.focus()}menuButton.addEventListener('click',()=>setMenu(true));menuClose.addEventListener('click',()=>setMenu(false));menuOverlay.addEventListener('click',()=>setMenu(false));menuPanel.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>setMenu(false)));document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menuPanel.classList.contains('open'))setMenu(false)});
 window.PPFCalculator={computeProjection,validate};syncBalanceField();calculate();
 </script>
