@@ -302,13 +302,18 @@ function calculateXirr(rawEntries,guess=DEFAULT_GUESS){
   const selectedLog=iteratedRate!==null?Math.log1p(iteratedRate):uniqueRoots.reduce((best,root)=>Math.abs(root-Math.log1p(Math.max(guess,-.9999999)))<Math.abs(best-Math.log1p(Math.max(guess,-.9999999)))?root:best);
   const rate=Math.expm1(selectedLog);
   if(!Number.isFinite(rate)||rate<=-1)throw new Error('The calculated return is outside the valid XIRR range.');
-  return {rate,rootCount:uniqueRoots.length,entries};
+  const transactions=rawEntries.map(entry=>({...entry})).sort((a,b)=>a.date-b.date);
+  return {rate,rootCount:uniqueRoots.length,entries,transactions};
 }
 
 function emptyResults(message){return '<div class="results-empty"><div class="empty-icon">↗</div><p>'+message+'</p></div>'}
 function resetResult(elementId,message){document.getElementById(elementId).innerHTML=emptyResults(message)}
+function invalidateResults(mode){
+  clearError(mode+'-error');
+  resetResult(mode+'-results','Inputs changed. Select Calculate XIRR to see your updated return.');
+}
 function renderResults(elementId,result){
-  const entries=result.entries;
+  const entries=result.transactions||result.entries;
   const invested=Math.abs(entries.filter(entry=>entry.amount<0).reduce((sum,entry)=>sum+entry.amount,0));
   const received=entries.filter(entry=>entry.amount>0).reduce((sum,entry)=>sum+entry.amount,0);
   const net=received-invested;
@@ -330,6 +335,7 @@ function switchTab(name,button){
   document.querySelectorAll('.tab-panel').forEach(panel=>panel.classList.toggle('active',panel.id==='tab-'+name));
 }
 function setEndMode(mode){
+  if(endMode!==mode)invalidateResults('regular');
   endMode=mode;
   document.getElementById('end-date-button').classList.toggle('active',mode==='date');
   document.getElementById('end-count-button').classList.toggle('active',mode==='count');
@@ -337,6 +343,7 @@ function setEndMode(mode){
   document.getElementById('installment-field').hidden=mode!=='count';
 }
 function frequencyChanged(){
+  invalidateResults('regular');
   const once=document.getElementById('frequency').value==='once';
   document.getElementById('end-choice-field').hidden=once;
   document.getElementById('end-date-field').hidden=once||endMode!=='date';
@@ -372,7 +379,8 @@ function regularCashflows(){
       for(let index=0;index<count;index++)dates.push(addMonthsClamped(start,index*step));
     }
   }
-  if(maturityDate<=dates[dates.length-1])throw new Error('The valuation or maturity date must be after the final investment date.');
+  if(maturityDate<dates[dates.length-1])throw new Error('The valuation or maturity date cannot be before the final investment date.');
+  if(maturityDate===dates[0])throw new Error('Enter cash flows on at least two different dates.');
   return dates.map(date=>({date,amount:-amount})).concat({date:maturityDate,amount:maturity});
 }
 function calculateRegular(){
@@ -386,6 +394,7 @@ function resetRegular(){
 
 function addCashflowRow(count=1,values=[]){
   const container=document.getElementById('cashflow-rows');
+  if(count>0&&container.children.length<500)invalidateResults('manual');
   for(let index=0;index<count;index++){
     if(container.children.length>=500)break;
     const id=++nextRowId,data=values[index]||{};
@@ -399,10 +408,11 @@ function toggleCashflowSign(button){
   const input=button.parentElement.querySelector('input[type=text]');
   const value=input.value.trim();
   input.value=/^[−-]/.test(value)?value.replace(/^[−-]\s*/,''):'−'+value;
+  invalidateResults('manual');
   input.focus();
   input.setSelectionRange(input.value.length,input.value.length);
 }
-function removeCashflowRow(button){button.closest('.cashflow-row').remove();if(!document.querySelector('.cashflow-row'))addCashflowRow();reindexCashflowRows()}
+function removeCashflowRow(button){button.closest('.cashflow-row').remove();invalidateResults('manual');if(!document.querySelector('.cashflow-row'))addCashflowRow();reindexCashflowRows()}
 function reindexCashflowRows(){document.querySelectorAll('.cashflow-row').forEach((row,index)=>row.querySelector('.row-number').textContent=String(index+1))}
 function manualCashflows(){
   const entries=[];let incomplete=0;
@@ -443,6 +453,12 @@ document.getElementById('menu-overlay').addEventListener('click',()=>setMenu(fal
 document.getElementById('site-menu').querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>setMenu(false)));
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&document.getElementById('site-menu').classList.contains('open'))setMenu(false)});
 document.querySelectorAll('#investment-amount,#maturity-value').forEach(input=>input.addEventListener('blur',()=>formatAmountInput(input)));
+['regular','manual'].forEach(mode=>{
+  const panel=document.getElementById('tab-'+mode);
+  ['input','change'].forEach(type=>panel.addEventListener(type,event=>{
+    if(event.target.matches('input,select'))invalidateResults(mode);
+  }));
+});
 
 window.CorpuslyXirr={calculateXirr,normalizeCashflows,parseISODate,addMonthsClamped,npvAtLogRate};
 setDefaultDates();frequencyChanged();addCashflowRow(5);
